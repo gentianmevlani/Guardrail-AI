@@ -25,6 +25,10 @@
       "types": "./dist/supply-chain/*.d.ts",
       "default": "./dist/supply-chain/*.js"
     },
+    "./secrets/stripe-placeholder-prefix": {
+      "types": "./dist/secrets/stripe-placeholder-prefix.d.ts",
+      "default": "./dist/secrets/stripe-placeholder-prefix.js"
+    },
     "./secrets/*": {
       "types": "./dist/secrets/*.d.ts",
       "default": "./dist/secrets/*.js"

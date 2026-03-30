@@ -1,0 +1,541 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-03-30T23:28:09.758Z",
+  "dependencyCount": 89,
+  "dependencies": [
+    {
+      "name": "@anthropic-ai/sdk",
+      "version": "0.20.0",
+      "versionRange": "^0.20.0",
+      "category": "production"
+    },
+    {
+      "name": "@apidevtools/swagger-parser",
+      "version": "10.1.0",
+      "versionRange": "^10.1.0",
+      "category": "production"
+    },
+    {
+      "name": "@aws-sdk/client-auto-scaling",
+      "version": "3.600.0",
+      "versionRange": "^3.600.0",
+      "category": "production"
+    },
+    {
+      "name": "@aws-sdk/client-cloudfront",
+      "version": "3.600.0",
+      "versionRange": "^3.600.0",
+      "category": "production"
+    },
+    {
+      "name": "@aws-sdk/client-cloudwatch",
+      "version": "3.600.0",
+      "versionRange": "^3.600.0",
+      "category": "production"
+    },
+    {
+      "name": "@aws-sdk/client-ec2",
+      "version": "3.600.0",
+      "versionRange": "^3.600.0",
+      "category": "production"
+    },
+    {
+      "name": "@aws-sdk/client-s3",
+      "version": "3.600.0",
+      "versionRange": "^3.600.0",
+      "category": "production"
+    },
+    {
+      "name": "@babel/core",
+      "version": "7.28.5",
+      "versionRange": "^7.28.5",
+      "category": "development"
+    },
+    {
+      "name": "@babel/parser",
+      "version": "7.28.5",
+      "versionRange": "^7.28.5",
+      "category": "development"
+    },
+    {
+      "name": "@babel/preset-env",
+      "version": "7.28.5",
+      "versionRange": "^7.28.5",
+      "category": "development"
+    },
+    {
+      "name": "@babel/traverse",
+      "version": "7.28.5",
+      "versionRange": "^7.28.5",
+      "category": "development"
+    },
+    {
+      "name": "@babel/types",
+      "version": "7.28.5",
+      "versionRange": "^7.28.5",
+      "category": "development"
+    },
+    {
+      "name": "@guardrail/core",
+      "version": "workspace:*",
+      "versionRange": "workspace:*",
+      "category": "production"
+    },
+    {
+      "name": "@jest/globals",
+      "version": "29.7.0",
+      "versionRange": "^29.7.0",
+      "category": "development"
+    },
+    {
+      "name": "@lhci/cli",
+      "version": "0.12.0",
+      "versionRange": "0.12.0",
+      "category": "production"
+    },
+    {
+      "name": "@octokit/rest",
+      "version": "20.0.0",
+      "versionRange": "^20.0.0",
+      "category": "production"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.57.0",
+      "versionRange": "^1.57.0",
+      "category": "production"
+    },
+    {
+      "name": "@prisma/client",
+      "version": "5.22.0",
+      "versionRange": "^5.22.0",
+      "category": "production"
+    },
+    {
+      "name": "@sentry/nextjs",
+      "version": "8.0.0",
+      "versionRange": "^8.0.0",
+      "category": "production"
+    },
+    {
+      "name": "@types/babel__traverse",
+      "version": "7.28.0",
+      "versionRange": "^7.28.0",
+      "category": "development"
+    },
+    {
+      "name": "@types/bcrypt",
+      "version": "5.0.2",
+      "versionRange": "^5.0.2",
+      "category": "development"
+    },
+    {
+      "name": "@types/bcryptjs",
+      "version": "2.4.6",
+      "versionRange": "^2.4.6",
+      "category": "development"
+    },
+    {
+      "name": "@types/commander",
+      "version": "2.12.2",
+      "versionRange": "^2.12.2",
+      "category": "development"
+    },
+    {
+      "name": "@types/connect-pg-simple",
+      "version": "7.0.3",
+      "versionRange": "^7.0.3",
+      "category": "production"
+    },
+    {
+      "name": "@types/cron",
+      "version": "2.0.1",
+      "versionRange": "^2.0.1",
+      "category": "development"
+    },
+    {
+      "name": "@types/express",
+      "version": "5.0.6",
+      "versionRange": "^5.0.6",
+      "category": "development"
+    },
+    {
+      "name": "@types/express-rate-limit",
+      "version": "6.0.2",
+      "versionRange": "^6.0.2",
+      "category": "development"
+    },
+    {
+      "name": "@types/express-session",
+      "version": "1.18.2",
+      "versionRange": "^1.18.2",
+      "category": "production"
+    },
+    {
+      "name": "@types/jest",
+      "version": "29.5.14",
+      "versionRange": "^29.5.14",
+      "category": "development"
+    },
+    {
+      "name": "@types/jsonwebtoken",
+      "version": "9.0.10",
+      "versionRange": "^9.0.10",
+      "category": "development"
+    },
+    {
+      "name": "@types/memoizee",
+      "version": "0.4.12",
+      "versionRange": "^0.4.12",
+      "category": "production"
+    },
+    {
+      "name": "@types/node",
+      "version": "20.19.27",
+      "versionRange": "^20.19.27",
+      "category": "development"
+    },
+    {
+      "name": "@types/passport",
+      "version": "1.0.17",
+      "versionRange": "^1.0.17",
+      "category": "production"
+    },
+    {
+      "name": "@types/pg",
+      "version": "8.16.0",
+      "versionRange": "^8.16.0",
+      "category": "production"
+    },
+    {
+      "name": "@types/react",
+      "version": "18.3.0",
+      "versionRange": "^18.3.0",
+      "category": "development"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "18.3.0",
+      "versionRange": "^18.3.0",
+      "category": "development"
+    },
+    {
+      "name": "@types/supertest",
+      "version": "6.0.3",
+      "versionRange": "^6.0.3",
+      "category": "development"
+    },
+    {
+      "name": "@types/ws",
+      "version": "8.18.1",
+      "versionRange": "^8.18.1",
+      "category": "development"
+    },
+    {
+      "name": "ajv",
+      "version": "8.12.0",
+      "versionRange": "^8.12.0",
+      "category": "production"
+    },
+    {
+      "name": "ajv-formats",
+      "version": "2.1.1",
+      "versionRange": "^2.1.1",
+      "category": "production"
+    },
+    {
+      "name": "artillery",
+      "version": "2.0.27",
+      "versionRange": "^2.0.27",
+      "category": "development"
+    },
+    {
+      "name": "babel-jest",
+      "version": "30.2.0",
+      "versionRange": "^30.2.0",
+      "category": "development"
+    },
+    {
+      "name": "bcrypt",
+      "version": "5.1.1",
+      "versionRange": "^5.1.1",
+      "category": "production"
+    },
+    {
+      "name": "bcryptjs",
+      "version": "2.4.3",
+      "versionRange": "^2.4.3",
+      "category": "production"
+    },
+    {
+      "name": "bundlesize",
+      "version": "0.18.2",
+      "versionRange": "^0.18.2",
+      "category": "production"
+    },
+    {
+      "name": "chokidar",
+      "version": "3.6.0",
+      "versionRange": "^3.6.0",
+      "category": "production"
+    },
+    {
+      "name": "commander",
+      "version": "12.0.0",
+      "versionRange": "^12.0.0",
+      "category": "production"
+    },
+    {
+      "name": "connect-pg-simple",
+      "version": "10.0.0",
+      "versionRange": "^10.0.0",
+      "category": "production"
+    },
+    {
+      "name": "cors",
+      "version": "2.8.5",
+      "versionRange": "^2.8.5",
+      "category": "production"
+    },
+    {
+      "name": "cron",
+      "version": "3.1.6",
+      "versionRange": "^3.1.6",
+      "category": "production"
+    },
+    {
+      "name": "dotenv",
+      "version": "16.6.1",
+      "versionRange": "^16.6.1",
+      "category": "development"
+    },
+    {
+      "name": "eslint",
+      "version": "8.57.1",
+      "versionRange": "^8.57.1",
+      "category": "development"
+    },
+    {
+      "name": "eslint-config-prettier",
+      "version": "9.1.0",
+      "versionRange": "^9.1.0",
+      "category": "development"
+    },
+    {
+      "name": "eslint-plugin-import",
+      "version": "2.31.0",
+      "versionRange": "^2.31.0",
+      "category": "development"
+    },
+    {
+      "name": "eslint-plugin-react",
+      "version": "7.37.2",
+      "versionRange": "^7.37.2",
+      "category": "development"
+    },
+    {
+      "name": "eslint-plugin-react-hooks",
+      "version": "5.0.0",
+      "versionRange": "^5.0.0",
+      "category": "development"
+    },
+    {
+      "name": "express",
+      "version": "5.2.1",
+      "versionRange": "^5.2.1",
+      "category": "production"
+    },
+    {
+      "name": "express-rate-limit",
+      "version": "8.2.1",
+      "versionRange": "^8.2.1",
+      "category": "production"
+    },
+    {
+      "name": "express-session",
+      "version": "1.18.2",
+      "versionRange": "^1.18.2",
+      "category": "production"
+    },
+    {
+      "name": "framer-motion",
+      "version": "11.0.0",
+      "versionRange": "^11.0.0",
+      "category": "production"
+    },
+    {
+      "name": "guardrail-security",
+      "version": "workspace:*",
+      "versionRange": "workspace:*",
+      "category": "production"
+    },
+    {
+      "name": "helmet",
+      "version": "7.1.0",
+      "versionRange": "^7.1.0",
+      "category": "production"
+    },
+    {
+      "name": "husky",
+      "version": "9.1.7",
+      "versionRange": "^9.1.7",
+      "category": "development"
+    },
+    {
+      "name": "ioredis",
+      "version": "5.3.2",
+      "versionRange": "^5.3.2",
+      "category": "production"
+    },
+    {
+      "name": "jest",
+      "version": "29.7.0",
+      "versionRange": "^29.7.0",
+      "category": "development"
+    },
+    {
+      "name": "jest-environment-node",
+      "version": "29.7.0",
+      "versionRange": "^29.7.0",
+      "category": "development"
+    },
+    {
+      "name": "jose",
+      "version": "5.10.0",
+      "versionRange": "^5.10.0",
+      "category": "production"
+    },
+    {
+      "name": "lint-staged",
+      "version": "16.2.7",
+      "versionRange": "^16.2.7",
+      "category": "development"
+    },
+    {
+      "name": "lucide-react",
+      "version": "0.400.0",
+      "versionRange": "^0.400.0",
+      "category": "production"
+    },
+    {
+      "name": "memoizee",
+      "version": "0.4.17",
+      "versionRange": "^0.4.17",
+      "category": "production"
+    },
+    {
+      "name": "nock",
+      "version": "14.0.10",
+      "versionRange": "^14.0.10",
+      "category": "development"
+    },
+    {
+      "name": "openai",
+      "version": "4.20.1",
+      "versionRange": "^4.20.1",
+      "category": "production"
+    },
+    {
+      "name": "openid-client",
+      "version": "6.8.1",
+      "versionRange": "^6.8.1",
+      "category": "production"
+    },
+    {
+      "name": "passport",
+      "version": "0.7.0",
+      "versionRange": "^0.7.0",
+      "category": "production"
+    },
+    {
+      "name": "pg",
+      "version": "8.16.3",
+      "versionRange": "^8.16.3",
+      "category": "production"
+    },
+    {
+      "name": "prettier",
+      "version": "3.1.1",
+      "versionRange": "^3.1.1",
+      "category": "development"
+    },
+    {
+      "name": "prisma",
+      "version": "5.22.0",
+      "versionRange": "^5.22.0",
+      "category": "production"
+    },
+    {
+      "name": "react",
+      "version": "18.3.0",
+      "versionRange": "^18.3.0",
+      "category": "production"
+    },
+    {
+      "name": "react-dom",
+      "version": "18.3.0",
+      "versionRange": "^18.3.0",
+      "category": "production"
+    },
+    {
+      "name": "react-router-dom",
+      "version": "6.22.0",
+      "versionRange": "^6.22.0",
+      "category": "production"
+    },
+    {
+      "name": "stripe",
+      "version": "17.0.0",
+      "versionRange": "^17.0.0",
+      "category": "development"
+    },
+    {
+      "name": "supertest",
+      "version": "7.1.4",
+      "versionRange": "^7.1.4",
+      "category": "development"
+    },
+    {
+      "name": "ts-jest",
+      "version": "29.4.6",
+      "versionRange": "^29.4.6",
+      "category": "development"
+    },
+    {
+      "name": "tsx",
+      "version": "4.21.0",
+      "versionRange": "^4.21.0",
+      "category": "production"
+    },
+    {
+      "name": "turbo",
+      "version": "1.11.2",
+      "versionRange": "^1.11.2",
+      "category": "production"
+    },
+    {
+      "name": "typescript",
+      "version": "5.3.3",
+      "versionRange": "^5.3.3",
+      "category": "production"
+    },
+    {
+      "name": "vitest",
+      "version": "1.2.0",
+      "versionRange": "^1.2.0",
+      "category": "development"
+    },
+    {
+      "name": "ws",
+      "version": "8.18.3",
+      "versionRange": "^8.18.3",
+      "category": "production"
+    },
+    {
+      "name": "zod",
+      "version": "3.25.76",
+      "versionRange": "^3.25.76",
+      "category": "production"
+    }
+  ]
+}
