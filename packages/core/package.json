@@ -1,0 +1,57 @@
+{
+  "name": "@guardrail/core",
+  "version": "2.0.2",
+  "description": "Guardrail Core - Code analysis, RBAC, and autopilot remediation",
+  "main": "./dist/index.js",
+  "files": ["dist/**/*"],
+  "license": "MIT",
+  "author": "Guardrail Team <support@guardrail.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardiavault-oss/codeguard.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./rbac": {
+      "types": "./dist/rbac/index.d.ts",
+      "default": "./dist/rbac/index.js"
+    },
+    "./smells": {
+      "types": "./dist/smells/index.d.ts",
+      "default": "./dist/smells/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "node -e \"require('fs').rmSync('dist', {recursive: true, force: true})\""
+  },
+  "dependencies": {
+    "zod": "^3.22.4",
+    "@anthropic-ai/sdk": "^0.20.0",
+    "openai": "^4.20.1"
+  },
+  "devDependencies": {
+    "@guardrail/ai-guardrails": "workspace:*",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.0"
+  },
+  "peerDependencies": {
+    "@guardrail/ai-guardrails": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@guardrail/ai-guardrails": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

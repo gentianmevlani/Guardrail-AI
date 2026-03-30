@@ -1,0 +1,33 @@
+{
+  "name": "guardrail-ship",
+  "version": "2.0.0",
+  "description": "Guardrail Ship - Deployment readiness, reality mode, and badge generation",
+  "main": "dist/index.js",
+  "files": ["dist/**/*"],
+  "license": "MIT",
+  "author": "Guardrail Team <support@guardrail.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardiavault-oss/codeguard.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "node -e \"require('fs').rmSync('dist', {recursive: true, force: true})\""
+  },
+  "dependencies": {
+    "@guardrail/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
