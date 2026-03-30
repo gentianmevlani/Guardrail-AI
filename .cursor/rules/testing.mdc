@@ -1,0 +1,19 @@
+---
+description: Testing patterns
+globs: ["**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}"]
+alwaysApply: false
+---
+
+# Testing: Jest, Vitest
+
+## Unit Tests
+
+```typescript
+describe('Feature', () => {
+  it('should work', () => {
+    expect(result).toBe('expected')
+  })
+})
+```
+
+

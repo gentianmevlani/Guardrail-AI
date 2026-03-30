@@ -4,8 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5000";
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5001";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 interface GitHubTokenResponse {
   access_token: string;
@@ -75,11 +76,14 @@ export async function GET(request: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          client_id: process.env.GITHUB_CLIENT_ID,
+          client_id:
+            process.env.GITHUB_CLIENT_ID ||
+            process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
           client_secret: process.env.GITHUB_CLIENT_SECRET,
           code,
           redirect_uri:
             process.env.GITHUB_CALLBACK_URL ||
+            process.env.GITHUB_REDIRECT_URI ||
             `${APP_URL}/api/auth/github/callback`,
         }),
       },

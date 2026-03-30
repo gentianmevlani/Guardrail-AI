@@ -1,0 +1,68 @@
+{
+  "name": "guardrail-security",
+  "version": "2.0.1",
+  "description": "Guardrail Security - Secret detection and vulnerability scanning",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "license": "MIT",
+  "author": "Guardrail Team <support@guardrail.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardiavault-oss/codeguard.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./supply-chain/*": {
+      "types": "./dist/supply-chain/*.d.ts",
+      "default": "./dist/supply-chain/*.js"
+    },
+    "./secrets/*": {
+      "types": "./dist/secrets/*.d.ts",
+      "default": "./dist/secrets/*.js"
+    },
+    "./license/*": {
+      "types": "./dist/license/*.d.ts",
+      "default": "./dist/license/*.js"
+    },
+    "./sbom/*": {
+      "types": "./dist/sbom/*.d.ts",
+      "default": "./dist/sbom/*.js"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts",
+      "default": "./dist/utils/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.490.0",
+    "@azure/identity": "^4.0.0",
+    "@azure/keyvault-secrets": "^4.8.0",
+    "@google-cloud/secret-manager": "^5.0.0",
+    "glob": "^7.2.3",
+    "node-vault": "^0.10.2",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

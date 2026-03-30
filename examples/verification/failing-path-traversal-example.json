@@ -1,0 +1,6 @@
+{
+  "format": "guardrail-v1",
+  "diff": "diff --git a/../../../etc/passwd b/../../../etc/passwd\n--- a/../../../etc/passwd\n+++ b/../../../etc/passwd\n@@ -1 +1 @@\n-root:x:0:0:root:/root:/bin/bash\n+hacked:x:0:0:root:/root:/bin/bash",
+  "commands": [],
+  "notes": "This example will FAIL verification due to: path traversal attack attempting to modify /etc/passwd"
+}

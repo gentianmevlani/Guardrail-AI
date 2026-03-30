@@ -1,0 +1,54 @@
+name: MDC Generator v3 Tests
+
+on:
+  pull_request:
+    paths:
+      - 'src/lib/mdc-generator/v3/**'
+      - '.github/workflows/mdc-v3-test.yml'
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'src/lib/mdc-generator/v3/**'
+      - '.github/workflows/mdc-v3-test.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed for git diff
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test -- src/lib/mdc-generator/v3/__tests__
+
+      - name: Run golden tests
+        run: npm test -- src/lib/mdc-generator/v3/__tests__/golden.test.ts
+
+      - name: Test v3 generator
+        run: |
+          npm run build || true
+          node bin/guardrail.js mdc --v3 --output .guardrail/mdc-v3-test || true
+
+      - name: Verify packs generated
+        run: |
+          if [ ! -f .guardrail/mdc-v3-test/PACK_CLI_MCP.mdc ]; then
+            echo "Warning: PACK_CLI_MCP.mdc not generated"
+          fi
+          if [ -f .guardrail/mdc-v3-test/PACK_CLI_MCP.mdc ]; then
+            head -20 .guardrail/mdc-v3-test/PACK_CLI_MCP.mdc
+          fi

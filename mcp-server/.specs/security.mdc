@@ -1,0 +1,30 @@
+---
+description: Security Architecture documentation
+category: security
+generatedAt: 2026-01-13T13:47:09.403Z
+---
+
+# Security Architecture
+
+## Components
+
+### loadUserConfig
+- **Type:** function
+- **Path:** `tier-auth.js`
+
+### getTierFromApiKey
+- **Type:** function
+- **Path:** `tier-auth.js`
+
+### checkFeatureAccess
+- **Type:** function
+- **Path:** `tier-auth.js`
+
+### withTierCheck
+- **Type:** function
+- **Path:** `tier-auth.js`
+
+### getUserInfo
+- **Type:** function
+- **Path:** `tier-auth.js`
+

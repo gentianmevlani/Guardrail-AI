@@ -1,0 +1,107 @@
+{
+  "TIERS": ["free", "starter", "pro", "compliance"],
+  "PURCHASABLE_TIERS": ["starter", "pro", "compliance"],
+  "TIER_ORDER": ["free", "starter", "pro", "compliance"],
+  "TIER_CONFIG": {
+    "free": {
+      "id": "free",
+      "name": "Free",
+      "price": 0,
+      "annualPrice": 0,
+      "description": "Get started",
+      "features": ["scan", "gate", "ship", "context", "badge"],
+      "limits": {
+        "scansPerMonth": 10,
+        "realityRunsPerMonth": 0,
+        "aiAgentRunsPerMonth": 0,
+        "projects": 1,
+        "teamMembers": 1,
+        "complianceFrameworks": 0
+      },
+      "rateLimit": {
+        "requestsPerMinute": 100,
+        "burstLimit": 150,
+        "windowMs": 60000
+      },
+      "upsell": {
+        "message": "Upgrade to Starter for full findings visibility and higher limits",
+        "nextTier": "starter"
+      }
+    },
+    "starter": {
+      "id": "starter",
+      "name": "Starter",
+      "price": 9.99,
+      "annualPrice": 96,
+      "description": "Full findings, no auto-fix",
+      "features": ["scan", "scan:full", "scan:security", "gate", "fix", "ship", "reality", "context", "badge", "reports:html"],
+      "limits": {
+        "scansPerMonth": 100,
+        "realityRunsPerMonth": 20,
+        "aiAgentRunsPerMonth": 0,
+        "projects": 3,
+        "teamMembers": 1,
+        "complianceFrameworks": 0
+      },
+      "rateLimit": {
+        "requestsPerMinute": 300,
+        "burstLimit": 450,
+        "windowMs": 60000
+      },
+      "upsell": {
+        "message": "Upgrade to Pro for auto-fix and full automation",
+        "nextTier": "pro"
+      }
+    },
+    "pro": {
+      "id": "pro",
+      "name": "Pro",
+      "price": 29.99,
+      "annualPrice": 288,
+      "description": "Auto-fix & automation",
+      "features": ["scan", "scan:full", "scan:security", "gate", "fix", "fix:auto", "ship", "reality", "reality:flows", "ai-agent", "ai-agent:goals", "autopilot", "context", "badge", "mcp", "reports:html", "reports:sarif", "api:access", "webhooks"],
+      "limits": {
+        "scansPerMonth": 500,
+        "realityRunsPerMonth": 100,
+        "aiAgentRunsPerMonth": 50,
+        "projects": 10,
+        "teamMembers": 5,
+        "complianceFrameworks": 0
+      },
+      "rateLimit": {
+        "requestsPerMinute": 1000,
+        "burstLimit": 1500,
+        "windowMs": 60000
+      },
+      "upsell": {
+        "message": "Upgrade to Compliance for SOC2, HIPAA, GDPR, and audit-ready reports",
+        "nextTier": "compliance"
+      }
+    },
+    "compliance": {
+      "id": "compliance",
+      "name": "Compliance",
+      "price": 59.99,
+      "annualPrice": 576,
+      "description": "Compliance & audit-ready",
+      "features": ["scan", "scan:full", "scan:security", "scan:compliance", "gate", "fix", "fix:auto", "ship", "reality", "reality:flows", "ai-agent", "ai-agent:goals", "autopilot", "context", "badge", "mcp", "compliance:soc2", "compliance:hipaa", "compliance:gdpr", "compliance:pci", "compliance:nist", "compliance:iso27001", "reports:html", "reports:pdf", "reports:sarif", "api:access", "webhooks", "deploy-hooks", "team:members", "team:admin"],
+      "limits": {
+        "scansPerMonth": 1000,
+        "realityRunsPerMonth": 200,
+        "aiAgentRunsPerMonth": 100,
+        "projects": 25,
+        "teamMembers": 10,
+        "complianceFrameworks": 6
+      },
+      "rateLimit": {
+        "requestsPerMinute": 2000,
+        "burstLimit": 3000,
+        "windowMs": 60000
+      },
+      "upsell": {
+        "message": "You're on our top plan for self-serve Guardrail",
+        "nextTier": "compliance"
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "level": "info",
+  "formatters": {
+    "level": "level",
+    "log": "json"
+  },
+  "timestamp": "isoTime",
+  "errorKey": "err",
+  "base": {
+    "pid": true,
+    "hostname": true,
+    "service": "guardrail-api"
+  },
+  "redact": {
+    "paths": [
+      "req.headers.authorization",
+      "req.headers.cookie",
+      "req.body.password",
+      "req.body.currentPassword",
+      "req.body.newPassword",
+      "req.body.token",
+      "res.headers.set-cookie",
+      "user.email",
+      "userIp"
+    ],
+    "censor": "*****"
+  },
+  "transport": {
+    "targets": [
+      {
+        "target": "pino/file",
+        "level": "info",
+        "options": {
+          "destination": "./logs/app.log"
+        }
+      },
+      {
+        "target": "pino/file",
+        "level": "error",
+        "options": {
+          "destination": "./logs/error.log"
+        }
+      }
+    ]
+  }
+}

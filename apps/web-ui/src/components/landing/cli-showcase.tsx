@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Shield, Lock, FileCheck, AlertTriangle, Terminal, ChevronRight } from 'lucide-react';
+import { STRIPE_LIVE_PREFIX } from 'guardrail-security/secrets/stripe-placeholder-prefix';
 
 function TerminalWindow({ title, children, delay = 0 }: { title: string; children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -182,7 +183,7 @@ function SecretsOutput() {
           <Line>  <Red>HIGH</Red> Generic API Key</Line>
           <Line>  <Gray>├─</Gray> <Blue>File:</Blue> src/services/payment.ts:42</Line>
           <Line>  <Gray>├─</Gray> <Blue>Entropy:</Blue> 4.8</Line>
-          <Line>  <Gray>└─</Gray> <Blue>Match:</Blue> sk_live_****************************</Line>
+          <Line>  <Gray>└─</Gray> <Blue>Match:</Blue> {STRIPE_LIVE_PREFIX}****************************</Line>
         </div>
         
         <div>

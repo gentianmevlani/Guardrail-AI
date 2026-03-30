@@ -1,0 +1,123 @@
+{
+  "version": "1.0.0",
+  "framework": "ISO27001",
+  "rules": [
+    {
+      "id": "ISO-A9.2.1",
+      "controlId": "A.9.2.1",
+      "title": "User Registration and De-registration",
+      "description": "A formal user registration and de-registration process shall be implemented",
+      "severity": "high",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuth",
+          "expected": true
+        },
+        {
+          "type": "file-exists",
+          "target": "src/auth"
+        }
+      ],
+      "remediation": "Implement formal user lifecycle management including registration, authentication, and de-registration procedures."
+    },
+    {
+      "id": "ISO-A9.4.1",
+      "controlId": "A.9.4.1",
+      "title": "Information Access Restriction",
+      "description": "Access to information and application system functions shall be restricted",
+      "severity": "critical",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasRBAC",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement role-based access control with principle of least privilege. Document access control policies."
+    },
+    {
+      "id": "ISO-A10.1.1",
+      "controlId": "A.10.1.1",
+      "title": "Cryptographic Controls Policy",
+      "description": "A policy on the use of cryptographic controls shall be developed and implemented",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasEncryption",
+          "expected": true
+        },
+        {
+          "type": "file-exists",
+          "target": "docs/crypto-policy.md"
+        }
+      ],
+      "remediation": "Develop and implement cryptographic policy. Use approved algorithms (AES-256, RSA-2048+). Implement key management."
+    },
+    {
+      "id": "ISO-A12.4.1",
+      "controlId": "A.12.4.1",
+      "title": "Event Logging",
+      "description": "Event logs recording user activities, exceptions, and security events shall be produced and kept",
+      "severity": "high",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasLogging",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasAuditLog",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement comprehensive event logging. Include timestamps, user IDs, event types, and outcomes. Protect log integrity."
+    },
+    {
+      "id": "ISO-A12.6.1",
+      "controlId": "A.12.6.1",
+      "title": "Management of Technical Vulnerabilities",
+      "description": "Information about technical vulnerabilities shall be obtained in a timely fashion",
+      "severity": "high",
+      "category": "security",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": ".github/dependabot.yml"
+        },
+        {
+          "type": "config-value",
+          "target": "hasCICD",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement automated vulnerability scanning. Use Dependabot or similar tools. Establish patch management process."
+    },
+    {
+      "id": "ISO-A14.2.1",
+      "controlId": "A.14.2.1",
+      "title": "Secure Development Policy",
+      "description": "Rules for the development of software and systems shall be established and applied",
+      "severity": "medium",
+      "category": "development",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasVersionControl",
+          "expected": true
+        },
+        {
+          "type": "file-exists",
+          "target": "docs/secure-development.md"
+        }
+      ],
+      "remediation": "Document secure development lifecycle. Implement code review, security testing, and change management procedures."
+    }
+  ]
+}

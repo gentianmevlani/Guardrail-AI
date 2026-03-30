@@ -1,0 +1,104 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 50
+      name: "Load test"
+    - duration: 60
+      arrivalRate: 100
+      name: "Stress test"
+  payload:
+    path: "tests/performance/test-data.csv"
+    fields:
+      - "email"
+      - "password"
+  processor: "tests/performance/processor.js"
+
+scenarios:
+  - name: "Health Check"
+    weight: 20
+    flow:
+      - get:
+          url: "/health"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "status"
+
+  - name: "User Authentication"
+    weight: 30
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.token"
+              as: "authToken"
+          expect:
+            - statusCode: 200
+            - hasProperty: "token"
+
+  - name: "Project Operations"
+    weight: 30
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "test@example.com"
+            password: "TestPassword123!"
+          capture:
+            - json: "$.token"
+              as: "authToken"
+      
+      - get:
+          url: "/api/projects"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+      
+      - post:
+          url: "/api/projects"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          json:
+            name: "Load Test Project {{ $randomString() }}"
+            description: "Project created during load testing"
+            repositoryUrl: "https://github.com/test/load-test.git"
+          expect:
+            - statusCode: 201
+
+  - name: "Security Scan"
+    weight: 20
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "security@example.com"
+            password: "SecurityPass123!"
+          capture:
+            - json: "$.token"
+              as: "authToken"
+      
+      - post:
+          url: "/api/projects/test-project/scan"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          json:
+            type: "quick"
+            config:
+              includeSecrets: true
+          expect:
+            - statusCode: 202
+
+      - loop:
+          - get:
+              url: "/api/scans/{{ scanId }}"
+              headers:
+                Authorization: "Bearer {{ authToken }}"
+          count: 5

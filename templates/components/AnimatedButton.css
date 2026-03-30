@@ -1,0 +1,165 @@
+/**
+ * Animated Button Styles
+ * 
+ * Beautiful button styles with animations
+ */
+
+.animated-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+.animated-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Variants */
+.animated-button--primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.4);
+}
+
+.animated-button--primary:hover:not(.animated-button--disabled):not(.animated-button--loading) {
+  box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.animated-button--secondary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.4);
+}
+
+.animated-button--secondary:hover:not(.animated-button--disabled):not(.animated-button--loading) {
+  box-shadow: 0 6px 20px 0 rgba(139, 92, 246, 0.5);
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+
+.animated-button--outline {
+  background: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+}
+
+.animated-button--outline:hover:not(.animated-button--disabled):not(.animated-button--loading) {
+  background: #3b82f6;
+  color: white;
+}
+
+.animated-button--ghost {
+  background: transparent;
+  color: #64748b;
+}
+
+.animated-button--ghost:hover:not(.animated-button--disabled):not(.animated-button--loading) {
+  background: rgba(100, 116, 139, 0.1);
+  color: #475569;
+}
+
+/* Sizes */
+.animated-button--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  min-height: 2rem;
+}
+
+.animated-button--md {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  min-height: 2.75rem;
+}
+
+.animated-button--lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  min-height: 3.5rem;
+}
+
+/* States */
+.animated-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.animated-button--loading {
+  cursor: wait;
+}
+
+.animated-button--full-width {
+  width: 100%;
+}
+
+/* Content */
+.animated-button__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.animated-button__icon {
+  display: flex;
+  align-items: center;
+}
+
+.animated-button__icon--left {
+  margin-right: 0.25rem;
+}
+
+.animated-button__icon--right {
+  margin-left: 0.25rem;
+}
+
+/* Spinner */
+.animated-button__spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Ripple */
+.animated-button__ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+  pointer-events: none;
+}
+
+/* Shine effect */
+.animated-button__shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  pointer-events: none;
+}
+

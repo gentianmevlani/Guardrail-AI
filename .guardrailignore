@@ -1,0 +1,11 @@
+# Guardrail Ignore File
+# Patterns and files to exclude from security scanning
+
+# False positives - type definitions containing "api_key" in event names
+# These are event type strings, not actual API keys
+apps/api/src/routes/admin/security-events.ts:21
+apps/api/src/services/security-event-service.ts:45
+
+# Status routes already have requireAdmin middleware protection
+# The scanner may not recognize the preHandler pattern
+apps/api/src/routes/status-routes.ts

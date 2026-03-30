@@ -20,7 +20,8 @@
     "clean": "node -e \"require('fs').rmSync('dist', {recursive: true, force: true})\""
   },
   "dependencies": {
-    "@guardrail/core": "workspace:*"
+    "@guardrail/core": "workspace:*",
+    "guardrail-security": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",

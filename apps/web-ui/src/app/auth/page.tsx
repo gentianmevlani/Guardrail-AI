@@ -225,10 +225,10 @@ export default function AuthPage() {
             {/* Logo */}
             <div className="text-center mb-6">
               <img
-                src="/logo.png"
+                src="/guardrail-logo.svg"
                 alt="guardrail"
-                width={120}
-                height={48}
+                width={200}
+                height={40}
                 className="h-12 w-auto mx-auto mb-4"
               />
               <h1 className="text-2xl font-bold">

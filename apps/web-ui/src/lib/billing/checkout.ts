@@ -65,5 +65,5 @@ export function getTrustedCheckoutSiteOrigin(request: {
   if (host) {
     return `${proto}://${host.split(",")[0].trim()}`;
   }
-  return "http://localhost:5000";
+  return "http://localhost:5001";
 }

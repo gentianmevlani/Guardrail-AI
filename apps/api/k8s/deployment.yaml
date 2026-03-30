@@ -1,0 +1,601 @@
+# Kubernetes Deployment Configuration
+# Production-ready with proper security, scaling, and monitoring
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guardrail-api
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+    component: api
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+      progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: guardrail-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: guardrail-api
+        version: v1
+        component: api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3000"
+        prometheus.io/path: "/metrics"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: false
+        capabilities:
+          drop:
+            - ALL
+          add:
+            - NET_BIND_SERVICE
+      containers:
+        - name: guardrail-api
+          image: guardrail/api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
+            - name: HOST
+              value: "0.0.0.0"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: DATABASE_URL
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: guardrail-config
+                  key: REDIS_URL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: JWT_SECRET
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: ENCRYPTION_KEY
+            - name: CORS_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: guardrail-config
+                  key: CORS_ORIGIN
+            - name: LOG_LEVEL
+              value: "info"
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: SENTRY_DSN
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: STRIPE_SECRET_KEY
+            - name: STRIPE_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: STRIPE_WEBHOOK_SECRET
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_S3_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  name: guardrail-config
+                  key: AWS_S3_BUCKET
+            - name: AWS_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: guardrail-config
+                  key: AWS_REGION
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: SENDGRID_API_KEY
+            - name: TWILIO_ACCOUNT_SID
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: TWILIO_ACCOUNT_SID
+            - name: TWILIO_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: guardrail-secrets
+                  key: TWILIO_AUTH_TOKEN
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          volumeMounts:
+            - name: logs
+              mountPath: /app/logs
+            - name: uploads
+              mountPath: /app/uploads
+            - name: quarantine
+              mountPath: /app/quarantine
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: guardrail-logs
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: guardrail-uploads
+      - name: quarantine
+        persistentVolumeClaim:
+          claimName: guardrail-quarantine
+      imagePullSecrets:
+        - name: guardrail-registry-secret
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: guardrail-api-service
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+    component: api
+spec:
+  selector:
+    app: guardrail-api
+    version: v1
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: http
+      protocol: TCP
+  type: ClusterIP
+  sessionAffinity: None
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: guardrail-api-service-external
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+    component: api
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "guardrail-api-cert"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold-count: "3"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold-count: "3"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval-seconds: "10"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout-seconds: "5"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: "HTTP"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: "/health"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "80"
+spec:
+  selector:
+    app: guardrail-api
+    version: v1
+  ports:
+    - port: 443
+      targetPort: 3000
+      name: https
+      protocol: TCP
+    - port: 80
+      targetPort: 3000
+      name: http
+      protocol: TCP
+  type: LoadBalancer
+  sessionAffinity: None
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: guardrail-api-hpa
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+    component: api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: guardrail-api
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type: Pods
+      value: 2
+      periodSeconds: 15
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: guardrail-config
+  namespace: guardrail
+  labels:
+    app: guardrail
+    component: config
+data:
+  REDIS_URL: "redis://guardrail-redis:6379/0"
+  CORS_ORIGIN: "https://guardrail.io,https://app.guardrail.io"
+  AWS_S3_BUCKET: "guardrail-uploads"
+  AWS_REGION: "us-east-1"
+  LOG_LEVEL: "info"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: guardrail-secrets
+  namespace: guardrail
+  labels:
+    app: guardrail
+    component: secrets
+type: Opaque
+data:
+  DATABASE_URL: <base64-encoded-database-url>
+  JWT_SECRET: <base64-encoded-jwt-secret>
+  ENCRYPTION_KEY: <base64-encoded-encryption-key>
+  SENTRY_DSN: <base64-encoded-sentry-dsn>
+  STRIPE_SECRET_KEY: <base64-encoded-stripe-secret>
+  STRIPE_WEBHOOK_SECRET: <base64-encoded-stripe-webhook-secret>
+  AWS_ACCESS_KEY_ID: <base64-encoded-aws-access-key>
+  AWS_SECRET_ACCESS_KEY: <base64-encoded-aws-secret-key>
+  SENDGRID_API_KEY: <base64-encoded-sendgrid-api-key>
+  TWILIO_ACCOUNT_SID: <base64-encoded-twilio-account-sid>
+  TWILIO_AUTH_TOKEN: <base64-encoded-twilio-auth-token>
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: guardrail-logs
+  namespace: guardrail
+  labels:
+    app: guardrail
+    component: storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests:
+      storage: 10Gi
+  storage: 50Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: guardrail-uploads
+  namespace: guardrail
+  labels:
+    app: guardrail
+    component: storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests:
+      storage: 50Gi
+  storage: 200Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: guardrail-quarantine
+  namespace: guardrail
+  labels:
+    app: guardrail
+    component: storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests:
+      storage: 5Gi
+  storage: 20Gi
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guardrail-api-ingress
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    component: ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+      more_set_headers "Permissions-Policy: geolocation=(), microphone=(), camera=()";
+spec:
+  tls:
+  - hosts:
+    - api.guardrail.io
+    - app.guardrail.io
+    secretName: guardrail-api-tls
+  rules:
+  - host: api.guardrail.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: guardrail-api-service-external
+            port:
+              number: 443
+  - host: app.guardrail.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: guardrail-api-service-external
+            port:
+              number: 443
+        rewrite: /(.*) /api/v1$1
+
+---
+apiVersion: v1
+kind: ServiceMonitor
+metadata:
+  name: guardrail-api
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+  annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "3000"
+      prometheus.io/path: "/metrics"
+spec:
+  selector:
+    matchLabels:
+      app: guardrail-api
+      version: v1
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 30s
+    scrapeTimeout: 10s
+
+---
+apiVersion: v1
+kind: PodDisruptionBudget
+metadata:
+  name: guardrail-api-pdb
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+spec:
+  minAvailable: 2
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: guardrail-api
+      version: v1
+
+---
+apiVersion: policy/v1
+kind: PodSecurityPolicy
+metadata:
+  name: guardrail-api-psp
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+  - ALL
+  volumes:
+  - configMap
+    - emptyDir
+    - projected
+    - secret
+  - downwardAPI
+    - persistentVolumeClaim
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    rule: 'RunAsAny'
+  fsGroup:
+    rule: 'RunAsAny'
+  readOnlyRootFilesystem: false
+
+---
+apiVersion: v1
+kind: NetworkPolicy
+metadata:
+  name: guardrail-api-netpol
+  namespace: guardrail
+  labels:
+    app: guardrail-api
+    version: v1
+spec:
+  podSelector:
+    matchLabels:
+      app: guardrail-api
+      version: v1
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    - namespaceSelector:
+        matchLabels:
+          name: guardrail
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+    - namespaceSelector:
+        matchLabels:
+          name: guardrail
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 5432
+    - protocol: TCP
+      port: 6379
+
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: guardrail-quota
+  namespace: guardrail
+  labels:
+    app: guardrail
+spec:
+  hard:
+    requests.cpu: "2"
+    requests.memory: "4Gi"
+    persistentvolumeclaims: "3"
+    services: "5"
+    services.loadbalancers: "2"
+    count: "10"
+  soft:
+    requests.cpu: "1"
+    requests.memory: "2Gi"
+    persistentvolumeclaims: "2"
+    services: "3"
+    services.loadbalancers: "1"
+    count: "5"
+
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: guardrail-limits
+  namespace: guardrail
+  labels:
+    app: guardrail
+spec:
+  limits:
+  - default:
+      cpu: "500m"
+      memory: "1Gi"
+  - default:
+      cpu: "1"
+      memory: "2Gi"
+  - type: Container
+  - max:
+      cpu: "1"
+      memory: "2Gi"

@@ -4,8 +4,9 @@ import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5000";
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5001";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 interface GoogleTokenResponse {
   access_token: string;
@@ -58,9 +59,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${APP_URL}/?auth_error=Invalid state parameter`);
   }
 
-  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientId =
+    process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  const redirectUri = process.env.GOOGLE_CALLBACK_URL || `${APP_URL}/api/auth/google/callback`;
+  const redirectUri =
+    process.env.GOOGLE_CALLBACK_URL ||
+    process.env.GOOGLE_REDIRECT_URI ||
+    `${APP_URL}/api/auth/google/callback`;
 
   if (!clientId || !clientSecret) {
     return NextResponse.redirect(`${APP_URL}/?auth_error=Google OAuth not configured`);
@@ -127,51 +132,37 @@ export async function GET(request: NextRequest) {
     });
 
     if (!authResponse.ok) {
-      // If backend doesn't support OAuth yet, create a session directly
-      // This is a fallback - ideally the backend handles this
-      const response = NextResponse.redirect(`${APP_URL}/dashboard`);
-      
-      // Set a temporary session cookie with user data
-      response.cookies.set("google_user", JSON.stringify({
-        id: googleUser.id,
-        email: googleUser.email,
-        name: googleUser.name,
-        avatar: googleUser.picture,
-        provider: "google",
-      }), {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 60 * 60 * 24 * 7, // 7 days
-        path: "/",
-      });
-      
-      response.cookies.set("google_access_token", accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 60 * 60 * 24 * 7, // 7 days
-        path: "/",
-      });
-
-      // Clear OAuth state cookie
-      response.cookies.delete("google_oauth_state");
-      
-      return response;
+      const errBody = await authResponse.text();
+      logger.error("Google OAuth backend error", { body: errBody });
+      return NextResponse.redirect(
+        `${APP_URL}/?auth_error=${encodeURIComponent("Failed to authenticate with server")}`,
+      );
     }
 
-    const authData = await authResponse.json();
+    const authData = (await authResponse.json()) as {
+      isNewUser?: boolean;
+      data?: { token?: string };
+    };
 
-    // Redirect to dashboard with session
-    const response = NextResponse.redirect(`${APP_URL}/dashboard`);
-    
-    // Forward any cookies from the backend
+    const isNewUser = authData.isNewUser === true;
+    const redirectPath = isNewUser ? "/pricing" : "/dashboard";
+    const response = NextResponse.redirect(`${APP_URL}${redirectPath}`);
+
+    if (authData.data?.token) {
+      response.cookies.set("auth_token", authData.data.token, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24,
+        path: "/",
+      });
+    }
+
     const setCookie = authResponse.headers.get("set-cookie");
     if (setCookie) {
       response.headers.set("Set-Cookie", setCookie);
     }
 
-    // Clear OAuth state cookie
     response.cookies.delete("google_oauth_state");
 
     return response;

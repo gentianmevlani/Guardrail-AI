@@ -1,16 +1,16 @@
+import {
+  json503AuthUnconfigured,
+  resolveEmailPasswordAuthBackend,
+} from "@/lib/auth-route-config";
 import { logger } from "@/lib/logger";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-const IS_DEV = process.env.NODE_ENV === "development" || !API_URL;
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Validate required fields
     if (!body.email || !body.password) {
       return NextResponse.json(
         { success: false, error: "Email and password are required" },
@@ -18,7 +18,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(body.email)) {
       return NextResponse.json(
@@ -27,7 +26,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate password strength
     if (body.password.length < 6) {
       return NextResponse.json(
         { success: false, error: "Password must be at least 6 characters" },
@@ -35,8 +33,27 @@ export async function POST(request: Request) {
       );
     }
 
-    // Local development mode - create a mock session
-    if (IS_DEV) {
+    const backend = resolveEmailPasswordAuthBackend();
+
+    if (backend.mode === "unconfigured") {
+      return json503AuthUnconfigured(backend.devMessage);
+    }
+
+    if (backend.mode === "mock") {
+      if (
+        body.email !== backend.mockEmail ||
+        body.password !== backend.mockPassword
+      ) {
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              "Mock registration only accepts the email and password from MOCK_AUTH_EMAIL and MOCK_AUTH_PASSWORD.",
+          },
+          { status: 400 },
+        );
+      }
+
       const mockUser = {
         id: `user_${Date.now()}`,
         email: body.email,
@@ -45,7 +62,6 @@ export async function POST(request: Request) {
         createdAt: new Date().toISOString(),
       };
 
-      // Create a simple session token for development
       const sessionToken = Buffer.from(
         JSON.stringify({
           ...mockUser,
@@ -62,19 +78,18 @@ export async function POST(request: Request) {
         { status: 201 },
       );
 
-      // Set session cookie
       res.cookies.set("guardrail_session", sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 7 * 24 * 60 * 60, // 7 days
+        maxAge: 7 * 24 * 60 * 60,
         path: "/",
       });
 
       return res;
     }
 
-    // Production mode - proxy to backend API
+    const API_URL = backend.apiUrl;
     let response: Response;
     try {
       response = await fetch(`${API_URL}/api/auth/register`, {
@@ -97,7 +112,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Handle non-JSON responses
     const contentType = response.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
       const text = await response.text();
@@ -116,10 +130,8 @@ export async function POST(request: Request) {
 
     const data = await response.json();
 
-    // Build response with cookies if present
     const res = NextResponse.json(data, { status: response.status });
 
-    // Forward set-cookie headers
     const setCookie = response.headers.get("set-cookie");
     if (setCookie) {
       res.headers.set("Set-Cookie", setCookie);

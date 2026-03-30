@@ -1,0 +1,250 @@
+{
+  "projectTypes": {
+    "full-stack": {
+      "name": "Full-Stack Web Application",
+      "description": "Complete web app with frontend, backend, database, and API",
+      "icon": "🌐",
+      "templates": ["03", "04", "08", "09", "10", "01", "02", "07", "06"],
+      "questions": [
+        {
+          "key": "framework",
+          "question": "Frontend framework?",
+          "type": "select",
+          "options": [
+            { "value": "nextjs", "label": "Next.js (Recommended)" },
+            { "value": "react", "label": "React" },
+            { "value": "vue", "label": "Vue.js" }
+          ],
+          "default": "nextjs"
+        },
+        {
+          "key": "database",
+          "question": "Database?",
+          "type": "select",
+          "options": [
+            { "value": "postgresql", "label": "PostgreSQL (Recommended)" },
+            { "value": "mongodb", "label": "MongoDB" },
+            { "value": "mysql", "label": "MySQL" },
+            { "value": "supabase", "label": "Supabase" }
+          ],
+          "default": "postgresql"
+        },
+        {
+          "key": "orm",
+          "question": "ORM?",
+          "type": "select",
+          "options": [
+            { "value": "prisma", "label": "Prisma (Recommended)" },
+            { "value": "drizzle", "label": "Drizzle" },
+            { "value": "mongoose", "label": "Mongoose (MongoDB)" },
+            { "value": "none", "label": "None (Raw SQL)" }
+          ],
+          "default": "prisma"
+        },
+        {
+          "key": "auth",
+          "question": "Authentication?",
+          "type": "select",
+          "options": [
+            { "value": "jwt", "label": "JWT Tokens" },
+            { "value": "oauth", "label": "OAuth (Google, GitHub, etc.)" },
+            { "value": "both", "label": "Both JWT and OAuth" }
+          ],
+          "default": "jwt"
+        },
+        {
+          "key": "styling",
+          "question": "Styling solution?",
+          "type": "select",
+          "options": [
+            { "value": "tailwind", "label": "Tailwind CSS (Recommended)" },
+            { "value": "css-modules", "label": "CSS Modules" },
+            { "value": "styled-components", "label": "Styled Components" }
+          ],
+          "default": "tailwind"
+        }
+      ]
+    },
+    "frontend-only": {
+      "name": "Frontend-Only Application",
+      "description": "Frontend app (React, Vue, etc.) with API integration",
+      "icon": "🎨",
+      "templates": ["03", "01", "02", "07", "08"],
+      "questions": [
+        {
+          "key": "framework",
+          "question": "Framework?",
+          "type": "select",
+          "options": [
+            { "value": "nextjs", "label": "Next.js" },
+            { "value": "react", "label": "React" },
+            { "value": "vue", "label": "Vue.js" }
+          ],
+          "default": "nextjs"
+        },
+        {
+          "key": "styling",
+          "question": "Styling?",
+          "type": "select",
+          "options": [
+            { "value": "tailwind", "label": "Tailwind CSS" },
+            { "value": "css-modules", "label": "CSS Modules" }
+          ],
+          "default": "tailwind"
+        },
+        {
+          "key": "apiUrl",
+          "question": "API URL? (leave empty if using Next.js API routes)",
+          "type": "text",
+          "default": ""
+        }
+      ]
+    },
+    "backend-only": {
+      "name": "Backend API Only",
+      "description": "REST/GraphQL API with database",
+      "icon": "⚙️",
+      "templates": ["03", "04", "08", "09", "10", "06"],
+      "questions": [
+        {
+          "key": "apiStyle",
+          "question": "API style?",
+          "type": "select",
+          "options": [
+            { "value": "rest", "label": "REST API" },
+            { "value": "graphql", "label": "GraphQL" },
+            { "value": "trpc", "label": "tRPC" }
+          ],
+          "default": "rest"
+        },
+        {
+          "key": "database",
+          "question": "Database?",
+          "type": "select",
+          "options": [
+            { "value": "postgresql", "label": "PostgreSQL" },
+            { "value": "mongodb", "label": "MongoDB" },
+            { "value": "mysql", "label": "MySQL" }
+          ],
+          "default": "postgresql"
+        },
+        {
+          "key": "orm",
+          "question": "ORM?",
+          "type": "select",
+          "options": [
+            { "value": "prisma", "label": "Prisma" },
+            { "value": "drizzle", "label": "Drizzle" },
+            { "value": "mongoose", "label": "Mongoose" }
+          ],
+          "default": "prisma"
+        },
+        {
+          "key": "auth",
+          "question": "Authentication?",
+          "type": "select",
+          "options": [
+            { "value": "jwt", "label": "JWT Tokens" },
+            { "value": "api-key", "label": "API Keys" },
+            { "value": "oauth", "label": "OAuth" }
+          ],
+          "default": "jwt"
+        }
+      ]
+    },
+    "landing-page": {
+      "name": "Landing Page",
+      "description": "Simple marketing/landing page",
+      "icon": "📄",
+      "templates": ["02", "01"],
+      "questions": [
+        {
+          "key": "framework",
+          "question": "Framework?",
+          "type": "select",
+          "options": [
+            { "value": "nextjs", "label": "Next.js" },
+            { "value": "react", "label": "React" }
+          ],
+          "default": "nextjs"
+        },
+        {
+          "key": "styling",
+          "question": "Styling?",
+          "type": "select",
+          "options": [
+            { "value": "tailwind", "label": "Tailwind CSS" },
+            { "value": "css-modules", "label": "CSS Modules" }
+          ],
+          "default": "tailwind"
+        }
+      ]
+    },
+    "dashboard": {
+      "name": "Admin Dashboard",
+      "description": "Admin dashboard with data visualization",
+      "icon": "📊",
+      "templates": ["03", "01", "02", "07", "08", "10"],
+      "questions": [
+        {
+          "key": "framework",
+          "question": "Framework?",
+          "type": "select",
+          "options": [
+            { "value": "nextjs", "label": "Next.js" },
+            { "value": "react", "label": "React" }
+          ],
+          "default": "nextjs"
+        },
+        {
+          "key": "styling",
+          "question": "Styling?",
+          "type": "select",
+          "options": [
+            { "value": "tailwind", "label": "Tailwind CSS" }
+          ],
+          "default": "tailwind"
+        },
+        {
+          "key": "auth",
+          "question": "Authentication?",
+          "type": "select",
+          "options": [
+            { "value": "jwt", "label": "JWT Tokens" },
+            { "value": "oauth", "label": "OAuth" }
+          ],
+          "default": "jwt"
+        }
+      ]
+    },
+    "api-gateway": {
+      "name": "API Gateway",
+      "description": "Microservices API gateway",
+      "icon": "🚪",
+      "templates": ["03", "04", "08", "10"],
+      "questions": [
+        {
+          "key": "apiStyle",
+          "question": "API style?",
+          "type": "select",
+          "options": [
+            { "value": "rest", "label": "REST API" },
+            { "value": "graphql", "label": "GraphQL" }
+          ],
+          "default": "rest"
+        },
+        {
+          "key": "auth",
+          "question": "Authentication?",
+          "type": "select",
+          "options": [
+            { "value": "jwt", "label": "JWT Tokens" },
+            { "value": "api-key", "label": "API Keys" }
+          ],
+          "default": "jwt"
+        }
+      ]
+    }
+  }
+}
+

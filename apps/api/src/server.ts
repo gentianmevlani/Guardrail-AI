@@ -8,7 +8,12 @@ import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import { getEnv, isDevelopment } from "@guardrail/core";
 import "dotenv/config";
-import Fastify from "fastify";
+import Fastify, {
+  type FastifyBaseLogger,
+  type FastifyError,
+  type FastifyReply,
+  type FastifyRequest,
+} from "fastify";
 import { logger } from "./logger";
 import { initRateLimiter } from "./middleware/redis-rate-limiter";
 
@@ -23,6 +28,7 @@ import { sanitizeInput } from "./middleware/sanitizeInput";
 import { addRequestId } from "./middleware/telemetry";
 import { handleGracefulShutdown } from "./utils/gracefulShutdown";
 import { registerSchemas } from "./utils/registerSchemas";
+import { toErrorMessage, getErrorStack } from "./utils/toErrorMessage";
 
 // Performance middleware
 import { apiVersioningPlugin } from "./middleware/api-versioning";
@@ -41,10 +47,10 @@ import { prisma } from "@guardrail/database";
 
 // Import availability service
 import {
-    getHealthStatus,
-    getLivenessStatus,
-    getReadinessStatus,
-    updateDegradedMode,
+  getHealthStatus,
+  getLivenessStatus,
+  getReadinessStatus,
+  updateDegradedMode,
 } from "./services/availability-service";
 
 // Import plugins
@@ -88,7 +94,12 @@ export async function buildServer() {
           "https://js.stripe.com",
         ],
         imgSrc: ["'self'", "data:", "https:"],
-        connectSrc: ["'self'", "http://localhost:3000", "http://localhost:5000"],
+        connectSrc: [
+          "'self'",
+          "http://localhost:3000",
+          "http://localhost:5000",
+          "http://localhost:5001",
+        ],
         fontSrc: ["'self'", "data:"],
       },
     } : {
@@ -280,11 +291,11 @@ export async function buildServer() {
   });
 
   // Add logging hooks
-  fastify.addHook("onRequest", async (request: any, reply: any) => {
+  fastify.addHook("onRequest", async (request: FastifyRequest, _reply: FastifyReply) => {
     const requestId = request.id;
     const requestLogger = logger.child({ requestId });
 
-    request.log = requestLogger;
+    request.log = requestLogger as FastifyBaseLogger;
     requestLogger.info(
       {
         method: request.method,
@@ -297,9 +308,9 @@ export async function buildServer() {
     );
   });
 
-  fastify.addHook("onResponse", async (request: any, reply: any) => {
-    const responseTime = reply.getResponseTime();
-    (request.log as any).info(
+  fastify.addHook("onResponse", async (request: FastifyRequest, reply: FastifyReply) => {
+    const responseTime = reply.elapsedTime;
+    request.log.info(
       {
         statusCode: reply.statusCode,
         responseTime: Math.round(responseTime),
@@ -309,11 +320,11 @@ export async function buildServer() {
     );
   });
 
-  fastify.addHook("onError", async (request: any, reply: any, error: any) => {
-    (request.log as any).error(
+  fastify.addHook("onError", async (request: FastifyRequest, reply: FastifyReply, error: FastifyError) => {
+    request.log.error(
       {
-        error: error.message,
-        stack: error.stack,
+        error: toErrorMessage(error),
+        stack: getErrorStack(error),
         statusCode: reply?.statusCode,
       },
       "Request error",
@@ -351,7 +362,7 @@ export async function buildServer() {
 
     try {
       const Stripe = (await import("stripe")).default;
-      const stripe = new Stripe(stripeSecretKey, { apiVersion: "2023-10-16" });
+      const stripe = new Stripe(stripeSecretKey, { apiVersion: "2025-02-24.acacia" });
 
       // Map plan to price ID
       const priceIds: Record<string, string | undefined> = {
@@ -390,8 +401,8 @@ export async function buildServer() {
         url: session.url,
         sessionId: session.id,
       });
-    } catch (error: any) {
-      logger.error({ error: error.message }, "Stripe checkout error");
+    } catch (error: unknown) {
+      logger.error({ error: toErrorMessage(error) }, "Stripe checkout error");
       return reply.status(500).send({
         success: false,
         error: "Failed to create checkout session",
@@ -447,9 +458,9 @@ async function ensureSystemUser() {
       update: {},
     });
     logger.info("System user ensured for anonymous scans");
-  } catch (error: any) {
+  } catch (error: unknown) {
     logger.warn(
-      { error: error.message },
+      { error: toErrorMessage(error) },
       "Failed to ensure system user exists (may already exist)",
     );
   }

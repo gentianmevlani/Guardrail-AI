@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "isolatedModules": false
+  },
+  "include": [
+    "src/lib/cli/output-contract.ts",
+    "src/lib/cli/verdict-formatter.ts",
+    "src/lib/cli/cache-manager.ts"
+  ]
+}

@@ -1,0 +1,91 @@
+# guardrail Alert Rules
+groups:
+  - name: guardrail-security
+    rules:
+      # High severity vulnerabilities detected
+      - alert: HighSeverityVulnerabilities
+        expr: increase(Guardrail_vulnerabilities_found_total{severity="critical"}[1h]) > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical vulnerabilities detected"
+          description: "{{ $value }} critical vulnerabilities found in the last hour"
+
+      # Secrets detected in code
+      - alert: SecretsDetected
+        expr: increase(Guardrail_secrets_detected_total{severity="high"}[1h]) > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Secrets detected in code"
+          description: "{{ $value }} high-severity secrets detected in the last hour"
+
+      # Injection attempts detected
+      - alert: InjectionAttempts
+        expr: increase(Guardrail_injections_detected_total{severity="high"}[5m]) > 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Multiple injection attempts detected"
+          description: "{{ $value }} high-severity injection attempts in the last 5 minutes"
+
+  - name: guardrail-agents
+    rules:
+      # Agent actions blocked
+      - alert: AgentActionsBlocked
+        expr: increase(Guardrail_agent_actions_blocked_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Multiple agent actions blocked"
+          description: "{{ $value }} agent actions blocked in the last 5 minutes"
+
+  - name: guardrail-compliance
+    rules:
+      # Compliance score dropped
+      - alert: ComplianceScoreLow
+        expr: Guardrail_compliance_score < 70
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Compliance score below threshold"
+          description: "Compliance score is {{ $value }}%, below the 70% threshold"
+
+  - name: guardrail-api
+    rules:
+      # High API error rate
+      - alert: HighAPIErrorRate
+        expr: sum(rate(Guardrail_api_requests_total{status_code=~"5.."}[5m])) / sum(rate(Guardrail_api_requests_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High API error rate"
+          description: "API error rate is {{ $value | humanizePercentage }}"
+
+      # High API latency
+      - alert: HighAPILatency
+        expr: histogram_quantile(0.95, rate(Guardrail_api_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High API latency"
+          description: "95th percentile latency is {{ $value }}s"
+
+  - name: guardrail-system
+    rules:
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: Guardrail_memory_usage_bytes{type="heap_used"} / Guardrail_memory_usage_bytes{type="heap_total"} > 0.9
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Heap memory usage is at {{ $value | humanizePercentage }}"

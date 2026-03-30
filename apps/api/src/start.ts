@@ -7,6 +7,7 @@ import { initializeQueues } from "./lib/queue";
 import { logger } from "./logger";
 import { buildServer } from "./server";
 import { handleGracefulShutdown } from "./utils/gracefulShutdown";
+import { toErrorMessage, getErrorStack } from "./utils/toErrorMessage";
 
 const env = getEnv();
 const { PORT, HOST } = env;
@@ -53,7 +54,7 @@ export async function start() {
       scheduledJobsService.start();
       logger.info("📅 Scheduled jobs service started");
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : String(error);
+      const message = error instanceof Error ? toErrorMessage(error) : String(error);
       logger.warn({ error: message }, "Failed to start scheduled jobs service");
     }
 
@@ -64,14 +65,14 @@ export async function start() {
       await scheduledScanService.start();
       logger.info("📅 Scheduled scan service started");
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : String(error);
+      const message = error instanceof Error ? toErrorMessage(error) : String(error);
       logger.warn({ error: message }, "Failed to start scheduled scan service");
     }
 
     handleGracefulShutdown(fastify.server);
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : String(err);
-    const stack = err instanceof Error ? err.stack : undefined;
+    const message = err instanceof Error ? toErrorMessage(err) : String(err);
+    const stack = err instanceof Error ? getErrorStack(err) : undefined;
     logger.fatal(
       {
         error: message,

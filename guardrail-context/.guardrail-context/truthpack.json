@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "generatedAt": "2026-01-13T11:27:26.737Z",
+  "repoRoot": "C:\\Users\\mevla\\Downloads\\guardrail-Ofiicial-main\\guardrail-Ofiicial-main\\guardrail-context",
+  "stack": {
+    "languages": [
+      "TypeScript"
+    ],
+    "frameworks": [],
+    "pkgManager": "pnpm"
+  },
+  "files": {
+    "total": 50
+  }
+}

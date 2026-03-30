@@ -1,0 +1,14 @@
+{
+  "zod-schema": {
+    "id": "zod-schema",
+    "name": "Zod Schema",
+    "description": "Standard Zod validation schema pattern",
+    "file": "packages\\shared\\src\\schema.ts",
+    "code": "export const TruthPackSchema = z.object({\r\n  version: z.literal(\"1\"),\r\n  generatedAt: z.string(),\r\n  repoRoot: z.string(),\r\n  stack: z.object({\r\n    languages: z.array(z.string()),\r\n    frameworks: z.array(z.string()),\r\n    pkgManager: z.enum([\"pnpm\", \"npm\", \"yarn\", \"bun\"]).optional(),\r\n  })",
+    "tags": [
+      "zod",
+      "validation",
+      "schema"
+    ]
+  }
+}

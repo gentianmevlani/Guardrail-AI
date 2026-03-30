@@ -1,0 +1,21 @@
+# Issue template chooser configuration
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
+blank_issues_enabled: false
+
+contact_links:
+  - name: 💬 Discord Community
+    url: https://discord.gg/guardrail
+    about: Join our Discord for real-time help and discussions
+
+  - name: 📖 Documentation
+    url: https://getguardrail.io/docs
+    about: Check the documentation for answers to common questions
+
+  - name: 💡 Discussions
+    url: https://github.com/guardiavault-oss/codeguard/discussions
+    about: Ask questions and share ideas in GitHub Discussions
+
+  - name: 🔒 Security Issues
+    url: https://github.com/guardiavault-oss/codeguard/security/advisories/new
+    about: Report security vulnerabilities privately

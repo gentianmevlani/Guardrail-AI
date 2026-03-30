@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Guardrail-Ofiicial-main",
+    "framework": "react",
+    "language": "typescript",
+    "packageManager": "pnpm"
+  },
+  "scan": {
+    "exclude": [
+      "node_modules",
+      "dist",
+      "build",
+      ".next",
+      ".vibecheck"
+    ]
+  },
+  "createdAt": "2026-03-30T19:51:21.637Z"
+}

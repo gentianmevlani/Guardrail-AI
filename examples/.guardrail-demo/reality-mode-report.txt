@@ -1,0 +1,521 @@
+╔══════════════════════════════════════════════════════════════╗
+║            🔍 Reality Mode Scan Results 🔍                   ║
+╚══════════════════════════════════════════════════════════════╝
+
+❌ VERDICT: FAKE - Fake data detected!
+
+   Found 126 issues that indicate fake/mock data.
+
+────────────────────────────────────────────────────────────────
+
+DETECTIONS:
+
+   ❌ FAKE-DOMAIN
+      URL: http://localhost:3001/
+      Evidence: URL matches fake domain pattern: localhost:\d+
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/
+      Evidence: Response contains Demo mode flag
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+      Evidence: Response contains Demo mode flag
+
+   ❌ FAKE-DOMAIN
+      URL: http://localhost:3001/api/dashboard
+      Evidence: URL matches fake domain pattern: localhost:\d+
+
+   ❌ FAKE-DOMAIN
+      URL: http://localhost:3001/api/user
+      Evidence: URL matches fake domain pattern: localhost:\d+
+
+   ❌ FAKE-DOMAIN
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: URL matches fake domain pattern: localhost:\d+
+
+   ❌ FAKE-DOMAIN
+      URL: http://localhost:3001/api/activity
+      Evidence: URL matches fake domain pattern: localhost:\d+
+
+   ❌ FAKE-DOMAIN
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: URL matches fake domain pattern: localhost:\d+
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/dashboard
+      Evidence: Response contains Demo mode flag
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/user
+      Evidence: Response contains Demo mode flag
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/billing/invoices
+      Evidence: Response contains Demo mode flag
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/webhooks/config
+      Evidence: Response contains Demo mode flag
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: http://localhost:3001/api/activity
+      Evidence: Response contains Demo mode flag
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Demo invoice ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Demo user ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Demo customer ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Demo subscription ID
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Test Stripe key
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Test Stripe public key
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Demo success response
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Lorem ipsum placeholder
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Placeholder name
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Placeholder email
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Placeholder domain/image
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Fake ID pattern
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Simulated status
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Mock flag enabled
+
+   ❌ DEMO-DATA
+      URL: https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2
+      Evidence: Response contains Demo mode flag
+
+────────────────────────────────────────────────────────────────
+Score: 0/100
+Total requests intercepted: 8
+Actions performed: 2
+Generated: 2026-01-01T09:40:04.699Z

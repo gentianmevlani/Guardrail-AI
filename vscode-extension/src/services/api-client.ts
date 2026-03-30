@@ -1,0 +1,443 @@
+/**
+ * API Client Service
+ * 
+ * Handles communication between VS Code extension and guardrail API backend
+ * Provides authenticated requests to real API endpoints
+ */
+
+import * as vscode from 'vscode';
+import * as https from 'https';
+import * as http from 'http';
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
+
+export interface AuthConfig {
+  apiKey?: string;
+  token?: string;
+  baseUrl: string;
+}
+
+export class ApiClient {
+  private config: AuthConfig;
+  private extensionContext: vscode.ExtensionContext;
+
+  constructor(extensionContext: vscode.ExtensionContext) {
+    this.extensionContext = extensionContext;
+    this.config = {
+      baseUrl: this.getApiBaseUrl()
+    };
+    void this.loadAuthConfig();
+  }
+
+  /** Uses `guardrail.apiEndpoint` when set (see package.json contributes); otherwise production API. */
+  private getApiBaseUrl(): string {
+    const configured = vscode.workspace
+      .getConfiguration('guardrail')
+      .get<string>('apiEndpoint');
+    if (configured && configured.trim().length > 0) {
+      return configured.replace(/\/$/, '');
+    }
+    return 'https://api.guardrail.dev';
+  }
+
+  async ensureAuthLoaded(): Promise<void> {
+    this.config.baseUrl = this.getApiBaseUrl();
+    await this.loadAuthConfig();
+  }
+
+  private async loadAuthConfig(): Promise<void> {
+    const secretStorage = this.extensionContext.secrets;
+    
+    try {
+      const apiKey = await secretStorage.get('guardrail.apiKey');
+      const token = await secretStorage.get('guardrail.token');
+      
+      if (apiKey) {
+        this.config.apiKey = apiKey;
+      }
+      if (token) {
+        this.config.token = token;
+      }
+    } catch (error) {
+      console.warn('Failed to load auth config:', error);
+    }
+  }
+
+  async setApiKey(apiKey: string): Promise<void> {
+    const secretStorage = this.extensionContext.secrets;
+    await secretStorage.store('guardrail.apiKey', apiKey);
+    this.config.apiKey = apiKey;
+  }
+
+  async setToken(token: string): Promise<void> {
+    const secretStorage = this.extensionContext.secrets;
+    await secretStorage.store('guardrail.token', token);
+    this.config.token = token;
+  }
+
+  private getAuthHeaders(): Record<string, string> {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'User-Agent': 'guardrail-vscode-extension/1.0.0'
+    };
+
+    if (this.config.apiKey) {
+      headers['X-API-Key'] = this.config.apiKey;
+    } else if (this.config.token) {
+      headers['Authorization'] = `Bearer ${this.config.token}`;
+    }
+
+    return headers;
+  }
+
+  private async makeRequest<T>(
+    endpoint: string,
+    options: {
+      method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+      body?: any;
+      headers?: Record<string, string>;
+    } = {}
+  ): Promise<ApiResponse<T>> {
+    const { method = 'GET', body, headers = {} } = options;
+    this.config.baseUrl = this.getApiBaseUrl();
+
+    const url = new URL(endpoint, this.config.baseUrl);
+    const isHttps = url.protocol === 'https:';
+    const httpModule = isHttps ? https : http;
+
+    return new Promise((resolve, reject) => {
+      const postData = body ? JSON.stringify(body) : undefined;
+      
+      const requestOptions: https.RequestOptions | http.RequestOptions = {
+        hostname: url.hostname,
+        port: url.port || (isHttps ? 443 : 80),
+        path: url.pathname + url.search,
+        method,
+        headers: {
+          ...this.getAuthHeaders(),
+          ...headers,
+          ...(postData ? { 'Content-Length': Buffer.byteLength(postData) } : {})
+        },
+        timeout: 30000
+      };
+
+      const req = httpModule.request(requestOptions, (res) => {
+        let data = '';
+        
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+        
+        res.on('end', () => {
+          try {
+            const response = JSON.parse(data);
+            
+            if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
+              resolve(response);
+            } else {
+              resolve({
+                success: false,
+                error: response.error || `HTTP ${res.statusCode}`,
+                message: response.message
+              });
+            }
+          } catch (error) {
+            resolve({
+              success: false,
+              error: 'Invalid JSON response',
+              message: data
+            });
+          }
+        });
+      });
+
+      req.on('error', (error) => {
+        resolve({
+          success: false,
+          error: error.message,
+          message: 'Network error occurred'
+        });
+      });
+
+      req.on('timeout', () => {
+        req.destroy();
+        resolve({
+          success: false,
+          error: 'Request timeout',
+          message: 'Request timed out after 30 seconds'
+        });
+      });
+
+      if (postData) {
+        req.write(postData);
+      }
+      
+      req.end();
+    });
+  }
+
+  // Compliance Dashboard API
+  async getComplianceStatus(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/compliance/status', {
+      method: 'POST',
+      body: { projectId }
+    });
+  }
+
+  async runComplianceAssessment(projectId: string, frameworkId: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/compliance/assess', {
+      method: 'POST',
+      body: { projectId, frameworkId }
+    });
+  }
+
+  async getComplianceFrameworks(): Promise<ApiResponse> {
+    return this.makeRequest('/api/compliance/frameworks');
+  }
+
+  async generateComplianceReport(projectId: string, format: 'json' | 'csv' | 'pdf'): Promise<ApiResponse> {
+    return this.makeRequest(`/api/compliance/report?format=${format}`, {
+      method: 'POST',
+      body: { projectId }
+    });
+  }
+
+  // Security Scanner API
+  async runSecurityScan(projectPath: string, environment?: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/security/scan', {
+      method: 'POST',
+      body: { projectPath, environment }
+    });
+  }
+
+  async getSecurityFindings(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/security/findings/${projectId}`);
+  }
+
+  async runSecretScan(projectPath: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/security/secrets/scan', {
+      method: 'POST',
+      body: { projectPath }
+    });
+  }
+
+  async getSecurityPolicies(): Promise<ApiResponse> {
+    return this.makeRequest('/api/security/policies');
+  }
+
+  // Performance Monitor API
+  async getPerformanceMetrics(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/performance/metrics/${projectId}`);
+  }
+
+  async getPerformanceHistory(projectId: string, timeRange: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/performance/history/${projectId}?range=${timeRange}`);
+  }
+
+  async getPerformanceSuggestions(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/performance/suggestions/${projectId}`);
+  }
+
+  // Change Impact Analyzer API
+  async analyzeChangeImpact(changes: string[], projectId: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/impact/analyze', {
+      method: 'POST',
+      body: { changes, projectId }
+    });
+  }
+
+  async getDependencyGraph(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/impact/dependencies/${projectId}`);
+  }
+
+  async getBreakingChanges(projectId: string, version: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/impact/breaking-changes/${projectId}?version=${version}`);
+  }
+
+  // AI Code Explainer API
+  async explainCode(code: string, language: string, detailLevel: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/ai/explain', {
+      method: 'POST',
+      body: { code, language, detailLevel }
+    });
+  }
+
+  async generateDocumentation(code: string, language: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/ai/docs', {
+      method: 'POST',
+      body: { code, language }
+    });
+  }
+
+  async getCodePatterns(code: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/ai/patterns', {
+      method: 'POST',
+      body: { code }
+    });
+  }
+
+  // Team Collaboration API
+  async getTeamMembers(organizationId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/team/members/${organizationId}`);
+  }
+
+  async getCodeReviews(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/collaboration/reviews/${projectId}`);
+  }
+
+  async createCodeReview(reviewData: any): Promise<ApiResponse> {
+    return this.makeRequest('/api/collaboration/reviews', {
+      method: 'POST',
+      body: reviewData
+    });
+  }
+
+  async getKnowledgeShares(organizationId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/collaboration/knowledge/${organizationId}`);
+  }
+
+  async createKnowledgeShare(knowledgeData: any): Promise<ApiResponse> {
+    return this.makeRequest('/api/collaboration/knowledge', {
+      method: 'POST',
+      body: knowledgeData
+    });
+  }
+
+  async getTeamActivity(organizationId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/collaboration/activity/${organizationId}`);
+  }
+
+  // Production Integrity API
+  async getProductionIntegrity(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/production/integrity/${projectId}`);
+  }
+
+  async getProductionServices(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/production/services/${projectId}`);
+  }
+
+  async getProductionIncidents(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/production/incidents/${projectId}`);
+  }
+
+  async deployToProduction(deploymentData: any): Promise<ApiResponse> {
+    return this.makeRequest('/api/production/deploy', {
+      method: 'POST',
+      body: deploymentData
+    });
+  }
+
+  async rollbackDeployment(deploymentId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/production/rollback/${deploymentId}`, {
+      method: 'POST'
+    });
+  }
+
+  async runProductionHealthCheck(serviceId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/production/health-check/${serviceId}`, {
+      method: 'POST'
+    });
+  }
+
+  // MDC Generator API
+  async generateMDC(projectPath: string, options: any): Promise<ApiResponse> {
+    return this.makeRequest('/api/mdc/generate', {
+      method: 'POST',
+      body: { projectPath, ...options }
+    });
+  }
+
+  async verifyMDCSources(mdcContent: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/mdc/verify', {
+      method: 'POST',
+      body: { content: mdcContent }
+    });
+  }
+
+  async detectHallucinations(content: string): Promise<ApiResponse> {
+    return this.makeRequest('/api/mdc/hallucination-detect', {
+      method: 'POST',
+      body: { content }
+    });
+  }
+
+  // Dashboard API
+  async getDashboardSummary(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/dashboard/summary/${projectId}`);
+  }
+
+  async getRecentActivity(projectId: string): Promise<ApiResponse> {
+    return this.makeRequest(`/api/dashboard/activity/${projectId}`);
+  }
+
+  async getHealthStatus(): Promise<ApiResponse> {
+    return this.makeRequest('/api/health');
+  }
+
+  /** Upload a completed run so the web dashboard can show findings (uses X-API-Key or Bearer token). */
+  async saveRunToCloud(body: {
+    repo: string;
+    branch?: string;
+    commitSha?: string;
+    verdict: string;
+    score: number;
+    securityResult?: unknown;
+    realityResult?: unknown;
+    guardrailResult?: unknown;
+    traceUrl?: string;
+    videoUrl?: string;
+    source?: 'vscode';
+    findings?: unknown[];
+  }): Promise<ApiResponse> {
+    await this.ensureAuthLoaded();
+    return this.makeRequest('/api/runs/save', {
+      method: 'POST',
+      body,
+    });
+  }
+
+  // Authentication API
+  async authenticate(credentials: { email: string; password: string }): Promise<ApiResponse> {
+    return this.makeRequest('/api/auth/login', {
+      method: 'POST',
+      body: credentials
+    });
+  }
+
+  async refreshToken(): Promise<ApiResponse> {
+    return this.makeRequest('/api/auth/refresh', {
+      method: 'POST'
+    });
+  }
+
+  async getUserProfile(): Promise<ApiResponse> {
+    return this.makeRequest('/api/auth/profile');
+  }
+
+  // Utility methods
+  async testConnection(): Promise<boolean> {
+    try {
+      const response = await this.getHealthStatus();
+      return response.success;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return !!(this.config.apiKey || this.config.token);
+  }
+
+  async logout(): Promise<void> {
+    const secretStorage = this.extensionContext.secrets;
+    await secretStorage.delete('guardrail.apiKey');
+    await secretStorage.delete('guardrail.token');
+    this.config.apiKey = undefined;
+    this.config.token = undefined;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "guardrail-demo-mockproof",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.ts",
+    "build": "echo \"(demo) build step\"",
+    "ci:bad": "npm run build && echo \"CI passed\"",
+    "ci:good": "npm run build && npx guardrail mockproof && npx guardrail gate"
+  }
+}

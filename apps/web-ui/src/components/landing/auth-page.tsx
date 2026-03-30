@@ -51,18 +51,16 @@ export function AuthPage({
     }
   };
 
-  const handleGoogleAuth = async () => {
+  const handleGoogleAuth = () => {
     setIsLoading(true);
     setError("");
-    // Redirect to backend API for Google OAuth
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+    window.location.href = "/api/auth/google";
   };
 
-  const handleGithubAuth = async () => {
+  const handleGithubAuth = () => {
     setIsLoading(true);
     setError("");
-    // Redirect to backend API for GitHub OAuth
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/github/login`;
+    window.location.href = "/api/auth/github";
   };
 
   const handleEmailAuth = async (e: React.FormEvent) => {
@@ -143,10 +141,10 @@ export function AuthPage({
             <div className="flex flex-col items-center mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo.png"
-                alt="Logo"
-                width={640}
-                height={256}
+                src="/guardrail-logo.svg"
+                alt="guardrail"
+                width={200}
+                height={40}
                 className="h-16 w-auto object-contain"
               />
             </div>

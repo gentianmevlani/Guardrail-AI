@@ -1,3 +1,6 @@
+import {
+    stripeSkLiveRegex24,
+} from 'guardrail-security/secrets/stripe-placeholder-prefix';
 import type {
     IssueSeverity,
     IssueType,
@@ -59,7 +62,7 @@ const SECRET_PATTERNS: RuleMatch[] = [
   { pattern: /sk-[a-zA-Z0-9]{48}/g, message: 'OpenAI API key detected', severity: 'critical', autoFixAvailable: true, suggestedFix: 'process.env.OPENAI_API_KEY' },
   { pattern: /ghp_[a-zA-Z0-9]{36}/g, message: 'GitHub Personal Access Token detected', severity: 'critical', autoFixAvailable: true, suggestedFix: 'process.env.GITHUB_TOKEN' },
   { pattern: /xox[baprs]-[a-zA-Z0-9\-]{10,}/g, message: 'Slack token detected', severity: 'critical', autoFixAvailable: true, suggestedFix: 'process.env.SLACK_TOKEN' },
-  { pattern: /sk_live_[a-zA-Z0-9]{24,}/g, message: 'Stripe live secret key detected', severity: 'critical', autoFixAvailable: true, suggestedFix: 'process.env.STRIPE_SECRET_KEY' },
+  { pattern: stripeSkLiveRegex24(), message: 'Stripe live secret key detected', severity: 'critical', autoFixAvailable: true, suggestedFix: 'process.env.STRIPE_SECRET_KEY' },
   { pattern: /(?:password|passwd|pwd)\s*[:=]\s*["'`]([^"'`\s]{8,})["'`]/gi, message: 'Hardcoded password detected', severity: 'critical', autoFixAvailable: true, suggestedFix: 'process.env.PASSWORD' },
   { pattern: /-----BEGIN (?:RSA |DSA |EC |OPENSSH )?PRIVATE KEY-----/g, message: 'Private key detected', severity: 'critical', autoFixAvailable: false },
   { pattern: /mongodb(?:\+srv)?:\/\/[^:]+:[^@]+@/gi, message: 'MongoDB connection string with credentials', severity: 'critical', autoFixAvailable: true, suggestedFix: 'process.env.MONGODB_URI' },

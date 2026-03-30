@@ -1,0 +1,62 @@
+{
+  "name": "@guardrail/engines",
+  "version": "1.0.0",
+  "description": "Guardrail detection engines — phantom deps, API truth, ghost routes, security, credentials",
+  "license": "MIT",
+  "author": "Guardrail Team",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardiavault-oss/codeguard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guardiavault-oss/codeguard/issues"
+  },
+  "homepage": "https://guardrail.dev",
+  "keywords": [
+    "guardrail",
+    "engines",
+    "detection",
+    "phantom-dependency",
+    "api-validation",
+    "security",
+    "ai-code-quality"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "compile": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "guardrail-security": "workspace:*"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.3",
+    "vitest": "^2.1.8"
+  }
+}

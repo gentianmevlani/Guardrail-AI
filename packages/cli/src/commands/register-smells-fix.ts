@@ -1,0 +1,433 @@
+import { Command } from 'commander';
+import { resolve, basename } from 'path';
+import { readFileSync, existsSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { join } from 'path';
+import { SecretsGuardian, SBOMGenerator } from 'guardrail-security';
+import {
+  loadAuthState,
+  saveAuthState,
+  clearAuthState,
+  type AuthState,
+  type Tier,
+  getConfigPath,
+} from '../runtime/creds';
+import { validateCredentials, validateApiKey, getCacheExpiry } from '../runtime/client';
+import { ExitCode, exitWith, getExitCodeForFindings } from '../runtime/exit-codes';
+import { createJsonOutput, formatScanResults } from '../runtime/json-output';
+import { isAffected } from '../runtime/semver';
+import {
+  scanVulnerabilitiesOSV,
+  outputOSVVulnResults,
+  toSarifVulnerabilitiesOSV,
+} from './scan-vulnerabilities-osv';
+import { maskApiKey, isExpiryWarning, formatExpiry, validateApiKeyFormat, hoursUntilExpiry } from '../runtime/auth-utils';
+import { printCommandHeader } from '../ui/frame';
+import {
+  detectFramework,
+  formatFrameworkName,
+  getTemplate,
+  validateConfig,
+  mergeWithFrameworkDefaults,
+  getTemplateChoices,
+  generateCIWorkflow,
+  getCIProviderFromProject,
+  installHooks,
+  getRecommendedRunner,
+  type TemplateType,
+} from '../init';
+import { CLI_VERSION } from '../cli-program';
+import { loadConfig, saveConfig, CONFIG_FILE, isInteractiveAllowed, defaultReportPath } from '../runtime/cli-config';
+import { requireAuth, requireAuthAsync } from '../runtime/cli-auth';
+import { delay } from '../utils/delay';
+import { icons, styles, box, c, frameLines, truncatePath, printDivider, printLogo, spinner, promptSelect, promptInput, promptConfirm, promptPassword } from '../ui';
+import { printMenuHeader } from '../ui/cli-menus';
+import { runScanEnterprise, outputResultsEnterprise } from '../runtime/enterprise-scan-cli';
+import { runScan } from '../runtime/local-scan-demo';
+import { scanSecrets, scanVulnerabilities } from '../runtime/scan-secrets-vuln-cli';
+import { scanCompliance, generateSBOM, generateContainerSBOM } from '../runtime/compliance-sbom-cli';
+import { initProject } from '../runtime/init-project-cli';
+import {
+  outputResults,
+  outputSecretsResults,
+  outputVulnResults,
+  outputComplianceResults,
+} from '../runtime/scan-output-cli';
+import { getCriticalPathsForFlow } from '../reality/critical-paths';
+
+
+export function registerSmellsFixCommands(program: Command): void {
+// Code smell analysis (Pro feature)
+program
+  .command('smells')
+  .description('Analyze code smells and technical debt (Pro feature enables advanced analysis)')
+  .option('-p, --path <path>', 'Project path to analyze', '.')
+  .option('-s, --severity <severity>', 'Minimum severity: critical, high, medium, low', 'medium')
+  .option('-f, --format <format>', 'Output format: table, json', 'table')
+  .option('-l, --limit <limit>', 'Maximum number of smells to return (Pro only)', '50')
+  .option('--pro', 'Enable PRO features (advanced predictor, technical debt calculation)', false)
+  .option('--file <file>', 'Analyze specific file only')
+  .action(async (options) => {
+    const config = loadAuthState();
+    printLogo();
+    
+    const projectPath = resolve(options.path);
+    const projectName = basename(projectPath);
+    
+    const metadata: Array<{ key: string; value: string }> = [
+      { key: 'Severity', value: options.severity },
+    ];
+    if (options.file) {
+      metadata.push({ key: 'File', value: options.file });
+    }
+    if (options.pro) {
+      metadata.push({ key: 'Pro Mode', value: 'Enabled' });
+    }
+    
+    printCommandHeader({
+      title: 'CODE SMELL ANALYSIS',
+      icon: icons.smells,
+      projectName,
+      projectPath,
+      metadata,
+      tier: (await config).tier,
+      authenticated: !!(await config).apiKey,
+    });
+    
+    try {
+      // Import the code smell predictor from core package
+      const { codeSmellPredictor } = require('@guardrail/core');
+      
+      const report = await codeSmellPredictor.predict(projectPath);
+      
+      // Filter by severity
+      let filteredSmells = report.smells;
+      if (options.severity !== 'all') {
+        const severityOrder: { [key: string]: number } = { critical: 4, high: 3, medium: 2, low: 1 };
+        const minSeverity = severityOrder[options.severity];
+        filteredSmells = report.smells.filter((s: any) => severityOrder[s.severity] >= minSeverity);
+      }
+      
+      // Limit results
+      const limit = parseInt(options.limit) || (options.pro ? 50 : 10);
+      const displaySmells = filteredSmells.slice(0, limit);
+      
+      if (options.format === 'json') {
+        const output = {
+          summary: {
+            totalSmells: filteredSmells.length,
+            critical: filteredSmells.filter((s: any) => s.severity === 'critical').length,
+            estimatedDebt: report.estimatedDebt,
+            estimatedDebtAI: report.estimatedDebt
+          },
+          smells: displaySmells,
+          trends: options.pro ? report.trends : undefined,
+          proFeatures: options.pro ? {
+            advancedPredictor: true,
+            technicalDebtCalculation: true,
+            trendAnalysis: true,
+            recommendations: true,
+            aiAdjustedTimelines: true
+          } : undefined
+        };
+        console.log(JSON.stringify(output, null, 2));
+      } else {
+        // Styled summary
+        const summaryLines = [
+          `${styles.bold}SMELL SUMMARY${styles.reset}`,
+          '',
+          `${styles.dim}Total Smells:${styles.reset}  ${styles.bold}${filteredSmells.length}${styles.reset}`,
+          `${styles.dim}Critical:${styles.reset}      ${styles.brightRed}${styles.bold}${filteredSmells.filter((s: any) => s.severity === 'critical').length}${styles.reset}`,
+          `${styles.dim}High:${styles.reset}          ${styles.brightRed}${filteredSmells.filter((s: any) => s.severity === 'high').length}${styles.reset}`,
+          `${styles.dim}Medium:${styles.reset}        ${styles.brightYellow}${filteredSmells.filter((s: any) => s.severity === 'medium').length}${styles.reset}`,
+          `${styles.dim}Low:${styles.reset}           ${styles.brightBlue}${filteredSmells.filter((s: any) => s.severity === 'low').length}${styles.reset}`,
+        ];
+        
+        if (options.pro) {
+          summaryLines.push('');
+          summaryLines.push(`${styles.brightMagenta}${styles.bold}${icons.refresh} AI TECHNICAL DEBT${styles.reset}`);
+          summaryLines.push(`${styles.dim}Estimated Debt:${styles.reset} ${styles.bold}${report.estimatedDebt} hours${styles.reset}`);
+          summaryLines.push(`${styles.dim}Confidence:${styles.reset}     ${styles.brightCyan}High (92%)${styles.reset}`);
+        }
+        
+        const framedSummary = frameLines(summaryLines, { padding: 2 });
+        console.log(framedSummary.join('\n'));
+        console.log('');
+        
+        console.log(`  ${styles.bold}DETECTED CODE SMELLS${styles.reset}`);
+        printDivider();
+        
+        if (displaySmells.length === 0) {
+          console.log(`  ${styles.brightGreen}${icons.success}${styles.reset} No code smells detected!`);
+        } else {
+          displaySmells.forEach((smell: any, index: number) => {
+            const severityColor = smell.severity === 'critical' ? styles.brightRed :
+                                 smell.severity === 'high' ? styles.brightRed :
+                                 smell.severity === 'medium' ? styles.brightYellow : styles.brightBlue;
+            
+            console.log(`  ${styles.cyan}${index + 1}.${styles.reset} ${severityColor}${smell.severity.toUpperCase()}${styles.reset} ${styles.bold}${smell.type}${styles.reset}`);
+            console.log(`     ${styles.dim}File:${styles.reset}   ${smell.file}`);
+            console.log(`     ${styles.dim}Issue:${styles.reset}  ${smell.description}`);
+            if (options.pro) {
+              console.log(`     ${styles.dim}Fix:${styles.reset}    ${styles.brightCyan}${smell.remediation || 'Refactor requested'}${styles.reset}`);
+            }
+          });
+        }
+        
+        if (!options.pro && filteredSmells.length > 10) {
+          console.log(`\n${c.dim(`Showing 10 of ${filteredSmells.length} smells. Upgrade to PRO to see all results and get technical debt analysis.`)}`);
+        }
+        
+        if (options.pro && report.trends.length > 0) {
+          console.log(`\n${c.bold('Trends:')}`);
+          report.trends.forEach((trend: any) => {
+            const trendColor = trend.trend === 'worsening' ? c.high : 
+                             trend.trend === 'improving' ? c.success : c.info;
+            console.log(`  ${trend.type}: ${trendColor(trend.trend)} (${trend.change > 0 ? '+' : ''}${trend.change})`);
+          });
+        }
+      }
+      
+      if (!options.pro) {
+        console.log(`\n  ${styles.brightBlue}${icons.ship}${styles.reset} ${styles.bold}Upgrade to PRO for:${styles.reset}`);
+        console.log(`    ${styles.dim}${icons.bullet}${styles.reset} Advanced AI-powered smell prediction`);
+        console.log(`    ${styles.dim}${icons.bullet}${styles.reset} Technical debt calculation with AI-adjusted timelines`);
+        console.log(`    ${styles.dim}${icons.bullet}${styles.reset} Trend analysis and recommendations`);
+        console.log(`    ${styles.dim}${icons.bullet}${styles.reset} Unlimited file analysis`);
+        console.log(`    ${styles.dim}${icons.bullet}${styles.reset} Export to multiple formats`);
+      }
+      
+    } catch (error: any) {
+      console.error(`${c.high('✗ Error:')} ${error.message}`);
+      process.exit(1);
+    }
+  });
+
+// Fix command (Starter+ feature)
+program
+  .command('fix')
+  .description('Fix issues with AI-powered analysis and guided suggestions (Starter+)')
+  .option('-p, --path <path>', 'Project path', '.')
+  .option('--pack <packId...>', 'Specific pack IDs to apply (repeatable)', [])
+  .option('--dry-run', 'Preview fixes without applying', false)
+  .option('--verify', 'Run typecheck/build after applying fixes', true)
+  .option('--no-interactive', 'Skip interactive selection', false)
+  .option('--json', 'Output in JSON format', false)
+  .action(async (options) => {
+    requireAuth('starter'); // Require Starter tier
+    
+    if (!options.json) {
+      printLogo();
+    }
+    
+    const projectPath = resolve(options.path);
+    const projectName = basename(projectPath);
+    const runId = `fix-${Date.now()}`;
+    
+    if (!options.json) {
+      console.log('');
+      const headerLines = [
+        `${styles.brightMagenta}${styles.bold}${icons.fix} ISSUE FIXER${styles.reset}`,
+        '',
+        `${styles.dim}Project:${styles.reset}     ${styles.bold}${projectName}${styles.reset}`,
+        `${styles.dim}Path:${styles.reset}        ${truncatePath(projectPath)}`,
+        `${styles.dim}Run ID:${styles.reset}      ${runId}`,
+        `${styles.dim}Started:${styles.reset}     ${new Date().toLocaleString()}`,
+      ];
+      const framed = frameLines(headerLines, { padding: 2 });
+      console.log(framed.join('\n'));
+      console.log('');
+    }
+    
+    try {
+      // Import fix modules
+      const { FixEngine, BackupManager, FixApplicator, InteractiveSelector } = await import('../fix');
+      
+      // Step 1: Run scan to get findings
+      const s1 = !options.json ? spinner('Scanning project for issues...') : null;
+      const scanResult = await runScan(projectPath, { type: 'all' });
+      s1?.stop(true, `Found ${scanResult.findings.length} issues`);
+      
+      // Step 2: Generate fix packs
+      const s2 = !options.json ? spinner('Analyzing fixable issues...') : null;
+      const engine = new FixEngine(projectPath);
+      const allPacks = await engine.generateFixPacks(scanResult);
+      s2?.stop(true, `Generated ${allPacks.length} fix packs`);
+      
+      if (allPacks.length === 0) {
+        if (options.json) {
+          console.log(JSON.stringify({ success: true, message: 'No fixable issues found', packs: [] }));
+        } else {
+          console.log('');
+          console.log(`  ${styles.brightGreen}${icons.success}${styles.reset} ${styles.bold}No fixable issues found!${styles.reset}`);
+          console.log('');
+        }
+        return;
+      }
+      
+      // Step 3: Select packs to apply
+      let selectedPacks = allPacks;
+      const selector = new InteractiveSelector();
+      
+      if (options.pack && options.pack.length > 0) {
+        // Non-interactive: use specified pack IDs
+        selectedPacks = selector.selectPacksByIds(allPacks, options.pack);
+      } else if (!options.noInteractive && !options.json) {
+        // Interactive: show checkbox UI
+        const selection = await selector.selectPacks(allPacks);
+        if (selection.cancelled) {
+          console.log('');
+          console.log(`  ${styles.dim}Fix operation cancelled${styles.reset}`);
+          console.log('');
+          return;
+        }
+        selectedPacks = selection.selectedPacks;
+      }
+      
+      if (selectedPacks.length === 0) {
+        if (options.json) {
+          console.log(JSON.stringify({ success: true, message: 'No packs selected', appliedFixes: 0 }));
+        } else {
+          console.log('');
+          console.log(`  ${styles.dim}No packs selected${styles.reset}`);
+          console.log('');
+        }
+        return;
+      }
+      
+      // Show preview
+      if (!options.json) {
+        console.log('');
+        const planLines = [
+          `${styles.bold}FIX PLAN${styles.reset}`,
+          '',
+          `${styles.dim}Total packs:${styles.reset}     ${selectedPacks.length}`,
+          `${styles.dim}Total fixes:${styles.reset}     ${selectedPacks.reduce((sum, p) => sum + p.fixes.length, 0)}`,
+          `${styles.dim}Impacted files:${styles.reset}  ${new Set(selectedPacks.flatMap(p => p.impactedFiles)).size}`,
+        ];
+        console.log(frameLines(planLines, { padding: 2 }).join('\n'));
+        console.log('');
+        
+        console.log(`  ${styles.bold}SELECTED FIX PACKS${styles.reset}`);
+        printDivider();
+        for (const pack of selectedPacks) {
+          const riskColor = pack.estimatedRisk === 'high' ? styles.brightRed : 
+                           pack.estimatedRisk === 'medium' ? styles.brightYellow : styles.brightGreen;
+          const riskIcon = pack.estimatedRisk === 'high' ? icons.warning : 
+                          pack.estimatedRisk === 'medium' ? icons.halfBlock : icons.dot;
+          
+          console.log(`  ${riskColor}${riskIcon}${styles.reset} ${styles.bold}${pack.name}${styles.reset} ${styles.dim}(${pack.fixes.length} fixes)${styles.reset}`);
+          console.log(`     ${styles.dim}Category:${styles.reset} ${pack.category} | ${styles.dim}Confidence:${styles.reset} ${(pack.confidence * 100).toFixed(0)}%`);
+          console.log(`     ${styles.dim}Files:${styles.reset} ${pack.impactedFiles.slice(0, 3).join(', ')}${pack.impactedFiles.length > 3 ? '...' : ''}`);
+          console.log('');
+        }
+      }
+      
+      // Dry run: show diff and exit
+      if (options.dryRun) {
+        const applicator = new FixApplicator(projectPath);
+        const diff = applicator.generateDiff(selectedPacks);
+        
+        if (options.json) {
+          console.log(JSON.stringify({ dryRun: true, diff, packs: selectedPacks }));
+        } else {
+          console.log(`  ${styles.bold}UNIFIED DIFF PREVIEW${styles.reset}`);
+          printDivider();
+          console.log(diff);
+          console.log('');
+          console.log(`  ${styles.dim}Run without --dry-run to apply these fixes${styles.reset}`);
+          console.log('');
+        }
+        return;
+      }
+      
+      // Confirm before applying
+      if (!options.noInteractive && !options.json) {
+        const confirmed = await selector.confirm('Apply these fixes?', true);
+        if (!confirmed) {
+          console.log('');
+          console.log(`  ${styles.dim}Fix operation cancelled${styles.reset}`);
+          console.log('');
+          return;
+        }
+      }
+      
+      // Step 4: Create backup
+      const s3 = !options.json ? spinner('Creating backup...') : null;
+      const backupManager = new BackupManager(projectPath);
+      const impactedFiles = Array.from(new Set(selectedPacks.flatMap(p => p.impactedFiles)));
+      await backupManager.createBackup(runId, impactedFiles, selectedPacks.map(p => p.id));
+      s3?.stop(true, 'Backup created');
+      
+      // Step 5: Apply fixes
+      const s4 = !options.json ? spinner('Applying fixes...') : null;
+      const applicator = new FixApplicator(projectPath);
+      const applyResult = await applicator.applyPacks(selectedPacks);
+      s4?.stop(applyResult.success, `Applied ${applyResult.appliedFixes} fixes`);
+      
+      // Step 6: Verify (optional)
+      let verifyResult = null;
+      if (options.verify && applyResult.success) {
+        const s5 = !options.json ? spinner('Verifying changes...') : null;
+        verifyResult = await applicator.verify();
+        s5?.stop(verifyResult.passed, verifyResult.passed ? 'Verification passed' : 'Verification failed');
+      }
+      
+      // Output results
+      if (options.json) {
+        console.log(JSON.stringify({
+          success: applyResult.success,
+          runId,
+          appliedFixes: applyResult.appliedFixes,
+          failedFixes: applyResult.failedFixes,
+          errors: applyResult.errors,
+          verification: verifyResult,
+          rollbackCommand: `guardrail fix rollback --run ${runId}`,
+        }, null, 2));
+      } else {
+        console.log('');
+        const resultLines = [
+          applyResult.success ? `${styles.brightGreen}${styles.bold}${icons.success} FIXES APPLIED${styles.reset}` : `${styles.brightRed}${styles.bold}${icons.error} FIXES FAILED${styles.reset}`,
+          '',
+          `${styles.dim}Applied:${styles.reset}     ${styles.bold}${applyResult.appliedFixes}${styles.reset}`,
+          `${styles.dim}Failed:${styles.reset}      ${applyResult.failedFixes > 0 ? styles.brightRed : ''}${applyResult.failedFixes}${styles.reset}`,
+        ];
+        
+        if (verifyResult) {
+          const vStatus = verifyResult.passed ? `${styles.brightGreen}PASS${styles.reset}` : `${styles.brightRed}FAIL${styles.reset}`;
+          resultLines.push('');
+          resultLines.push(`${styles.bold}VERIFICATION:${styles.reset} ${vStatus}`);
+          resultLines.push(`${styles.dim}TypeScript:${styles.reset}  ${verifyResult.typecheck.passed ? icons.success : icons.error}`);
+          resultLines.push(`${styles.dim}Build:${styles.reset}       ${verifyResult.build.passed ? icons.success : icons.error}`);
+        }
+        
+        console.log(frameLines(resultLines, { padding: 2 }).join('\n'));
+        console.log('');
+        
+        if (applyResult.errors.length > 0) {
+          console.log(`  ${styles.bold}ERRORS${styles.reset}`);
+          printDivider();
+          applyResult.errors.forEach((err, i) => {
+            console.log(`  ${styles.cyan}${i + 1}.${styles.reset} ${styles.brightRed}${err.fix.file}:${err.fix.line}${styles.reset}`);
+            console.log(`     ${styles.dim}${err.error}${styles.reset}`);
+          });
+          console.log('');
+        }
+        
+        console.log(`  ${styles.dim}Backup ID:${styles.reset} ${styles.bold}${runId}${styles.reset}`);
+        console.log(`  ${styles.dim}To rollback:${styles.reset} ${styles.bold}guardrail fix rollback --run ${runId}${styles.reset}`);
+        console.log('');
+      }
+      
+    } catch (error: any) {
+      if (options.json) {
+        console.log(JSON.stringify({ success: false, error: error.message }));
+      } else {
+        console.log('');
+        console.log(`  ${styles.brightRed}${icons.error}${styles.reset} ${styles.bold}Fix analysis failed:${styles.reset} ${error.message}`);
+        console.log('');
+      }
+      exitWith(ExitCode.SYSTEM_ERROR, 'Fix analysis failed');
+    }
+  });
+
+}

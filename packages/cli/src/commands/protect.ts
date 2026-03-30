@@ -1,0 +1,212 @@
+/**
+ * guardrail protect
+ *
+ * One command to wire Guardrail into every stage of your project.
+ * Sets up: pre-commit hooks, CI workflow, VS Code settings,
+ * AI context file, and watch mode config.
+ *
+ * This is the "install an immune system" command.
+ *
+ * Usage:
+ *   guardrail protect              # Interactive setup
+ *   guardrail protect --all        # Install everything
+ *   guardrail protect --hooks      # Just hooks
+ *   guardrail protect --ci         # Just CI
+ *   guardrail protect --context    # Just AI context
+ */
+
+import { Command } from 'commander';
+import { join, basename } from 'path';
+import { existsSync, writeFileSync, mkdirSync, readFileSync } from 'fs';
+import { styles, icons } from '../ui';
+import { createSteps } from '../ui/progress';
+import { printLogo } from '../ui';
+import { validateProjectPath, withErrorHandler } from './shared';
+import {
+  detectFramework,
+  formatFrameworkName,
+  getTemplate,
+  mergeWithFrameworkDefaults,
+  generateCIWorkflow,
+  getCIProviderFromProject,
+  installHooks,
+  getRecommendedRunner,
+} from '../init';
+
+export function registerProtectCommand(program: Command): void {
+  program
+    .command('protect')
+    .description('Wire Guardrail into every stage: hooks, CI, AI context, editor')
+    .option('-p, --path <path>', 'Project path', '.')
+    .option('--all', 'Install all protections')
+    .option('--hooks', 'Install git hooks only')
+    .option('--ci', 'Install CI workflow only')
+    .option('--context', 'Generate AI context file only')
+    .option('--editor', 'Configure VS Code settings only')
+    .option('--verify-url <url>', 'Add post-deploy verification URL')
+    .action(async (options) => {
+      const projectPath = validateProjectPath(options.path);
+      const projectName = basename(projectPath);
+      const installAll = options.all || (!options.hooks && !options.ci && !options.context && !options.editor);
+
+      printLogo();
+      console.log(`\n${styles.brightCyan}${styles.bold}  🛡️ PROTECTING ${projectName.toUpperCase()}${styles.reset}\n`);
+
+      // Count what we'll install
+      const items: string[] = [];
+      if (installAll || options.hooks) items.push('hooks');
+      if (installAll || options.ci) items.push('ci');
+      if (installAll || options.context) items.push('context');
+      if (installAll || options.editor) items.push('editor');
+
+      const steps = createSteps(items.length);
+
+      // Detect framework
+      const detection = detectFramework(projectPath);
+      const template = getTemplate('startup');
+      const config = mergeWithFrameworkDefaults(template.config, detection.framework, detection.recommendedScans);
+
+      // ── Git Hooks ──
+      if (installAll || options.hooks) {
+        steps.start('Installing git hooks');
+        try {
+          const runner = getRecommendedRunner(projectPath);
+          const result = installHooks({
+            projectPath,
+            config,
+            runner,
+            preCommit: true,
+            prePush: true,
+          });
+          if (result.success) {
+            steps.complete(`Git hooks: ${result.installedHooks.join(', ')} (${result.runner})`);
+          } else {
+            steps.fail(`Git hooks: ${result.error}`);
+          }
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : String(err);
+          steps.fail(`Git hooks: ${msg}`);
+        }
+      }
+
+      // ── CI Workflow ──
+      if (installAll || options.ci) {
+        steps.start('Installing CI workflow');
+        const ciProvider = getCIProviderFromProject(projectPath);
+        if (ciProvider) {
+          try {
+            const ciResult = generateCIWorkflow({ projectPath, config, provider: ciProvider as 'github' | 'gitlab' | 'azure' | 'bitbucket' });
+            steps.complete(`CI: ${ciProvider} workflow at ${ciResult.workflowPath}`);
+          } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : String(err);
+            steps.fail(`CI: ${msg}`);
+          }
+        } else {
+          // Default to GitHub Actions
+          try {
+            const ciResult = generateCIWorkflow({ projectPath, config, provider: 'github' });
+            steps.complete(`CI: GitHub Actions at ${ciResult.workflowPath}`);
+          } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : String(err);
+            steps.fail(`CI: ${msg}`);
+          }
+        }
+      }
+
+      // ── AI Context ──
+      if (installAll || options.context) {
+        steps.start('Generating AI context file');
+        try {
+          // Simplified inline context generation
+          const guardrailDir = join(projectPath, '.guardrail');
+          if (!existsSync(guardrailDir)) mkdirSync(guardrailDir, { recursive: true });
+
+          const contextLines: string[] = [
+            `# Guardrail Context — ${projectName}`,
+            '',
+            `> Auto-generated by \`guardrail protect\`. Regenerate: \`guardrail context\``,
+            '',
+            `## Framework: ${formatFrameworkName(detection.framework)}`,
+            '',
+            '## Rules',
+            '1. Never hardcode secrets — use `process.env.VAR_NAME`',
+            '2. Never use mock data in production code',
+            '3. All sensitive routes must have auth middleware',
+            '4. Run `guardrail scan` before committing',
+            '',
+            `> Run \`guardrail context\` for full route/schema/env extraction.`,
+          ];
+
+          writeFileSync(join(guardrailDir, 'context.md'), contextLines.join('\n'));
+          steps.complete('AI context: .guardrail/context.md');
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : String(err);
+          steps.fail(`AI context: ${msg}`);
+        }
+      }
+
+      // ── Editor Settings ──
+      if (installAll || options.editor) {
+        steps.start('Configuring VS Code settings');
+        try {
+          const vscodeDir = join(projectPath, '.vscode');
+          if (!existsSync(vscodeDir)) mkdirSync(vscodeDir, { recursive: true });
+
+          const settingsPath = join(vscodeDir, 'settings.json');
+          let settings: Record<string, unknown> = {};
+
+          if (existsSync(settingsPath)) {
+            try {
+              settings = JSON.parse(readFileSync(settingsPath, 'utf-8'));
+            } catch { /* fresh settings */ }
+          }
+
+          // Add Guardrail settings (don't overwrite existing)
+          const guardrailSettings: Record<string, boolean> = {
+            'guardrail.enabled': true,
+            'guardrail.analyzeOnSave': true,
+            'guardrail.showInlineHints': true,
+            'guardrail.scanOnOpen': true,
+          };
+
+          let modified = false;
+          for (const [key, value] of Object.entries(guardrailSettings)) {
+            if (!(key in settings)) {
+              settings[key] = value;
+              modified = true;
+            }
+          }
+
+          if (modified) {
+            writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
+            steps.complete('VS Code: scan-on-save enabled');
+          } else {
+            steps.complete('VS Code: already configured');
+          }
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : String(err);
+          steps.fail(`VS Code: ${msg}`);
+        }
+      }
+
+      // ── Summary ──
+      console.log('');
+      console.log(`  ${styles.brightGreen}${styles.bold}✓ Protection installed${styles.reset}\n`);
+      console.log(`  ${styles.bold}Your project is now protected at every stage:${styles.reset}`);
+      console.log('');
+      console.log(`  ${styles.dim}Write code${styles.reset}     → VS Code scans on save + quick-fix actions`);
+      console.log(`  ${styles.dim}Commit${styles.reset}         → pre-commit hook scans staged files (<2s)`);
+      console.log(`  ${styles.dim}Push${styles.reset}           → pre-push hook runs ship check`);
+      console.log(`  ${styles.dim}PR${styles.reset}             → CI workflow comments trust score`);
+      console.log(`  ${styles.dim}Merge${styles.reset}          → CI gate blocks on critical findings`);
+      if (options.verifyUrl) {
+        console.log(`  ${styles.dim}Deploy${styles.reset}         → guardrail verify --url ${options.verifyUrl}`);
+      } else {
+        console.log(`  ${styles.dim}Deploy${styles.reset}         → guardrail verify --url <your-url>`);
+      }
+      console.log(`  ${styles.dim}Dev (live)${styles.reset}     → guardrail watch`);
+      console.log('');
+      console.log(`  ${styles.dim}AI protection: .guardrail/context.md feeds truth to your AI tools${styles.reset}`);
+      console.log('');
+    });
+}

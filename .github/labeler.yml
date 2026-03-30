@@ -1,0 +1,76 @@
+# Configuration for actions/labeler
+# https://github.com/actions/labeler
+
+# Documentation
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - "docs/**/*"
+          - "*.md"
+
+# CLI changes
+cli:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "bin/**/*"
+          - "packages/cli/**/*"
+
+# Core engine
+core:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/core/**/*"
+          - "src/lib/**/*"
+
+# Web UI
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/web-ui/**/*"
+
+# API
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/api/**/*"
+
+# Tests
+testing:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.test.ts"
+          - "**/*.spec.ts"
+          - "tests/**/*"
+          - "e2e/**/*"
+
+# CI/CD
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**/*"
+          - "docker/**/*"
+          - "deploy/**/*"
+
+# Database
+database:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "prisma/**/*"
+
+# Security
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/compliance/**/*"
+          - "SECURITY.md"
+
+# Configuration
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "*.config.*"
+          - "*.json"
+          - "*.yml"
+          - "*.yaml"
+          - ".env*"

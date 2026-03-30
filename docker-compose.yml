@@ -1,0 +1,178 @@
+# =============================================================================
+# Docker Compose for guardrail - Full Stack
+# =============================================================================
+# Includes: API, Web UI, PostgreSQL, Redis
+# 
+# SECURITY: Set required env vars before running:
+#   export POSTGRES_PASSWORD=$(openssl rand -base64 32)
+#   export REDIS_PASSWORD=$(openssl rand -base64 32)
+#   export JWT_SECRET=$(openssl rand -base64 32)
+#   docker-compose up -d
+# =============================================================================
+
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: guardrail-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-guardrail}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD_required}
+      POSTGRES_DB: ${POSTGRES_DB:-guardrail}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-guardrail}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - guardrail-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: guardrail-redis
+    command:
+      - redis-server
+      - --requirepass
+      - "${REDIS_PASSWORD:?REDIS_PASSWORD_required}"
+      - --appendonly
+      - "yes"
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - guardrail-network
+
+  # API Server
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: guardrail-api
+    ports:
+      - "${API_PORT:-3000}:3000"
+    environment:
+      # Node
+      NODE_ENV: ${NODE_ENV:-production}
+      
+      # Server
+      PORT: 3000
+      HOST: 0.0.0.0
+      
+      # Database
+      DATABASE_URL: postgresql://${POSTGRES_USER:-guardrail}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-guardrail}
+      
+      # Redis
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      
+      # Auth Secrets (required)
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET_required}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-${JWT_SECRET}}
+      COOKIE_SECRET: ${COOKIE_SECRET:-${JWT_SECRET}}
+      SESSION_SECRET: ${SESSION_SECRET:-${JWT_SECRET}}
+      
+      # CORS
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5000}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN:-http://localhost:5000}
+      
+      # URLs
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3000}
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:5000}
+      
+      # Optional: GitHub OAuth
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+      GITHUB_CALLBACK_URL: ${GITHUB_CALLBACK_URL:-}
+      
+      # Optional: Stripe
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      
+      # Optional: OpenAI
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      
+      # Optional: Sentry
+      SENTRY_DSN: ${SENTRY_DSN:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - guardrail-network
+
+  # Web UI (Next.js)
+  web:
+    build:
+      context: .
+      dockerfile: apps/web-ui/Dockerfile
+    container_name: guardrail-web
+    ports:
+      - "${WEB_PORT:-5000}:5000"
+    environment:
+      # Node
+      NODE_ENV: ${NODE_ENV:-production}
+      
+      # URLs (required for web-ui)
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3000}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:5000}
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000}
+      
+      # Optional: WebSocket
+      NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL:-}
+      
+      # Optional: GitHub OAuth
+      NEXT_PUBLIC_GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      
+      # Optional: Stripe
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+      
+      # Optional: Sentry
+      NEXT_PUBLIC_SENTRY_DSN: ${SENTRY_DSN:-}
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - guardrail-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  guardrail-network:
+    driver: bridge

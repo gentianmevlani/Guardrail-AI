@@ -201,3 +201,10 @@ test-scan*.json
 # Cookie files
 cookies.txt
 *.cookie
+
+# VibeCheck
+.vibecheck/screenshots/
+.vibecheck/scan-results.json
+.vibecheck/context-engine-ledger.json
+# Provenance previews may echo code snippets that trip secret scanning — keep local only
+.vibecheck/provenance/edits.jsonl

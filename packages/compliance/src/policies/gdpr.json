@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "framework": "GDPR",
+  "rules": [
+    {
+      "id": "GDPR-ART32-001",
+      "controlId": "Article 32",
+      "title": "Data Encryption",
+      "description": "Personal data must be encrypted both at rest and in transit",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasEncryption",
+          "expected": true
+        },
+        {
+          "type": "dependency-present",
+          "target": "bcrypt"
+        }
+      ],
+      "remediation": "Implement encryption for all personal data using industry-standard algorithms (AES-256, RSA-2048+)."
+    },
+    {
+      "id": "GDPR-ART32-002",
+      "controlId": "Article 32",
+      "title": "Access Controls",
+      "description": "Access to personal data must be restricted and controlled",
+      "severity": "critical",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuth",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasRBAC",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement authentication and role-based access control. Ensure principle of least privilege."
+    },
+    {
+      "id": "GDPR-ART30-001",
+      "controlId": "Article 30",
+      "title": "Processing Activity Records",
+      "description": "Maintain records of all data processing activities",
+      "severity": "high",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuditLog",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasLogging",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement comprehensive audit logging for all personal data access and processing activities."
+    },
+    {
+      "id": "GDPR-ART25-001",
+      "controlId": "Article 25",
+      "title": "Data Protection by Design",
+      "description": "Privacy and data protection must be built into system design",
+      "severity": "high",
+      "category": "design",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": "docs/privacy-design.md"
+        },
+        {
+          "type": "file-exists",
+          "target": "PRIVACY.md"
+        }
+      ],
+      "remediation": "Document privacy-by-design principles. Implement data minimization, purpose limitation, and privacy-preserving defaults."
+    },
+    {
+      "id": "GDPR-ART33-001",
+      "controlId": "Article 33",
+      "title": "Breach Detection and Notification",
+      "description": "System must detect and enable notification of data breaches within 72 hours",
+      "severity": "critical",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasMonitoring",
+          "expected": true
+        },
+        {
+          "type": "dependency-present",
+          "target": "@sentry/node"
+        }
+      ],
+      "remediation": "Implement real-time monitoring and alerting for security incidents. Create breach response procedures."
+    }
+  ]
+}

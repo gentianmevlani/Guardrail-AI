@@ -1,0 +1,174 @@
+/**
+ * Vibecoder Dashboard Styles
+ */
+
+.vibecoder-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+.vibecoder-sidebar {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #e5e7eb;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.vibecoder-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.vibecoder-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.vibecoder-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.vibecoder-nav-item:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.vibecoder-nav-item.active {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.vibecoder-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.vibecoder-tab {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vibecoder-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 3rem 0;
+}
+
+.vibecoder-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vibecoder-hero p {
+  font-size: 1.25rem;
+  color: #6b7280;
+}
+
+.vibecoder-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.vibecoder-build-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.vibecoder-build-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+}
+
+.vibecoder-build-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.vibecoder-quick-actions {
+  margin-top: 3rem;
+}
+
+.vibecoder-quick-actions h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.quick-action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.quick-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-action-card:hover {
+  border-color: #3b82f6;
+  background: #f9fafb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.quick-action-card svg {
+  color: #3b82f6;
+}
+
+.quick-action-card span {
+  font-weight: 500;
+  color: #374151;
+}
+

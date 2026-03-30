@@ -1,0 +1,3155 @@
+{
+  "instances": [
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 6,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:6"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 59,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:59"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 64,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:64"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 66,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:66"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 71,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:71"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 74,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:74"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 75,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:75"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\doctor.ts",
+      "line": 77,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\doctor.ts:77"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\index.ts",
+      "line": 4,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\index.ts:4"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\index.ts",
+      "line": 10,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\index.ts:10"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\init.ts",
+      "line": 5,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\init.ts:5"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\init.ts",
+      "line": 19,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\init.ts:19"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\init.ts",
+      "line": 25,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\init.ts:25"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\init.ts",
+      "line": 28,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\init.ts:28"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\init.ts",
+      "line": 31,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\init.ts:31"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\init.ts",
+      "line": 34,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\init.ts:34"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\init.ts",
+      "line": 36,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\init.ts:36"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\serve.ts",
+      "line": 8,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\serve.ts:8"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\serve.ts",
+      "line": 10,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\serve.ts:10"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\serve.ts",
+      "line": 14,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\serve.ts:14"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\serve.ts",
+      "line": 17,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\serve.ts:17"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\serve.ts",
+      "line": 15,
+      "match": "3847",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\cli\\src\\commands\\serve.ts:15"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 5,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:5"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 8,
+      "match": "console.error(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:8"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 15,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:15"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 23,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:23"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 27,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:27"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 29,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:29"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 33,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:33"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 36,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:36"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\commands\\verify.ts",
+      "line": 39,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\commands\\verify.ts:39"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\cli\\src\\main.ts",
+      "line": 86,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\cli\\src\\main.ts:86"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\main.ts",
+      "line": 12,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\main.ts:12"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\main.ts",
+      "line": 82,
+      "match": "console.error(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\main.ts:82"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\cli\\src\\main.ts",
+      "line": 87,
+      "match": "console.error(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\cli\\src\\main.ts:87"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\cli\\src\\main.ts",
+      "line": 31,
+      "match": "3847",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\cli\\src\\main.ts:31"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\cli\\src\\main.ts",
+      "line": 72,
+      "match": "3847",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\cli\\src\\main.ts:72"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\engine\\src\\index.ts",
+      "line": 22,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\engine\\src\\index.ts:22"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\engine\\src\\index.ts",
+      "line": 25,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\engine\\src\\index.ts:25"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\engine\\src\\index.ts",
+      "line": 28,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\engine\\src\\index.ts:28"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\engine\\src\\index.ts",
+      "line": 31,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\engine\\src\\index.ts:31"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\engine\\src\\index.ts",
+      "line": 36,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\engine\\src\\index.ts:36"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\engine\\src\\index.ts",
+      "line": 39,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\engine\\src\\index.ts:39"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\engine\\src\\index.ts",
+      "line": 42,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\engine\\src\\index.ts:42"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 43,
+      "match": "<any>",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:43"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 131,
+      "match": "127",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:131"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 131,
+      "match": "192",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:131"
+    },
+    {
+      "patternId": "dangerouslySetInnerHTML",
+      "patternName": "Dangerous innerHTML",
+      "severity": "high",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 103,
+      "match": "dangerouslySetInnerHTML",
+      "suggestedFix": "Sanitize HTML content or use a safe alternative",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:103"
+    },
+    {
+      "patternId": "dangerouslySetInnerHTML",
+      "patternName": "Dangerous innerHTML",
+      "severity": "high",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 105,
+      "match": "dangerouslySetInnerHTML",
+      "suggestedFix": "Sanitize HTML content or use a safe alternative",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:105"
+    },
+    {
+      "patternId": "dangerouslySetInnerHTML",
+      "patternName": "Dangerous innerHTML",
+      "severity": "high",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 107,
+      "match": "dangerouslySetInnerHTML",
+      "suggestedFix": "Sanitize HTML content or use a safe alternative",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:107"
+    },
+    {
+      "patternId": "eval-usage",
+      "patternName": "eval() usage",
+      "severity": "critical",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 112,
+      "match": "eval(",
+      "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:112"
+    },
+    {
+      "patternId": "eval-usage",
+      "patternName": "eval() usage",
+      "severity": "critical",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 113,
+      "match": "eval(",
+      "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:113"
+    },
+    {
+      "patternId": "eval-usage",
+      "patternName": "eval() usage",
+      "severity": "critical",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 116,
+      "match": "eval(",
+      "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:116"
+    },
+    {
+      "patternId": "ts-ignore",
+      "patternName": "@ts-ignore usage",
+      "severity": "medium",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 144,
+      "match": "@ts-ignore",
+      "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:144"
+    },
+    {
+      "patternId": "ts-ignore",
+      "patternName": "@ts-ignore usage",
+      "severity": "medium",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 145,
+      "match": "@ts-ignore",
+      "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:145"
+    },
+    {
+      "patternId": "ts-ignore",
+      "patternName": "@ts-ignore usage",
+      "severity": "medium",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 147,
+      "match": "@ts-ignore",
+      "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:147"
+    },
+    {
+      "patternId": "ts-ignore",
+      "patternName": "@ts-ignore usage",
+      "severity": "medium",
+      "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+      "line": 147,
+      "match": "@ts-nocheck",
+      "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+      "proof": "packages\\engine\\src\\scan\\antipatterns.ts:147"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\importance.ts",
+      "line": 31,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\importance.ts:31"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\importance.ts",
+      "line": 31,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\importance.ts:31"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 27,
+      "match": "400",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:27"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 34,
+      "match": "350",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:34"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 49,
+      "match": "250",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:49"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 56,
+      "match": "300",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:56"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 71,
+      "match": "300",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:71"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 78,
+      "match": "280",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:78"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 91,
+      "match": "300",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:91"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 98,
+      "match": "300",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:98"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 113,
+      "match": "350",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:113"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\scan\\patterns.ts",
+      "line": 120,
+      "match": "320",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\scan\\patterns.ts:120"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\verify\\fast.ts",
+      "line": 54,
+      "match": "2000",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\verify\\fast.ts:54"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+      "line": 18,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:18"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+      "line": 34,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:34"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+      "line": 15,
+      "match": "60000",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:15"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+      "line": 20,
+      "match": "6000",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:20"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+      "line": 31,
+      "match": "120000",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:31"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+      "line": 36,
+      "match": "6000",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:36"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 270,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\server.ts:270"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 279,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\server.ts:279"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 279,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\server.ts:279"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 314,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\server.ts:314"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 333,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\server.ts:333"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 313,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\mcp-server\\src\\server.ts:313"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 315,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\mcp-server\\src\\server.ts:315"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 319,
+      "match": "console.error(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\mcp-server\\src\\server.ts:319"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 348,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\mcp-server\\src\\server.ts:348"
+    },
+    {
+      "patternId": "console-log",
+      "patternName": "Console statements in production",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 349,
+      "match": "console.log(",
+      "suggestedFix": "Use a proper logging library or remove console statements",
+      "proof": "packages\\mcp-server\\src\\server.ts:349"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 16,
+      "match": "2024",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\server.ts:16"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 302,
+      "match": "32601",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\server.ts:302"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 322,
+      "match": "3847",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\server.ts:322"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 331,
+      "match": "200",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\server.ts:331"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 334,
+      "match": "400",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\server.ts:334"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 339,
+      "match": "200",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\server.ts:339"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\server.ts",
+      "line": 342,
+      "match": "200",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\server.ts:342"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\tools\\antipatterns.ts",
+      "line": 65,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\tools\\antipatterns.ts:65"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+      "line": 37,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:37"
+    },
+    {
+      "patternId": "any-type",
+      "patternName": "TypeScript 'any' usage",
+      "severity": "medium",
+      "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+      "line": 54,
+      "match": ": any",
+      "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+      "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:54"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+      "line": 23,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:23"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+      "line": 28,
+      "match": "400",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:28"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+      "line": 47,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:47"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+      "line": 49,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:49"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+      "line": 57,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:57"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\repo.ts",
+      "line": 23,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\repo.ts:23"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\repo.ts",
+      "line": 23,
+      "match": "100",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\repo.ts:23"
+    },
+    {
+      "patternId": "magic-number",
+      "patternName": "Magic numbers",
+      "severity": "low",
+      "file": "packages\\mcp-server\\src\\tools\\verify.ts",
+      "line": 36,
+      "match": "500",
+      "suggestedFix": "Extract magic numbers into named constants",
+      "proof": "packages\\mcp-server\\src\\tools\\verify.ts:36"
+    }
+  ],
+  "byPattern": {
+    "console-log": [
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 6,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:6"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 59,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:59"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 64,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:64"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 66,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:66"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 71,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:71"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 74,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:74"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 75,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:75"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 77,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:77"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\index.ts",
+        "line": 4,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\index.ts:4"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\index.ts",
+        "line": 10,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\index.ts:10"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 5,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:5"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 19,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:19"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 25,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:25"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 28,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:28"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 31,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:31"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 34,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:34"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 36,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:36"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 8,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:8"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 10,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:10"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 14,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:14"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 17,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:17"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 5,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:5"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 8,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:8"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 15,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:15"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 23,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:23"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 27,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:27"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 29,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:29"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 33,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:33"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 36,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:36"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 39,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:39"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 12,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\main.ts:12"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 82,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\main.ts:82"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 87,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\main.ts:87"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 22,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:22"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 25,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:25"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 28,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:28"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 31,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:31"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 36,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:36"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 39,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:39"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 42,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:42"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 313,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:313"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 315,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:315"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 319,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:319"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 348,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:348"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 349,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:349"
+      }
+    ],
+    "magic-number": [
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 15,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:15"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 31,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\cli\\src\\main.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 72,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\cli\\src\\main.ts:72"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 131,
+        "match": "127",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:131"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 131,
+        "match": "192",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:131"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\importance.ts",
+        "line": 31,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\importance.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\importance.ts",
+        "line": 31,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\importance.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 27,
+        "match": "400",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:27"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 34,
+        "match": "350",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:34"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 49,
+        "match": "250",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:49"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 56,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:56"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 71,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:71"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 78,
+        "match": "280",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:78"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 91,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:91"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 98,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:98"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 113,
+        "match": "350",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:113"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 120,
+        "match": "320",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:120"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\fast.ts",
+        "line": 54,
+        "match": "2000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\fast.ts:54"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 15,
+        "match": "60000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:15"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 20,
+        "match": "6000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:20"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 31,
+        "match": "120000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 36,
+        "match": "6000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:36"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 16,
+        "match": "2024",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:16"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 302,
+        "match": "32601",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:302"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 322,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:322"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 331,
+        "match": "200",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:331"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 334,
+        "match": "400",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:334"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 339,
+        "match": "200",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:339"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 342,
+        "match": "200",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:342"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 23,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:23"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 28,
+        "match": "400",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:28"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 47,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:47"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 49,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:49"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 57,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:57"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\repo.ts",
+        "line": 23,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\repo.ts:23"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\repo.ts",
+        "line": 23,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\repo.ts:23"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\verify.ts",
+        "line": 36,
+        "match": "500",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\verify.ts:36"
+      }
+    ],
+    "any-type": [
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 86,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\cli\\src\\main.ts:86"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 43,
+        "match": "<any>",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:43"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 18,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:18"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 34,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:34"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 270,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:270"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 279,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:279"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 279,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:279"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 314,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:314"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 333,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:333"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\tools\\antipatterns.ts",
+        "line": 65,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\tools\\antipatterns.ts:65"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 37,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:37"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 54,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:54"
+      }
+    ],
+    "dangerouslySetInnerHTML": [
+      {
+        "patternId": "dangerouslySetInnerHTML",
+        "patternName": "Dangerous innerHTML",
+        "severity": "high",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 103,
+        "match": "dangerouslySetInnerHTML",
+        "suggestedFix": "Sanitize HTML content or use a safe alternative",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:103"
+      },
+      {
+        "patternId": "dangerouslySetInnerHTML",
+        "patternName": "Dangerous innerHTML",
+        "severity": "high",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 105,
+        "match": "dangerouslySetInnerHTML",
+        "suggestedFix": "Sanitize HTML content or use a safe alternative",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:105"
+      },
+      {
+        "patternId": "dangerouslySetInnerHTML",
+        "patternName": "Dangerous innerHTML",
+        "severity": "high",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 107,
+        "match": "dangerouslySetInnerHTML",
+        "suggestedFix": "Sanitize HTML content or use a safe alternative",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:107"
+      }
+    ],
+    "eval-usage": [
+      {
+        "patternId": "eval-usage",
+        "patternName": "eval() usage",
+        "severity": "critical",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 112,
+        "match": "eval(",
+        "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:112"
+      },
+      {
+        "patternId": "eval-usage",
+        "patternName": "eval() usage",
+        "severity": "critical",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 113,
+        "match": "eval(",
+        "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:113"
+      },
+      {
+        "patternId": "eval-usage",
+        "patternName": "eval() usage",
+        "severity": "critical",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 116,
+        "match": "eval(",
+        "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:116"
+      }
+    ],
+    "ts-ignore": [
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 144,
+        "match": "@ts-ignore",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:144"
+      },
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 145,
+        "match": "@ts-ignore",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:145"
+      },
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 147,
+        "match": "@ts-ignore",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:147"
+      },
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 147,
+        "match": "@ts-nocheck",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:147"
+      }
+    ]
+  },
+  "bySeverity": {
+    "critical": [
+      {
+        "patternId": "eval-usage",
+        "patternName": "eval() usage",
+        "severity": "critical",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 112,
+        "match": "eval(",
+        "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:112"
+      },
+      {
+        "patternId": "eval-usage",
+        "patternName": "eval() usage",
+        "severity": "critical",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 113,
+        "match": "eval(",
+        "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:113"
+      },
+      {
+        "patternId": "eval-usage",
+        "patternName": "eval() usage",
+        "severity": "critical",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 116,
+        "match": "eval(",
+        "suggestedFix": "Avoid eval() - use JSON.parse(), Function constructor, or refactor logic",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:116"
+      }
+    ],
+    "high": [
+      {
+        "patternId": "dangerouslySetInnerHTML",
+        "patternName": "Dangerous innerHTML",
+        "severity": "high",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 103,
+        "match": "dangerouslySetInnerHTML",
+        "suggestedFix": "Sanitize HTML content or use a safe alternative",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:103"
+      },
+      {
+        "patternId": "dangerouslySetInnerHTML",
+        "patternName": "Dangerous innerHTML",
+        "severity": "high",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 105,
+        "match": "dangerouslySetInnerHTML",
+        "suggestedFix": "Sanitize HTML content or use a safe alternative",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:105"
+      },
+      {
+        "patternId": "dangerouslySetInnerHTML",
+        "patternName": "Dangerous innerHTML",
+        "severity": "high",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 107,
+        "match": "dangerouslySetInnerHTML",
+        "suggestedFix": "Sanitize HTML content or use a safe alternative",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:107"
+      }
+    ],
+    "medium": [
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 86,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\cli\\src\\main.ts:86"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 43,
+        "match": "<any>",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:43"
+      },
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 144,
+        "match": "@ts-ignore",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:144"
+      },
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 145,
+        "match": "@ts-ignore",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:145"
+      },
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 147,
+        "match": "@ts-ignore",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:147"
+      },
+      {
+        "patternId": "ts-ignore",
+        "patternName": "@ts-ignore usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 147,
+        "match": "@ts-nocheck",
+        "suggestedFix": "Fix the type error or use @ts-expect-error with explanation",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:147"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 18,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:18"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 34,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:34"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 270,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:270"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 279,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:279"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 279,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:279"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 314,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:314"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 333,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\server.ts:333"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\tools\\antipatterns.ts",
+        "line": 65,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\tools\\antipatterns.ts:65"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 37,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:37"
+      },
+      {
+        "patternId": "any-type",
+        "patternName": "TypeScript 'any' usage",
+        "severity": "medium",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 54,
+        "match": ": any",
+        "suggestedFix": "Use specific types, 'unknown', or generic type parameters instead of 'any'",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:54"
+      }
+    ],
+    "low": [
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 6,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:6"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 59,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:59"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 64,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:64"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 66,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:66"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 71,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:71"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 74,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:74"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 75,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:75"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\doctor.ts",
+        "line": 77,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\doctor.ts:77"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\index.ts",
+        "line": 4,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\index.ts:4"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\index.ts",
+        "line": 10,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\index.ts:10"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 5,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:5"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 19,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:19"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 25,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:25"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 28,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:28"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 31,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:31"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 34,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:34"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\init.ts",
+        "line": 36,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\init.ts:36"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 8,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:8"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 10,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:10"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 14,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:14"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 17,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:17"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\serve.ts",
+        "line": 15,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\cli\\src\\commands\\serve.ts:15"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 5,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:5"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 8,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:8"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 15,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:15"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 23,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:23"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 27,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:27"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 29,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:29"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 33,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:33"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 36,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:36"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\commands\\verify.ts",
+        "line": 39,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\commands\\verify.ts:39"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 12,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\main.ts:12"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 82,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\main.ts:82"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 87,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\cli\\src\\main.ts:87"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 31,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\cli\\src\\main.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\cli\\src\\main.ts",
+        "line": 72,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\cli\\src\\main.ts:72"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 22,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:22"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 25,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:25"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 28,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:28"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 31,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:31"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 36,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:36"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 39,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:39"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\engine\\src\\index.ts",
+        "line": 42,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\engine\\src\\index.ts:42"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 131,
+        "match": "127",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:131"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\antipatterns.ts",
+        "line": 131,
+        "match": "192",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\antipatterns.ts:131"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\importance.ts",
+        "line": 31,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\importance.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\importance.ts",
+        "line": 31,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\importance.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 27,
+        "match": "400",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:27"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 34,
+        "match": "350",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:34"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 49,
+        "match": "250",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:49"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 56,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:56"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 71,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:71"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 78,
+        "match": "280",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:78"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 91,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:91"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 98,
+        "match": "300",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:98"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 113,
+        "match": "350",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:113"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\scan\\patterns.ts",
+        "line": 120,
+        "match": "320",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\scan\\patterns.ts:120"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\fast.ts",
+        "line": 54,
+        "match": "2000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\fast.ts:54"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 15,
+        "match": "60000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:15"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 20,
+        "match": "6000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:20"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 31,
+        "match": "120000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:31"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\engine\\src\\verify\\gates\\commands.ts",
+        "line": 36,
+        "match": "6000",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\engine\\src\\verify\\gates\\commands.ts:36"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 313,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:313"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 315,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:315"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 319,
+        "match": "console.error(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:319"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 348,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:348"
+      },
+      {
+        "patternId": "console-log",
+        "patternName": "Console statements in production",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 349,
+        "match": "console.log(",
+        "suggestedFix": "Use a proper logging library or remove console statements",
+        "proof": "packages\\mcp-server\\src\\server.ts:349"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 16,
+        "match": "2024",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:16"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 302,
+        "match": "32601",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:302"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 322,
+        "match": "3847",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:322"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 331,
+        "match": "200",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:331"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 334,
+        "match": "400",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:334"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 339,
+        "match": "200",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:339"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\server.ts",
+        "line": 342,
+        "match": "200",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\server.ts:342"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 23,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:23"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 28,
+        "match": "400",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:28"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 47,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:47"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 49,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:49"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\autopilot.ts",
+        "line": 57,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\autopilot.ts:57"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\repo.ts",
+        "line": 23,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\repo.ts:23"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\repo.ts",
+        "line": 23,
+        "match": "100",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\repo.ts:23"
+      },
+      {
+        "patternId": "magic-number",
+        "patternName": "Magic numbers",
+        "severity": "low",
+        "file": "packages\\mcp-server\\src\\tools\\verify.ts",
+        "line": 36,
+        "match": "500",
+        "suggestedFix": "Extract magic numbers into named constants",
+        "proof": "packages\\mcp-server\\src\\tools\\verify.ts:36"
+      }
+    ]
+  },
+  "summary": {
+    "total": 104,
+    "critical": 3,
+    "high": 3,
+    "medium": 16,
+    "low": 82
+  }
+}

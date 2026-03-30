@@ -179,7 +179,7 @@ export function middleware(request: NextRequest) {
     // Connect: API calls, websockets, analytics, and development services (Sentry, etc.)
     isProduction
       ? "connect-src 'self' https: wss: https://www.google-analytics.com https://analytics.google.com"
-      : "connect-src 'self' https: wss: http://localhost:3000 http://localhost:5000 http://127.0.0.1:7242 https://www.google-analytics.com https://analytics.google.com",
+      : "connect-src 'self' https: wss: http://localhost:3000 http://localhost:5000 http://localhost:5001 http://127.0.0.1:7242 https://www.google-analytics.com https://analytics.google.com",
     // Frames: none by default, add Stripe if needed
     "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
     // Frame ancestors: prevent clickjacking

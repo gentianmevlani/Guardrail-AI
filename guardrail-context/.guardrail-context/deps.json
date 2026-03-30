@@ -1,0 +1,13 @@
+{
+  "lockfile": {
+    "type": "pnpm",
+    "path": "pnpm-lock.yaml"
+  },
+  "packageJson": {
+    "dependencies": {},
+    "devDependencies": {
+      "typescript": "^5.3.0"
+    },
+    "peerDependencies": {}
+  }
+}

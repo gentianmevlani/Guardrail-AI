@@ -1,6 +1,17 @@
+const path = require("path");
+
+/** Monorepo root — enables coverageThreshold paths like `./apps/api/src/`. */
+const rootDir = path.resolve(__dirname, "..");
+
 module.exports = {
+  rootDir,
   testEnvironment: "node",
-  roots: ["<rootDir>/../src", "<rootDir>/../packages", "<rootDir>/../apps", "<rootDir>/../tests"],
+  roots: [
+    "<rootDir>/src",
+    "<rootDir>/packages",
+    "<rootDir>/apps",
+    "<rootDir>/tests",
+  ],
   testMatch: [
     "**/__tests__/**/*.+(ts|tsx|js)",
     "**/*.(test|spec).+(ts|tsx|js)",
@@ -64,16 +75,67 @@ module.exports = {
     "node_modules/(?!(.*\\.mjs$|@guardrail/core|@guardrail/database|@guardrail/security|@guardrail/ai-guardrails|@guardrail/compliance))",
     "packages/core/src/types.js",
   ],
+  // Root `src/**/*.tsx` is excluded: istanbul uses Babel for collection and cannot parse JSX here.
+  // React/UI coverage is enforced by Vitest in apps/web-ui (see CONTRIBUTING.md).
   collectCoverageFrom: [
-    '<rootDir>/../src/**/*.{ts,tsx}',
-    '<rootDir>/../packages/*/src/**/*.{ts,tsx}',
-    '<rootDir>/../apps/*/src/**/*.{ts,tsx}',
+    "<rootDir>/src/**/*.ts",
+    "<rootDir>/packages/*/src/**/*.ts",
+    "<rootDir>/apps/api/src/**/*.ts",
+    "!<rootDir>/**/node_modules/**",
+    "!<rootDir>/**/*.d.ts",
+    "!<rootDir>/**/*.{test,spec}.ts",
   ],
-  coverageDirectory: '<rootDir>/../coverage',
-  coverageReporters: ['text', 'lcov', 'html', 'json', 'json-summary'],
-  /** Use V8 coverage; babel/istanbul instrumentation conflicts with many TS/ESM modules in this repo. */
-  coverageProvider: 'v8',
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  coverageDirectory: "<rootDir>/coverage",
+  coverageReporters: ["text", "lcov", "html", "json", "json-summary"],
+  /**
+   * Per-slice floors from `pnpm test -- --coverage` → `coverage/coverage-summary.json` (aggregated by path).
+   * No global 80% gate. `glob` is pinned to ^7.x so babel-plugin-istanbul can instrument (see package.json overrides).
+   */
+  coverageThreshold: {
+    "./src/": {
+      branches: 3,
+      functions: 2,
+      lines: 3,
+      statements: 3,
+    },
+    "./apps/api/src/": {
+      branches: 2,
+      functions: 2,
+      lines: 2,
+      statements: 2,
+    },
+    "./packages/ai-guardrails/src/": {
+      branches: 8,
+      functions: 21,
+      lines: 18,
+      statements: 18,
+    },
+    "./packages/cli/src/": {
+      branches: 9,
+      functions: 11,
+      lines: 10,
+      statements: 10,
+    },
+    "./packages/core/src/": {
+      branches: 24,
+      functions: 22,
+      lines: 30,
+      statements: 30,
+    },
+    "./packages/security/src/": {
+      branches: 32,
+      functions: 37,
+      lines: 41,
+      statements: 40,
+    },
+    "./packages/ship/src/": {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0,
+    },
+  },
+  setupFilesAfterEnv: ["<rootDir>/config/jest.setup.js"],
   globals: {
     "ts-jest": {
       tsconfig: "tsconfig.json",
@@ -82,21 +144,21 @@ module.exports = {
   },
   // @/ aliases resolve to apps/web-ui (canonical app). Root src/ is deprecated — do not map tests to ../src.
   moduleNameMapper: {
-    "^@/lib/(.*)$": "<rootDir>/../apps/web-ui/src/lib/$1",
-    "^@/components/(.*)$": "<rootDir>/../apps/web-ui/src/components/$1",
-    "^@/hooks/(.*)$": "<rootDir>/../apps/web-ui/src/hooks/$1",
-    "^@/types/(.*)$": "<rootDir>/../apps/web-ui/src/types/$1",
-    "^@/features/(.*)$": "<rootDir>/../apps/web-ui/src/features/$1",
-    "^@/context/(.*)$": "<rootDir>/../apps/web-ui/src/context/$1",
-    "^@/server/(.*)$": "<rootDir>/../apps/web-ui/src/server/$1",
-    "^@/config/(.*)$": "<rootDir>/../apps/web-ui/src/config/$1",
-    "^@/(.*)$": "<rootDir>/../apps/web-ui/src/$1",
+    "^@/lib/(.*)$": "<rootDir>/apps/web-ui/src/lib/$1",
+    "^@/components/(.*)$": "<rootDir>/apps/web-ui/src/components/$1",
+    "^@/hooks/(.*)$": "<rootDir>/apps/web-ui/src/hooks/$1",
+    "^@/types/(.*)$": "<rootDir>/apps/web-ui/src/types/$1",
+    "^@/features/(.*)$": "<rootDir>/apps/web-ui/src/features/$1",
+    "^@/context/(.*)$": "<rootDir>/apps/web-ui/src/context/$1",
+    "^@/server/(.*)$": "<rootDir>/apps/web-ui/src/server/$1",
+    "^@/config/(.*)$": "<rootDir>/apps/web-ui/src/config/$1",
+    "^@/(.*)$": "<rootDir>/apps/web-ui/src/$1",
     // Workspace packages
-    "^@guardrail/core$": "<rootDir>/../packages/core/src/index.ts",
-    "^@guardrail/database$": "<rootDir>/../packages/database/src/index.ts",
-    "^@guardrail/security$": "<rootDir>/../packages/security/src/index.ts",
-    "^@guardrail/ai-guardrails$": "<rootDir>/../packages/ai-guardrails/src/index.ts",
-    "^@guardrail/compliance$": "<rootDir>/../packages/compliance/src/index.ts",
+    "^@guardrail/core$": "<rootDir>/packages/core/src/index.ts",
+    "^@guardrail/database$": "<rootDir>/packages/database/src/index.ts",
+    "^@guardrail/security$": "<rootDir>/packages/security/src/index.ts",
+    "^@guardrail/ai-guardrails$": "<rootDir>/packages/ai-guardrails/src/index.ts",
+    "^@guardrail/compliance$": "<rootDir>/packages/compliance/src/index.ts",
   },
   verbose: true,
 };

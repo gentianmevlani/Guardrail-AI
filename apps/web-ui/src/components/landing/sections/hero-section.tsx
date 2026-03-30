@@ -30,22 +30,29 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
   const scaleBackground = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const yText = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const yVisual = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const rotateVisual = useTransform(scrollYProgress, [0, 1], [0, 5]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
       ref={ref}
-      className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-20 sm:pt-0 relative overflow-hidden"
+      className="relative flex w-full min-h-[calc(100vh-4rem)] min-h-[calc(100svh-4rem)] items-center justify-center overflow-hidden"
     >
+      {/* CSS fallback gradient (always visible) */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-teal-950/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(45,212,191,0.12),transparent)]" />
+      </div>
+
+      {/* WebGL warp (renders on top when available) */}
       <motion.div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-[1]"
         style={{ y: yBackground, scale: scaleBackground, opacity }}
       >
         <WarpBackground speed={0.3} intensity={0.8} />
       </motion.div>
-      <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="flex flex-col gap-12 py-12">
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28 lg:px-8 lg:pt-32">
+        <div className="flex flex-col gap-10 py-8 sm:gap-12 sm:py-10">
           <motion.div
             style={{ y: yText, opacity }}
             initial={{ opacity: 0, y: -30, filter: "blur(10px)" }}
@@ -53,7 +60,10 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center text-center"
           >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold leading-[1.1] tracking-tight">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-teal-400/80">
+              guardrail
+            </p>
+            <h1 className="font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               <motion.span
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -71,9 +81,9 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
                   delay: 0.5,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="inline-block bg-gradient-to-r from-blue-300 via-cyan-300 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                className="inline-block bg-gradient-to-r from-teal-200 via-cyan-200 to-teal-400 bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(45,212,191,0.35)]"
               >
-                Ship with confidence.
+                Ship with proof.
               </motion.span>
             </h1>
 
@@ -81,7 +91,7 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="mt-8 text-xl text-gray-400 max-w-2xl leading-relaxed"
+              className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400 sm:text-xl"
             >
               One command tells you if your app actually works—or just looks
               like it does. Catch fake features, broken auth, and exposed

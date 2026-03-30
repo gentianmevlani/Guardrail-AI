@@ -1,0 +1,114 @@
+// Usage Tracking Schema for Guardrail Quotas
+// 
+// INTEGRATION INSTRUCTIONS:
+// Copy these model definitions to your main schema.prisma file.
+// Ensure you have Organization and User models defined.
+// Run: npx prisma migrate dev --name add-usage-tracking
+//
+// This file is a REFERENCE only - not directly used by Prisma.
+
+// Usage Record - tracks individual usage events with idempotency
+// model UsageRecord {
+//   id          String   @id @default(cuid())
+//   orgId       String
+//   userId      String?
+//   type        String   // 'scan' | 'reality' | 'agent' | 'fix' | 'gate'
+//   count       Int      @default(1)
+//   requestId   String?  @unique // For idempotency
+//   timestamp   DateTime @default(now())
+//   metadata    Json?    // Additional context (project, command, etc.)
+//   synced      Boolean  @default(true) // For offline sync tracking
+//   
+//   org         Organization @relation(fields: [orgId], references: [id])
+//   user        User?        @relation(fields: [userId], references: [id])
+//   
+//   @@index([orgId, type, timestamp])
+//   @@index([requestId])
+//   @@index([timestamp])
+// }
+
+model UsageRecordStandalone {
+  id          String   @id @default(cuid())
+  orgId       String
+  userId      String?
+  type        String
+  count       Int      @default(1)
+  requestId   String?  @unique
+  timestamp   DateTime @default(now())
+  metadata    Json?
+  synced      Boolean  @default(true)
+  
+  @@index([orgId, type, timestamp])
+  @@index([requestId])
+  @@index([timestamp])
+}
+
+// Usage Summary - aggregated usage per billing period
+model UsageSummaryStandalone {
+  id              String   @id @default(cuid())
+  orgId           String
+  periodStart     DateTime
+  periodEnd       DateTime
+  scans           Int      @default(0)
+  realityRuns     Int      @default(0)
+  agentRuns       Int      @default(0)
+  fixRuns         Int      @default(0)
+  gateRuns        Int      @default(0)
+  lastUpdated     DateTime @updatedAt
+  
+  @@unique([orgId, periodStart])
+  @@index([orgId])
+  @@index([periodEnd])
+}
+
+// Subscription - tracks tier and billing info
+model SubscriptionStandalone {
+  id                  String    @id @default(cuid())
+  orgId               String    @unique
+  tier                String    @default("free")
+  status              String    @default("active")
+  stripeCustomerId    String?
+  stripeSubscriptionId String?
+  stripePriceId       String?
+  currentPeriodStart  DateTime?
+  currentPeriodEnd    DateTime?
+  cancelAtPeriodEnd   Boolean   @default(false)
+  purchasedSeats      Int       @default(0)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  
+  @@index([stripeCustomerId])
+  @@index([stripeSubscriptionId])
+}
+
+// API Key - for CLI authentication
+model ApiKeyStandalone {
+  id          String    @id @default(cuid())
+  key         String    @unique
+  keyPrefix   String
+  name        String?
+  orgId       String
+  userId      String
+  scopes      String    @default("scan,ship,reality,agent") // Comma-separated list
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  
+  @@index([orgId])
+  @@index([userId])
+  @@index([keyPrefix])
+}
+
+// Rate Limit Record - for API rate limiting
+model RateLimitRecord {
+  id          String   @id @default(cuid())
+  identifier  String   // API key hash or IP
+  endpoint    String
+  count       Int      @default(1)
+  windowStart DateTime
+  windowEnd   DateTime
+  
+  @@unique([identifier, endpoint, windowStart])
+  @@index([windowEnd])
+}

@@ -18,6 +18,7 @@
   "dependencies": {
     "@guardrail/database": "workspace:*",
     "@guardrail/core": "workspace:*",
+    "guardrail-security": "workspace:*",
     "cron": "^3.1.6",
     "nodemailer": "^7.0.12",
     "zod": "^3.22.4"

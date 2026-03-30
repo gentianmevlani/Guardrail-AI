@@ -1,0 +1,238 @@
+{
+  "project": "/Users/liquidgroove/Downloads/Guardrail/Ofiicial/main",
+  "lastConsolidated": "2026-03-30T22:12:57.484Z",
+  "sessionsAnalyzed": 14,
+  "strategies": [
+    {
+      "id": "strat_0",
+      "triggerPattern": {
+        "filePatterns": [
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts",
+          "Downloads/Guardrail-Ofiicial-main/package.json",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/index.ts",
+          "Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/init.ts"
+        ],
+        "errorPatterns": [],
+        "moduleAreas": [
+          "Downloads/Guardrail-Ofiicial-main"
+        ],
+        "promptKeywords": [
+          "Downloads",
+          "Guardrail-Ofiicial-main"
+        ]
+      },
+      "content": "📋 Module checkpoint for Downloads/Guardrail-Ofiicial-main (based on 4 sessions):\nWhen entering this module, preload context on:\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/package.json (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/index.ts (touched in 75% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/init.ts (touched in 50% of sessions)",
+      "scope": "project",
+      "confidence": 0.7499999999768521,
+      "supportingEvidence": [
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        }
+      ],
+      "createdAt": "2026-03-30T22:08:25.779Z",
+      "lastValidated": "2026-03-30T22:12:57.484Z",
+      "decayRatePerDay": 0.002,
+      "injectionCount": 0,
+      "successCount": 0,
+      "tags": [
+        "convergence",
+        "module-checkpoint",
+        "auto-extracted"
+      ]
+    }
+  ],
+  "antiPatterns": [],
+  "optimalPaths": [
+    {
+      "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+      "actualSteps": 12,
+      "optimalSteps": 2,
+      "efficiency": 0.17,
+      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/CLAUDE_STRATEGIES.md but resolution was in ",
+      "wrongTurnNodeId": "node_35",
+      "correctAlternative": "Should have gone directly to "
+    },
+    {
+      "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+      "actualSteps": 38,
+      "optimalSteps": 16,
+      "efficiency": 0.42,
+      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/page.tsx but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/hero-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/cta-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/faq-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/faq-accordion.tsx",
+      "wrongTurnNodeId": "node_7",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/hero-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/cta-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/faq-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/faq-accordion.tsx"
+    },
+    {
+      "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+      "actualSteps": 91,
+      "optimalSteps": 9,
+      "efficiency": 0.1,
+      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/docs/stripe-setup.md but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/core/src/tier-config.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/billing-service.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/package.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/.env.local, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/.env",
+      "wrongTurnNodeId": "node_3",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/core/src/tier-config.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/billing-service.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/package.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/.env.local, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/.env"
+    },
+    {
+      "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+      "actualSteps": 188,
+      "optimalSteps": 109,
+      "efficiency": 0.58,
+      "keyInsight": "Agent investigated **/package.json but resolution was in /Users/liquidgroove/.claude/plans/atomic-bouncing-gray.md, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/spinner.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/progress.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/summary.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/ship-consolidated.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/init.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/watch.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/quick-fixes.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/extension.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/auto-init.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/pre-commit.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/init/hooks-installer.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/verify.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/context.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/protect.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/shared.ts",
+      "wrongTurnNodeId": "node_7",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/.claude/plans/atomic-bouncing-gray.md, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/spinner.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/progress.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/summary.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/ship-consolidated.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/init.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/watch.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/quick-fixes.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/extension.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/auto-init.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/pre-commit.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/init/hooks-installer.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/verify.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/context.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/protect.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/shared.ts"
+    },
+    {
+      "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+      "actualSteps": 83,
+      "optimalSteps": 42,
+      "efficiency": 0.51,
+      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/package.json but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/types.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/collector.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/formatters.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/generator.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/policies/policy-as-code.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/audit/signed-storage.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sso/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/analytics/trend-analytics.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/analytics/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/enterprise.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/enterprise.ts",
+      "wrongTurnNodeId": "node_19",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/types.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/collector.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/formatters.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/generator.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sbom/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/policies/policy-as-code.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/audit/signed-storage.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/sso/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/analytics/trend-analytics.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/analytics/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/compliance/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/enterprise.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/enterprise.ts"
+    },
+    {
+      "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+      "actualSteps": 69,
+      "optimalSteps": 36,
+      "efficiency": 0.52,
+      "keyInsight": "Agent investigated **/.vibecheck/truthpack/*.json but resolution was in /Users/liquidgroove/.claude/plans/snappy-singing-origami.md, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/mcp-server/context-injection.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/mcp-server/index.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/context/generators/inject.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/context/index.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/fix/diff-preview.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/fix-consolidated.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/scan/learning-loop.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts",
+      "wrongTurnNodeId": "node_12",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/.claude/plans/snappy-singing-origami.md, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/mcp-server/context-injection.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/mcp-server/index.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/context/generators/inject.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/context/index.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/fix/diff-preview.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/fix-consolidated.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/scan/learning-loop.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts"
+    },
+    {
+      "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+      "actualSteps": 57,
+      "optimalSteps": 32,
+      "efficiency": 0.56,
+      "keyInsight": "Agent investigated **/package.json but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/types.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/plugin-loader.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/CustomRuleEngine.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/config-loader.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/nextjs.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/express.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/python.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/plugin.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/core-types.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/registry.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/__tests__/CustomRuleEngine.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/__tests__/packs.test.ts",
+      "wrongTurnNodeId": "node_7",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/types.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/plugin-loader.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/CustomRuleEngine.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/config-loader.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/nextjs.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/express.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/python.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/packs/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/plugin.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/cli/src/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/core-types.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/registry.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/__tests__/CustomRuleEngine.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/engines/src/plugins/__tests__/packs.test.ts"
+    },
+    {
+      "sessionId": "59373fa8-ab85-4244-ace3-82823eebdad9",
+      "actualSteps": 62,
+      "optimalSteps": 24,
+      "efficiency": 0.39,
+      "keyInsight": "Agent investigated **/package.json but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/trust-score-public.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/github-app-service.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/webhooks.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.github/workflows/guardrail-scan.yml, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/database/prisma/schema.prisma, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/trust-score-public.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/badge.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/__tests__/pr-comment.test.ts",
+      "wrongTurnNodeId": "node_5",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/trust-score-public.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/github-app-service.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/webhooks.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.github/workflows/guardrail-scan.yml, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/database/prisma/schema.prisma, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/trust-score-public.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/badge.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/__tests__/pr-comment.test.ts"
+    }
+  ],
+  "schemaVersion": 1
+}

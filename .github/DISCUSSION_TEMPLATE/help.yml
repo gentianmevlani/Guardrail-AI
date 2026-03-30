@@ -1,0 +1,62 @@
+title: "[Help]: "
+labels:
+  - help
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Need Help with Guardrail?
+
+        Thanks for reaching out! Please provide as much detail as possible so we can help you.
+
+        > 💡 **Tip:** For faster responses, also ask in our [Discord](https://discord.gg/guardrail)!
+
+  - type: textarea
+    id: question
+    attributes:
+      label: What do you need help with?
+      description: Describe your question or issue clearly
+      placeholder: I'm trying to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you trying to accomplish? What have you tried?
+      placeholder: |
+        Goal: ...
+        What I've tried: ...
+    validations:
+      required: true
+
+  - type: input
+    id: guardrail-version
+    attributes:
+      label: Guardrail Version
+      description: Run `guardrail --version`
+      placeholder: "2.0.0"
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration (if relevant)
+      description: Paste your guardrail.config.json or relevant code
+      render: json
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error Messages (if any)
+      description: Paste any error output
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before asking
+      options:
+        - label: I've checked the [documentation](https://getguardrail.io/docs)
+        - label: I've searched existing [issues](https://github.com/guardiavault-oss/codeguard/issues) and [discussions](https://github.com/guardiavault-oss/codeguard/discussions)

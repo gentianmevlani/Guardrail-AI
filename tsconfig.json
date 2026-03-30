@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/database" },
+    { "path": "./packages/security" },
+    { "path": "./packages/ai-guardrails" },
+    { "path": "./packages/compliance" },
+    { "path": "./apps/api" }
+  ]
+}

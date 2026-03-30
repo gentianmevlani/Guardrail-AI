@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "guardrail": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@guardrail/mcp-server"
+      ],
+      "env": {
+        "GUARDRAIL_DEBUG": "false"
+      }
+    }
+  }
+}
+

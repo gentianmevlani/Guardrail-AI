@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0 -p 5000",
-    "build": "next build",
-    "build:search": "pagefind --site .next --output-path public/pagefind",
-    "build:full": "next build && npm run build:search",
-    "start": "next start -H 0.0.0.0 -p 5000",
-    "lint": "next lint",
+    "dev": "npx --yes next dev -H 0.0.0.0 -p 5001",
+    "build": "npx --yes next build",
+    "build:search": "npx --yes pagefind --site .next --output-path public/pagefind",
+    "build:full": "npx --yes next build && npm run build:search",
+    "start": "npx --yes next start -H 0.0.0.0 -p 5001",
+    "lint": "npx --yes next lint",
     "type-check": "tsc --noEmit --project tsconfig.check.json",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "stripe:listen": "stripe listen --forward-to localhost:5000/api/webhooks/stripe"
+    "stripe:listen": "stripe listen --forward-to localhost:5001/api/webhooks/stripe"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -58,6 +58,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.0.0",
     "framer-motion": "^11.0.3",
+    "guardrail-security": "workspace:*",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.316.0",
     "next": "^14.2.35",
@@ -84,6 +85,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.9",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",

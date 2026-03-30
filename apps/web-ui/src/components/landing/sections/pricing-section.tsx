@@ -1,341 +1,304 @@
 "use client";
 
-import { GlassCardSimple } from "@/components/landing/glass-card";
-import { LiquidMetalButton } from "@/components/landing/liquid-metal-button";
-import { MagneticButton } from "@/components/landing/magnetic-button";
-import { AnimatePresence, motion, useInView } from "framer-motion";
-import { memo, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { PRICING_PLANS, calculateSavings, type PricingPlan } from "@/lib/pricing";
+import { motion, useInView } from "framer-motion";
+import { Check } from "lucide-react";
+import Link from "next/link";
+import { useRef, useState } from "react";
 
-const PRICING_TIERS = [
-  {
-    id: "free",
-    name: "Free",
-    price: 0,
-    annual: 0,
-    description: "Stop embarrassing yourself.",
-    popular: false,
-    features: [
-      "10 scans/month",
-      "1 seat",
-      "Static scan + AI code validation",
-      "Ship badge",
-    ],
-  },
-  {
-    id: "starter",
-    name: "Starter",
-    price: 29,
-    annual: 278, // 20% off: 29 * 12 * 0.8 = 278
-    description: "Ship weekly with proof.",
-    popular: false,
-    features: [
-      "100 scans",
-      "20 Reality runs",
-      "1 seat",
-      "Reality Mode + CI deploy blocking",
-      "Mock detection",
-    ],
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    price: 99,
-    annual: 950, // 20% off: 99 * 12 * 0.8 = 950
-    description: "Fix it for me. Verify it. Don't waste my time.",
-    popular: true,
-    features: [
-      "100 Reality runs",
-      "50 Agent runs",
-      "5 seats included (+$25/seat/mo)",
-      "Autonomous agent runs + verified auto-fix",
-      "Autopilot + IDE/MCP",
-    ],
-  },
-  {
-    id: "compliance",
-    name: "Compliance",
-    price: 199,
-    annual: 1910, // 20% off: 199 * 12 * 0.8 = 1910
-    description: "Auditors want receipts.",
-    popular: false,
-    features: [
-      "200 Reality runs",
-      "100 Agent runs",
-      "10 seats included (+$35/seat/mo)",
-      "Framework mapping + audit-ready PDFs",
-      "Enterprise policy controls",
-    ],
-  },
-];
+const fmt = (n: number) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: n % 1 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(n);
 
-const PricingCard = memo(function PricingCard({ 
-  tier, 
-  billingCycle, 
-  isInView 
-}: { 
-  tier: typeof PRICING_TIERS[0]; 
+/** Stripe Payment Links — keep in sync with billing backend */
+const STRIPE_CHECKOUT: Record<string, { monthly: string; annual: string }> = {
+  starter: {
+    monthly: "https://buy.stripe.com/8x2fZa4GZegD9QU7YW3Nm03",
+    annual: "https://buy.stripe.com/fZu8wI4GZgoL8MQ6US3Nm04",
+  },
+  pro: {
+    monthly: "https://buy.stripe.com/cNi14g7TbegDbZ25QO3Nm05",
+    annual: "https://buy.stripe.com/bJecMY4GZfkHgfi6US3Nm06",
+  },
+  compliance: {
+    monthly: "https://buy.stripe.com/cNi5kwflD0pN4wAfro3Nm07",
+    annual: "https://buy.stripe.com/14A8wI4GZ4G34wAgvs3Nm08",
+  },
+};
+
+function PlanColumn({
+  plan,
+  billingCycle,
+  isInView,
+  index,
+}: {
+  plan: PricingPlan;
   billingCycle: "monthly" | "annual";
   isInView: boolean;
+  index: number;
 }) {
-  const price = billingCycle === "monthly" ? tier.price : tier.annual;
-  const displayPrice = billingCycle === "annual" && price ? price / 12 : price || 0;
-  
-  const calculateSavings = (monthly: number, annual: number) => {
-    const monthlyTotal = monthly * 12;
-    return Math.round(((monthlyTotal - annual) / monthlyTotal) * 100);
-  };
-  
-  const savings = tier.price && tier.annual ? calculateSavings(tier.price, tier.annual) : 0;
+  const isFree = plan.id === "free";
+  const monthlyPrice = plan.price ?? 0;
+  const annualTotal = plan.annual ?? 0;
+  const savings =
+    !isFree && monthlyPrice > 0 && annualTotal > 0
+      ? calculateSavings(monthlyPrice, annualTotal)
+      : 0;
 
-  const stripeLinks: Record<string, { monthly: string; annual: string }> = {
-    starter: {
-      monthly: "https://buy.stripe.com/8x2fZa4GZegD9QU7YW3Nm03",
-      annual: "https://buy.stripe.com/fZu8wI4GZgoL8MQ6US3Nm04",
-    },
-    pro: {
-      monthly: "https://buy.stripe.com/cNi14g7TbegDbZ25QO3Nm05",
-      annual: "https://buy.stripe.com/bJecMY4GZfkHgfi6US3Nm06",
-    },
-    compliance: {
-      monthly: "https://buy.stripe.com/cNi5kwflD0pN4wAfro3Nm07",
-      annual: "https://buy.stripe.com/14A8wI4GZ4G34wAgvs3Nm08",
-    },
-  };
+  const effectiveMonthly =
+    billingCycle === "annual" && annualTotal > 0
+      ? annualTotal / 12
+      : monthlyPrice;
+
+  const stripe = STRIPE_CHECKOUT[plan.id];
 
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 50, scale: 0.9 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          transition: { type: "spring", stiffness: 100, damping: 15 },
-        },
+    <motion.article
+      initial={{ opacity: 0, y: 32 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.5,
+        delay: 0.08 * index,
+        ease: [0.16, 1, 0.3, 1],
       }}
+      className={[
+        "relative flex h-full flex-col rounded-2xl border bg-zinc-950/40 px-6 pb-8 pt-10 backdrop-blur-sm transition-[box-shadow,transform] duration-300",
+        plan.popular
+          ? "z-[1] border-teal-400/35 shadow-[0_0_0_1px_rgba(45,212,191,0.12),0_24px_48px_-24px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)] md:-translate-y-1 md:scale-[1.02]"
+          : "border-white/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-white/15",
+      ].join(" ")}
     >
-      <GlassCardSimple
-        className={[
-          "p-6 h-full",
-          tier.popular && "ring-2 ring-blue-500/30",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        <AnimatePresence>
-          {tier.popular && (
-            <motion.div
-              initial={{ y: -20, opacity: 0, scale: 0 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: -20, opacity: 0, scale: 0 }}
-              className="absolute -top-3 right-4 z-10"
-            >
-              <motion.div
-                animate={{ y: [0, -3, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white"
-                style={{
-                  background: "linear-gradient(135deg, #94a3b8 0%, #64748b 100%)",
-                  boxShadow: "0 10px 30px -5px rgba(148, 163, 184, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3)",
-                }}
-              >
-                Most Popular
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {plan.popular ? (
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/60 to-transparent" />
+      ) : null}
 
-        <div className="text-center mb-6 relative z-10">
-          <h3 className="text-2xl font-semibold mb-2 text-white drop-shadow-lg">
-            {tier.name}
-          </h3>
-          <p className="text-sm text-slate-300">{tier.description}</p>
-        </div>
+      {plan.popular ? (
+        <p className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-teal-500/40 bg-zinc-950 px-3 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-teal-300">
+          Most teams start here
+        </p>
+      ) : null}
 
-        <div className="text-center mb-6 relative z-10">
-          {price !== null ? (
-            <div>
-              <motion.div
-                key={billingCycle}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="flex items-baseline justify-center gap-1"
-              >
-                <span className="text-5xl font-bold text-white drop-shadow-lg">
-                  ${displayPrice === 0 ? "0" : Math.round(displayPrice)}
-                </span>
-                {displayPrice > 0 && (
-                  <span className="text-slate-300">/month</span>
-                )}
-              </motion.div>
-              {billingCycle === "annual" && price > 0 && savings > 0 && (
-                <p className="text-sm text-slate-200 mt-2">
-                  Save {savings}% with annual billing
-                </p>
-              )}
-              {billingCycle === "annual" && price > 0 && (
-                <p className="text-xs text-slate-400 mt-1">
-                  ${price} billed annually
-                </p>
-              )}
-            </div>
-          ) : (
-            <div className="text-4xl font-bold text-white drop-shadow-lg">
-              Custom
-            </div>
-          )}
-        </div>
-
-        <div className="relative z-10 mb-6">
-          <MagneticButton>
-            <LiquidMetalButton
-              onClick={() => {
-                if (tier.id === "free") {
-                  window.location.href = "/dashboard";
-                } else if (stripeLinks[tier.id]) {
-                  window.open(stripeLinks[tier.id][billingCycle], "_blank");
-                }
-              }}
-              size="md"
-            >
-              {tier.id === "free" ? "Start Free" : "Get Started"}
-            </LiquidMetalButton>
-          </MagneticButton>
-        </div>
-
-        <ul className="space-y-2 relative z-10">
-          {tier.features.map((feature, index) => (
-            <motion.li
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ delay: 0.5 + index * 0.05 }}
-              className={`text-sm ${
-                index === 0 && feature.includes("plus:")
-                  ? "text-slate-400 text-xs uppercase tracking-wide list-none"
-                  : "text-slate-200 list-disc ml-4"
-              }`}
-            >
-              {feature}
-            </motion.li>
-          ))}
-        </ul>
-      </GlassCardSimple>
-    </motion.div>
-  );
-});
-
-export function PricingSection() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  return (
-    <section id="pricing" ref={ref} className="px-4 sm:px-6 lg:px-8 py-20">
-      <div className="container mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 60, filter: "blur(8px)" }}
-          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 60, filter: "blur(8px)" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-4 tracking-tight" style={{ textShadow: '0 4px 8px rgba(0,0,0,0.4), 0 8px 16px rgba(0,0,0,0.2)' }}>
-            Pick a plan.
-            <br />
-            <span className="text-blue-400">Get a verdict.</span>
-          </h2>
-          <p className="text-lg text-gray-400 mb-8">
-            Most upgrades happen after the first Reality Mode failure.
+      <header className="mb-6">
+        <h3 className="font-display text-xl font-semibold tracking-tight text-white">
+          {plan.name}
+        </h3>
+        <p className="mt-1 text-sm leading-snug text-zinc-500">
+          {plan.description}
+        </p>
+        {plan.limit ? (
+          <p className="mt-3 text-xs font-medium uppercase tracking-wider text-zinc-600">
+            {plan.limit}
           </p>
+        ) : null}
+      </header>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-1 p-1 rounded-2xl overflow-hidden relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900"
-            style={{
-              border: "1px solid rgba(148, 163, 184, 0.3)",
-              boxShadow: "0 4px 12px rgba(71, 85, 105, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+      <div className="mb-6 border-b border-white/[0.07] pb-6">
+        <motion.div
+          key={`${plan.id}-${billingCycle}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1"
+        >
+          <span className="font-display text-4xl font-semibold tracking-tight text-white tabular-nums sm:text-[2.75rem]">
+            {isFree ? fmt(0) : fmt(effectiveMonthly)}
+          </span>
+          {!isFree ? (
+            <span className="text-sm text-zinc-500">/month</span>
+          ) : (
+            <span className="text-sm text-zinc-500">forever</span>
+          )}
+        </motion.div>
+
+        {!isFree && billingCycle === "annual" && annualTotal > 0 ? (
+          <p className="mt-2 text-xs text-zinc-500">
+            <span className="text-zinc-400">{fmt(annualTotal)}</span> billed once
+            per year
+            {savings > 0 ? (
+              <span className="ml-2 text-teal-400/90">
+                · Save {savings}% vs monthly
+              </span>
+            ) : null}
+          </p>
+        ) : null}
+
+        {!isFree && billingCycle === "monthly" && annualTotal > 0 && savings > 0 ? (
+          <p className="mt-2 text-xs text-zinc-600">
+            Annual billing saves {savings}%
+          </p>
+        ) : null}
+      </div>
+
+      <div className="mb-8">
+        {isFree ? (
+          <Button
+            className="h-11 w-full rounded-lg border border-white/15 bg-transparent font-medium text-white hover:bg-white/[0.06]"
+            variant="outline"
+            asChild
+          >
+            <Link href="/auth?mode=signup">Start free</Link>
+          </Button>
+        ) : stripe ? (
+          <Button
+            className={[
+              "h-11 w-full rounded-lg font-semibold",
+              plan.popular
+                ? "bg-teal-500 text-black hover:bg-teal-400"
+                : "border border-white/20 bg-transparent text-white hover:bg-white/[0.08]",
+            ].join(" ")}
+            variant={plan.popular ? "default" : "outline"}
+            onClick={() => {
+              window.open(stripe[billingCycle], "_blank", "noopener,noreferrer");
             }}
           >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            {plan.cta}
+          </Button>
+        ) : (
+          <Button className="h-11 w-full rounded-lg" asChild>
+            <Link href="/auth?mode=signup">{plan.cta}</Link>
+          </Button>
+        )}
+      </div>
+
+      <ul className="flex flex-1 flex-col gap-3 text-sm text-zinc-400">
+        {plan.features.map((line) => (
+          <li key={line} className="flex gap-3 leading-snug">
+            <Check
+              className="mt-0.5 h-4 w-4 shrink-0 text-teal-500/90"
+              strokeWidth={2.5}
+              aria-hidden
+            />
+            <span>{line}</span>
+          </li>
+        ))}
+      </ul>
+    </motion.article>
+  );
+}
+
+export function PricingSection() {
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">(
+    "monthly",
+  );
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.12 });
+
+  const samplePaid = PRICING_PLANS.find((p) => p.id === "pro");
+  const annualSavingsPct =
+    samplePaid &&
+    samplePaid.price != null &&
+    samplePaid.annual != null &&
+    samplePaid.price > 0
+      ? calculateSavings(samplePaid.price, samplePaid.annual)
+      : 20;
+
+  return (
+    <section
+      id="pricing"
+      ref={ref}
+      className="scroll-mt-28 border-t border-white/[0.07] bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(45,212,191,0.08),transparent)] px-4 py-24 sm:px-6 lg:px-8"
+    >
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-xl"
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-teal-400/85">
+              Pricing
+            </p>
+            <h2 className="font-display mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">
+              Straight numbers.
+              <span className="mt-1 block text-teal-300/95">
+                No spreadsheet archaeology.
+              </span>
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-zinc-500">
+              Same tiers as in-app. Upgrade when findings stop being hypothetical.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className="flex shrink-0 rounded-xl border border-white/10 bg-zinc-950/80 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+            role="tablist"
+            aria-label="Billing period"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={billingCycle === "monthly"}
               onClick={() => setBillingCycle("monthly")}
               className={[
-                "px-6 py-2 rounded-xl transition-all duration-200",
+                "rounded-lg px-5 py-2.5 text-sm font-medium transition-colors",
                 billingCycle === "monthly"
                   ? "bg-white text-black"
-                  : "text-gray-400 hover:text-white",
+                  : "text-zinc-400 hover:text-white",
               ].join(" ")}
             >
               Monthly
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={billingCycle === "annual"}
               onClick={() => setBillingCycle("annual")}
               className={[
-                "px-6 py-2 rounded-xl transition-all duration-200 flex items-center gap-2",
+                "flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-colors",
                 billingCycle === "annual"
                   ? "bg-white text-black"
-                  : "text-gray-400 hover:text-white",
+                  : "text-zinc-400 hover:text-white",
               ].join(" ")}
             >
-              <span>Annual</span>
-              <span className="inline-flex items-center rounded-full bg-blue-500/20 px-2 py-0.5 text-xs text-blue-400">
-                Save 20%
+              Annual
+              <span className="rounded-md bg-teal-500/15 px-1.5 py-0.5 text-[0.7rem] font-semibold uppercase tracking-wide text-teal-400">
+                ~{annualSavingsPct}% off
               </span>
-            </motion.button>
+            </button>
           </motion.div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-            },
-          }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
-        >
-          {PRICING_TIERS.map((tier) => (
-            <PricingCard 
-              key={tier.id} 
-              tier={tier} 
+        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4 lg:pt-2">
+          {PRICING_PLANS.map((plan, index) => (
+            <PlanColumn
+              key={plan.id}
+              plan={plan}
               billingCycle={billingCycle}
               isInView={isInView}
+              index={index}
             />
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50, filter: "blur(6px)" }}
-          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 50, filter: "blur(6px)" }}
-          transition={{ duration: 0.7, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 text-center"
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.45, duration: 0.4 }}
+          className="mt-14 text-center text-sm text-zinc-500"
         >
-          <p className="text-gray-400 mb-2">
-            Start with the Free plan or upgrade anytime. Cancel anytime.
-          </p>
-          <p className="text-sm text-gray-600">
-            Questions?{" "}
-            <button
-              onClick={() => {
-                const event = new CustomEvent("open-modal", {
-                  detail: "Contact",
-                });
-                window.dispatchEvent(event);
-              }}
-              className="text-blue-400 hover:text-blue-300"
-            >
-              Contact our sales team
-            </button>
-          </p>
-        </motion.div>
+          Cancel anytime. Questions?{" "}
+          <button
+            type="button"
+            onClick={() => {
+              window.dispatchEvent(
+                new CustomEvent("open-modal", { detail: "Contact" }),
+              );
+            }}
+            className="font-medium text-teal-400 underline-offset-4 hover:text-teal-300 hover:underline"
+          >
+            Talk to us
+          </button>
+          .
+        </motion.p>
       </div>
     </section>
   );

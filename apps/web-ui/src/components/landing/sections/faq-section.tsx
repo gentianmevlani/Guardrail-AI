@@ -45,29 +45,32 @@ export function FAQSection() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section ref={ref} className="px-4 sm:px-6 lg:px-8 py-20">
-      <div className="container mx-auto max-w-6xl">
+    <section
+      id="faq"
+      ref={ref}
+      className="scroll-mt-28 px-4 py-20 sm:px-6 lg:px-8"
+    >
+      <div className="mx-auto w-full max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 60, filter: "blur(8px)" }}
           animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 60, filter: "blur(8px)" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-4 tracking-tight" style={{ textShadow: '0 4px 8px rgba(0,0,0,0.4), 0 8px 16px rgba(0,0,0,0.2)' }}>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-4 tracking-tight">
             Questions?
             <br />
-            <span className="text-blue-400">Answers.</span>
+            <span className="text-teal-400">Answers.</span>
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Can&apos;t find what you need?
             <button
               onClick={() => {
-                const event = new CustomEvent("open-modal", {
-                  detail: "Contact",
-                });
-                window.dispatchEvent(event);
+                window.dispatchEvent(
+                  new CustomEvent("open-modal", { detail: "Contact" }),
+                );
               }}
-              className="text-blue-400 hover:text-blue-300 ml-1"
+              className="ml-1 text-teal-400 hover:text-teal-300"
             >
               Reach out to our team
             </button>
@@ -101,10 +104,9 @@ export function FAQSection() {
               <MagneticButton>
                 <LiquidMetalButton
                   onClick={() => {
-                    const event = new CustomEvent("open-modal", {
-                      detail: "Contact",
-                    });
-                    window.dispatchEvent(event);
+                    window.dispatchEvent(
+                      new CustomEvent("open-modal", { detail: "Contact" }),
+                    );
                   }}
                   size="md"
                 >

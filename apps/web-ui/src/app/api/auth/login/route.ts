@@ -1,16 +1,16 @@
+import {
+  json503AuthUnconfigured,
+  resolveEmailPasswordAuthBackend,
+} from "@/lib/auth-route-config";
 import { logger } from "@/lib/logger";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-const IS_DEV = process.env.NODE_ENV === "development" || !API_URL;
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Validate required fields
     if (!body.email || !body.password) {
       return NextResponse.json(
         { success: false, error: "Email and password are required" },
@@ -18,9 +18,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Local development mode - create a mock session
-    if (IS_DEV) {
-      // In dev mode, accept any valid email/password combo
+    const backend = resolveEmailPasswordAuthBackend();
+
+    if (backend.mode === "unconfigured") {
+      return json503AuthUnconfigured(backend.devMessage);
+    }
+
+    if (backend.mode === "mock") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(body.email)) {
         return NextResponse.json(
@@ -36,6 +40,16 @@ export async function POST(request: Request) {
         );
       }
 
+      if (
+        body.email !== backend.mockEmail ||
+        body.password !== backend.mockPassword
+      ) {
+        return NextResponse.json(
+          { success: false, error: "Invalid email or password" },
+          { status: 401 },
+        );
+      }
+
       const mockUser = {
         id: `user_${Date.now()}`,
         email: body.email,
@@ -44,7 +58,6 @@ export async function POST(request: Request) {
         createdAt: new Date().toISOString(),
       };
 
-      // Create a simple session token for development
       const sessionToken = Buffer.from(
         JSON.stringify({
           ...mockUser,
@@ -61,19 +74,18 @@ export async function POST(request: Request) {
         { status: 200 },
       );
 
-      // Set session cookie
       res.cookies.set("guardrail_session", sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 7 * 24 * 60 * 60, // 7 days
+        maxAge: 7 * 24 * 60 * 60,
         path: "/",
       });
 
       return res;
     }
 
-    // Production mode - proxy to backend API
+    const API_URL = backend.apiUrl;
     let response: Response;
     try {
       response = await fetch(`${API_URL}/api/auth/login`, {
@@ -96,7 +108,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Handle non-JSON responses
     const contentType = response.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
       const text = await response.text();
@@ -115,24 +126,24 @@ export async function POST(request: Request) {
 
     const data = await response.json();
 
-    // Build response with cookies if present
     const res = NextResponse.json(data, { status: response.status });
 
-    // Forward set-cookie headers
     const setCookie = response.headers.get("set-cookie");
     if (setCookie) {
       res.headers.set("Set-Cookie", setCookie);
     }
 
-    // Handle remember me option - extend cookie duration if requested
     const rememberMe = body.rememberMe || false;
     if (response.ok && data.success && rememberMe) {
       const cookies = res.cookies.getAll();
       cookies.forEach(cookie => {
-        if (cookie.name === 'refreshToken' || cookie.name === 'guardrail_session') {
+        if (
+          cookie.name === "refreshToken" ||
+          cookie.name === "guardrail_session"
+        ) {
           res.cookies.set(cookie.name, cookie.value, {
             ...cookie,
-            maxAge: 30 * 24 * 60 * 60, // 30 days
+            maxAge: 30 * 24 * 60 * 60,
           });
         }
       });

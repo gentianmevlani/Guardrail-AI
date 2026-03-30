@@ -1,0 +1,2163 @@
+// Prisma Schema for GUARDRAIL AI
+// Database schema for subscriptions, users, payments, and usage tracking
+//
+// Canonical schema + migrations live here (prisma/migrations/). The @guardrail/database
+// package mirrors this file under packages/database/prisma/ for package-local tooling.
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// USERS & AUTHENTICATION
+// ==========================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?   // Nullable for OAuth users
+  avatar        String?
+  emailVerified DateTime?
+  role          String    @default("user") // user, admin, support
+  
+  // OAuth provider info
+  provider      String?   // github, google, internal, etc.
+  providerId    String?   @map("provider_id")
+  
+  // Stripe
+  stripeCustomerId String? @unique
+  
+  // Age verification
+  isAgeConfirmed Boolean @default(false) @map("is_age_confirmed")
+  ageConfirmedAt DateTime? @map("age_confirmed_at")
+  
+  // Multi-Factor Authentication (MFA)
+  mfaEnabled     Boolean   @default(false) @map("mfa_enabled")
+  mfaSecret      String?   @map("mfa_secret") // Encrypted TOTP secret
+  mfaBackupCodes String[]  @default([]) @map("mfa_backup_codes") // Encrypted backup codes
+  mfaVerifiedAt  DateTime? @map("mfa_verified_at")
+  
+  // Relations
+  subscriptions Subscription[]
+  projects      Project[]
+  teamMembers   TeamMember[]
+  apiKeys       ApiKey[]
+  usageRecords  UsageRecord[]
+  licenseKeys   LicenseKey[]
+  invoices      Invoice[]
+  usageLogs     UsageLog[]
+  teamSeats     TeamSeat[] @relation("TeamSeatUser")
+  organizationMembers OrganizationMember[] @relation("OrganizationMemberUser")
+  githubAccount GithubAccount?
+  repositories  Repository[] @relation("UserRepositories")
+  refreshTokens RefreshToken[]
+  usageCounters UsageCounter[]
+  usageTokens   UsageToken[]
+  onboarding    UserOnboarding?
+  scans         Scan[]
+  reports       Report[]
+  preferences   UserPreferences?
+  webhookSubscriptions WebhookSubscription[]
+  
+  // Ops & UX relations
+  feedback      Feedback[]
+  
+  // Compliance relations
+  consentPreferences ConsentPreferences[]
+  legalAcceptances LegalAcceptance[]
+  gdprJobs       GdprJob[]
+  gdprAuditLogs  GdprAuditLog[]
+  
+  // Admin & Support Ops relations
+  adminAuditLogsActor AdminAuditLog[] @relation("AdminAuditLogActor")
+  adminAuditLogsTarget AdminAuditLog[] @relation("AdminAuditLogTarget")
+  actorImpersonation ImpersonationSession[] @relation("ActorImpersonation")
+  targetImpersonation ImpersonationSession[] @relation("TargetImpersonation")
+  actorSupportNotes SupportNote[] @relation("ActorSupportNotes")
+  targetSupportNotes SupportNote[] @relation("TargetSupportNotes")
+  broadcastJobs BroadcastJob[]
+  incidentMessages IncidentMessage[] @relation("IncidentCreator")
+  
+  // New Relations
+  notificationPreferences NotificationPreference[]
+  scheduledScans          ScheduledScan[]
+
+  // Timestamps
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("users")
+}
+
+// ==========================================
+// TOKEN BLACKLIST (for logout invalidation)
+// ==========================================
+
+model TokenBlacklist {
+  id          String   @id @default(cuid())
+  tokenHash   String   @unique
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  @@index([expiresAt])
+  @@map("token_blacklist")
+}
+
+model RefreshToken {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  token       String   @unique
+  expiresAt   DateTime @map("expires_at")
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+model OAuthState {
+  id        Int      @id @default(autoincrement())
+  state     String   @unique
+  provider  String   @default("github")
+  sessionId String?  @map("session_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([expiresAt])
+  @@map("oauth_states")
+}
+
+// ==========================================
+// SUBSCRIPTIONS & PAYMENTS
+// ==========================================
+
+model Subscription {
+  id                String   @id @default(cuid())
+  userId            String
+  stripeSubscriptionId String? @unique
+  stripeCustomerId String
+  tier              String   // free, pro, team, enterprise
+  status            String   // active, canceled, past_due, trialing, incomplete
+  priceId           String?
+  quantity          Int      @default(1) // For seat-based pricing
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  trialEnd          DateTime?
+  cancelAtPeriodEnd  Boolean  @default(false)
+  metadata          Json?
+  
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments          Payment[]
+  invoices          Invoice[]
+  teamSeats         TeamSeat[]
+  
+  // Timestamps
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId])  // Added: User subscription lookups
+  @@index([status])  // Added: Subscription status filtering
+  @@index([tier])    // Added: Tier-based queries
+  @@map("subscriptions")
+}
+
+model Payment {
+  id              String   @id @default(cuid())
+  subscriptionId  String
+  stripePaymentIntentId String? @unique
+  amount          Int      // in cents
+  currency        String   @default("usd")
+  status          String   // succeeded, pending, failed
+  description      String?
+  
+  // Relations
+  subscription    Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([subscriptionId])  // Added: Subscription payment history
+  @@index([status])          // Added: Payment status filtering
+  @@index([createdAt])       // Added: Payment date sorting
+  @@map("payments")
+}
+
+// ==========================================
+// PROJECTS & TEAMS
+// ==========================================
+
+model Project {
+  id              String   @id @default(cuid())
+  userId          String
+  name            String
+  description     String?
+  path            String?  // Local file path
+  repositoryUrl   String?
+  
+  // Metrics
+  fileCount       Int      @default(0)
+  lineCount       Int      @default(0)
+  sizeBytes       BigInt   @default(0)
+  
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamMembers     TeamMember[]
+  usageRecords    UsageRecord[]
+  
+  // Compliance relations
+  complianceAssessments ComplianceAssessment[]
+  complianceSchedules ComplianceSchedule[]
+  complianceReports ComplianceReport[]
+  alerts           Alert[]
+  alertConfigs     AlertConfig[]
+  remediationTasks RemediationTask[]
+  reportSchedules  ReportSchedule[]
+  evidenceCollections EvidenceCollection[]
+  kubernetesScans   KubernetesScan[]
+  containerScans    ContainerScan[]
+  iaCScans          IaCScan[]
+  piiDetections     PIIDetection[]
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])     // Added: User project listings
+  @@index([createdAt])  // Added: Project date sorting
+  @@map("projects")
+}
+
+model Team {
+  id              String   @id @default(cuid())
+  name            String
+  subscriptionId String?  // Team subscription
+  
+  // Relations
+  members         TeamMember[]
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([subscriptionId])  // Added: Team billing lookups
+  @@map("teams")
+}
+
+model TeamMember {
+  id              String   @id @default(cuid())
+  teamId          String
+  userId          String
+  role            String   @default("member") // owner, admin, member
+  
+  // Relations
+  team            Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project         Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  projectId       String?
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([teamId, userId])
+  @@index([teamId])     // Added: Team membership queries
+  @@index([userId])     // Added: User team memberships
+  @@index([projectId])  // Added: Project member lookups
+  @@map("team_members")
+}
+
+// ==========================================
+// USAGE TRACKING
+// ==========================================
+
+model UsageRecord {
+  id              String   @id @default(cuid())
+  userId          String
+  projectId       String?
+  type            String   // validation, api_call, embedding, etc.
+  count           Int      @default(1)
+  metadata        Json?    // Additional data
+  
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project         Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([projectId, createdAt])
+  @@map("usage_records")
+}
+
+// ==========================================
+// API KEYS
+// ==========================================
+
+model ApiKey {
+  id              String   @id @default(cuid())
+  userId          String
+  name            String
+  key             String   @unique  // Stores SHA-256 hash of the key (NOT the raw key)
+  prefix          String?  // First 8-12 chars of key for display (e.g., "grl_abc123...")
+  tierOverride    String?  // Optional tier override (free, starter, pro, compliance, enterprise)
+  lastUsedAt      DateTime?
+  expiresAt       DateTime?
+  revokedAt       DateTime? // Soft delete - when key was revoked
+  isActive        Boolean  @default(true)
+  scopes          String[] @default(["read"]) // Permission scopes
+  
+  // Security policy fields
+  allowedIpCidrs  String[] // IP CIDR ranges that can use this key
+  allowedCountries String[] // Country codes (ISO 3166-1 alpha-2)
+  allowedHoursUtc Json?    // { start: number, end: number } - UTC hours when key is valid
+  sensitiveScopes String[] @default([]) // Scopes requiring stricter checks
+  fingerprintHash String? // Hash of (IP + User-Agent) for fingerprinting
+  lastFingerprint  String? // Last fingerprint seen (for change detection)
+  requestsPerDay  Int      @default(-1) // -1 for unlimited
+  expensivePerDay Int      @default(-1) // -1 for unlimited
+  currentDayRequests Int @default(0) // Counter for today
+  currentDayExpensive Int @default(0) // Counter for expensive ops today
+  lastDayReset     DateTime @default(now()) // When daily counters were last reset
+  
+  // Key rotation support
+  rotatedFromId   String?  // ID of key this was rotated from
+  rotationOverlapDays Int @default(0) // Overlap window in days
+  
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rotatedFrom     ApiKey?  @relation("ApiKeyRotations", fields: [rotatedFromId], references: [id])
+  rotatedKeys     ApiKey[] @relation("ApiKeyRotations")
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([key])  // Index on hash for fast lookup
+  @@index([userId])
+  @@index([rotatedFromId])
+  @@map("api_keys")
+}
+
+// ==========================================
+// ANALYTICS
+// ==========================================
+
+model Analytics {
+  id              String   @id @default(cuid())
+  userId          String?
+  projectId       String?
+  event           String
+  properties      Json?
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([projectId, createdAt])
+  @@map("analytics")
+}
+
+// ==========================================
+// CODE EVOLUTION
+// ==========================================
+
+model CodeSnapshot {
+  id              String   @id @default(cuid())
+  projectId       String
+  timestamp       DateTime @default(now())
+  patterns        Json     // Array of pattern objects
+  metrics         Json     // Metrics object
+  fileHashes      Json     // Record of file hashes
+  changes         Json     // Changes since last snapshot
+  metadata        Json?
+  
+  @@index([projectId, timestamp])
+  @@map("code_snapshots")
+}
+
+model EvolutionTrend {
+  id              String   @id @default(cuid())
+  projectId       String
+  pattern         String
+  trend           String   // increasing, decreasing, stable, emerging, declining
+  change          Float
+  changePercent   Float
+  dataPoints      Json     // Array of {timestamp, value}
+  prediction      Json     // Prediction object
+  updatedAt       DateTime @updatedAt
+  
+  @@unique([projectId, pattern])
+  @@index([projectId])
+  @@map("evolution_trends")
+}
+
+// ==========================================
+// COLLABORATION ROOMS
+// ==========================================
+
+model CollaborationRoom {
+  id              String   @id @default(cuid())
+  name            String
+  projectId       String?
+  createdById     String
+  isPublic        Boolean  @default(false)
+  maxMembers      Int      @default(10)
+  settings        Json?
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([createdById])  // Added: Room creator lookups
+  @@map("collaboration_rooms")
+}
+
+model RoomActivity {
+  id              String   @id @default(cuid())
+  roomId          String
+  userId          String
+  userName        String
+  type            String   // edit, comment, join, leave
+  message         String
+  file            String?
+  data            Json?
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+
+  @@index([roomId, createdAt])
+  @@index([userId])  // Added: User activity lookups
+  @@map("room_activities")
+}
+
+// ==========================================
+// CROSS-REPO INTELLIGENCE
+// ==========================================
+
+model RepositoryAnalysis {
+  id              String   @id @default(cuid())
+  owner           String
+  repo            String
+  fullName        String
+  language        String?
+  stars           Int      @default(0)
+  forks           Int      @default(0)
+  patterns        Json     // Detected patterns
+  contributors    Json     // Top contributors
+  analyzedAt      DateTime @default(now())
+  
+  @@unique([owner, repo])
+  @@index([fullName])
+  @@map("repository_analyses")
+}
+
+model CrossRepoInsight {
+  id              String   @id @default(cuid())
+  category        String   // Authentication, Error Handling, etc.
+  bestRepo        String
+  reason          String
+  confidence      Float
+  recommendation  String
+  codeSnippet     String?  @db.Text
+  repos           Json     // Array of repo names involved
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([category])
+  @@map("cross_repo_insights")
+}
+
+// ==========================================
+// DESIGN SYSTEM
+// ==========================================
+
+model DesignSystem {
+  id              String   @id @default(cuid())
+  projectId       String
+  name            String
+  isLocked        Boolean  @default(false)
+  tokens          Json     // All design tokens
+  components      Json     // Extracted components
+  patterns        Json     // Detected patterns
+  statistics      Json     // Analysis statistics
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([projectId])
+  @@map("design_systems")
+}
+
+// ==========================================
+// COMPLIANCE & AUDIT
+// ==========================================
+
+model ComplianceAssessment {
+  id          String   @id @default(cuid())
+  projectId   String
+  frameworkId String
+  summary     Json     // Assessment summary with scores
+  evidence    Json?    // Evidence collected
+  controls    Json     // Control assessments
+  gaps        Json?    // Identified gaps
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId, frameworkId])
+  @@map("compliance_assessments")
+}
+
+model AuditEvent {
+  id            String   @id @default(cuid())
+  type          String
+  category      String
+  projectId     String?
+  frameworkId   String?
+  timestamp     DateTime @default(now())
+  severity      String
+  source        String
+  userId        String?
+  metadata      Json?
+  details       Json?
+  
+  // Audit trail fields
+  sequenceNumber BigInt?
+  hash          String?
+  previousHash  String?
+  
+  // Timestamps
+  createdAt     DateTime @default(now())
+  
+  @@index([projectId, timestamp])
+  @@index([type, timestamp])
+  @@index([userId])  // Added: User audit trail lookups
+  @@map("audit_events")
+}
+
+model ComplianceSchedule {
+  id            String   @id @default(cuid())
+  projectId     String
+  frameworkId   String
+  schedule      String   // Cron expression
+  enabled       Boolean  @default(true)
+  lastRun       DateTime?
+  nextRun       DateTime?
+  notifications Json?    // Notification settings
+  
+  // Relations
+  project       Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  evidenceCollections EvidenceCollection[]
+  
+  // Timestamps
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@unique([projectId, frameworkId])
+  @@map("compliance_schedules")
+}
+
+model Alert {
+  id            String   @id @default(cuid())
+  projectId     String
+  type          String   // violation, deadline, score_drop, system
+  severity      String   // low, medium, high, critical
+  message       String
+  acknowledged  Boolean  @default(false)
+  acknowledgedBy String?
+  acknowledgedAt DateTime?
+  resolved      Boolean  @default(false)
+  resolvedBy    String?
+  resolvedAt    DateTime?
+  
+  // Relations
+  project       Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([projectId, resolved])
+  @@index([severity])
+  @@map("alerts")
+}
+
+model AlertConfig {
+  id          String   @id @default(cuid())
+  projectId   String
+  type        String   // score_threshold, violation_detected, deadline_approaching, system_error
+  enabled     Boolean  @default(true)
+  threshold   Int?     // For score thresholds
+  recipients  Json     // Email, Slack, webhook settings
+  conditions  Json     // Alert conditions
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([projectId, type])
+  @@map("alert_configs")
+}
+
+model RemediationTask {
+  id          String   @id @default(cuid())
+  projectId   String
+  title       String
+  description String?
+  status      String   @default("pending") // pending, in_progress, completed, cancelled
+  priority    String   // low, medium, high, critical
+  assignedTo  String?
+  dueDate     DateTime?
+  completedAt DateTime?
+  metadata    Json?    // Additional task data
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId, status])
+  @@index([dueDate])
+  @@index([assignedTo])  // Added: Assignee task lookups
+  @@map("remediation_tasks")
+}
+
+model ReportSchedule {
+  id          String   @id @default(cuid())
+  projectId   String
+  frameworkId String?
+  frequency   String   // daily, weekly, monthly, quarterly
+  format      String   // pdf, html, json
+  recipients  Json     // Who receives the report
+  lastRun     DateTime?
+  nextRun     DateTime
+  enabled     Boolean  @default(true)
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId, nextRun])
+  @@map("report_schedules")
+}
+
+model EvidenceCollection {
+  id          String   @id @default(cuid())
+  projectId   String
+  name        String
+  description String?
+  artifacts   Json     // Array of evidence artifacts
+  metadata    Json?    // Framework ID, assessment ID, etc.
+  complianceScheduleId String?
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  complianceSchedule ComplianceSchedule? @relation(fields: [complianceScheduleId], references: [id])
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])             // Added: Project evidence lookups
+  @@index([complianceScheduleId])  // Added: Schedule evidence lookups
+  @@map("evidence_collections")
+}
+
+// Additional models for compliance tracking
+model KubernetesScan {
+  id          String   @id @default(cuid())
+  projectId   String
+  clusterName String
+  scanDate    DateTime @default(now())
+  results     Json     // Scan results
+  status      String   // 'passed' | 'failed' | 'warning'
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])  // Added: Project K8s scan lookups
+  @@index([status])     // Added: Scan status filtering
+  @@map("kubernetes_scans")
+}
+
+model ContainerScan {
+  id          String   @id @default(cuid())
+  projectId   String
+  imageId     String
+  imageTag    String
+  scanDate    DateTime @default(now())
+  results     Json     // Scan results
+  status      String   // 'passed' | 'failed' | 'warning'
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])  // Added: Project container scan lookups
+  @@index([status])     // Added: Scan status filtering
+  @@map("container_scans")
+}
+
+model IaCScan {
+  id          String   @id @default(cuid())
+  projectId   String
+  templatePath String
+  scanDate    DateTime @default(now())
+  results     Json     // Scan results
+  status      String   // 'passed' | 'failed' | 'warning'
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])  // Added: Project IaC scan lookups
+  @@index([status])     // Added: Scan status filtering
+  @@map("iac_scans")
+}
+
+model PIIDetection {
+  id          String   @id @default(cuid())
+  projectId   String
+  filePath    String
+  scanDate    DateTime @default(now())
+  findings    Json     // PII findings
+  confidence  Float    // Confidence score
+  status      String   // 'passed' | 'failed' | 'warning'
+  
+  // Relations
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])  // Added: Project PII scan lookups
+  @@index([status])     // Added: Scan status filtering
+  @@map("pii_detections")
+}
+
+model ComplianceReport {
+  id                String   @id @default(cuid())
+  projectId         String
+  frameworkId       String
+  type              String   // 'compliance' | 'audit' | 'executive' | 'technical' | 'remediation'
+  format            String   // 'pdf' | 'html' | 'json' | 'csv'
+  generatedAt       DateTime @default(now())
+  periodStart       DateTime?
+  periodEnd         DateTime?
+  summary           Json     // Compliance summary
+  evidence          Json?    // Evidence data
+  controls          Json     // Control assessments
+  gaps              Json?    // Compliance gaps
+  status            String   @default("draft") // 'draft' | 'reviewing' | 'approved' | 'archived'
+  
+  // Relations
+  project           Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@index([projectId])     // Added: Project compliance report lookups
+  @@index([frameworkId])   // Added: Framework report lookups
+  @@index([status])        // Added: Report status filtering
+  @@index([generatedAt])   // Added: Report date sorting
+  @@map("compliance_reports")
+}
+
+// ==========================================
+// MULTI-TENANCY
+// ==========================================
+
+model Tenant {
+  id        String   @id @default(cuid())
+  name      String
+  domain    String
+  status    String   @default("active") // active, inactive, suspended
+  plan      String   @default("free") // free, pro, enterprise
+  settings  Json     @default("{}")
+  limits    Json     @default("{}")
+  usage     Json     @default("{}")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenantUsers TenantUser[]
+
+  @@index([domain])
+  @@map("tenants")
+}
+
+model TenantUser {
+  tenantId String   @map("tenant_id")
+  userId   String   @map("user_id")
+  role     String   @default("member") // owner, admin, member, viewer
+  joinedAt DateTime @default(now()) @map("joined_at")
+
+  // Relations
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@id([tenantId, userId])
+  @@index([userId])
+  @@index([tenantId])
+  @@map("tenant_users")
+}
+
+// ==========================================
+// GITHUB INTEGRATION
+// ==========================================
+
+model GithubAccount {
+  id            String   @id @default(cuid())
+  userId        String
+  githubId      String
+  username      String
+  accessToken   String
+  refreshToken  String?
+  scope         String?
+  tokenType     String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  repositories  Repository[] @relation("GithubRepositories")
+  
+  @@unique([userId])
+  @@map("github_accounts")
+}
+
+// GitHub App Installation - tracks installed GitHub Apps
+model GitHubAppInstallation {
+  id              String   @id @default(cuid())
+  installationId  BigInt   @unique @map("installation_id")  // GitHub's installation ID
+  accountId       BigInt   @map("account_id")               // GitHub account (org or user) ID
+  accountLogin    String   @map("account_login")            // GitHub account login name
+  accountType     String   @map("account_type")             // "Organization" or "User"
+  targetType      String   @default("Organization") @map("target_type")
+  
+  // Repository selection
+  repositorySelection String @default("all") @map("repository_selection") // "all" or "selected"
+  
+  // Permissions and events
+  permissions     Json?                                      // Permissions granted
+  events          String[] @default([])                      // Webhook events subscribed
+  
+  // Status tracking
+  isActive        Boolean  @default(true) @map("is_active")
+  suspendedAt     DateTime? @map("suspended_at")
+  suspendedBy     String?   @map("suspended_by")
+  
+  // User association (optional - if installed by a known user)
+  userId          String?  @map("user_id")
+  
+  // Last webhook received
+  lastWebhookAt   DateTime? @map("last_webhook_at")
+  
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  installedRepos  GitHubAppRepository[]
+  webhookEvents   GitHubWebhookEvent[]
+  checkRuns       GitHubCheckRun[]
+  
+  @@index([accountLogin])
+  @@index([userId])
+  @@index([isActive])
+  @@map("github_app_installations")
+}
+
+// GitHub App Repository - tracks which repos are included in an installation
+model GitHubAppRepository {
+  id              String   @id @default(cuid())
+  installationId  String   @map("installation_id")
+  repositoryId    BigInt   @map("repository_id")           // GitHub's repository ID
+  fullName        String   @map("full_name")               // owner/repo format
+  name            String
+  isPrivate       Boolean  @default(false) @map("is_private")
+  defaultBranch   String   @default("main") @map("default_branch")
+  
+  // Scan configuration
+  autoScanEnabled Boolean  @default(true) @map("auto_scan_enabled")
+  lastScanAt      DateTime? @map("last_scan_at")
+  
+  // Status
+  isActive        Boolean  @default(true) @map("is_active")
+  
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  installation    GitHubAppInstallation @relation(fields: [installationId], references: [id], onDelete: Cascade)
+  webhookEvents   GitHubWebhookEvent[]
+  checkRuns       GitHubCheckRun[]
+  
+  @@unique([installationId, repositoryId])
+  @@index([fullName])
+  @@index([repositoryId])
+  @@map("github_app_repositories")
+}
+
+// GitHub Webhook Event - for idempotency tracking
+model GitHubWebhookEvent {
+  id              String   @id @default(cuid())
+  deliveryId      String   @unique @map("delivery_id")     // x-github-delivery header
+  eventType       String   @map("event_type")              // push, pull_request, etc.
+  action          String?                                   // opened, synchronize, etc.
+  
+  // Repository info
+  installationId  String?  @map("installation_id")
+  repositoryId    String?  @map("repository_id")
+  
+  // Commit/PR info for idempotency
+  sha             String?                                   // Commit SHA
+  prNumber        Int?     @map("pr_number")
+  ref             String?                                   // Branch ref
+  
+  // Processing status
+  status          String   @default("received")             // received, processing, completed, failed, skipped
+  processedAt     DateTime? @map("processed_at")
+  error           String?
+  
+  // Idempotency: track if we already processed this SHA for checks/comments
+  checkRunCreated Boolean  @default(false) @map("check_run_created")
+  commentPosted   Boolean  @default(false) @map("comment_posted")
+  
+  // Associated run/scan
+  runId           String?  @map("run_id")
+  
+  // Raw payload (for debugging)
+  payloadHash     String?  @map("payload_hash")            // Hash of payload for duplicate detection
+  
+  // Timestamps
+  receivedAt      DateTime @default(now()) @map("received_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  // Relations
+  installation    GitHubAppInstallation? @relation(fields: [installationId], references: [id], onDelete: SetNull)
+  repository      GitHubAppRepository? @relation(fields: [repositoryId], references: [id], onDelete: SetNull)
+  
+  @@index([sha, eventType])
+  @@index([prNumber])
+  @@index([status])
+  @@index([receivedAt])
+  @@map("github_webhook_events")
+}
+
+// GitHub Check Run - tracks check runs created for commits
+model GitHubCheckRun {
+  id              String   @id @default(cuid())
+  checkRunId      BigInt   @unique @map("check_run_id")    // GitHub's check run ID
+  
+  // Installation and repo
+  installationId  String   @map("installation_id")
+  repositoryId    String   @map("repository_id")
+  
+  // Check run details
+  headSha         String   @map("head_sha")
+  name            String   @default("Guardrail Security Scan")
+  status          String   @default("queued")              // queued, in_progress, completed
+  conclusion      String?                                   // success, failure, neutral, etc.
+  
+  // PR association (if from PR)
+  prNumber        Int?     @map("pr_number")
+  
+  // Associated run
+  runId           String?  @map("run_id")
+  
+  // Summary info
+  title           String?
+  summary         String?  @db.Text
+  annotationsCount Int     @default(0) @map("annotations_count")
+  
+  // Timestamps
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  installation    GitHubAppInstallation @relation(fields: [installationId], references: [id], onDelete: Cascade)
+  repository      GitHubAppRepository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  
+  @@index([headSha])
+  @@index([prNumber])
+  @@index([status])
+  @@index([runId])
+  @@map("github_check_runs")
+}
+
+model Repository {
+  id            String   @id @default(cuid())
+  githubId      String   @unique
+  userId        String
+  name          String
+  fullName      String
+  description   String?
+  isPrivate     Boolean  @default(false)
+  url           String
+  cloneUrl      String
+  defaultBranch String   @default("main")
+  language      String?
+  isActive      Boolean  @default(true)
+  lastScan      DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  user          User           @relation("UserRepositories", fields: [userId], references: [id], onDelete: Cascade, map: "repositories_user_fkey")
+  githubAccount GithubAccount  @relation("GithubRepositories", fields: [userId], references: [id], onDelete: Cascade, map: "repositories_github_account_fkey")
+  
+  @@index([userId])     // Added: User repository lookups
+  @@index([lastScan])   // Added: Repository scan status sorting
+  @@map("repositories")
+}
+
+// ==========================================
+// AI AGENTS & GUARDRAILS
+// ==========================================
+
+model Agent {
+  id          String   @id @default(cuid())
+  name        String
+  type        String   // coding, chat, autonomous
+  status      String   @default("active") // active, suspended, revoked
+  scope       String   // read, write, execute
+  model       String?  // AI model used
+  permissions Json?    // Detailed permissions
+  metadata    Json?    // Additional agent data
+  
+  // Relations
+  actions     AgentAction[]
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("agents")
+}
+
+model AgentAction {
+  id          String   @id @default(cuid())
+  agentId     String
+  type        String   // file_read, file_write, execute, api_call
+  target      String   // Resource being accessed
+  allowed     Boolean
+  reason      String?  // Why allowed/denied
+  metadata    Json?    // Additional action data
+  
+  // Relations
+  agent       Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  
+  @@index([agentId, createdAt])
+  @@map("agent_actions")
+}
+
+// ==========================================
+// SECURITY ANALYSIS
+// ==========================================
+
+model AttackSurfaceAnalysis {
+  id          String   @id @default(cuid())
+  projectId   String
+  summary     Json     // Analysis summary with counts
+  endpoints   Json     // Entry points detected
+  attackPaths Json     // Potential attack paths
+  apiFindings Json     // API security findings
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])
+  @@map("attack_surface_analyses")
+}
+
+model DependencyAnalysis {
+  id           String   @id @default(cuid())
+  projectId    String
+  packageName  String
+  version      String
+  registry     String   @default("npm")
+  isMalicious  Boolean  @default(false)
+  isTyposquat  Boolean  @default(false)
+  isDeprecated Boolean  @default(false)
+  riskScore    Int      @default(0)
+  threats      Json?    // Array of threats
+  maintainerRisk Json?  // Maintainer risk assessment
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])
+  @@index([packageName, version])
+  @@map("dependency_analyses")
+}
+
+model SBOM {
+  id          String   @id @default(cuid())
+  projectId   String
+  version     Int      @default(1)
+  format      String   @default("CycloneDX") // CycloneDX, SPDX
+  specVersion String   @default("1.4")
+  components  Json     // Array of SBOM components
+  generatedAt DateTime @default(now())
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([projectId])
+  @@map("sboms")
+}
+
+model OutputValidation {
+  id          String   @id @default(cuid())
+  agentId     String?
+  taskId      String?
+  output      Json     // The validated output
+  result      Json     // Validation result
+  isValid     Boolean  @default(true)
+  errors      Json?    // Validation errors if any
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([agentId])
+  @@index([taskId])
+  @@map("output_validations")
+}
+
+model LicenseAnalysis {
+  id             String   @id @default(cuid())
+  projectId      String
+  projectLicense String
+  totalDeps      Int      @default(0)
+  compliant      Int      @default(0)
+  violations     Int      @default(0)
+  unknown        Int      @default(0)
+  dependencies   Json     // Array of dependency license info
+  violations_detail Json? // Detailed violation information
+  
+  // Timestamps
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  @@index([projectId])
+  @@map("license_analyses")
+}
+
+// ==========================================
+// LICENSE KEYS & BILLING
+// ==========================================
+
+model LicenseKey {
+  id              String   @id @default(cuid())
+  userId          String
+  key             String   @unique
+  keyHash         String   @unique
+  tier            String   @default("pro") // free, pro, team, enterprise
+  status          String   @default("active") // active, suspended, revoked, expired
+  activations     Int      @default(0)
+  maxActivations  Int      @default(3)
+  metadata        Json?
+  expiresAt       DateTime?
+  lastUsedAt      DateTime?
+  revokedAt       DateTime?
+  revokedReason   String?
+  
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activationRecords LicenseActivation[]
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@map("license_keys")
+}
+
+model LicenseActivation {
+  id              String   @id @default(cuid())
+  licenseKeyId    String
+  fingerprint     String
+  machineId       String?
+  ipAddress       String?
+  userAgent       String?
+  hostname        String?
+  platform        String?
+  isActive        Boolean  @default(true)
+  lastSeenAt      DateTime @default(now())
+  deactivatedAt   DateTime?
+  
+  // Relations
+  licenseKey      LicenseKey @relation(fields: [licenseKeyId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+
+  @@unique([licenseKeyId, fingerprint])
+  @@index([licenseKeyId])
+  @@map("license_activations")
+}
+
+model Invoice {
+  id              String   @id @default(cuid())
+  userId          String
+  subscriptionId  String?
+  stripeInvoiceId String?  @unique
+  stripeCustomerId String?
+  number          String?
+  status          String   @default("draft") // draft, open, paid, void, uncollectible
+  currency        String   @default("usd")
+  subtotal        Int      @default(0) // in cents
+  tax             Int      @default(0)
+  total           Int      @default(0)
+  amountPaid      Int      @default(0)
+  amountDue       Int      @default(0)
+  description     String?
+  periodStart     DateTime?
+  periodEnd       DateTime?
+  dueDate         DateTime?
+  paidAt          DateTime?
+  hostedInvoiceUrl String?
+  invoicePdf      String?
+  metadata        Json?
+  
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscription    Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@index([subscriptionId])
+  @@index([status])
+  @@map("invoices")
+}
+
+model BillingEvent {
+  id              String   @id @default(cuid())
+  userId          String?
+  subscriptionId  String?
+  invoiceId       String?
+  licenseKeyId    String?
+  eventType       String   // checkout.completed, subscription.created, payment.failed, etc.
+  eventSource     String   @default("system") // stripe, system, admin, user
+  stripeEventId   String?  @unique
+  previousState   Json?
+  newState        Json?
+  metadata        Json?
+  ipAddress       String?
+  userAgent       String?
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+
+  @@index([userId])
+  @@index([eventType])
+  @@index([createdAt])
+  @@index([subscriptionId])  // Added: Subscription billing history
+  @@index([invoiceId])       // Added: Invoice billing events
+  @@index([licenseKeyId])    // Added: License billing events
+  @@map("billing_events")
+}
+
+model UsageLog {
+  id              String   @id @default(cuid())
+  userId          String
+  projectId       String?
+  type            String   // scan, reality_run, ai_agent_run, api_call
+  count           Int      @default(1)
+  periodStart     DateTime
+  periodEnd       DateTime
+  metadata        Json?
+  
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, type, periodStart])
+  @@index([userId, periodStart])
+  @@index([type])
+  @@map("usage_logs")
+}
+
+// ==========================================
+// CODE SCANS & FINDINGS
+// ==========================================
+
+model Scan {
+  id            String    @id @default(cuid()) @map("id")
+  userId        String    @map("user_id")
+  repositoryId  String?   @map("repository_id")
+  projectPath   String?   @map("project_path") // Local path or repo full name
+  branch        String    @default("main")
+  commitSha     String?   @map("commit_sha")
+  
+  // Status tracking
+  status        String    @default("queued") // queued, running, completed, failed
+  progress      Int       @default(0) // 0-100
+  
+  // Results summary
+  verdict       String?   // pass, fail, review
+  score         Int?      // 0-100 overall score
+  
+  // Metrics
+  filesScanned  Int       @default(0) @map("files_scanned")
+  linesScanned  Int       @default(0) @map("lines_scanned")
+  issuesFound   Int       @default(0) @map("issues_found")
+  criticalCount Int       @default(0) @map("critical_count")
+  warningCount  Int       @default(0) @map("warning_count")
+  infoCount     Int       @default(0) @map("info_count")
+  
+  // Timing
+  startedAt     DateTime? @map("started_at")
+  completedAt   DateTime? @map("completed_at")
+  durationMs    Int?      @map("duration_ms")
+  
+  // Error handling
+  error         String?
+  
+  // Retry logic
+  retryCount    Int      @default(0) @map("retry_count")
+  lastRetryAt   DateTime? @map("last_retry_at")
+  maxRetries    Int      @default(3) @map("max_retries")
+  
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  findings      Finding[]
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId, createdAt])
+  @@index([repositoryId])
+  @@index([status])
+  @@index([retryCount, status])
+  @@map("scans")
+}
+
+model Finding {
+  id            String   @id @default(cuid())
+  scanId        String   @map("scan_id")
+  
+  // Classification
+  type          String   // fake_feature, unused_export, empty_function, console_only, 
+                         // hardcoded_return, todo_without_impl, mock_data, dead_endpoint,
+                         // unreachable_code, stub_implementation
+  severity      String   // critical, warning, info
+  category      String   // fake_feature, code_quality, security, best_practice
+  
+  // Location
+  file          String
+  line          Int
+  column        Int?     @map("column")
+  endLine       Int?     @map("end_line")
+  endColumn     Int?     @map("end_column")
+  
+  // Content
+  title         String
+  message       String
+  codeSnippet   String?  @map("code_snippet") @db.Text
+  suggestion    String?  @db.Text
+  
+  // AI Analysis
+  confidence    Float    @default(0.8) // 0.0-1.0
+  aiExplanation String?  @map("ai_explanation") @db.Text
+  aiGenerated   Boolean  @default(false) @map("ai_generated")
+  
+  // Status
+  status        String   @default("open") // open, acknowledged, fixed, false_positive, suppressed, accepted_risk
+  
+  // Deduplication
+  occurrenceCount Int    @default(1) @map("occurrence_count")
+  firstSeenAt     DateTime @default(now()) @map("first_seen_at")
+  lastSeenAt      DateTime @default(now()) @map("last_seen_at")
+  deduplicationKey String? @map("deduplication_key")
+  
+  // Metadata
+  ruleId        String?  @map("rule_id")
+  metadata      Json?
+  
+  // Relations
+  scan          Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt     DateTime @default(now()) @map("created_at")
+  
+  @@index([scanId])
+  @@index([type])
+  @@index([severity])
+  @@index([file])
+  @@index([deduplicationKey])
+  @@index([firstSeenAt])
+  @@map("findings")
+}
+
+// User LLM API Keys for analysis
+model UserLLMKey {
+  id        String   @id @default(cuid())
+  userId    String
+  provider  String   // openai, anthropic
+  keyHash   String   // Encrypted/hashed key
+  name      String?
+  isActive  Boolean  @default(true)
+  lastUsed  DateTime?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([userId, provider])
+  @@index([userId])
+  @@map("user_llm_keys")
+}
+
+// ==========================================
+// SERVER-AUTHORITATIVE USAGE COUNTERS
+// ==========================================
+
+model UsageCounter {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  periodStart DateTime @map("period_start")
+  periodEnd   DateTime @map("period_end")
+  scanCount   Int      @default(0) @map("scan_count")
+  realityCount Int     @default(0) @map("reality_count")
+  agentCount  Int      @default(0) @map("agent_count")
+  gateCount   Int      @default(0) @map("gate_count")
+  fixCount    Int      @default(0) @map("fix_count")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, periodStart])
+  @@index([userId])
+  @@index([periodStart])
+  @@map("usage_counters")
+}
+
+model UsageToken {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  tokenHash String   @unique @map("token_hash")
+  signature String
+  payload   Json
+  issuedAt  DateTime @default(now()) @map("issued_at")
+  expiresAt DateTime @map("expires_at")
+  revoked   Boolean  @default(false)
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("usage_tokens")
+}
+
+model OfflineUsageQueue {
+  id         String    @id @default(cuid())
+  userId     String    @map("user_id")
+  actionType String    @map("action_type")
+  count      Int       @default(1)
+  machineId  String?   @map("machine_id")
+  queuedAt   DateTime  @default(now()) @map("queued_at")
+  syncedAt   DateTime? @map("synced_at")
+  synced     Boolean   @default(false)
+  
+  @@index([userId, synced])
+  @@map("offline_usage_queue")
+}
+
+// ==========================================
+// USER ONBOARDING
+// ==========================================
+
+model UserOnboarding {
+  id              String    @id @default(cuid())
+  userId          String    @unique @map("user_id")
+  completedSteps  String[]  @default([]) @map("completed_steps")
+  currentStep     Int       @default(0) @map("current_step")
+  githubConnected Boolean   @default(false) @map("github_connected")
+  firstScanCompleted Boolean @default(false) @map("first_scan_completed")
+  firstRepoId     String?   @map("first_repo_id")
+  skippedAt       DateTime? @map("skipped_at")
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@map("user_onboarding")
+}
+
+// ==========================================
+// ORGANIZATIONS & TEAM SEATS
+// ==========================================
+
+model Organization {
+  id                    String   @id @default(cuid())
+  name                  String
+  slug                  String   @unique
+  tier                  String   @default("free") // free, starter, pro, compliance, enterprise
+  maxSeats              Int      @default(1) @map("max_seats") // DEPRECATED: Use purchased_extra_seats + base tier seats
+  purchasedExtraSeats   Int      @default(0) @map("purchased_extra_seats")
+  stripeCustomerId      String?  @unique @map("stripe_customer_id")
+  stripeSubscriptionId  String?  @unique @map("stripe_subscription_id")
+  
+  // Relations
+  members               OrganizationMember[]
+  teamSeats             TeamSeat[]
+  
+  // Timestamps
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@index([slug])
+  @@map("organizations")
+}
+
+model OrganizationMember {
+  id             String   @id @default(cuid())
+  organizationId String   @map("organization_id")
+  userId         String   @map("user_id")
+  role           String   @default("member") // owner, admin, member, viewer
+  invitedBy      String?  @map("invited_by")
+  invitedAt      DateTime? @map("invited_at")
+  joinedAt       DateTime? @map("joined_at")
+  
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation("OrganizationMemberUser", fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, userId])
+  @@index([organizationId])
+  @@index([userId])
+  @@map("organization_members")
+}
+
+model TeamSeat {
+  id             String   @id @default(cuid())
+  userId         String   @map("user_id")
+  organizationId String?  @map("organization_id")
+  subscriptionId String? @map("subscription_id")
+  tier           String
+  seatType       String   @default("base") // base, additional
+  isActive       Boolean  @default(true) @map("is_active")
+  assignedAt     DateTime @default(now()) @map("assigned_at")
+  expiresAt      DateTime? @map("expires_at")
+  
+  // Relations
+  user           User         @relation("TeamSeatUser", fields: [userId], references: [id], onDelete: Cascade)
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([organizationId])
+  @@index([subscriptionId])
+  @@map("team_seats")
+}
+
+// ==========================================
+// SECURITY EVENTS & AUDIT TRAIL
+// ==========================================
+
+model SecurityEvent {
+  id            String   @id @default(cuid())
+  eventType     String   // Security event type
+  payload       Json     // Redacted event payload
+  userId        String?  // User ID if available
+  orgId         String?  // Organization ID if available
+  severity      String   @default("medium") // low, medium, high, critical
+  requestId     String?  // Request correlation ID
+  ip            String?  // Client IP address
+  userAgent     String?  // User agent string
+  route         String?  // API route
+  method        String?  // HTTP method
+  apiKeyPrefix  String?  // API key prefix (first 8 chars)
+  timestamp     DateTime @default(now())
+
+  @@index([userId, timestamp])
+  @@index([eventType, timestamp])
+  @@index([orgId, timestamp])
+  @@index([severity, timestamp])
+  @@index([ip, timestamp])
+  @@map("security_events")
+}
+
+// ==========================================
+// REPORTS
+// ==========================================
+
+model Report {
+  id          String   @id @default(cuid())
+  projectId   String?  @map("project_id")
+  userId      String   @map("user_id")
+  type        String   // security, compliance, performance, etc.
+  format      String   // pdf, html, json
+  content     String   @db.Text
+  filename    String?
+  metadata    Json?
+  
+  // Relations
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([projectId])
+  @@index([userId])
+  @@index([type])
+  @@map("reports")
+}
+
+// ==========================================
+// COMPLIANCE & PRIVACY
+// ==========================================
+
+model ConsentPreferences {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  necessary   Boolean  @default(true)  // Always required for operation
+  analytics   Boolean  @default(false) // Google Analytics, etc.
+  marketing   Boolean  @default(false) // Email marketing, ads
+  functional  Boolean  @default(false) // Preferences, personalization
+  source      String   @default("web") // web, mobile, api
+  ipHash      String?  @map("ip_hash") // Hashed IP for audit
+  
+  // Relations
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@unique([userId])
+  @@index([updatedAt])
+  @@map("consent_preferences")
+}
+
+model LegalAcceptance {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  docType     String   @map("doc_type") // 'terms' | 'privacy'
+  version     String   // Version of the document
+  acceptedAt  DateTime @default(now()) @map("accepted_at")
+  ipHash      String?  @map("ip_hash") // Hashed IP for audit
+  userAgent   String?  @map("user_agent") // User agent for audit
+  locale      String?  // User's locale (en, es, etc.)
+  
+  // Relations
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, docType])
+  @@index([userId, docType])
+  @@index([acceptedAt])
+  @@map("legal_acceptances")
+}
+
+model GdprJob {
+  id            String   @id @default(cuid())
+  userId        String   @map("user_id")
+  type          String   // 'EXPORT' | 'DELETE'
+  status        String   @default("pending") // 'pending' | 'processing' | 'completed' | 'failed'
+  createdAt     DateTime @default(now()) @map("created_at")
+  startedAt     DateTime? @map("started_at")
+  completedAt   DateTime? @map("completed_at")
+  artifactPath  String?  @map("artifact_path") // Path to export file
+  signedUrl     String?  // Pre-signed URL for download
+  failureReason String?  @map("failure_reason")
+  metadata      Json?    // Additional job data
+  
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, type])
+  @@index([status])
+  @@index([createdAt])
+  @@map("gdpr_jobs")
+}
+
+model GdprAuditLog {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  action      String   // 'data_exported' | 'account_deleted' | 'data_anonymized' | 'consent_updated'
+  actorUserId String?  @map("actor_user_id") // Who performed the action (null for automated)
+  timestamp   DateTime @default(now())
+  metadata    Json?    // Action details
+  
+  // Relations
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, timestamp])
+  @@index([action, timestamp])
+  @@map("gdpr_audit_log")
+}
+
+// ==========================================
+// ADMIN & SUPPORT OPS
+// ==========================================
+
+model AdminAuditLog {
+  id            String   @id @default(cuid())
+  actorUserId   String   @map("actor_user_id")
+  action        String
+  targetUserId  String?  @map("target_user_id")
+  timestamp     DateTime @default(now())
+  metadata      Json?
+  
+  // Relations
+  actorUser     User     @relation("AdminAuditLogActor", fields: [actorUserId], references: [id], onDelete: Cascade)
+  targetUser    User?    @relation("AdminAuditLogTarget", fields: [targetUserId], references: [id], onDelete: SetNull)
+  
+  // Indexes
+  @@index([actorUserId, timestamp(sort: Desc)])
+  @@index([targetUserId, timestamp(sort: Desc)])
+  @@index([action, timestamp(sort: Desc)])
+  @@map("admin_audit_log")
+}
+
+model ImpersonationSession {
+  id                String   @id @default(cuid())
+  actorUserId       String   @map("actor_user_id")
+  targetUserId      String   @map("target_user_id")
+  startedAt         DateTime @default(now()) @map("started_at")
+  endedAt           DateTime? @map("ended_at")
+  reason            String
+  impersonationToken String   @unique @map("impersonation_token")
+  isActive          Boolean  @default(true) @map("is_active")
+  
+  // Relations
+  actorUser         User     @relation("ActorImpersonation", fields: [actorUserId], references: [id], onDelete: Cascade)
+  targetUser        User     @relation("TargetImpersonation", fields: [targetUserId], references: [id], onDelete: Cascade)
+  
+  // Indexes
+  @@index([actorUserId])
+  @@index([targetUserId])
+  @@index([impersonationToken])
+  @@index([isActive, startedAt(sort: Desc)])
+  @@map("impersonation_sessions")
+}
+
+model SupportNote {
+  id          String   @id @default(cuid())
+  actorUserId String   @map("actor_user_id")
+  targetUserId String  @map("target_user_id")
+  note        String   @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  isInternal  Boolean  @default(true) @map("is_internal")
+  
+  // Relations
+  actorUser   User     @relation("ActorSupportNotes", fields: [actorUserId], references: [id], onDelete: Cascade)
+  targetUser  User     @relation("TargetSupportNotes", fields: [targetUserId], references: [id], onDelete: Cascade)
+  
+  // Indexes
+  @@index([targetUserId, createdAt(sort: Desc)])
+  @@index([actorUserId, createdAt(sort: Desc)])
+  @@map("support_notes")
+}
+
+model BroadcastJob {
+  id              String   @id @default(cuid())
+  subject         String
+  htmlContent     String   @map("html_content") @db.Text
+  textContent     String?  @map("text_content") @db.Text
+  audienceFilter  Json     @map("audience_filter")
+  status          String   @default("pending") // pending, processing, completed, failed
+  createdBy       String   @map("created_by")
+  createdAt       DateTime @default(now()) @map("created_at")
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  totalRecipients Int?     @map("total_recipients")
+  sentCount       Int      @default(0) @map("sent_count")
+  failedCount     Int      @default(0) @map("failed_count")
+  errorMessage    String?  @map("error_message") @db.Text
+  metadata        Json?
+  
+  // Relations
+  creator         User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  recipients      BroadcastRecipient[]
+  
+  // Indexes
+  @@index([status, createdAt(sort: Desc)])
+  @@index([createdBy, createdAt(sort: Desc)])
+  @@map("broadcast_jobs")
+}
+
+model BroadcastRecipient {
+  id          String   @id @default(cuid())
+  jobId       String   @map("job_id")
+  userId      String   @map("user_id")
+  email       String
+  status      String   @default("pending") // pending, sent, failed, skipped
+  sentAt      DateTime? @map("sent_at")
+  errorMessage String?  @map("error_message") @db.Text
+  retryCount  Int      @default(0) @map("retry_count")
+  
+  // Relations
+  job         BroadcastJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  // Indexes
+  @@index([jobId, status])
+  @@index([userId])
+  @@map("broadcast_recipients")
+}
+
+// ==========================================
+// RBAC (Role-Based Access Control)
+// ==========================================
+
+model RolePermission {
+  id            String   @id @default(cuid())
+  role          String   // owner, admin, dev, viewer, compliance-auditor
+  permission    String   // manage_team, view_audit, export_reports, run_autopilot, etc.
+  
+  // Timestamps
+  createdAt     DateTime @default(now()) @map("created_at")
+  
+  @@unique([role, permission])
+  @@index([role])
+  @@index([permission])
+  @@map("role_permissions")
+}
+
+model TeamInvitation {
+  id              String   @id @default(cuid())
+  organizationId  String   @map("organization_id")
+  email           String
+  role            String   @default("viewer") // owner, admin, dev, viewer, compliance-auditor
+  invitedBy       String   @map("invited_by")
+  token           String   @unique
+  status          String   @default("pending") // pending, accepted, expired, revoked
+  expiresAt       DateTime @map("expires_at")
+  acceptedAt      DateTime? @map("accepted_at")
+  
+  // Timestamps
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  @@index([organizationId])
+  @@index([email])
+  @@index([token])
+  @@index([status])
+  @@map("team_invitations")
+}
+
+model RBACActivityLog {
+  id              String   @id @default(cuid())
+  organizationId  String   @map("organization_id")
+  actorUserId     String   @map("actor_user_id")
+  targetUserId    String?  @map("target_user_id")
+  action          String   // role_assigned, role_changed, member_invited, member_removed, permission_checked
+  previousRole    String?  @map("previous_role")
+  newRole         String?  @map("new_role")
+  permission      String?  // Permission that was checked/denied
+  allowed         Boolean? // Whether the action was allowed
+  metadata        Json?
+  ipAddress       String?  @map("ip_address")
+  userAgent       String?  @map("user_agent")
+  
+  // Timestamps
+  timestamp       DateTime @default(now())
+  
+  @@index([organizationId, timestamp])
+  @@index([actorUserId, timestamp])
+  @@index([targetUserId, timestamp])
+  @@index([action, timestamp])
+  @@map("rbac_activity_log")
+}
+
+// ==========================================
+// FEATURE FLAGS
+// ==========================================
+
+model FeatureFlag {
+  id              String   @id @default(cuid())
+  key             String   @unique
+  enabled         Boolean  @default(false)
+  rolloutPercent  Int      @default(0) // 0-100
+  allowedUserIds   String[] // Array of specific user IDs
+  description     String?
+  metadata        Json?    // Additional flag data
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([key])
+  @@index([enabled])
+  @@map("feature_flags")
+}
+
+model Feedback {
+  id              String   @id @default(cuid())
+  userId          String?  // Optional - allow anonymous feedback
+  category        String   // bug, feature, ui, performance, other
+  severity        String   // low, medium, high, critical
+  message         String   @db.Text
+  email           String?  // User email for follow-up
+  route           String?  // Current route when submitted
+  includeDiagnostics Boolean @default(false)
+  
+  // Diagnostics bundle (JSON)
+  diagnostics     Json?    // Browser info, errors, network status
+  
+  // Status tracking
+  status          String   @default("new") // new, in_progress, resolved, closed
+  assignedTo      String?
+  adminResponse   String?  @db.Text
+  resolvedAt      DateTime?
+  resolvedBy      String?
+  
+  // Relations
+  user            User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([severity])
+  @@index([category])
+  @@map("feedback")
+}
+
+model IncidentMessage {
+  id              String   @id @default(cuid())
+  status          String   @default("active") // active, resolved
+  message         String   @db.Text
+  severity        String   // info, warning, error, critical
+  createdBy       String   // Admin user ID who created it
+  
+  // Relations
+  creator         User     @relation("IncidentCreator", fields: [createdBy], references: [id])
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  resolvedAt      DateTime?
+  resolvedBy      String?
+
+  @@index([status])
+  @@index([severity])
+  @@index([createdBy])  // Added: Admin incident lookups
+  @@map("incident_messages")
+}
+
+// ==========================================
+// USER PREFERENCES
+// ==========================================
+
+model UserPreferences {
+  id                    String   @id @default(cuid())
+  userId                String   @unique @map("user_id")
+  
+  // Notification preferences
+  emailNotifications    Boolean  @default(true) @map("email_notifications")
+  inAppNotifications    Boolean  @default(true) @map("in_app_notifications")
+  slackWebhook          String?  @map("slack_webhook")
+  weeklyDigest          Boolean  @default(true) @map("weekly_digest")
+  securityAlerts        Boolean  @default(true) @map("security_alerts")
+  scanComplete          Boolean  @default(true) @map("scan_complete")
+  teamInvites           Boolean  @default(true) @map("team_invites")
+  
+  // Scan preferences
+  scanDepth             String   @default("standard") @map("scan_depth") // quick, standard, deep
+  autoScan              Boolean  @default(false) @map("auto_scan")
+  ignoredPaths          String?  @map("ignored_paths") @db.Text
+  severityThreshold     String   @default("medium") @map("severity_threshold") // low, medium, high, critical
+  parallelScans         Boolean  @default(true) @map("parallel_scans")
+  timeoutMinutes        Int      @default(30) @map("timeout_minutes")
+  
+  // Appearance preferences
+  theme                 String   @default("dark") // dark, light, system
+  compactMode           Boolean  @default(false) @map("compact_mode")
+  sidebarCollapsed      Boolean  @default(false) @map("sidebar_collapsed")
+  codeSyntaxHighlighting Boolean @default(true) @map("code_syntax_highlighting")
+  animationsEnabled     Boolean  @default(true) @map("animations_enabled")
+  
+  // Relations
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@map("user_preferences")
+}
+
+// ==========================================
+// WEBHOOK SUBSCRIPTIONS & DELIVERIES
+// ==========================================
+
+model WebhookSubscription {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+  url             String
+  events          String[] // Array of event types to subscribe to
+  secret          String?  // HMAC secret for signature verification
+  isActive        Boolean  @default(true) @map("is_active")
+  timeout         Int      @default(10000) // milliseconds
+  retryConfig     Json?    @map("retry_config") // Retry configuration
+  headers         Json?    // Custom headers
+  rateLimit       Json?    @map("rate_limit") // Rate limit config
+  lastDeliveryAt  DateTime? @map("last_delivery_at")
+  failureCount    Int      @default(0) @map("failure_count")
+  metadata        Json?
+  
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deliveries      WebhookDelivery[]
+  
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([isActive])
+  @@map("webhook_subscriptions")
+}
+
+model WebhookEvent {
+  id              String   @id @default(cuid())
+  type            String   // scan.completed, scan.failed, etc.
+  data            Json     // Event payload
+  source          String   @default("system") // system, user, integration
+  version         String   @default("1.0")
+  signature       String?
+  metadata        Json?
+  
+  deliveries      WebhookDelivery[]
+  
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  @@index([type, createdAt])
+  @@map("webhook_events")
+}
+
+model WebhookDelivery {
+  id              String   @id @default(cuid())
+  subscriptionId  String   @map("subscription_id")
+  eventId         String   @map("event_id")
+  attempt         Int      @default(1)
+  status          String   // pending, delivered, failed
+  statusCode      Int?     @map("status_code")
+  responseTime    Int?     @map("response_time") // milliseconds
+  error           String?
+  responseBody     String?  @db.Text @map("response_body")
+  retryAt         DateTime? @map("retry_at")
+  
+  subscription    WebhookSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  event           WebhookEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  
+  createdAt       DateTime @default(now()) @map("created_at")
+  deliveredAt     DateTime? @map("delivered_at")
+  
+  @@index([subscriptionId, status])
+  @@index([eventId])
+  @@index([retryAt])
+  @@map("webhook_deliveries")
+}
+
+// ==========================================
+// NEW MODELS FOR ENHANCEMENTS
+// ==========================================
+
+model ScheduledScan {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+  repositoryId    String?  @map("repository_id")
+  schedule        String   // cron expression
+  enabled         Boolean  @default(true)
+  lastRun         DateTime? @map("last_run")
+  nextRun         DateTime? @map("next_run")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([nextRun])
+  @@map("scheduled_scans")
+}
+
+model NotificationPreference {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  type        String   // email, slack, webhook
+  enabled     Boolean  @default(true)
+  events      String[] // critical_finding, scan_complete, scheduled_scan
+  config      Json     // Slack webhook URL, email address, etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, type])
+  @@index([userId])
+  @@map("notification_preferences")
+}

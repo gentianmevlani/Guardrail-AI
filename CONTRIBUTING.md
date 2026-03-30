@@ -102,6 +102,27 @@ The top-level `src/` directory at the monorepo root is **legacy**. Do **not** ad
 
 Intended relocation targets for existing root `src/` files are listed in **`SOURCE_MAP.md`**. CI runs `pnpm lint:root-src` to block new TypeScript under root `src/`.
 
+#### Jest `@/` path alias → root `src/`
+
+**`tsconfig.test.json`** (used with root Jest / `ts-jest`) maps `@/*` to the **repository root `src/`** tree, not `apps/web-ui/src`. Tests under `tests/` or legacy root `src/` that import `@/lib/...` resolve there. For new work, prefer **`apps/web-ui/src`** or **`apps/api/src`** and that package’s own `paths`; use the root `@/` mapping only when touching legacy tests or root `src/` code.
+
+### Test runners: Jest vs Vitest
+
+| Runner | Where | How to run |
+|--------|--------|------------|
+| **Jest** | Root config `config/jest.config.js`; roots include monorepo `src/`, `packages/`, `apps/`, `tests/`. Default **`pnpm test`** from repo root. | `pnpm test`, `pnpm test:coverage`, `pnpm test:unit` |
+| **Vitest** | **`apps/web-ui`** (Next.js app tests). Several **`packages/*`** (e.g. `ai-guardrails`, `compliance`, `security`, `engines`). | `pnpm --filter @guardrail/web-ui test` (or `cd apps/web-ui && pnpm test`); per-package `pnpm --filter <pkg> test` |
+
+Root `pnpm test` does **not** execute every Vitest suite. Vitest-only files are excluded from Jest where needed—see `testPathIgnorePatterns` in `config/jest.config.js`. Long-term consolidation toward Vitest in more packages is a process change, not a single PR.
+
+### Build output (`packages/*/dist`)
+
+**`packages/*/dist/`** is **gitignored** (see root `.gitignore`). Build packages locally or in CI; do not commit compiled output—published packages ship via npm from build artifacts, not checked-in `dist/`.
+
+### Stripe SDK version (workspace)
+
+**`stripe`** is aligned at **^17** across root **`devDependencies`** (CLI/tests/tooling) and **`apps/api`** / **`apps/web-ui`** dependencies. When upgrading the Stripe major, bump all of these together and re-run billing and webhook tests.
+
 ### Running Locally
 
 ```bash
@@ -117,6 +138,11 @@ guardrail scan --path ./test-project
 
 ### Running Tests
 
+**Runners**
+
+- **Jest** (`pnpm test`, `pnpm test:coverage`): root `src/`, `apps/api`, `packages/*`, and `tests/` — Node-oriented unit and integration tests. Coverage thresholds are **per directory** in `config/jest.config.js` (no repo-wide 80% gate).
+- **Vitest** (`pnpm --filter @guardrail/web-ui test` / `test:coverage`): `apps/web-ui` only. Install `@vitest/coverage-v8` in that app if you use `test:coverage`.
+
 ```bash
 # Run all tests
 pnpm test
@@ -124,8 +150,11 @@ pnpm test
 # Run specific package tests
 pnpm --filter @guardrail/cli test
 
-# Run with coverage
+# Jest coverage (monorepo config)
 pnpm test:coverage
+
+# Web UI (Vitest)
+pnpm --filter @guardrail/web-ui test:coverage
 ```
 
 ## Coding Standards
@@ -147,7 +176,7 @@ pnpm test:coverage
 ### Testing
 
 - Write unit tests for new features
-- Maintain >80% code coverage
+- Respect coverage floors for the runner you touch: Jest thresholds live in `config/jest.config.js` (and `apps/api/jest.config.js` if you use that project config); Vitest thresholds are in `apps/web-ui/vitest.config.ts`
 - Use descriptive test names
 - Mock external APIs
 

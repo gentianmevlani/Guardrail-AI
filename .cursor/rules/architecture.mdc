@@ -1,0 +1,44 @@
+---
+description: Project architecture and structure guidelines
+globs: ["**/*.{ts,tsx,js,jsx}"]
+alwaysApply: true
+---
+
+# Architecture Guidelines
+
+## Project Type: Next.js Pages Router
+
+
+
+### Monorepo Structure (pnpm)
+
+Workspaces:
+- `apps\api` - @guardrail/api
+- `apps\web-ui` - @guardrail/web-ui
+- `packages\ai-guardrails` - @guardrail/ai-guardrails
+- `packages\cli` - guardrail-cli
+- `packages\compliance` - @guardrail/compliance
+- `packages\core` - guardrail-core
+- `packages\database` - @guardrail/database
+- `packages\security` - guardrail-security
+
+Shared Packages:
+- typescript (used in 9 workspaces)
+- @types/node (used in 8 workspaces)
+- zod (used in 4 workspaces)
+- vitest (used in 4 workspaces)
+- guardrail-core (used in 3 workspaces)
+
+
+### Directory Purpose
+- `src/` - Source code root
+- `src/pages/` - Project files
+- `src/components/` - Project files
+- `src/lib/` - Project files
+- `src/services/` - Project files
+- `src/server/` - Project files
+- `prisma/` - Database schema and migrations
+
+### Import Aliases
+- Use `@/` for src directory imports
+- Never use relative imports deeper than `../`

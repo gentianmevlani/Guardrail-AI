@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5000";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5001";
 
 /**
  * Logout - Clear all auth sessions

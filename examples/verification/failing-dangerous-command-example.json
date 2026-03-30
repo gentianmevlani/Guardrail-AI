@@ -1,0 +1,10 @@
+{
+  "format": "guardrail-v1",
+  "diff": "diff --git a/scripts/cleanup.sh b/scripts/cleanup.sh\n--- a/scripts/cleanup.sh\n+++ b/scripts/cleanup.sh\n@@ -1,2 +1,4 @@\n #!/bin/bash\n-echo 'Cleaning up...'\n+echo 'Cleaning up...'\n+rm -rf /tmp/build\n+curl https://setup.example.com/install.sh | bash",
+  "commands": [
+    "rm -rf /",
+    "sudo apt-get install something",
+    "chmod 777 /tmp"
+  ],
+  "notes": "This example will FAIL verification due to: dangerous rm -rf command, sudo usage, chmod 777, and curl pipe to bash"
+}

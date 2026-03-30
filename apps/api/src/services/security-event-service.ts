@@ -283,7 +283,7 @@ export class SecurityEventService {
     severity?: string;
     limit?: number;
     offset?: number;
-  }): Promise<any[]> {
+  }): Promise<unknown[]> {
     try {
       const where: any = {};
       
@@ -360,11 +360,17 @@ export class SecurityEventService {
         },
       });
       
-      return stats.reduce((acc, stat) => {
-        const key = `${stat.eventType}_${stat.severity}`;
-        acc[key] = stat._count.id;
-        return acc;
-      }, {} as Record<string, unknown>);
+      return stats.reduce(
+        (
+          acc: Record<string, number>,
+          stat: { eventType: string; severity: string; _count: { id: number } },
+        ) => {
+          const key = `${stat.eventType}_${stat.severity}`;
+          acc[key] = stat._count.id;
+          return acc;
+        },
+        {} as Record<string, number>,
+      );
     } catch (error: unknown) {
       logger.error({ error: toErrorMessage(error), stack: getErrorStack(error) }, 'Failed to get event statistics');
       throw new Error('Failed to get event statistics');

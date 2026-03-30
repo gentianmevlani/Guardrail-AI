@@ -1,0 +1,79 @@
+/**
+ * Print Styles
+ * 
+ * What AI app builders forget: Users want to print pages
+ */
+
+@media print {
+  /* Hide non-essential elements */
+  .no-print,
+  nav,
+  .sidebar,
+  .header,
+  button,
+  .actions {
+    display: none !important;
+  }
+
+  /* Optimize for printing */
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: white;
+  }
+
+  /* Page breaks */
+  .page-break {
+    page-break-before: always;
+  }
+
+  .no-page-break {
+    page-break-inside: avoid;
+  }
+
+  /* Links */
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  table th,
+  table td {
+    border: 1px solid #000;
+    padding: 0.5rem;
+  }
+
+  /* Headers and footers */
+  @page {
+    margin: 2cm;
+  }
+
+  /* Avoid breaking */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  p, li {
+    page-break-inside: avoid;
+  }
+}
+

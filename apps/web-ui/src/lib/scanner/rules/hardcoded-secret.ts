@@ -1,4 +1,8 @@
 import type { ScanIssue } from '../types';
+import {
+  stripeSkLiveRegex24,
+  stripeSkTestRegex24,
+} from 'guardrail-security/secrets/stripe-placeholder-prefix';
 
 interface SecretPattern {
   pattern: RegExp;
@@ -51,13 +55,13 @@ const SECRET_PATTERNS: SecretPattern[] = [
     secretType: 'slack_token'
   },
   {
-    pattern: /sk_live_[a-zA-Z0-9]{24,}/g,
+    pattern: stripeSkLiveRegex24(),
     message: 'Stripe live secret key detected',
     severity: 'critical',
     secretType: 'stripe_live'
   },
   {
-    pattern: /sk_test_[a-zA-Z0-9]{24,}/g,
+    pattern: stripeSkTestRegex24(),
     message: 'Stripe test secret key detected',
     severity: 'high',
     secretType: 'stripe_test'

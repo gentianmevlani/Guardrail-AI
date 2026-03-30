@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="146" height="20">
+  <linearGradient id="smooth" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="round">
+    <rect width="146" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#round)">
+    <rect width="66" height="20" fill="#555"/>
+    <rect x="66" width="80" height="20" fill="#fbbf24"/>
+    <rect width="146" height="20" fill="url(#smooth)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
+    <text x="33" y="14" fill="#010101" fill-opacity=".3">Database</text>
+    <text x="33" y="13">Database</text>
+    <text x="106" y="14" fill="#010101" fill-opacity=".3">⚠️ Warning</text>
+    <text x="106" y="13">⚠️ Warning</text>
+  </g>
+</svg>

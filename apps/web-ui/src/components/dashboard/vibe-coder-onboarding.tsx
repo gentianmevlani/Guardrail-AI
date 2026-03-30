@@ -22,6 +22,7 @@ import {
   Terminal,
   Zap,
 } from "lucide-react";
+import { STRIPE_LIVE_PREFIX } from "guardrail-security/secrets/stripe-placeholder-prefix";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -110,7 +111,7 @@ export function VibeCoderOnboarding({
                 title: "Exposed Secrets",
                 description:
                   "API keys visible in your code that hackers can steal",
-                example: "const apiKey = 'sk_live_abc123...'",
+                example: `const apiKey = '${STRIPE_LIVE_PREFIX}abc123...'`,
               },
               {
                 emoji: "🎭",

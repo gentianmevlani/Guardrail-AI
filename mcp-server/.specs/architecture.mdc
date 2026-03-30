@@ -1,0 +1,90 @@
+---
+description: Architecture Overview documentation
+category: architecture
+generatedAt: 2026-01-13T13:47:09.402Z
+---
+
+# Architecture Overview
+
+## Components
+
+### getRulesForLevel
+- **Type:** function
+- **Path:** `agent-checkpoint.js`
+
+### validateContent
+- **Type:** function
+- **Path:** `agent-checkpoint.js`
+
+### formatViolations
+- **Type:** function
+- **Path:** `agent-checkpoint.js`
+
+### handleCheckpointTool
+- **Type:** function
+- **Path:** `agent-checkpoint.js`
+
+### ServiceName
+- **Type:** class
+- **Path:** `architect-tools.js`
+
+### name
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### detectFileType
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### detectFramework
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### reviewCode
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### getSuggestions
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### ComponentName
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### useHookName
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### handler
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### handleArchitectTool
+- **Type:** function
+- **Path:** `architect-tools.js`
+
+### getCurrentTier
+- **Type:** function
+- **Path:** `audit-mcp.js`
+
+### getCurrentActor
+- **Type:** function
+- **Path:** `audit-mcp.js`
+
+### redactSensitive
+- **Type:** function
+- **Path:** `audit-mcp.js`
+
+### redactMetadata
+- **Type:** function
+- **Path:** `audit-mcp.js`
+
+### redactObject
+- **Type:** function
+- **Path:** `audit-mcp.js`
+
+### computeHash
+- **Type:** function
+- **Path:** `audit-mcp.js`
+

@@ -142,7 +142,7 @@ export function WarpBackground({
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 ${className}`}
+      className={`absolute inset-0 h-full w-full ${className}`}
       style={{ zIndex: 0 }}
     />
   );

@@ -1,0 +1,118 @@
+# Load Testing Harness
+# Usage: make load-test or make stress-test
+
+.PHONY: help load-test stress-test install-k6 clean-reports
+
+# Default target
+help:
+	@echo "Guardrail Load Testing Harness"
+	@echo ""
+	@echo "Available commands:"
+	@echo "  make install-k6      Install k6 load testing tool"
+	@echo "  make load-test       Run baseline load test (up to 200 users)"
+	@echo "  make stress-test     Run 10x stress test (up to 2000 users)"
+	@echo "  make quick-test      Quick smoke test (up to 20 users)"
+	@echo "  make clean-reports   Clean up old test reports"
+	@echo ""
+	@echo "Environment variables:"
+	@echo "  BASE_URL            Target API URL (default: http://localhost:3000)"
+	@echo "  K6_CLOUD_TOKEN      Optional: k6 Cloud token for cloud testing"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make load-test BASE_URL=https://api.staging.getguardrail.io"
+	@echo "  make stress-test BASE_URL=https://api.getguardrail.io"
+
+# Install k6 if not present
+install-k6:
+	@if ! command -v k6 &> /dev/null; then \
+		echo "Installing k6..."; \
+		if [[ "$$(uname)" == "Darwin" ]]; then \
+			brew install k6; \
+		elif [[ "$$(uname)" == "Linux" ]]; then \
+			if command -v apt &> /dev/null; then \
+				sudo apt-get update && sudo apt-get install -y gnupg2 && \
+				sudo gpg2 --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69 && \
+				echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list && \
+				sudo apt-get update && sudo apt-get install k6; \
+			elif command -v yum &> /dev/null; then \
+				sudo yum install -y https://dl.k6.io/rpm/repo/k6-repo.noarch.rpm && \
+				sudo yum install k6; \
+			else \
+				echo "Please install k6 manually: https://k6.io/docs/getting-started/installation/"; \
+			fi; \
+		fi; \
+	else \
+		echo "k6 is already installed"; \
+	fi
+
+# Baseline load test (up to 200 users)
+load-test:
+	@echo "Starting baseline load test..."
+	@echo "Target: $(BASE_URL)"
+	@mkdir -p reports
+	k6 run \
+		--out json=reports/baseline-$(shell date +%Y%m%d_%H%M%S).json \
+		--out html=reports/baseline-$(shell date +%Y%m%d_%H%M%S).html \
+		tests/load/baseline-load-test.js
+
+# 10x stress test (up to 2000 users)
+stress-test:
+	@echo "Starting 10x stress test..."
+	@echo "Target: $(BASE_URL)"
+	@echo "WARNING: This will generate significant load. Ensure you have permission."
+	@mkdir -p reports
+	k6 run \
+		--out json=reports/stress-10x-$(shell date +%Y%m%d_%H%M%S).json \
+		--out html=reports/stress-10x-$(shell date +%Y%m%d_%H%M%S).html \
+		tests/load/stress-10x-load-test.js
+
+# Quick smoke test (up to 20 users)
+quick-test:
+	@echo "Starting quick smoke test..."
+	@echo "Target: $(BASE_URL)"
+	@mkdir -p reports
+	k6 run \
+		--out json=reports/quick-$(shell date +%Y%m%d_%H%M%S).json \
+		tests/load/baseline-load-test.js \
+		--vus 20 \
+		--duration 2m
+
+# Cloud testing (if k6 Cloud token is available)
+cloud-test:
+	@echo "Running test in k6 Cloud..."
+	@if [ -z "$(K6_CLOUD_TOKEN)" ]; then \
+		echo "K6_CLOUD_TOKEN environment variable required for cloud testing"; \
+		exit 1; \
+	fi
+	k6 cloud \
+		--out cloud \
+		tests/load/baseline-load-test.js
+
+# Clean up old reports
+clean-reports:
+	@echo "Cleaning up old reports..."
+	@find reports -name "*.json" -mtime +7 -delete
+	@find reports -name "*.html" -mtime +7 -delete
+	@echo "Cleaned up reports older than 7 days"
+
+# Show latest reports
+show-reports:
+	@echo "Latest load test reports:"
+	@ls -la reports/*.html 2>/dev/null | tail -5 || echo "No reports found"
+
+# Validate environment
+validate:
+	@echo "Validating test environment..."
+	@if [ -z "$(BASE_URL)" ]; then \
+		echo "BASE_URL not set, using http://localhost:3000"; \
+		export BASE_URL="http://localhost:3000"; \
+	fi
+	@echo "Testing connectivity to $(BASE_URL)..."
+	@curl -f -s $(BASE_URL)/health > /dev/null || \
+		(echo "ERROR: Cannot reach $(BASE_URL)/health" && exit 1)
+	@echo "Environment validation passed"
+
+# Full test suite (baseline + stress)
+full-test: validate load-test stress-test
+	@echo "Full test suite completed"
+	@make show-reports

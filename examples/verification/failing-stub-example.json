@@ -1,0 +1,8 @@
+{
+  "format": "guardrail-v1",
+  "diff": "diff --git a/src/services/payment.ts b/src/services/payment.ts\n--- a/src/services/payment.ts\n+++ b/src/services/payment.ts\n@@ -1,3 +1,15 @@\n+import { stripe } from './stripe-client';\n+\n export async function processPayment(amount: number, currency: string) {\n-  throw new Error('not implemented');\n+  // TODO: add retry logic\n+  const paymentIntent = await stripe.paymentIntents.create({\n+    amount,\n+    currency,\n+  });\n+  \n+  console.log(\"placeholder\");\n+  \n+  return {\n+    id: paymentIntent.id,\n+    status: paymentIntent.status,\n+  };\n }",
+  "commands": [
+    "pnpm install stripe"
+  ],
+  "notes": "This example will FAIL verification due to: TODO comment (ship mode), console.log placeholder"
+}

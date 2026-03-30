@@ -1,0 +1,151 @@
+/**
+ * Non-Coder Helper Styles
+ */
+
+.non-coder-helper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+}
+
+.helper-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.helper-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.helper-header p {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.helper-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.helper-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.helper-category:hover {
+  border-color: #3b82f6;
+  background: #f3f4f6;
+  transform: translateY(-2px);
+}
+
+.helper-category.active {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+}
+
+.category-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.category-title {
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+}
+
+.helper-suggestions {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 0.75rem;
+}
+
+.helper-suggestions h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.suggestion-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  width: 100%;
+}
+
+.suggestion-button:hover {
+  border-color: #3b82f6;
+  background: #f9fafb;
+  transform: translateX(4px);
+}
+
+.suggestion-button svg {
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.helper-tips {
+  padding: 1.5rem;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: 0.75rem;
+}
+
+.helper-tips h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 1rem;
+}
+
+.helper-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.helper-tips li {
+  padding: 0.5rem 0;
+  color: #78350f;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+

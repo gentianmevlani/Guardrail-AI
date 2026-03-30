@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-ui",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@guardrail/web-ui", "dev"],
+      "port": 5001
+    }
+  ]
+}

@@ -35,7 +35,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
   }, []);
 
   return (
-    <div 
+    <div
       ref={cardRef}
       className="relative rounded-2xl transition-all duration-500 ease-out group isolate"
       style={{
@@ -44,18 +44,18 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
       }}
     >
       <div className="absolute inset-0 rounded-2xl bg-slate-950/40 backdrop-blur-2xl -z-30" />
-      
+
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 via-transparent to-white/5 opacity-50 -z-20 pointer-events-none" />
 
-      <div 
+      <div
         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 pointer-events-none"
         style={{
           background: `radial-gradient(600px circle at calc(50% + calc(var(--pointer-x) * 50%)) calc(50% + calc(var(--pointer-y) * 50%)), rgba(59, 130, 246, 0.25), transparent 80%)`,
         }}
       />
-      
+
       <div className="absolute inset-0 rounded-2xl border border-white/20 pointer-events-none -z-10" />
-      <div 
+      <div
         className="absolute inset-0 rounded-2xl border border-transparent pointer-events-none -z-10"
         style={{
           background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.1) 100%) border-box',
@@ -77,18 +77,18 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
         <ChevronDown
           className={cn(
             "h-5 w-5 text-slate-400 flex-shrink-0 transition-all duration-300",
-            isOpen ? "rotate-180 text-blue-400" : "group-hover:text-slate-300"
+            isOpen ? "rotate-180 text-teal-400" : "group-hover:text-slate-300"
           )}
         />
       </button>
-      
+
       <div
         className={cn(
           "overflow-hidden transition-all duration-300 ease-in-out relative z-10",
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         )}
       >
-        <div 
+        <div
           className="px-6 pb-5 text-slate-300 leading-relaxed pt-4 border-t border-white/10"
         >
           {answer}

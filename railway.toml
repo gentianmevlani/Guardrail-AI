@@ -1,0 +1,15 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "apps/api/Dockerfile"
+
+[deploy]
+# Run migrations before starting the server
+# Note: When using Dockerfile builder, Railway may use Dockerfile CMD instead
+# This startCommand will be used if Railway doesn't use Dockerfile CMD
+startCommand = "npx prisma migrate deploy --schema=./packages/database/prisma/schema.prisma && cd apps/api && node dist/start.js"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[env]
+NODE_ENV = "production"
+PORT = "3001"

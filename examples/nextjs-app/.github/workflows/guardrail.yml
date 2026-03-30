@@ -1,0 +1,43 @@
+name: Guardrail Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  guardrail:
+    name: Guardrail Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Guardrail Gate
+        run: npx guardrail gate --sarif
+        continue-on-error: true
+
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: .guardrail/results.sarif
+
+      - name: Upload Guardrail Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: guardrail-report
+          path: .guardrail/
+          retention-days: 30

@@ -288,10 +288,10 @@ export function Sidebar() {
             className="flex items-center gap-2 font-semibold hover-scale-sm transition-smooth"
           >
             <Image
-              src="/logo.png"
-              alt="Logo"
-              width={140}
-              height={45}
+              src="/guardrail-logo.svg"
+              alt="guardrail"
+              width={160}
+              height={32}
               className="h-8 w-auto object-contain"
               priority
             />
