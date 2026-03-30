@@ -52,7 +52,7 @@
     "@aws-sdk/client-secrets-manager": "^3.490.0",
     "@azure/identity": "^4.0.0",
     "@azure/keyvault-secrets": "^4.8.0",
-    "@google-cloud/secret-manager": "^5.0.0",
+    "@google-cloud/secret-manager": "^6.1.1",
     "glob": "^7.2.3",
     "node-vault": "^0.10.2",
     "yaml": "^2.3.4"
