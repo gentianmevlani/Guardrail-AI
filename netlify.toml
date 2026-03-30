@@ -5,7 +5,8 @@
   base = "apps/web-ui"
   # pnpm + Next on Netlify requires hoisting or the OpenNext adapter fails to wire routes → static 404.
   # See https://opennext.js.org/netlify#pnpm-support — PNPM_FLAGS applies to Netlify's pre-build install.
-  command = "cd ../.. && pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter @guardrail/web-ui run build"
+  # Install must see devDependencies (plugin-nextjs, types). NODE_ENV=production skips them and breaks next/npx.
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
   # Relative to base (apps/web-ui); the Next.js adapter rewrites this for deploy after it processes the build
   publish = ".next"
 
@@ -19,7 +20,7 @@
   NPM_VERSION = "10"
   PNPM_VERSION = "9.15.1"
   PNPM_FLAGS = "--shamefully-hoist"
-  NODE_ENV = "production"
+  # Do not set NODE_ENV here — production skips devDependencies during pnpm install and breaks the Next.js build.
   NEXT_TELEMETRY_DISABLED = "1"
   NEXT_FONT_GOOGLE_MOCKED_RESPONSES = "1"
   # Exclude template files and test data from secrets scanning
@@ -149,21 +150,18 @@
 # =============================================================================
 
 [context.production]
-  command = "cd ../.. && pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter @guardrail/web-ui run build"
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
   [context.production.environment]
-    NODE_ENV = "production"
     API_URL = "https://api.guardrail.network"
 
 [context.deploy-preview]
-  command = "cd ../.. && pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter @guardrail/web-ui run build"
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
   [context.deploy-preview.environment]
-    NODE_ENV = "development"
     API_URL = "https://api.guardrail.network"
 
 [context.branch-deploy]
-  command = "cd ../.. && pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter @guardrail/web-ui run build"
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
   [context.branch-deploy.environment]
-    NODE_ENV = "development"
     API_URL = "https://api.guardrail.network"
 
 [[headers]]

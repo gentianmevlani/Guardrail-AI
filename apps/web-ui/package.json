@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npx --yes next dev -H 0.0.0.0 -p 5001",
-    "build": "npx --yes next build",
+    "build": "next build",
     "build:search": "npx --yes pagefind --site .next --output-path public/pagefind",
     "build:full": "npx --yes next build && npm run build:search",
     "start": "npx --yes next start -H 0.0.0.0 -p 5001",
