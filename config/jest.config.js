@@ -1,0 +1,102 @@
+module.exports = {
+  testEnvironment: "node",
+  roots: ["<rootDir>/../src", "<rootDir>/../packages", "<rootDir>/../apps", "<rootDir>/../tests"],
+  testMatch: [
+    "**/__tests__/**/*.+(ts|tsx|js)",
+    "**/*.(test|spec).+(ts|tsx|js)",
+  ],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/",
+    "/e2e/",
+    "tests/e2e/",
+    "tests/performance/",
+    // ES module services handled by transform config
+    "src/server/services/github-api-service.ts",
+    // Vitest tests (run separately with vitest) - exclude all files that import vitest
+    "src/lib/__tests__/architect-agent.test.ts",
+    "src/lib/__tests__/polish-service.test.ts",
+    "src/lib/__tests__/errors.test.ts",
+    "src/lib/__tests__/natural-language-search.test.ts",
+    "src/lib/__tests__/universal-guardrails.test.ts",
+    "src/lib/__tests__/result-types.test.ts",
+    "src/lib/__tests__/production-anomaly-predictor.test.ts",
+    "src/lib/analysis/__tests__/static-analyzer.test.ts",
+    "src/server/__tests__/mock-data-scanner.test.ts",
+    "src/server/__tests__/code-search-service.test.ts",
+    "src/server/__tests__/ai-explainer.test.ts",
+    "src/server/middleware/__tests__/auth-rate-limiter.test.ts",
+    "tests/usage-enforcement.test.ts",
+    "tests/unit/analysis-engine.test.ts",
+    "tests/security/ssrf-protection.test.ts",
+    "tests/security/oauth-timeout.test.ts",
+    "tests/security/error-handlers.test.ts",
+    "tests/security/admin-middleware.test.ts",
+    "tests/integration/api-routes.test.ts",
+    "tests/compliance/compliance-dashboard.test.ts",
+    "tests/billing/stripe-plan-mapping.test.ts",
+    "tests/billing/seat-pricing.test.ts",
+    "tests/billing/billing-edge-cases.test.ts",
+    "packages/compliance/tests/audit.test.ts",
+    "apps/api/src/__tests__/api-key-security.test.ts",
+    "apps/api/src/__tests__/api-versioning.test.ts",
+    "apps/web-ui/src/__tests__/setup.ts",
+    "apps/web-ui/src/__tests__/components/HealthScoreCard.test.tsx",
+    // Integration tests requiring database/native modules
+    "src/server/__tests__/integration/api.test.ts",
+    // Empty test files
+    "src/services/__tests__/auth-service.test.ts",
+    "tests/integration/ship-api.integration.test.ts",
+  ],
+  preset: "ts-jest",
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
+  transform: {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig: "tsconfig.test.json",
+        useESM: true,
+      },
+    ],
+    "^.+\\.jsx?$": "babel-jest",
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!(.*\\.mjs$|@guardrail/core|@guardrail/database|@guardrail/security|@guardrail/ai-guardrails|@guardrail/compliance))",
+    "packages/core/src/types.js",
+  ],
+  collectCoverageFrom: [
+    '<rootDir>/../src/**/*.{ts,tsx}',
+    '<rootDir>/../packages/*/src/**/*.{ts,tsx}',
+    '<rootDir>/../apps/*/src/**/*.{ts,tsx}',
+  ],
+  coverageDirectory: '<rootDir>/../coverage',
+  coverageReporters: ['text', 'lcov', 'html', 'json', 'json-summary'],
+  /** Use V8 coverage; babel/istanbul instrumentation conflicts with many TS/ESM modules in this repo. */
+  coverageProvider: 'v8',
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  globals: {
+    "ts-jest": {
+      tsconfig: "tsconfig.json",
+      useESM: true,
+    },
+  },
+  // @/ aliases resolve to apps/web-ui (canonical app). Root src/ is deprecated — do not map tests to ../src.
+  moduleNameMapper: {
+    "^@/lib/(.*)$": "<rootDir>/../apps/web-ui/src/lib/$1",
+    "^@/components/(.*)$": "<rootDir>/../apps/web-ui/src/components/$1",
+    "^@/hooks/(.*)$": "<rootDir>/../apps/web-ui/src/hooks/$1",
+    "^@/types/(.*)$": "<rootDir>/../apps/web-ui/src/types/$1",
+    "^@/features/(.*)$": "<rootDir>/../apps/web-ui/src/features/$1",
+    "^@/context/(.*)$": "<rootDir>/../apps/web-ui/src/context/$1",
+    "^@/server/(.*)$": "<rootDir>/../apps/web-ui/src/server/$1",
+    "^@/config/(.*)$": "<rootDir>/../apps/web-ui/src/config/$1",
+    "^@/(.*)$": "<rootDir>/../apps/web-ui/src/$1",
+    // Workspace packages
+    "^@guardrail/core$": "<rootDir>/../packages/core/src/index.ts",
+    "^@guardrail/database$": "<rootDir>/../packages/database/src/index.ts",
+    "^@guardrail/security$": "<rootDir>/../packages/security/src/index.ts",
+    "^@guardrail/ai-guardrails$": "<rootDir>/../packages/ai-guardrails/src/index.ts",
+    "^@guardrail/compliance$": "<rootDir>/../packages/compliance/src/index.ts",
+  },
+  verbose: true,
+};
