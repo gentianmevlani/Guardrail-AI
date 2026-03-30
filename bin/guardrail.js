@@ -602,10 +602,10 @@ ${c.dim}Run 'guardrail <command> --help' for details.${c.reset}
         exitCode = await runValidate(args);
         break;
       case "doctor":
-        exitCode = runDoctor(args);
+        exitCode = await runDoctor(args);
         break;
       case "init":
-        exitCode = runInit(args);
+        exitCode = await runInit(args);
         break;
       case "mcp":
         exitCode = runMcp(args);

@@ -27,10 +27,11 @@ const c = {
 };
 
 async function runPromptFirewall(args) {
-  return withErrorHandling(async () => {
-    const projectPath = args.path || process.cwd();
-    const json = args.json || false;
-    const prompt = args.prompt || args._[0];
+  const wrapped = withErrorHandling(async () => {
+    const opts = parseFirewallArgs(args);
+    const projectPath = opts.path || process.cwd();
+    const json = opts.json || false;
+    const prompt = opts.prompt;
     const autoFix = args["auto-fix"] === true;
     const includeVersionControl = args["version-control"] !== false;
     const generatePlan = args.plan !== false;
@@ -39,8 +40,7 @@ async function runPromptFirewall(args) {
       console.error(`${c.red}Error: Prompt is required${c.reset}`);
       console.error(`Usage: guardrail prompt-firewall "your prompt here"`);
       console.error(`   or: guardrail prompt-firewall --prompt "your prompt here"`);
-      const { EXIT_CODES } = require('./lib/error-handler');
-      process.exit(EXIT_CODES.INVALID_INPUT);
+      return 2;
     }
 
     // Try to load prompt firewall
@@ -56,8 +56,7 @@ async function runPromptFirewall(args) {
       } catch {
         console.error(`${c.red}Error: Prompt firewall not available.${c.reset}`);
         console.error(`Please run: pnpm build in packages/ai-guardrails`);
-        const { EXIT_CODES } = require('./lib/error-handler');
-        process.exit(EXIT_CODES.INTERNAL_ERROR);
+        return 3;
       }
     }
 
@@ -106,6 +105,23 @@ async function runPromptFirewall(args) {
 
     return result.verification.passed ? 0 : 1;
   });
+  return wrapped();
+}
+
+function parseFirewallArgs(args) {
+  const opts = { path: process.cwd(), json: false, prompt: null, "auto-fix": false, "version-control": true, plan: true };
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (a === "--help" || a === "-h") { opts.help = true; }
+    else if (a === "--json") { opts.json = true; }
+    else if (a === "--auto-fix") { opts["auto-fix"] = true; }
+    else if (a === "--no-version-control") { opts["version-control"] = false; }
+    else if (a === "--no-plan") { opts.plan = false; }
+    else if (a === "--path" && args[i + 1]) { opts.path = args[++i]; }
+    else if (a === "--prompt" && args[i + 1]) { opts.prompt = args[++i]; }
+    else if (!a.startsWith("-") && !opts.prompt) { opts.prompt = a; }
+  }
+  return opts;
 }
 
 function printFirewallReport(result) {

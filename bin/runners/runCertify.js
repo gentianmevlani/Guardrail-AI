@@ -165,7 +165,7 @@ async function runCertify(args, projectPath) {
     );
     console.log("");
 
-    return EXIT_CODES.SUCCESS;
+    return 0;
   } catch (error) {
     console.error(
       `${COLORS.red}Certification failed: ${error.message}${COLORS.reset}`,
@@ -173,7 +173,7 @@ async function runCertify(args, projectPath) {
     if (error.message.includes("Scan failed")) {
       console.error(`${COLORS.dim}Receipt: scan execution${COLORS.reset}`);
     }
-    return EXIT_CODES.INTERNAL_ERROR;
+    return 1;
   }
 }
 

@@ -17,7 +17,7 @@
     "build:all": "turbo run build && pnpm run build:lib",
     "build:lib": "tsc -p tsconfig.lib.json",
     "build:cli-lib": "tsc -p tsconfig.cli-dist.json",
-    "build:netlify": "pnpm install --frozen-lockfile --ignore-scripts && turbo run build --filter=@guardrail/web-ui",
+    "build:netlify": "pnpm install --frozen-lockfile --ignore-scripts && pnpm --filter guardrail-security run build && turbo run build --filter=@guardrail/web-ui",
     "deploy:production": "turbo run build && cd packages/cli && npm publish --access public",
     "dev": "turbo run dev --parallel",
     "test": "jest --config=config/jest.config.js",
