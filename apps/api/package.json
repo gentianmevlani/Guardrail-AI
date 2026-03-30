@@ -33,7 +33,7 @@
     "bcryptjs": "^2.4.3",
     "bullmq": "^5.1.5",
     "cron": "^3.5.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^17.3.1",
     "fastify": "^5.0.0",
     "guardrail-security": "workspace:*",
     "guardrail-ship": "workspace:*",
