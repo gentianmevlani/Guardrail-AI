@@ -73,7 +73,7 @@
     "@sentry/nextjs": "^8.0.0",
     "@apidevtools/swagger-parser": "^10.1.0",
     "@lhci/cli": "0.12.0",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.58.2",
     "@prisma/client": "^5.22.0",
     "@types/connect-pg-simple": "^7.0.3",
     "@types/express-session": "^1.18.2",
@@ -123,7 +123,7 @@
     "@babel/preset-env": "^7.28.5",
     "@babel/traverse": "^7.28.5",
     "@babel/types": "^7.28.5",
-    "@jest/globals": "^29.7.0",
+    "@jest/globals": "^30.3.0",
     "@types/babel__traverse": "^7.28.0",
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
@@ -131,7 +131,7 @@
     "@types/cron": "^2.0.1",
     "@types/express": "^5.0.6",
     "@types/express-rate-limit": "^6.0.2",
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.19.27",
     "@types/supertest": "^6.0.3",
@@ -145,7 +145,7 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "husky": "^9.1.7",
-    "jest": "^29.7.0",
+    "jest": "^30.3.0",
     "jest-environment-node": "^29.7.0",
     "lint-staged": "^16.2.7",
     "nock": "^14.0.10",
@@ -153,7 +153,7 @@
     "stripe": "^17.0.0",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.6",
-    "vitest": "^1.2.0"
+    "vitest": "^4.1.2"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
