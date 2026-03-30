@@ -29,7 +29,7 @@
     "@guardrail/database": "workspace:*",
     "@octokit/rest": "^20.1.2",
     "@sendgrid/mail": "^8.1.0",
-    "@sentry/node": "^8.0.0",
+    "@sentry/node": "^10.46.0",
     "bcryptjs": "^2.4.3",
     "bullmq": "^5.1.5",
     "cron": "^3.5.0",
