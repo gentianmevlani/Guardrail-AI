@@ -1,0 +1,216 @@
+import { writeFileSync } from 'fs';
+import { icons, styles } from '../ui/cli-styles';
+import { frameLines } from '../ui/cli-frame-inline';
+import { printDivider } from '../ui/cli-menus';
+
+
+export function outputResults(results: any, options: any): void {
+  if (options.quiet) return;
+  
+  if (options.format === 'json') {
+    console.log(JSON.stringify(results, null, 2));
+    return;
+  }
+  
+  const { summary, findings, filesScanned, duration } = results;
+  const total = summary.critical + summary.high + summary.medium + summary.low;
+  
+  console.log('');
+  const summaryLines = [
+    `${styles.bold}SCAN SUMMARY${styles.reset}`,
+    '',
+    `${styles.dim}Files scanned:${styles.reset}  ${styles.bold}${filesScanned}${styles.reset}`,
+    `${styles.dim}Duration:${styles.reset}       ${duration}`,
+    `${styles.dim}Total issues:${styles.reset}   ${total}`,
+    '',
+    `${styles.brightRed}${styles.bold}█${styles.reset} CRITICAL  ${styles.bold}${summary.critical.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightRed}█${styles.reset} HIGH      ${styles.bold}${summary.high.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightYellow}█${styles.reset} MEDIUM    ${styles.bold}${summary.medium.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightBlue}█${styles.reset} LOW       ${styles.bold}${summary.low.toString().padStart(3)}${styles.reset}`,
+  ];
+  
+  console.log(frameLines(summaryLines, { padding: 2 }).join('\n'));
+  console.log('');
+  
+  if (findings.length > 0) {
+    console.log(`  ${styles.bold}DETECTED FINDINGS${styles.reset}`);
+    printDivider();
+    
+    for (const finding of findings) {
+      const severityColor = finding.severity === 'critical' ? styles.brightRed :
+                           finding.severity === 'high' ? styles.brightRed :
+                           finding.severity === 'medium' ? styles.brightYellow : styles.brightBlue;
+      
+      console.log(`  ${severityColor}${finding.severity.toUpperCase()}${styles.reset} ${styles.bold}${finding.title}${styles.reset}`);
+      console.log(`     ${styles.dim}File:${styles.reset}   ${finding.file}:${finding.line}`);
+      console.log(`     ${styles.dim}Category:${styles.reset} ${finding.category}`);
+      console.log(`     ${styles.dim}Fix:${styles.reset}      ${styles.brightCyan}${finding.recommendation}${styles.reset}`);
+      console.log('');
+    }
+  }
+  
+  // Summary footer
+  if (total === 0) {
+    console.log(`  ${styles.brightGreen}${icons.success}${styles.reset} ${styles.bold}No security issues found!${styles.reset}\n`);
+  } else if (summary.critical === 0 && summary.high === 0) {
+    console.log(`  ${styles.brightGreen}${icons.success}${styles.reset} ${styles.bold}No critical or high severity issues!${styles.reset}`);
+    console.log(`  ${styles.dim}Consider addressing medium/low issues when possible.${styles.reset}\n`);
+  } else {
+    console.log(`  ${styles.brightYellow}${icons.warning}${styles.reset} ${styles.bold}Action required:${styles.reset} Address ${summary.critical + summary.high} high-priority issues.\n`);
+  }
+  
+  if (options.output) {
+    writeFileSync(options.output, JSON.stringify(results, null, 2));
+    console.log(`  ${styles.dim}📄 Results saved to ${options.output}${styles.reset}\n`);
+  }
+}
+
+export function outputSecretsResults(results: any, options: any): void {
+  if (options.format === 'json') {
+    console.log(JSON.stringify(results, null, 2));
+    return;
+  }
+  
+  console.log(`  ${styles.dim}Patterns checked:${styles.reset} ${results.patterns.join(', ')}`);
+  console.log('');
+  
+  if (results.findings.length === 0) {
+    console.log(`  ${styles.brightGreen}✓${styles.reset} ${styles.bold}No secrets detected!${styles.reset}\n`);
+    return;
+  }
+  
+  const highRisk = results.findings.filter((f: any) => f.risk === 'high').length;
+  const mediumRisk = results.findings.filter((f: any) => f.risk === 'medium').length;
+  const lowRisk = results.findings.filter((f: any) => f.risk === 'low').length;
+  const testFiles = results.findings.filter((f: any) => f.isTest).length;
+  
+  const summaryLines = [
+    `${styles.bold}DETECTION SUMMARY${styles.reset}`,
+    '',
+    `${styles.dim}Total Found:${styles.reset}    ${styles.bold}${results.findings.length}${styles.reset}`,
+    `${styles.dim}Test Files:${styles.reset}     ${testFiles}`,
+    '',
+    `${styles.brightRed}${styles.bold}█${styles.reset} HIGH RISK  ${styles.bold}${highRisk.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightYellow}█${styles.reset} MEDIUM     ${styles.bold}${mediumRisk.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightBlue}█${styles.reset} LOW        ${styles.bold}${lowRisk.toString().padStart(3)}${styles.reset}`,
+  ];
+  
+  console.log(frameLines(summaryLines, { padding: 2 }).join('\n'));
+  console.log('');
+  
+  console.log(`  ${styles.bold}${icons.warning} POTENTIAL SECRETS${styles.reset}`);
+  printDivider();
+  
+  for (const finding of results.findings) {
+    const riskColor = finding.risk === 'high' ? styles.brightRed : 
+                      finding.risk === 'medium' ? styles.brightYellow : styles.brightBlue;
+    const riskLabel = finding.risk === 'high' ? 'HIGH' : 
+                      finding.risk === 'medium' ? 'MEDIUM' : 'LOW';
+    const testTag = finding.isTest ? `${styles.dim} [TEST]${styles.reset}` : '';
+    
+    console.log(`  ${riskColor}${riskLabel}${styles.reset} ${styles.bold}${finding.type}${styles.reset}${testTag}`);
+    console.log(`     ${styles.dim}File:${styles.reset}   ${finding.file}:${finding.line}`);
+    console.log(`     ${styles.dim}Confidence:${styles.reset} ${(finding.confidence * 100).toFixed(0)}%  ${styles.dim}Entropy:${styles.reset} ${finding.entropy.toFixed(1)}`);
+    console.log(`     ${styles.dim}Match:${styles.reset}  ${styles.brightWhite}${finding.match}${styles.reset}`);
+    console.log(`     ${styles.dim}Fix:${styles.reset}    ${styles.brightCyan}${finding.recommendation?.remediation || 'Move to environment variables'}${styles.reset}`);
+    console.log('');
+  }
+}
+
+export function outputVulnResults(results: any, options: any): void {
+  if (options.format === 'json') {
+    console.log(JSON.stringify(results, null, 2));
+    return;
+  }
+  
+  console.log(`  ${styles.dim}Packages scanned:${styles.reset} ${results.packagesScanned}`);
+  console.log(`  ${styles.dim}Audit source:${styles.reset}    ${results.auditSource}`);
+  console.log('');
+  
+  const { summary } = results;
+  const total = summary.critical + summary.high + summary.medium + summary.low;
+  
+  if (total === 0) {
+    console.log(`  ${styles.brightGreen}✓${styles.reset} ${styles.bold}No vulnerabilities found!${styles.reset}\n`);
+    return;
+  }
+  
+  const summaryLines = [
+    `${styles.bold}VULNERABILITY SUMMARY${styles.reset}`,
+    '',
+    `${styles.dim}Total Issues:${styles.reset}   ${styles.bold}${total}${styles.reset}`,
+    '',
+    `${styles.brightRed}${styles.bold}█${styles.reset} CRITICAL  ${styles.bold}${summary.critical.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightRed}█${styles.reset} HIGH      ${styles.bold}${summary.high.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightYellow}█${styles.reset} MEDIUM    ${styles.bold}${summary.medium.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightBlue}█${styles.reset} LOW       ${styles.bold}${summary.low.toString().padStart(3)}${styles.reset}`,
+  ];
+  
+  console.log(frameLines(summaryLines, { padding: 2 }).join('\n'));
+  console.log('');
+  
+  console.log(`  ${styles.bold}${icons.scan} KNOWN VULNERABILITIES${styles.reset}`);
+  printDivider();
+  
+  for (const vuln of results.findings) {
+    const severityColor = vuln.severity === 'critical' ? styles.brightRed :
+                         vuln.severity === 'high' ? styles.brightRed :
+                         vuln.severity === 'medium' ? styles.brightYellow : styles.brightBlue;
+    
+    console.log(`  ${severityColor}${vuln.severity.toUpperCase()}${styles.reset} ${styles.bold}${vuln.package}@${vuln.version}${styles.reset}`);
+    console.log(`     ${styles.dim}CVE:${styles.reset}    ${vuln.cve}`);
+    console.log(`     ${styles.dim}Title:${styles.reset}  ${vuln.title}`);
+    console.log(`     ${styles.dim}Fix:${styles.reset}    ${styles.brightGreen}Upgrade to ${vuln.fixedIn}${styles.reset}`);
+    console.log('');
+  }
+}
+
+export function outputComplianceResults(results: any, options: any): void {
+  if (options.format === 'json') {
+    console.log(JSON.stringify(results, null, 2));
+    return;
+  }
+  
+  const scoreColor = results.overallScore >= 80 ? styles.brightGreen : 
+                     results.overallScore >= 60 ? styles.brightYellow : styles.brightRed;
+  
+  console.log('');
+  const summaryLines = [
+    `${styles.bold}COMPLIANCE SUMMARY${styles.reset}`,
+    '',
+    `${styles.dim}Framework:${styles.reset}     ${styles.bold}${results.framework || 'SOC2'}${styles.reset}`,
+    `${styles.dim}Overall Score:${styles.reset} ${scoreColor}${styles.bold}${results.overallScore}%${styles.reset}`,
+    '',
+    `${styles.dim}Status:${styles.reset}        ${results.overallScore >= 80 ? styles.brightGreen + 'PASSED' : styles.brightRed + 'FAILED'}${styles.reset}`,
+  ];
+  
+  console.log(frameLines(summaryLines, { padding: 2 }).join('\n'));
+  console.log('');
+  
+  console.log(`  ${styles.bold}${icons.compliance} CONTROL CATEGORIES${styles.reset}`);
+  printDivider();
+  
+  for (const cat of results.categories) {
+    const statusIcon = cat.status === 'pass' ? styles.brightGreen + '✓' : styles.brightYellow + '⚠';
+    const catScoreColor = cat.score >= 80 ? styles.brightGreen :
+                         cat.score >= 60 ? styles.brightYellow : styles.brightRed;
+    
+    console.log(`  ${statusIcon}${styles.reset} ${cat.name.padEnd(25)} ${catScoreColor}${cat.score}%${styles.reset} ${styles.dim}(${cat.passed}/${cat.checks} checks)${styles.reset}`);
+  }
+  
+  if (results.findings.length > 0) {
+    console.log('');
+    console.log(`  ${styles.bold}${icons.warning} COMPLIANCE FINDINGS${styles.reset}`);
+    printDivider();
+    
+    for (const finding of results.findings) {
+      console.log(`  ${styles.brightYellow}${icons.warning}${styles.reset} ${styles.bold}${finding.finding}${styles.reset}`);
+      console.log(`     ${styles.dim}Control:${styles.reset}  ${finding.control}`);
+      console.log(`     ${styles.dim}Category:${styles.reset} ${finding.category}`);
+      console.log(`     ${styles.dim}Fix:${styles.reset}      ${styles.brightCyan}${finding.recommendation}${styles.reset}`);
+      console.log('');
+    }
+  }
+  
+  console.log(`  ${styles.dim}Run${styles.reset} ${styles.bold}guardrail scan:compliance --framework gdpr${styles.reset} ${styles.dim}for other frameworks.${styles.reset}\n`);
+}

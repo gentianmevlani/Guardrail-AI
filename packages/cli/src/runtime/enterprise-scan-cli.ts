@@ -1,0 +1,295 @@
+import { basename } from 'path';
+import { writeFileSync } from 'fs';
+import { icons, styles } from '../ui/cli-styles';
+import { frameLines } from '../ui/cli-frame-inline';
+import { printDivider } from '../ui/cli-menus';
+import { createJsonOutput, formatScanResults } from './json-output';
+import { ExitCode } from './exit-codes';
+
+
+export async function runScanEnterprise(projectPath: string, options: any): Promise<any> {
+  const { ParallelScanner } = await import('../scanner/parallel');
+  const { IncrementalScanner } = await import('../scanner/incremental');
+  const { BaselineManager } = await import('../scanner/baseline');
+  type Finding = import('../scanner/baseline').Finding;
+  
+  const scanner = new ParallelScanner();
+  const progressStates = new Map<string, string>();
+  
+  scanner.onProgress('secrets', (progress) => {
+    progressStates.set('secrets', progress.message);
+    if (!options.quiet) {
+      const msg = `${styles.brightCyan}${icons.secret}${styles.reset} Secrets: ${progress.message}`;
+      process.stdout.write(`\r${msg}${' '.repeat(80)}`);
+      if (progress.completed) process.stdout.write('\n');
+    }
+  });
+  
+  scanner.onProgress('vulnerabilities', (progress) => {
+    progressStates.set('vulnerabilities', progress.message);
+    if (!options.quiet) {
+      const msg = `${styles.brightGreen}${icons.scan}${styles.reset} Vulnerabilities: ${progress.message}`;
+      process.stdout.write(`\r${msg}${' '.repeat(80)}`);
+      if (progress.completed) process.stdout.write('\n');
+    }
+  });
+  
+  scanner.onProgress('compliance', (progress) => {
+    progressStates.set('compliance', progress.message);
+    if (!options.quiet) {
+      const msg = `${styles.brightYellow}${icons.compliance}${styles.reset} Compliance: ${progress.message}`;
+      process.stdout.write(`\r${msg}${' '.repeat(80)}`);
+      if (progress.completed) process.stdout.write('\n');
+    }
+  });
+  
+  const incrementalResult = IncrementalScanner.getChangedFiles({
+    since: options.since,
+    projectPath,
+  });
+  
+  if (incrementalResult.enabled && !options.quiet) {
+    const msg = IncrementalScanner.getIncrementalMessage(incrementalResult);
+    console.log(`  ${styles.dim}${msg}${styles.reset}`);
+    console.log(`  ${styles.dim}Note: Only secrets scan uses incremental mode. Vulnerabilities/compliance run full.${styles.reset}`);
+    console.log('');
+  }
+  
+  const results = await scanner.scan(projectPath, {
+    path: projectPath,
+    type: options.type,
+    format: options.format,
+    output: options.output,
+    excludeTests: options.excludeTests,
+    minConfidence: options.minConfidence,
+    failOnDetection: options.failOnDetection,
+    failOnCritical: options.failOnCritical,
+    failOnHigh: options.failOnHigh,
+    evidence: options.evidence,
+    complianceFramework: options.framework,
+    since: options.since,
+    baseline: options.baseline,
+  });
+  
+  // Adapter functions for baseline management
+  const secretToBaselineFinding = (secret: any): Finding => ({
+    type: secret.type,
+    category: 'secret',
+    title: secret.type,
+    file: secret.file,
+    line: secret.line,
+    match: secret.match,
+    snippet: secret.match,
+  });
+  
+  const vulnToBaselineFinding = (vuln: any): Finding => ({
+    type: 'vulnerability',
+    category: vuln.severity,
+    title: vuln.title || vuln.cve,
+    file: vuln.path || 'package.json',
+    line: 1,
+    match: vuln.cve,
+    snippet: `${vuln.package}@${vuln.version}`,
+  });
+  
+  const baselineToSecretFinding = (finding: Finding): any => ({
+    type: finding.type || 'unknown',
+    file: finding.file,
+    line: finding.line,
+    risk: 'medium', // Default risk
+    confidence: 0.8,
+    entropy: 0,
+    match: finding.match || '',
+    isTest: false,
+    recommendation: 'Review and remediate',
+  });
+  
+  const baselineToVulnFinding = (finding: Finding): any => ({
+    package: finding.snippet?.split('@')[0] || 'unknown',
+    version: finding.snippet?.split('@')[1] || 'unknown',
+    severity: finding.category || 'medium',
+    cve: finding.match || 'unknown',
+    title: finding.title,
+    fixedIn: 'unknown',
+    path: finding.file,
+  });
+  
+  if (options.baseline) {
+    if (results.secrets) {
+      const secretFindings = results.secrets.findings.map(secretToBaselineFinding);
+      const { filtered, suppressed } = BaselineManager.filterFindings(
+        secretFindings,
+        options.baseline
+      );
+      results.secrets.findings = filtered.map(baselineToSecretFinding);
+      results.secrets.summary.total = filtered.length;
+      (results.secrets as any).suppressedByBaseline = suppressed;
+    }
+    
+    if (results.vulnerabilities) {
+      const vulnFindings = results.vulnerabilities.findings.map(vulnToBaselineFinding);
+      const { filtered, suppressed } = BaselineManager.filterFindings(
+        vulnFindings,
+        options.baseline
+      );
+      results.vulnerabilities.findings = filtered.map(baselineToVulnFinding);
+      const summary = {
+        critical: filtered.filter((f: any) => f.severity === 'critical').length,
+        high: filtered.filter((f: any) => f.severity === 'high').length,
+        medium: filtered.filter((f: any) => f.severity === 'medium').length,
+        low: filtered.filter((f: any) => f.severity === 'low').length,
+      };
+      results.vulnerabilities.summary = { ...results.vulnerabilities.summary, ...summary };
+      (results.vulnerabilities as any).suppressedByBaseline = suppressed;
+    }
+  }
+  
+  const summary = {
+    critical: 0,
+    high: 0,
+    medium: 0,
+    low: 0,
+  };
+  
+  if (results.secrets) {
+    const byRisk = results.secrets.summary.byRisk || {};
+    summary.high += byRisk.high || 0;
+    summary.medium += byRisk.medium || 0;
+    summary.low += byRisk.low || 0;
+  }
+  
+  if (results.vulnerabilities) {
+    summary.critical += results.vulnerabilities.summary.critical || 0;
+    summary.high += results.vulnerabilities.summary.high || 0;
+    summary.medium += results.vulnerabilities.summary.medium || 0;
+    summary.low += results.vulnerabilities.summary.low || 0;
+  }
+  
+  return {
+    ...results,
+    summary,
+    projectPath,
+    projectName: basename(projectPath),
+    scanType: options.type,
+  };
+}
+
+export function outputResultsEnterprise(results: any, options: any): void {
+  if (options.quiet) return;
+  
+  if (options.format === 'sarif') {
+    const { combinedToSarif, secretsToSarif, vulnerabilitiesToSarif } = require('../formatters/sarif-v2');
+    
+    let sarif;
+    if (options.type === 'all') {
+      sarif = combinedToSarif(results);
+    } else if (options.type === 'secrets' && results.secrets) {
+      sarif = secretsToSarif(results.secrets);
+    } else if (options.type === 'vulnerabilities' && results.vulnerabilities) {
+      sarif = vulnerabilitiesToSarif(results.vulnerabilities);
+    } else {
+      sarif = combinedToSarif(results);
+    }
+    
+    const output = JSON.stringify(sarif, null, 2);
+    if (options.output) {
+      writeFileSync(options.output, output);
+    } else {
+      console.log(output);
+    }
+    return;
+  }
+  
+  if (options.format === 'json') {
+    // Use standardized JSON output schema
+    const jsonOutput = createJsonOutput(
+      'scan',
+      true,
+      ExitCode.SUCCESS,
+      formatScanResults(results),
+      undefined,
+      {
+        scanType: options.type || 'all',
+        incremental: !!options.since,
+        baseline: !!options.baseline,
+      }
+    );
+    const output = JSON.stringify(jsonOutput, null, 2);
+    if (options.output) {
+      writeFileSync(options.output, output);
+    } else {
+      console.log(output);
+    }
+    return;
+  }
+  
+  const { summary, duration } = results;
+  const total = summary.critical + summary.high + summary.medium + summary.low;
+  
+  console.log('');
+  const summaryLines = [
+    `${styles.bold}SCAN SUMMARY${styles.reset}`,
+    '',
+    `${styles.dim}Duration:${styles.reset}       ${(duration / 1000).toFixed(1)}s`,
+    `${styles.dim}Total issues:${styles.reset}   ${total}`,
+    '',
+    `${styles.brightRed}${styles.bold}█${styles.reset} CRITICAL  ${styles.bold}${summary.critical.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightRed}█${styles.reset} HIGH      ${styles.bold}${summary.high.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightYellow}█${styles.reset} MEDIUM    ${styles.bold}${summary.medium.toString().padStart(3)}${styles.reset}`,
+    `${styles.brightBlue}█${styles.reset} LOW       ${styles.bold}${summary.low.toString().padStart(3)}${styles.reset}`,
+  ];
+  
+  if (options.baseline) {
+    const totalSuppressed = (results.secrets?.suppressedByBaseline || 0) + 
+                           (results.vulnerabilities?.suppressedByBaseline || 0);
+    if (totalSuppressed > 0) {
+      summaryLines.push('');
+      summaryLines.push(`${styles.dim}Suppressed by baseline: ${totalSuppressed}${styles.reset}`);
+    }
+  }
+  
+  console.log(frameLines(summaryLines, { padding: 2 }).join('\n'));
+  console.log('');
+  
+  if (results.secrets && results.secrets.findings.length > 0) {
+    console.log(`  ${styles.bold}${icons.secret} SECRETS (${results.secrets.findings.length})${styles.reset}`);
+    printDivider();
+    for (const finding of results.secrets.findings.slice(0, 5)) {
+      const riskColor = finding.risk === 'high' ? styles.brightRed : 
+                        finding.risk === 'medium' ? styles.brightYellow : styles.brightBlue;
+      console.log(`  ${riskColor}${finding.risk.toUpperCase()}${styles.reset} ${finding.type} ${styles.dim}at ${finding.file}:${finding.line}${styles.reset}`);
+    }
+    if (results.secrets.findings.length > 5) {
+      console.log(`  ${styles.dim}... and ${results.secrets.findings.length - 5} more${styles.reset}`);
+    }
+    console.log('');
+  }
+  
+  if (results.vulnerabilities && results.vulnerabilities.findings.length > 0) {
+    console.log(`  ${styles.bold}${icons.scan} VULNERABILITIES (${results.vulnerabilities.findings.length})${styles.reset}`);
+    printDivider();
+    for (const finding of results.vulnerabilities.findings.slice(0, 5)) {
+      const severityColor = finding.severity === 'critical' ? styles.brightRed :
+                           finding.severity === 'high' ? styles.brightRed :
+                           finding.severity === 'medium' ? styles.brightYellow : styles.brightBlue;
+      console.log(`  ${severityColor}${finding.severity.toUpperCase()}${styles.reset} ${finding.package}@${finding.version} ${styles.dim}(${finding.cve})${styles.reset}`);
+    }
+    if (results.vulnerabilities.findings.length > 5) {
+      console.log(`  ${styles.dim}... and ${results.vulnerabilities.findings.length - 5} more${styles.reset}`);
+    }
+    console.log('');
+  }
+  
+  if (total === 0) {
+    console.log(`  ${styles.brightGreen}${icons.success}${styles.reset} ${styles.bold}No security issues found!${styles.reset}\n`);
+  } else if (summary.critical === 0 && summary.high === 0) {
+    console.log(`  ${styles.brightGreen}${icons.success}${styles.reset} ${styles.bold}No critical or high severity issues!${styles.reset}`);
+    console.log(`  ${styles.dim}Consider addressing medium/low issues when possible.${styles.reset}\n`);
+  } else {
+    console.log(`  ${styles.brightYellow}${icons.warning}${styles.reset} ${styles.bold}Action required:${styles.reset} Address ${summary.critical + summary.high} high-priority issues.\n`);
+  }
+  
+  if (options.output) {
+    console.log(`  ${styles.dim}📄 Results saved to ${options.output}${styles.reset}\n`);
+  }
+}
