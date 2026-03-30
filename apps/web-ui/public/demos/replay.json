@@ -1,0 +1,9 @@
+{
+  "flow": "smoke",
+  "result": {
+    "passed": true,
+    "failures": [],
+    "duration": 500
+  },
+  "timestamp": "2026-01-01T08:13:38.086Z"
+}

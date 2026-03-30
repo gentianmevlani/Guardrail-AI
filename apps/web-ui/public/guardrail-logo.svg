@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <rect width="200" height="40" fill="transparent"/>
+  <!-- vibecheck Icon - H-like fence symbol -->
+  <g fill="white">
+    <!-- Left vertical bar -->
+    <rect x="4" y="8" width="3" height="24" rx="1"/>
+    <!-- Right vertical bar -->
+    <rect x="23" y="8" width="3" height="24" rx="1"/>
+    <!-- Top horizontal bar -->
+    <rect x="7" y="12" width="16" height="3" rx="1"/>
+    <!-- Bottom horizontal bar -->
+    <rect x="7" y="25" width="16" height="3" rx="1"/>
+    <!-- Center post -->
+    <rect x="12" y="8" width="3" height="24" rx="1"/>
+  </g>
+  <!-- vibecheck Text -->
+  <text x="34" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="white">vibecheck</text>
+</svg>

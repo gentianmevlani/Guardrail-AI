@@ -1,0 +1,23 @@
+[
+  {
+    "fileName": "architecture.mdc",
+    "description": "Comprehensive documentation of the architecture system, including 7 core components, implementing patterns: Observer Pattern. Key components include: ArchitecturePage, ErrorBoundary, TouchTexture.",
+    "category": "architecture",
+    "importanceScore": 75,
+    "generatedAt": "2026-01-10T06:03:58.332Z"
+  },
+  {
+    "fileName": "security.mdc",
+    "description": "Comprehensive documentation of the security system, including 147 core components, implementing patterns: Repository Pattern, Service Layer, Factory Pattern, Observer Pattern. Key components include: SecurityPage, SecurityFinding, ScanSecurityData.",
+    "category": "security",
+    "importanceScore": 70,
+    "generatedAt": "2026-01-10T06:03:58.335Z"
+  },
+  {
+    "fileName": "utility.mdc",
+    "description": "Comprehensive documentation of the utility system, including 950 core components, implementing patterns: Repository Pattern, Service Layer, Factory Pattern, Observer Pattern. Key components include: ActivityPage, AuditEntry, AuditLogPage.",
+    "category": "utility",
+    "importanceScore": 70,
+    "generatedAt": "2026-01-10T06:03:58.337Z"
+  }
+]
