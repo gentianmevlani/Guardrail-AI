@@ -8,6 +8,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
 import { spawn } from 'child_process';
+import { getGuardrailPanelHead } from './webview-shared-styles';
 
 export type VerificationStatus = 'idle' | 'verifying' | 'pass' | 'fail';
 
@@ -665,17 +666,18 @@ export class AgentVerifier {
       { enableScripts: true }
     );
 
-    panel.webview.html = this.getReportHtml(result);
+    const cspSource = panel.webview.cspSource;
+    panel.webview.html = this.getReportHtml(result, cspSource);
   }
 
-  private getReportHtml(result: VerificationResult): string {
-    const statusColor = result.success ? '#6bcb77' : '#ff6b6b';
+  private getReportHtml(result: VerificationResult, cspSource: string): string {
+    const statusColor = result.success ? '#6ee7b7' : '#ff6b6b';
     const statusIcon = result.success ? '✅' : '❌';
     const statusText = result.success ? 'PASSED' : 'FAILED';
 
     const checksHtml = result.checks.map(check => {
       const icon = check.status === 'pass' ? '✓' : check.status === 'fail' ? '✗' : check.status === 'warn' ? '⚠' : '○';
-      const color = check.status === 'pass' ? '#6bcb77' : check.status === 'fail' ? '#ff6b6b' : check.status === 'warn' ? '#ffd93d' : '#888';
+      const color = check.status === 'pass' ? '#6ee7b7' : check.status === 'fail' ? '#ff6b6b' : check.status === 'warn' ? '#ffd93d' : '#849396';
       
       return `
         <div class="check" style="border-left: 3px solid ${color}">
@@ -707,86 +709,71 @@ export class AgentVerifier {
       </div>
     ` : '';
 
-    return `<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 20px;
-      background: var(--vscode-editor-background);
-      color: var(--vscode-editor-foreground);
-    }
+    const reportCss = `
+    .verify-pad { padding: 16px; max-width: 720px; margin: 0 auto; }
     .header {
       text-align: center;
-      padding: 30px;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 28px 20px;
+      background: linear-gradient(135deg, var(--surface-container-low), var(--surface-container-high));
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
       margin-bottom: 20px;
     }
-    .status {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
+    .status { font-size: 40px; margin-bottom: 8px; }
     .status-text {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
       color: ${statusColor};
     }
     .section {
-      margin: 20px 0;
-      padding: 15px;
-      background: var(--vscode-input-background);
-      border-radius: 8px;
+      margin: 16px 0;
+      padding: 16px;
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
     }
-    .section h3 {
-      margin-top: 0;
-    }
+    .section h3 { margin-top: 0; font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
     .check {
       margin: 10px 0;
-      padding: 10px;
-      background: rgba(0,0,0,0.2);
-      border-radius: 4px;
+      padding: 10px 12px;
+      background: var(--surface-container-lowest);
+      border-radius: 8px;
     }
-    .check-header {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
+    .check-header { display: flex; gap: 8px; align-items: flex-start; flex-wrap: wrap; font-size: 13px; color: var(--on-surface); }
     .fix {
       margin-top: 8px;
-      padding: 8px;
-      background: rgba(255,215,0,0.1);
-      border-radius: 4px;
-      font-size: 0.9em;
+      padding: 8px 10px;
+      background: rgba(255, 217, 61, 0.1);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--on-surface-variant);
     }
     .blockers { border-left: 4px solid #ff6b6b; }
     .warnings { border-left: 4px solid #ffd93d; }
     ul { margin: 0; padding-left: 20px; }
-    li { margin: 5px 0; }
-    .actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .btn-primary {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
-    }
-    .btn-secondary {
-      background: var(--vscode-button-secondaryBackground);
-      color: var(--vscode-button-secondaryForeground);
-    }
-  </style>
+    li { margin: 5px 0; font-size: 13px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    `;
+
+    const csp = [
+      `default-src 'none'`,
+      `style-src ${cspSource} 'unsafe-inline' https://fonts.googleapis.com`,
+      `font-src ${cspSource} https://fonts.gstatic.com`,
+      `script-src 'unsafe-inline'`,
+    ].join("; ");
+
+    return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Security-Policy" content="${csp}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  ${getGuardrailPanelHead(reportCss)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell verify-pad">
   <div class="header">
     <div class="status">${statusIcon}</div>
     <div class="status-text">VERIFICATION ${statusText}</div>
@@ -801,9 +788,9 @@ export class AgentVerifier {
   </div>
 
   <div class="actions">
-    ${result.success ? '<button class="btn-primary" onclick="applyDiff()">Apply Diff</button>' : ''}
-    ${!result.success && result.failureContext ? '<button class="btn-primary" onclick="copyFixPrompt()">Copy Fix Prompt</button>' : ''}
-    <button class="btn-secondary" onclick="close()">Close</button>
+    ${result.success ? '<button type="button" class="btn" onclick="applyDiff()">Apply Diff</button>' : ''}
+    ${!result.success && result.failureContext ? '<button type="button" class="btn" onclick="copyFixPrompt()">Copy Fix Prompt</button>' : ''}
+    <button type="button" class="btn btn-secondary" onclick="close()">Close</button>
   </div>
 
   <script>
@@ -812,6 +799,7 @@ export class AgentVerifier {
     function copyFixPrompt() { vscode.postMessage({ command: 'copyFixPrompt' }); }
     function close() { vscode.postMessage({ command: 'close' }); }
   </script>
+  </div>
 </body>
 </html>`;
   }

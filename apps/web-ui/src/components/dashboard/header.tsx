@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useDashboardContext } from "@/context/dashboard-context";
+import { useDashboardQueryContext } from "@/context/dashboard-query-context";
 import { logout, type AppNotification as Notification } from "@/lib/api";
 import { logger } from "@/lib/logger";
 import {
@@ -39,7 +39,7 @@ export function Header() {
     notifications: notificationsData,
     isLoading: loading,
     markAsRead,
-  } = useDashboardContext();
+  } = useDashboardQueryContext();
   const notifications = notificationsData.notifications;
   const unreadCount = notificationsData.unreadCount;
 
@@ -49,7 +49,9 @@ export function Header() {
       await logout();
       router.push("/");
     } catch (error) {
-      logger.error("Logout failed:", error);
+      logger.error("Logout failed:", {
+        error: error instanceof Error ? error.message : String(error),
+      });
     } finally {
       setLoggingOut(false);
     }

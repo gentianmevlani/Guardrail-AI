@@ -40,6 +40,15 @@ export class GuardrailDashboardPanel {
           case 'runCLI':
             vscode.commands.executeCommand('guardrail.runShip');
             break;
+          case 'runGate':
+            vscode.commands.executeCommand('guardrail.runGate');
+            break;
+          case 'runDoctor':
+            vscode.commands.executeCommand('guardrail.runDoctor');
+            break;
+          case 'runFix':
+            vscode.commands.executeCommand('guardrail.runFix');
+            break;
           case 'openPanel':
             this._openFeaturePanel(message.panel);
             break;
@@ -48,6 +57,11 @@ export class GuardrailDashboardPanel {
             break;
           case 'openExternal':
             vscode.env.openExternal(vscode.Uri.parse(message.url));
+            break;
+          case 'vscodeCommand':
+            if (typeof message.id === 'string') {
+              void vscode.commands.executeCommand(message.id);
+            }
             break;
         }
       },
@@ -100,6 +114,13 @@ export class GuardrailDashboardPanel {
 
   private _update(): void {
     this._panel.webview.html = this._getHtml();
+  }
+
+  private _escapeHtml(s: string): string {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/"/g, '&quot;');
   }
 
   /* ── Dashboard-specific CSS (extends shared Kinetic Archive) ── */
@@ -484,7 +505,7 @@ export class GuardrailDashboardPanel {
         Run <code>guardrail scan</code> or <code>guardrail ship --json</code>
         from the terminal, or click below.
       </p>
-      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:420px;">
         <button class="db-cta-btn" onclick="post('scan')">
           <span class="material-symbols-outlined" style="font-size:18px;">radar</span>
           Deploy Scanner
@@ -492,6 +513,26 @@ export class GuardrailDashboardPanel {
         <button class="db-cta-btn" onclick="post('runCLI')" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;border:1px solid var(--border-subtle);">
           <span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span>
           Run Ship Check
+        </button>
+        <button class="db-cta-btn" onclick="post('runGate')" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;border:1px solid var(--border-subtle);">
+          <span class="material-symbols-outlined" style="font-size:18px;">gavel</span>
+          Run Gate (JSON)
+        </button>
+        <button class="db-cta-btn" onclick="post('runDoctor')" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;border:1px solid var(--border-subtle);">
+          <span class="material-symbols-outlined" style="font-size:18px;">health_and_safety</span>
+          CLI Doctor
+        </button>
+        <button class="db-cta-btn" onclick="post('vscodeCommand', { id: 'guardrail.login' })" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;border:1px solid var(--border-subtle);">
+          <span class="material-symbols-outlined" style="font-size:18px;">link</span>
+          Login (browser)
+        </button>
+        <button class="db-cta-btn" onclick="post('vscodeCommand', { id: 'guardrail.openWebDashboard' })" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;border:1px solid var(--border-subtle);">
+          <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>
+          Web app
+        </button>
+        <button class="db-cta-btn" onclick="post('vscodeCommand', { id: 'guardrail.syncCliCredentials' })" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;border:1px solid var(--border-subtle);">
+          <span class="material-symbols-outlined" style="font-size:18px;">terminal</span>
+          Sync CLI
         </button>
       </div>
     </section>
@@ -548,13 +589,10 @@ export class GuardrailDashboardPanel {
     const highPct = total ? Math.round((high / total) * 100) : 0;
     const medPct = total ? Math.round((medium / total) * 100) : 0;
 
-    const trendVal = shipOk ? '+2.4%' : '-1.2%';
-    const trendIcon = shipOk ? 'trending_up' : 'trending_down';
-    const trendClr = shipOk ? 'color:var(--cyan-glow)' : 'color:var(--error)';
     const riskLabel = shipOk ? 'Minimal' : 'Elevated';
     const postureMsg = shipOk
-      ? `Infrastructure integrity is within <strong>optimal</strong> parameters. Grade ${grade}.`
-      : `Issues detected — review findings before shipping. Grade <strong>${grade}</strong>.`;
+      ? `Last scan score <strong>${scorePct}</strong> · grade <strong>${this._escapeHtml(grade)}</strong>.`
+      : `Review findings before shipping — score <strong>${scorePct}</strong>, grade <strong>${this._escapeHtml(grade)}</strong>.`;
 
     return `
   <div class="db-main">
@@ -570,8 +608,8 @@ export class GuardrailDashboardPanel {
           <p class="db-posture-desc">${postureMsg}</p>
           <div class="db-posture-meta">
             <div class="db-meta-item">
-              <span class="db-meta-label">Trend</span>
-              <span class="db-meta-val" style="${trendClr}">${trendVal} <span class="material-symbols-outlined" style="font-size:16px;">${trendIcon}</span></span>
+              <span class="db-meta-label">Grade</span>
+              <span class="db-meta-val" style="color:var(--cyan-glow);">${this._escapeHtml(grade)}</span>
             </div>
             <div class="db-meta-divider"></div>
             <div class="db-meta-item">
@@ -589,14 +627,14 @@ export class GuardrailDashboardPanel {
         <div class="db-threat-map">
           <div class="db-threat-header">
             <div class="db-threat-header-left">
-              <span class="db-threat-dot"></span>
-              <span class="db-threat-title">Real-time Threat Map</span>
+              <span class="db-threat-title">Scan snapshot</span>
             </div>
             <div style="display:flex;gap:6px;">
               <button class="db-threat-btn" onclick="post('showFindings')">Findings</button>
               <button class="db-threat-btn" onclick="post('scan')">Re-scan</button>
             </div>
           </div>
+          <p style="font-size:10px;color:#64748b;margin:0 0 10px 0;line-height:1.4;">Dots scale with critical / high / secret counts from the last scan (not live network traffic).</p>
           <div class="db-threat-canvas">
             <div class="db-threat-grid"></div>
             ${this._threatNodes(critical, high, secCount)}
@@ -634,65 +672,58 @@ export class GuardrailDashboardPanel {
           </div>
         </div>
 
-        <!-- Recent Checks -->
+        <!-- Session signals -->
         <div class="db-metric">
           <div class="db-metric-head">
             <div class="db-metric-icon" style="background:rgba(176,198,255,0.1);">
               <span class="material-symbols-outlined" style="color:var(--secondary);font-size:22px;">package_2</span>
             </div>
-            <span class="db-metric-badge">AUTO-RUN: ACTIVE</span>
+            <span class="db-metric-badge">LAST SCAN</span>
           </div>
-          <div class="db-metric-title">Recent Checks</div>
+          <div class="db-metric-title">Session signals</div>
           <div class="db-check">
             <span class="material-symbols-outlined" style="color:#22c55e;font-size:18px;font-variation-settings:'FILL' 1;">check_circle</span>
-            <span class="db-check-name">Workspace Scan</span>
-            <span class="db-check-time">just now</span>
+            <span class="db-check-name">Findings total</span>
+            <span class="db-check-time">${total}</span>
           </div>
           <div class="db-check">
             <span class="material-symbols-outlined" style="color:#22c55e;font-size:18px;font-variation-settings:'FILL' 1;">check_circle</span>
-            <span class="db-check-name">Integrity: ${integ} signal(s)</span>
-            <span class="db-check-time">—</span>
+            <span class="db-check-name">Integrity signals</span>
+            <span class="db-check-time">${integ}</span>
           </div>
           <div class="db-check">
             <span class="material-symbols-outlined" style="color:${secCount > 0 ? 'var(--error)' : '#22c55e'};font-size:18px;font-variation-settings:'FILL' 1;">${secCount > 0 ? 'error' : 'check_circle'}</span>
-            <span class="db-check-name">Secrets: ${secCount} found</span>
-            <span class="db-check-time">—</span>
+            <span class="db-check-name">Secrets (count)</span>
+            <span class="db-check-time">${secCount}</span>
           </div>
         </div>
 
-        <!-- Active Scans -->
+        <!-- On-demand -->
         <div class="db-metric" style="position:relative;overflow:hidden;">
           <div class="db-metric-head">
             <div class="db-metric-icon" style="background:rgba(195,245,255,0.1);">
               <span class="material-symbols-outlined" style="color:var(--primary);font-size:22px;">radar</span>
             </div>
-            <span style="padding:2px 8px;border-radius:999px;background:rgba(0,229,255,0.15);color:var(--cyan-glow);font-size:9px;font-weight:800;">MONITORING</span>
+            <span style="padding:2px 8px;border-radius:999px;background:rgba(100,116,139,0.25);color:#94a3b8;font-size:9px;font-weight:800;">ON-DEMAND</span>
           </div>
-          <div class="db-metric-title">Active Scans</div>
-          <div class="db-scan-item">
-            <div class="db-scan-head"><span>Security Sweep</span><span>100%</span></div>
-            <div class="db-scan-bar"><div class="db-scan-fill" style="width:100%;"></div></div>
-          </div>
-          <div class="db-scan-item" style="opacity:0.5;">
-            <div class="db-scan-head"><span>Deep Dependency</span><span>Queued</span></div>
-            <div class="db-scan-bar"><div class="db-scan-fill" style="width:0%;"></div></div>
-          </div>
+          <div class="db-metric-title">How scans run</div>
+          <p style="font-size:11px;color:var(--on-surface-variant);line-height:1.55;margin:0;">
+            The extension does not run a background security sweep. Use <strong>Scan</strong> in the sidebar or the button above — each run invokes the local <code style="font-size:10px;">guardrail</code> CLI against your workspace.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Live Status Feed -->
+    <!-- Session log -->
     <section class="anim anim-d2">
       <div class="db-feed">
         <div class="db-feed-head">
           <div class="db-feed-head-left">
             <span class="material-symbols-outlined" style="font-size:16px;color:#64748b;">list_alt</span>
-            <span class="db-feed-title">Live Status Feed</span>
+            <span class="db-feed-title">Session log</span>
           </div>
           <div class="db-feed-status">
-            <span class="db-feed-dot"></span>
-            <span>STREAMING</span>
-            <span style="margin-left:4px;">v${KINETIC_ARCHIVE_VERSION}</span>
+            <span style="font-size:10px;color:#64748b;">v${KINETIC_ARCHIVE_VERSION}</span>
           </div>
         </div>
         <div class="db-feed-body">
@@ -707,17 +738,17 @@ export class GuardrailDashboardPanel {
         <div>
           <h2 class="section-title">CLI Shortcuts</h2>
           <div class="card" style="padding:4px;background:var(--surface-container-lowest);">
-            <button class="db-cli-row" onclick="post('runCLI')">
+            <button class="db-cli-row" onclick="post('scan')">
               <span class="db-cli-cmd">guardrail scan</span>
               <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">terminal</span>
             </button>
             <div style="height:1px;background:var(--border-subtle);margin:0 18px;"></div>
             <button class="db-cli-row" onclick="post('runCLI')">
-              <span class="db-cli-cmd">guardrail gate</span>
-              <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">lock_open</span>
+              <span class="db-cli-cmd">guardrail ship</span>
+              <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">rocket_launch</span>
             </button>
             <div style="height:1px;background:var(--border-subtle);margin:0 18px;"></div>
-            <button class="db-cli-row" onclick="post('runCLI')">
+            <button class="db-cli-row" onclick="post('runFix')">
               <span class="db-cli-cmd">guardrail fix</span>
               <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">auto_fix_high</span>
             </button>
@@ -732,6 +763,8 @@ export class GuardrailDashboardPanel {
             ${this._miniModule('difference', 'Impact', 'impact')}
             ${this._miniModule('psychology', 'AI Explain', 'ai')}
             ${this._miniModule('description', 'MDC Gen', 'mdc')}
+            ${this._miniModule('groups', 'Team', 'team')}
+            ${this._miniModule('lan', 'Production', 'integrity')}
           </div>
         </div>
       </div>
@@ -740,16 +773,20 @@ export class GuardrailDashboardPanel {
   }
 
   private _threatNodes(critical: number, high: number, secrets: number): string {
-    // Generate visual nodes based on scan data
-    const nodes: string[] = [];
     const positions = [
       { top: '18%', left: '25%' }, { top: '45%', left: '72%' },
       { top: '65%', left: '35%' }, { top: '30%', left: '55%' },
       { top: '75%', left: '80%' }, { top: '20%', left: '85%' },
       { top: '55%', left: '15%' }, { top: '40%', left: '45%' },
     ];
-    const total = critical + high + secrets;
-    const count = Math.min(total || 3, 8);
+    const totalWeighted = critical + high + secrets;
+    if (totalWeighted === 0) {
+      return `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;text-align:center;font-size:11px;color:#64748b;line-height:1.5;">
+        No critical/high/secret signals in this summary — run a scan to populate counts.
+      </div>`;
+    }
+    const nodes: string[] = [];
+    const count = Math.min(totalWeighted, 8);
     for (let i = 0; i < count; i++) {
       const p = positions[i];
       const isCritical = i < critical;
@@ -768,19 +805,28 @@ export class GuardrailDashboardPanel {
       return `[${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}]`;
     };
     const grade = scan.grade || '—';
-    const lines = [
-      { t: ts(0), lv: 'info', msg: `Scan complete. Grade: ${grade}. Score: ${Math.round(scan.score)}/100.` },
-      { t: ts(2), lv: 'info', msg: `${scan.cliSummary?.totalFindings ?? scan.issues.length} finding(s) indexed.` },
-      { t: ts(5), lv: scan.canShip ? 'info' : 'warn', msg: scan.canShip ? 'Ship gate: PASSED. Ready for deployment.' : 'Ship gate: BLOCKED. Review findings.' },
-      { t: ts(8), lv: 'info', msg: 'Posture re-calculation complete. Status updated.' },
-      { t: ts(12), lv: (scan.counts?.secrets ?? 0) > 0 ? 'fail' : 'info', msg: (scan.counts?.secrets ?? 0) > 0 ? `Secret scan: ${scan.counts!.secrets} hit(s) detected.` : 'Secret scan: clean.' },
-      { t: ts(18), lv: 'info', msg: 'Dashboard telemetry synced.' },
+    const lines: Array<{ t: string; lv: string; msg: string }> = [
+      { t: ts(0), lv: 'info', msg: `Scan summary · grade ${grade} · score ${Math.round(scan.score)}/100.` },
+      { t: ts(1), lv: 'info', msg: `${scan.cliSummary?.totalFindings ?? scan.issues.length} finding(s) in session state.` },
+      { t: ts(2), lv: scan.canShip ? 'info' : 'warn', msg: scan.canShip ? 'canShip: true (last scan).' : 'canShip: false — review before shipping.' },
+      { t: ts(3), lv: (scan.counts?.secrets ?? 0) > 0 ? 'fail' : 'info', msg: (scan.counts?.secrets ?? 0) > 0 ? `Secret-related count: ${scan.counts!.secrets}.` : 'No secret hits in scan counts.' },
     ];
-    return lines.map(l => `
+    let offset = 4;
+    for (const issue of scan.issues.slice(0, 10)) {
+      const lv = issue.type === 'critical' ? 'fail' : issue.type === 'warning' ? 'warn' : 'info';
+      const prefix = issue.file ? `${issue.file}${issue.line != null ? `:${issue.line}` : ''} · ` : '';
+      lines.push({
+        t: ts(offset),
+        lv,
+        msg: prefix + issue.message,
+      });
+      offset += 1;
+    }
+    return lines.map((l) => `
           <div class="db-feed-line">
             <span class="db-feed-ts">${l.t}</span>
             <span class="db-feed-lv db-feed-${l.lv}">${l.lv.toUpperCase()}:</span>
-            <span class="db-feed-msg">${l.msg}</span>
+            <span class="db-feed-msg">${this._escapeHtml(l.msg)}</span>
           </div>`).join('');
   }
 
@@ -835,6 +881,26 @@ export class GuardrailDashboardPanel {
     <section class="anim">
       <h2 class="section-title">Settings</h2>
       <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="db-mod" onclick="post('vscodeCommand', { id: 'guardrail.login' })">
+          <div class="db-mod-left">
+            <div class="db-mod-icon" style="background:rgba(0,229,255,0.08);"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);">link</span></div>
+            <div>
+              <p style="font-size:14px;font-weight:700;">Login &amp; link CLI</p>
+              <p style="font-size:11px;color:var(--on-surface-variant);margin-top:2px;">Browser device code — syncs to local <code style="font-size:10px;">guardrail</code> CLI when enabled</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.25);">chevron_right</span>
+        </div>
+        <div class="db-mod" onclick="post('vscodeCommand', { id: 'guardrail.openWebDashboard' })">
+          <div class="db-mod-left">
+            <div class="db-mod-icon" style="background:rgba(0,229,255,0.08);"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);">public</span></div>
+            <div>
+              <p style="font-size:14px;font-weight:700;">Open web app</p>
+              <p style="font-size:11px;color:var(--on-surface-variant);margin-top:2px;">Configure <code style="font-size:10px;">guardrail.webAppUrl</code> for local dev</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.25);">open_in_new</span>
+        </div>
         <div class="db-mod" onclick="post('openSettings')">
           <div class="db-mod-left">
             <div class="db-mod-icon" style="background:rgba(0,229,255,0.08);"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);">tune</span></div>

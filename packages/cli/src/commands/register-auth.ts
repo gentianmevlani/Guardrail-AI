@@ -14,11 +14,13 @@ export function registerAuthCommands(program: Command): void {
 
   program
     .command('login')
-    .description('Login with your guardrail API key')
+    .description('Login with your guardrail API key or browser (device code)')
     .option('-k, --key <apiKey>', 'Your API key from guardrail.dev')
-    .action(async (options: { key?: string }) => {
+    .option('--device', 'Sign in in the browser (same flow as the VS Code extension)')
+    .action(async (options: { key?: string; device?: boolean }) => {
       await runAuthOptionsAction({
         key: options.key,
+        device: options.device,
         logout: false,
         status: false,
         refresh: false,
@@ -67,12 +69,14 @@ export function registerAuthCommands(program: Command): void {
     .command('auth')
     .description('Authenticate with your guardrail API key')
     .option('-k, --key <apiKey>', 'Your API key from guardrail.dev')
+    .option('--device', 'Browser login (device code; same as VS Code)')
     .option('--logout', 'Remove stored credentials')
     .option('--status', 'Check authentication status')
     .option('--refresh', 'Force revalidation of cached entitlements')
     .action(
       async (options: {
         key?: string;
+        device?: boolean;
         logout?: boolean;
         status?: boolean;
         refresh?: boolean;

@@ -246,9 +246,34 @@
         "category": "guardrail"
       },
       {
+        "command": "guardrail.runDoctor",
+        "title": "Run CLI Doctor (environment check)",
+        "category": "guardrail",
+        "icon": "$(debug)"
+      },
+      {
+        "command": "guardrail.runWhoami",
+        "title": "Run CLI Whoami (account / plan)",
+        "category": "guardrail",
+        "icon": "$(account)"
+      },
+      {
+        "command": "guardrail.runGate",
+        "title": "Run CLI Gate (CI-style --json)",
+        "category": "guardrail",
+        "icon": "$(shield)"
+      },
+      {
         "command": "guardrail.openWebDashboard",
-        "title": "Open Web Dashboard",
-        "category": "guardrail"
+        "title": "Open Web App (browser)",
+        "category": "guardrail",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "guardrail.syncCliCredentials",
+        "title": "Sync Login to Guardrail CLI",
+        "category": "guardrail",
+        "icon": "$(terminal)"
       },
       {
         "command": "guardrail.runFix",
@@ -438,6 +463,21 @@
           "type": "string",
           "default": "",
           "description": "OpenAI API key for AI intent verification"
+        },
+        "guardrail.webAppUrl": {
+          "type": "string",
+          "default": "https://app.guardrail.dev",
+          "description": "Guardrail web app URL (opened by “Open Web App” and linked from the dashboard)"
+        },
+        "guardrail.openLocalWebAppFirst": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, opens http://localhost:3000 if it responds (local Next.js); otherwise uses webAppUrl"
+        },
+        "guardrail.syncCredentialsToCli": {
+          "type": "boolean",
+          "default": true,
+          "description": "After VS Code login or logout, update the Guardrail CLI credential file (~/.config/guardrail or Application Support) and run `guardrail logout` first so the new key replaces any CLI keychain entry"
         }
       }
     },

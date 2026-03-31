@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs/promises";
+import { getGuardrailPanelHead } from "./webview-shared-styles";
 
 export function coerceUri(input: unknown): vscode.Uri | undefined {
   if (input instanceof vscode.Uri) return input;
@@ -156,28 +157,27 @@ export async function explainFinding(
     { enableScripts: false },
   );
 
+  const explainCss = `
+    .explain-pad { padding: 16px; max-width: 640px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin: 0 0 12px 0; color: var(--on-surface); }
+    pre { white-space: pre-wrap; font-size: 12px; line-height: 1.55; color: var(--on-surface); background: var(--surface-container-lowest); padding: 12px; border-radius: 8px; border: 1px solid var(--border-subtle); }
+    .meta { color: var(--on-surface-variant); font-size: 11px; margin-bottom: 12px; }
+  `;
   panel.webview.html = `<!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline';" />
-  <style>
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 16px;
-      color: var(--vscode-foreground);
-      background: var(--vscode-editor-background);
-      line-height: 1.5;
-    }
-    h1 { font-size: 14px; margin: 0 0 12px 0; }
-    pre { white-space: pre-wrap; font-size: 12px; }
-    .meta { color: var(--vscode-descriptionForeground); font-size: 11px; margin-bottom: 12px; }
-  </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  ${getGuardrailPanelHead(explainCss)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell explain-pad">
   <h1>Explain this finding</h1>
   ${code ? `<p class="meta">Category: ${escapeHtml(String(code))}</p>` : ""}
   <pre>${escapeHtml(message)}</pre>
+  </div>
 </body>
 </html>`;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useDashboardContext } from "@/context/dashboard-context";
+import { useDashboardQueryContext } from "@/context/dashboard-query-context";
 import { useGitHub } from "@/context/github-context";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -166,7 +166,8 @@ export function Sidebar() {
   const haptic = useHaptic();
 
   // Get real-time data from dashboard context
-  const { summary, findings, lastUpdated, isScanning } = useDashboardContext();
+  const { summary, findings, lastUpdated, isScanning } =
+    useDashboardQueryContext();
 
   // Get GitHub repositories
   const { repositories, connected } = useGitHub();

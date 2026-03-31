@@ -30,8 +30,9 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
   const scaleBackground = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const yText = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const yVisual = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  /** Scroll-based fade for the hero block — keep separate from Framer `animate` opacity to avoid composed opacity staying 0 (blank page on slow/failed hydration). */
-  const scrollFade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  // Do not tie hero text/terminal opacity to scrollYProgress. On some hosts (e.g. Netlify)
+  // layout can report a degenerate scroll range so progress jumps to 1; that drove
+  // opacity to 0 and looked like a blank / stuck loading page.
 
   return (
     <section
@@ -47,17 +48,14 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
       {/* WebGL warp (renders on top when available) */}
       <motion.div
         className="absolute inset-0 z-[1]"
-        style={{ y: yBackground, scale: scaleBackground, opacity: scrollFade }}
+        style={{ y: yBackground, scale: scaleBackground }}
       >
         <WarpBackground speed={0.3} intensity={0.8} />
       </motion.div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28 lg:px-8 lg:pt-32">
         <div className="flex flex-col gap-10 py-8 sm:gap-12 sm:py-10">
-          <motion.div
-            style={{ opacity: scrollFade }}
-            className="flex flex-col items-center text-center"
-          >
+          <motion.div className="flex flex-col items-center text-center">
             <motion.div
               style={{ y: yText }}
               initial={false}
@@ -132,7 +130,7 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
             </motion.div>
           </motion.div>
 
-          <motion.div style={{ opacity: scrollFade }}>
+          <motion.div>
             <motion.div
               style={{ y: yVisual }}
               initial={false}

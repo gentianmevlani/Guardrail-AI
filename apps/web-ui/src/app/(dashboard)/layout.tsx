@@ -1,16 +1,30 @@
 "use client";
 
 import { ErrorBoundary } from "@/components/dashboard/error-boundary";
-import { CyberHeader } from "@/components/dashboard/cyber-header";
-import { CyberSidebar } from "@/components/dashboard/cyber-sidebar";
+import { Header } from "@/components/dashboard/header";
+import { Sidebar } from "@/components/dashboard/sidebar";
 import { SimpleOnboardingWizard } from "@/components/onboarding/SimpleOnboardingWizard";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { CommandPalette } from "@/components/ui/command-palette";
+import { DotShaderBackground } from "@/components/ui/dot-shader-background";
 import { MobileNavigation } from "@/components/ui/navigation/mobile-navigation";
 import { AuthProvider } from "@/context/auth-context";
-import { DashboardProvider } from "@/context/dashboard-context";
+import { DashboardQueryProvider } from "@/context/dashboard-query-context";
 import { GitHubProvider } from "@/context/github-context";
 import { RepositoryProvider } from "@/context/repository-context";
+import nextDynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+
+// Lazy load QueryDevtools (only in development)
+const QueryDevtools = nextDynamic(
+  () =>
+    import("@/components/dev/QueryDevtools").then((mod) => mod.QueryDevtools),
+  { ssr: false },
+);
+
+// Force dynamic rendering
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 const SETUP_STORAGE_KEY = "guardrail_setup_complete";
 
@@ -25,6 +39,7 @@ export default function DashboardLayout({
   useEffect(() => {
     setMounted(true);
     const setupStatus = localStorage.getItem(SETUP_STORAGE_KEY);
+    // Show wizard if not completed or skipped (also handle legacy "true" value)
     if (
       setupStatus !== "completed" &&
       setupStatus !== "skipped" &&
@@ -39,30 +54,32 @@ export default function DashboardLayout({
       <AuthProvider>
         <GitHubProvider>
           <RepositoryProvider>
-            <DashboardProvider autoRefresh={true} refreshInterval={60000}>
+            <DashboardQueryProvider autoRefresh={true} refreshInterval={60000}>
+              <DotShaderBackground
+                dotColor="#20b2aa"
+                bgColor="#0d0f12"
+                dotOpacity={0.06}
+                gridSize={32}
+                animated={true}
+              />
               {/* Mobile Navigation */}
               <MobileNavigation />
-
-              {/* Cyber Top Nav */}
-              <CyberHeader />
-
-              <div className="flex min-h-[calc(100vh-3.5rem)]">
-                {/* Cyber Side Nav */}
-                <CyberSidebar />
-
-                {/* Main Content */}
-                <main
-                  id="main-content"
-                  role="main"
-                  aria-label="Main content"
-                  className="flex-1 p-6 lg:p-10 space-y-8 overflow-y-auto"
-                >
-                  <ErrorBoundary>{children}</ErrorBoundary>
-                </main>
+              <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+                <Sidebar />
+                <div className="flex flex-col">
+                  <Header />
+                  <main
+                    id="main-content"
+                    role="main"
+                    aria-label="Main content"
+                    className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6"
+                  >
+                    <Breadcrumbs />
+                    <ErrorBoundary>{children}</ErrorBoundary>
+                  </main>
+                </div>
               </div>
-
               <CommandPalette />
-
               {mounted && (
                 <SimpleOnboardingWizard
                   isOpen={showSetupWizard}
@@ -72,7 +89,9 @@ export default function DashboardLayout({
                   }}
                 />
               )}
-            </DashboardProvider>
+              {/* Query Devtools (development only) */}
+              <QueryDevtools />
+            </DashboardQueryProvider>
           </RepositoryProvider>
         </GitHubProvider>
       </AuthProvider>

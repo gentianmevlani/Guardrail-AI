@@ -2,23 +2,22 @@
 
 /**
  * Admin Dashboard
- * 
+ *
  * Secure admin dashboard for:
  * - User management and debugging
  * - Impersonation controls
  * - Broadcast email management
  * - Support tools and audit logs
- * 
+ *
  * SECURITY: Admin-only access with full audit logging
  */
-
-"use client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAuth } from "@/context/auth-context";
 import { logger } from "@/lib/logger";
 import {
     Activity,
@@ -33,9 +32,8 @@ import {
     UserCheck,
     Users
 } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // =============================================================================
 // TYPE DEFINITIONS
@@ -102,9 +100,9 @@ interface BroadcastJob {
 // =============================================================================
 
 export default function AdminDashboard() {
-  const { data: session, status } = useSession();
+  const { user, isLoading: authLoading } = useAuth();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [activeImpersonations, setActiveImpersonations] = useState<ImpersonationSession[]>([]);
@@ -112,21 +110,7 @@ export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState("overview");
 
-  // Check admin access
-  useEffect(() => {
-    if (status === "authenticated") {
-      if (!session?.user || !(session.user as any).role || !["admin", "support"].includes((session.user as any).role)) {
-        router.push("/dashboard");
-        return;
-      }
-      loadAdminData();
-    } else if (status === "unauthenticated") {
-      router.push("/auth");
-    }
-  }, [status, session, router]);
-
-  // Load admin data
-  const loadAdminData = async () => {
+  const loadAdminData = useCallback(async () => {
     try {
       setLoading(true);
       
@@ -162,7 +146,21 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // Check admin access and load dashboard
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) {
+      router.push("/auth");
+      return;
+    }
+    if (!user.role || !["admin", "support"].includes(user.role)) {
+      router.push("/dashboard");
+      return;
+    }
+    void loadAdminData();
+  }, [authLoading, user, router, loadAdminData]);
 
   // Handle user actions
   const handleUserAction = async (userId: string, action: string, reason?: string) => {
@@ -220,6 +218,30 @@ export default function AdminDashboard() {
     user.name?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!user.role || !["admin", "support"].includes(user.role)) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -255,8 +277,8 @@ export default function AdminDashboard() {
             Manage users, impersonation, and system operations
           </p>
         </div>
-        <Badge variant={(session?.user as any)?.role === "admin" ? "default" : "secondary"}>
-          {(session?.user as any)?.role === "admin" ? "Administrator" : "Support Staff"}
+        <Badge variant={user.role === "admin" ? "default" : "secondary"}>
+          {user.role === "admin" ? "Administrator" : "Support Staff"}
         </Badge>
       </div>
 

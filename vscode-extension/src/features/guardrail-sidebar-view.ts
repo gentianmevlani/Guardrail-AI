@@ -17,6 +17,9 @@ const ALLOWED_COMMANDS = new Set<string>([
   "guardrail.showDashboard",
   "guardrail.scanWorkspace",
   "guardrail.runShip",
+  "guardrail.runDoctor",
+  "guardrail.runWhoami",
+  "guardrail.runGate",
   "guardrail.verifyLastOutput",
   "guardrail.showFindings",
   "guardrail.openSecurityScanner",
@@ -32,6 +35,13 @@ const ALLOWED_COMMANDS = new Set<string>([
 ]);
 
 const DOCS_URL = "https://docs.guardrail.dev";
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/"/g, "&quot;");
+}
 
 function getNonce(): string {
   let text = "";
@@ -128,36 +138,88 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
 
   private _getHtml(csp: string, nonce: string): string {
     const scan = getLastScanResult();
+    const hasScan = Boolean(scan);
 
-    /* ── Derive metrics from scan or use demo defaults ── */
-    const scorePct = scan
-      ? Math.max(0, Math.min(100, Math.round(scan.score)))
-      : 94;
-    const riskLabel = scan
-      ? scan.canShip ? "Minimal" : "Elevated"
-      : "Minimal";
-    const trendVal = scan
-      ? (scan.canShip ? "+2.4%" : "-1.2%")
-      : "+2.4%";
-    const trendIcon = trendVal.startsWith("+") ? "trending_up" : "trending_down";
-    const trendColor = trendVal.startsWith("+") ? "color:var(--cyan-glow);" : "color:var(--error);";
-    const postureDesc = scan
-      ? (scan.canShip
-        ? `Infrastructure integrity is within <strong>optimal</strong> parameters. Score: ${scorePct}.`
-        : `Issues detected — review findings before shipping. Score: ${scorePct}.`)
-      : `Infrastructure integrity is within <strong>optimal</strong> parameters. 2 recent mitigations applied.`;
+    const scorePct = hasScan
+      ? Math.max(0, Math.min(100, Math.round(scan!.score)))
+      : null;
+    const scoreDisplay = scorePct !== null ? String(scorePct) : "—";
+    const riskLabel = hasScan
+      ? scan!.canShip
+        ? "Minimal"
+        : "Elevated"
+      : "—";
+    const postureDesc = hasScan
+      ? scan!.canShip
+        ? `Last scan score <strong>${scoreDisplay}</strong> — within acceptable range for your tier.`
+        : `Last scan score <strong>${scoreDisplay}</strong> — review findings before shipping.`
+      : `No scan loaded. Run <strong>Scan workspace</strong> to compute posture from the CLI.`;
 
     const cliSummary = scan?.cliSummary;
-    const criticalCount = cliSummary ? cliSummary.critical : (scan ? scan.issues.filter(i => i.type === "critical").length : 3);
-    const highCount = cliSummary ? cliSummary.high : (scan ? scan.issues.filter(i => i.type === "warning").length : 12);
-    const medCount = cliSummary ? cliSummary.medium : 28;
-    const totalFindings = cliSummary ? cliSummary.totalFindings : (scan ? scan.issues.length : 43);
+    const criticalCount = cliSummary
+      ? cliSummary.critical
+      : hasScan
+        ? scan!.issues.filter((i) => i.type === "critical").length
+        : 0;
+    const highCount = cliSummary
+      ? cliSummary.high
+      : hasScan
+        ? scan!.issues.filter((i) => i.type === "warning").length
+        : 0;
+    const medCount = cliSummary
+      ? cliSummary.medium
+      : hasScan
+        ? scan!.issues.filter((i) => i.type === "suggestion").length
+        : 0;
+    const totalFindings = cliSummary
+      ? cliSummary.totalFindings
+      : hasScan
+        ? scan!.issues.length
+        : 0;
 
-    const critPct = totalFindings ? Math.round((criticalCount / totalFindings) * 100) : 15;
-    const highPct = totalFindings ? Math.round((highCount / totalFindings) * 100) : 45;
-    const medPct = totalFindings ? Math.round((medCount / totalFindings) * 100) : 70;
+    const hasSeverityData =
+      hasScan && (totalFindings > 0 || Boolean(cliSummary?.totalFindings));
 
-    const shipLabel = scan ? (scan.canShip ? "PASSED" : "BLOCKED") : "PASSED";
+    const critPct =
+      hasSeverityData && totalFindings > 0
+        ? Math.round((criticalCount / totalFindings) * 100)
+        : 0;
+    const highPct =
+      hasSeverityData && totalFindings > 0
+        ? Math.round((highCount / totalFindings) * 100)
+        : 0;
+    const medPct =
+      hasSeverityData && totalFindings > 0
+        ? Math.round((medCount / totalFindings) * 100)
+        : 0;
+
+    const shipLabel = hasScan ? (scan!.canShip ? "CLEAR" : "REVIEW") : "—";
+
+    const activityLines: string[] = [];
+    if (hasScan && scan!.issues.length > 0) {
+      for (const issue of scan!.issues.slice(0, 12)) {
+        const lvlClass =
+          issue.type === "critical"
+            ? "ka-feed-level-fail"
+            : issue.type === "warning"
+              ? "ka-feed-level-warn"
+              : "ka-feed-level-info";
+        const tag =
+          issue.type === "critical"
+            ? "CRIT"
+            : issue.type === "warning"
+              ? "WARN"
+              : "INFO";
+        const file = issue.file
+          ? `${issue.file}${issue.line != null ? `:${issue.line}` : ""}`
+          : "";
+        const msg = escapeHtml(issue.message);
+        activityLines.push(`<div class="ka-feed-line" style="flex-direction:column;align-items:flex-start;gap:4px;margin-bottom:10px;">
+            <span><span class="ka-feed-level ${lvlClass}">${tag}</span>${file ? ` <span class="ka-feed-msg" style="opacity:0.85;">${escapeHtml(file)}</span>` : ""}</span>
+            <span class="ka-feed-msg">${msg}</span>
+          </div>`);
+      }
+    }
 
     const fonts = getKineticArchiveFontLinks();
     const theme = getKineticArchiveCssBlock();
@@ -166,17 +228,16 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
       command: string,
       label: string,
       icon: string,
-      active: boolean,
       showPing: boolean,
     ) => `
-<button type="button" class="ka-nav-row${active ? " ka-nav-active" : ""}" data-command="${command}">
-  <span class="material-symbols-outlined"${active ? ` style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;"` : ""}>${icon}</span>
-  <span style="font-size:13px;font-weight:${active ? "600" : "500"};">${label}</span>
+<button type="button" class="ka-nav-row" data-command="${command}">
+  <span class="material-symbols-outlined">${icon}</span>
+  <span style="font-size:13px;font-weight:500;">${label}</span>
   ${showPing ? '<span class="ka-nav-ping" aria-hidden="true"></span>' : ""}
 </button>`;
 
     return `<!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="dark ka-sidebar-root" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Security-Policy" content="${csp}"/>
@@ -203,44 +264,53 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
     </div>
   </header>
 
+  <div class="ka-sidebar-tabs" role="tablist" aria-label="Guardrail sidebar sections">
+    <button type="button" class="ka-sidebar-tab ka-tab-active" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+    <button type="button" class="ka-sidebar-tab" role="tab" aria-selected="false" data-tab="enterprise">Enterprise</button>
+    <button type="button" class="ka-sidebar-tab" role="tab" aria-selected="false" data-tab="activity">Activity</button>
+  </div>
+
   <div class="ka-sidebar-inner">
-    <!-- ── Security Posture Hero ── -->
+    <!-- Overview -->
+    <div class="ka-tab-panel" data-tab-panel="overview" role="tabpanel">
     <div class="ka-cyber-posture">
       <div class="ka-posture-label">Security Posture</div>
       <div class="ka-posture-score">
-        <span class="ka-score-num">${scorePct}</span>
+        <span class="ka-score-num">${scoreDisplay}</span>
         <span class="ka-score-max">/100</span>
       </div>
       <p class="ka-posture-desc">${postureDesc}</p>
       <div class="ka-posture-meta">
         <div class="ka-posture-meta-item">
-          <span class="ka-posture-meta-label">Trend</span>
-          <span class="ka-posture-meta-val" style="${trendColor}">
-            ${trendVal}
-            <span class="material-symbols-outlined" style="font-size:14px;">${trendIcon}</span>
-          </span>
+          <span class="ka-posture-meta-label">Grade</span>
+          <span class="ka-posture-meta-val" style="color:var(--secondary);">${hasScan ? escapeHtml(scan!.grade) : "—"}</span>
         </div>
         <div class="ka-posture-divider"></div>
         <div class="ka-posture-meta-item">
-          <span class="ka-posture-meta-label">Risk Level</span>
+          <span class="ka-posture-meta-label">Risk</span>
           <span class="ka-posture-meta-val" style="color:var(--secondary);">${riskLabel}</span>
         </div>
         <div class="ka-posture-divider"></div>
         <div class="ka-posture-meta-item">
           <span class="ka-posture-meta-label">Ship</span>
-          <span class="ka-posture-meta-val" style="color:${shipLabel === "PASSED" ? "var(--cyan-glow)" : "var(--error)"};">${shipLabel}</span>
+          <span class="ka-posture-meta-val" style="color:${shipLabel === "CLEAR" ? "var(--cyan-glow)" : shipLabel === "REVIEW" ? "var(--error)" : "var(--outline)"};">${shipLabel}</span>
         </div>
       </div>
     </div>
 
-    <!-- ── Vulnerability Summary ── -->
-    <div class="ka-vuln-card" data-command="guardrail.showFindings" style="cursor:pointer;">
+    <div class="ka-vuln-card" data-command="guardrail.showFindings" style="cursor:pointer;" title="Open findings">
       <div class="ka-vuln-header">
         <span class="material-symbols-outlined">shield</span>
-        <span class="ka-vuln-ref">TOTAL: ${totalFindings}</span>
+        <span class="ka-vuln-ref">TOTAL: ${hasSeverityData ? totalFindings : "—"}</span>
       </div>
-      <div class="ka-vuln-title">Vulnerability Summary</div>
-      <div class="ka-vuln-row">
+      <div class="ka-vuln-title">Vulnerability summary</div>
+      <p style="font-size:11px;color:var(--on-surface-variant);margin:0 0 12px;line-height:1.45;">
+        ${hasSeverityData
+          ? "Counts from the last <code style=\"font-size:10px;\">guardrail scan</code> run in this session."
+          : "Run <strong>Scan workspace</strong> to load severity counts from the CLI."}
+      </p>
+      ${hasSeverityData
+        ? `<div class="ka-vuln-row">
         <span class="ka-vuln-row-label">Critical</span>
         <div class="ka-vuln-bar-track">
           <div class="ka-vuln-bar-fill" style="width:${critPct}%;background:var(--error);"></div>
@@ -260,63 +330,12 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
           <div class="ka-vuln-bar-fill" style="width:${medPct}%;background:#94a3b8;"></div>
         </div>
         <span class="ka-vuln-row-count" style="color:#94a3b8;">${String(medCount).padStart(2, "0")}</span>
-      </div>
+      </div>`
+        : `<p style="font-size:12px;color:var(--outline);margin:0;">No severity data yet.</p>`}
     </div>
 
-    <!-- ── Recent Ship Checks ── -->
-    <div class="ka-checks-card">
-      <div class="ka-checks-header">
-        <span class="material-symbols-outlined">package_2</span>
-        <span class="ka-checks-badge">AUTO-RUN: ACTIVE</span>
-      </div>
-      <div class="ka-checks-title">Recent Ship Checks</div>
-      <div class="ka-check-item">
-        <span class="material-symbols-outlined" style="color:#22c55e;font-variation-settings:'FILL' 1;">check_circle</span>
-        <span class="ka-check-name">Workspace Scan</span>
-        <span class="ka-check-time">${scan ? "just now" : "2m ago"}</span>
-      </div>
-      <div class="ka-check-item">
-        <span class="material-symbols-outlined" style="color:#22c55e;font-variation-settings:'FILL' 1;">check_circle</span>
-        <span class="ka-check-name">Dependency Audit</span>
-        <span class="ka-check-time">14m ago</span>
-      </div>
-      <div class="ka-check-item">
-        <span class="material-symbols-outlined" style="color:var(--error);font-variation-settings:'FILL' 1;">error</span>
-        <span class="ka-check-name">Pre-commit Gate</span>
-        <span class="ka-check-time">1h ago</span>
-      </div>
-    </div>
-
-    <!-- ── Active Scans ── -->
-    <div class="ka-scans-card">
-      <div class="ka-scans-header">
-        <span class="material-symbols-outlined">radar</span>
-        <span class="ka-scans-running">MONITORING</span>
-      </div>
-      <div class="ka-scans-title">Active Scans</div>
-      <div class="ka-scan-progress">
-        <div class="ka-scan-progress-head">
-          <span>Security Sweep</span>
-          <span>84%</span>
-        </div>
-        <div class="ka-scan-progress-bar">
-          <div class="ka-scan-progress-fill" style="width:84%;"></div>
-        </div>
-      </div>
-      <div class="ka-scan-progress" style="opacity:0.55;">
-        <div class="ka-scan-progress-head">
-          <span>Deep Dependency Check</span>
-          <span>12%</span>
-        </div>
-        <div class="ka-scan-progress-bar">
-          <div class="ka-scan-progress-fill" style="width:12%;"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Quick Actions ── -->
     <section>
-      <h2 class="ka-section-label">Quick Actions</h2>
+      <h2 class="ka-section-label">Quick actions</h2>
       <div class="ka-quick-grid">
         <button type="button" class="ka-quick-tile" data-command="guardrail.scanWorkspace">
           <span class="material-symbols-outlined">search_check</span>
@@ -326,6 +345,10 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
           <span class="material-symbols-outlined">rocket_launch</span>
           <span>Run Ship Check</span>
         </button>
+        <button type="button" class="ka-quick-tile" data-command="guardrail.runGate">
+          <span class="material-symbols-outlined">gavel</span>
+          <span>Run Gate (JSON)</span>
+        </button>
         <button type="button" class="ka-quick-tile" data-command="guardrail.verifyLastOutput">
           <span class="material-symbols-outlined">auto_awesome</span>
           <span>Verify AI Output</span>
@@ -334,85 +357,79 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
           <span class="material-symbols-outlined">visibility</span>
           <span>Show Findings</span>
         </button>
+        <button type="button" class="ka-quick-tile" data-command="guardrail.runDoctor">
+          <span class="material-symbols-outlined">health_and_safety</span>
+          <span>CLI Doctor</span>
+        </button>
+        <button type="button" class="ka-quick-tile" data-command="guardrail.runWhoami">
+          <span class="material-symbols-outlined">badge</span>
+          <span>CLI Whoami</span>
+        </button>
       </div>
     </section>
 
-    <!-- ── Enterprise Panels ── -->
     <section>
-      <h2 class="ka-section-label">Enterprise Panels</h2>
+      <button type="button" class="ka-primary-cta" data-command="guardrail.login" title="Link your CLI and extension to your Guardrail account">
+        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 1, 'wght' 400;">link</span>
+        Login &amp; Link Device
+      </button>
+    </section>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="ka-tab-panel" data-tab-panel="enterprise" role="tabpanel" hidden>
+    <section>
+      <h2 class="ka-section-label">Enterprise panels</h2>
+      <p style="font-size:11px;color:var(--on-surface-variant);margin:-4px 0 12px;line-height:1.45;">
+        Opens the same panels as the full dashboard. Data comes from the CLI (<code style="font-size:10px;">guardrail scan</code>, etc.) or your API when configured.
+      </p>
       <nav class="ka-nav-list" aria-label="Enterprise panels">
-        ${navRow("guardrail.openSecurityScanner", "Security Scanner", "security_update_good", true, true)}
-        ${navRow("guardrail.openComplianceDashboard", "Compliance", "verified_user", false, false)}
-        ${navRow("guardrail.openPerformanceMonitor", "Performance", "speed", false, false)}
-        ${navRow("guardrail.openMDCGenerator", "MDC Generator", "terminal", false, false)}
-        ${navRow("guardrail.openChangeImpactAnalyzer", "Change Impact", "dynamic_form", false, false)}
-        ${navRow("guardrail.openAIExplainer", "AI Explainer", "psychology", false, false)}
-        ${navRow("guardrail.openTeamCollaboration", "Team Collaboration", "groups", false, false)}
-        ${navRow("guardrail.openProductionIntegrity", "Production Integrity", "lan", false, false)}
+        ${navRow("guardrail.openSecurityScanner", "Security Scanner", "security_update_good", true)}
+        ${navRow("guardrail.openComplianceDashboard", "Compliance", "verified_user", false)}
+        ${navRow("guardrail.openPerformanceMonitor", "Performance", "speed", false)}
+        ${navRow("guardrail.openMDCGenerator", "MDC Generator", "terminal", false)}
+        ${navRow("guardrail.openChangeImpactAnalyzer", "Change Impact", "dynamic_form", false)}
+        ${navRow("guardrail.openAIExplainer", "AI Explainer", "psychology", false)}
+        ${navRow("guardrail.openTeamCollaboration", "Team Collaboration", "groups", false)}
+        ${navRow("guardrail.openProductionIntegrity", "Production Integrity", "lan", false)}
       </nav>
     </section>
+    </div>
 
-    <!-- ── Live Status Feed ── -->
+    <!-- Activity -->
+    <div class="ka-tab-panel" data-tab-panel="activity" role="tabpanel" hidden>
     <section>
+      <h2 class="ka-section-label">Findings from last scan</h2>
       <div class="ka-feed-card">
         <div class="ka-feed-header">
           <div class="ka-feed-header-left">
             <span class="material-symbols-outlined">list_alt</span>
-            <span class="ka-feed-title">Live Status Feed</span>
-          </div>
-          <div class="ka-feed-status">
-            <span class="ka-feed-dot-live"></span>
-            <span>STREAMING</span>
+            <span class="ka-feed-title">Issues</span>
           </div>
         </div>
         <div class="ka-feed-body">
-          <div class="ka-feed-line">
-            <span class="ka-feed-ts">[14:22:01]</span>
-            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
-            <span class="ka-feed-msg">Heartbeat signal received. Latency 14ms.</span>
-          </div>
-          <div class="ka-feed-line">
-            <span class="ka-feed-ts">[14:22:04]</span>
-            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
-            <span class="ka-feed-msg">Container scan started on Registry.</span>
-          </div>
-          <div class="ka-feed-line">
-            <span class="ka-feed-ts">[14:22:08]</span>
-            <span class="ka-feed-level ka-feed-level-warn">WARN:</span>
-            <span class="ka-feed-msg">Anomalous access pattern detected.</span>
-          </div>
-          <div class="ka-feed-line">
-            <span class="ka-feed-ts">[14:22:12]</span>
-            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
-            <span class="ka-feed-msg">Posture re-calc complete. OPTIMAL.</span>
-          </div>
-          <div class="ka-feed-line">
-            <span class="ka-feed-ts">[14:22:15]</span>
-            <span class="ka-feed-level ka-feed-level-fail">FAIL:</span>
-            <span class="ka-feed-msg">Integrity check failed on backup.</span>
-          </div>
-          <div class="ka-feed-line">
-            <span class="ka-feed-ts">[14:22:20]</span>
-            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
-            <span class="ka-feed-msg">Policy pushed to edge nodes.</span>
-          </div>
+          ${activityLines.length > 0
+            ? activityLines.join("")
+            : hasScan &&
+                cliSummary &&
+                cliSummary.totalFindings > 0 &&
+                scan!.issues.length === 0
+              ? `<p style="font-size:12px;color:var(--outline);margin:12px 0 0;padding:0 4px;line-height:1.5;">
+Scan reported <strong>${cliSummary.totalFindings}</strong> finding(s), but issue rows are not in session state (common on free tier or when details are redacted). Use a <strong>Finding ID</strong> with <code style="font-size:10px;">guardrail explain</code> or upgrade for full lists.
+                </p>`
+              : `<p style="font-size:12px;color:var(--outline);margin:12px 0 0;padding:0 4px;line-height:1.5;">
+No issue rows in session state yet. Run <strong>Scan workspace</strong> (CLI) — on some tiers finding details require an API key.
+              </p>`}
         </div>
       </div>
     </section>
-
-    <!-- ── Auth / Deploy CTA ── -->
     <section>
-      <button type="button" class="ka-primary-cta" data-command="guardrail.login" title="Link your CLI & extension to your web account">
-        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 1, 'wght' 400;">link</span>
-        Login &amp; Link Device
-      </button>
-      <div style="margin-top:8px;">
-        <button type="button" class="ka-primary-cta" data-command="guardrail.scanWorkspace" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;">
-          <span class="material-symbols-outlined" style="font-size:18px;">radar</span>
-          Deploy Scanner
-        </button>
-      </div>
+      <h2 class="ka-section-label">Ship &amp; production</h2>
+      <p style="font-size:12px;color:var(--on-surface-variant);margin:0;line-height:1.5;">
+        Full <strong>ship</strong> gate output is not shown here. Use <strong>Run Ship Check</strong> or open <strong>Production Integrity</strong> for the workspace ship JSON.
+      </p>
     </section>
+    </div>
   </div>
 
   <footer class="ka-sidebar-footer">
@@ -446,6 +463,20 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
             return;
           }
           if (cmd) { vscode.postMessage({ command: cmd }); }
+        });
+      });
+      document.querySelectorAll(".ka-sidebar-tab").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var tab = btn.getAttribute("data-tab");
+          if (!tab) return;
+          document.querySelectorAll(".ka-sidebar-tab").forEach(function (b) {
+            var on = b === btn;
+            b.classList.toggle("ka-tab-active", on);
+            b.setAttribute("aria-selected", on ? "true" : "false");
+          });
+          document.querySelectorAll("[data-tab-panel]").forEach(function (p) {
+            p.hidden = p.getAttribute("data-tab-panel") !== tab;
+          });
         });
       });
     })();

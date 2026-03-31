@@ -181,6 +181,24 @@ export class ApiClient {
     });
   }
 
+  /**
+   * `makeRequest` resolves with raw JSON on 2xx; typed `ApiResponse` uses `data` for payloads.
+   * Normalize to a single payload object for callers that expect fields on the body.
+   */
+  private unwrapSuccessBody<T extends Record<string, unknown>>(
+    res: ApiResponse<T>,
+  ): T | undefined {
+    if (res.data !== undefined && res.data !== null && typeof res.data === 'object') {
+      return res.data as T;
+    }
+    const plain = res as unknown as Record<string, unknown>;
+    const { success: _s, error: _e, message: _m, data: _d, ...rest } = plain;
+    if (Object.keys(rest).length === 0) {
+      return undefined;
+    }
+    return rest as unknown as T;
+  }
+
   // Compliance Dashboard API
   async getComplianceStatus(projectId: string): Promise<ApiResponse> {
     return this.makeRequest('/api/compliance/status', {
@@ -458,13 +476,22 @@ export class ApiClient {
     onCode: (userCode: string, verificationUrl: string) => void,
     signal?: { cancelled: boolean },
   ): Promise<{ user: { id: string; email: string; name: string }; plan: string }> {
-    // Request device code
+    // Request device code (success path may return raw JSON or `{ data }` per `makeRequest`)
     const codeRes = await this.requestDeviceCode();
-    if (!codeRes.device_code) {
-      throw new Error(codeRes.error || 'Failed to start device code flow');
+    const codePayload = this.unwrapSuccessBody<
+      {
+        device_code: string;
+        user_code: string;
+        verification_url: string;
+        expires_in: number;
+        interval: number;
+      }
+    >(codeRes);
+    if (!codePayload?.device_code) {
+      throw new Error(codeRes.error || codeRes.message || 'Failed to start device code flow');
     }
 
-    const { device_code, user_code, verification_url, expires_in, interval } = codeRes as any;
+    const { device_code, user_code, verification_url, expires_in, interval } = codePayload;
 
     // Notify caller of the code (for display)
     onCode(user_code, verification_url);

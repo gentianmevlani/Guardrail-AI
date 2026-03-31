@@ -1,6 +1,6 @@
 "use client";
 
-import { useDashboardContext } from "@/context/dashboard-context";
+import { useDashboardQueryContext } from "@/context/dashboard-query-context";
 import { useGitHub } from "@/context/github-context";
 import { cn } from "@/lib/utils";
 import {
@@ -45,7 +45,7 @@ const footerNav: NavItem[] = [
 export function CyberSidebar() {
   const pathname = usePathname();
   const { connected } = useGitHub();
-  const { isScanning } = useDashboardContext();
+  const { isScanning } = useDashboardQueryContext();
 
   const isActive = (href: string) => {
     if (href === "/dashboard") return pathname === "/dashboard";

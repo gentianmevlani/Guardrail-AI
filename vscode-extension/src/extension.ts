@@ -31,6 +31,16 @@ import {
   showContractDiff,
 } from "./quick-fix-commands";
 import { getGuardrailPanelHead } from "./webview-shared-styles";
+import { KINETIC_ARCHIVE_VERSION } from "./kinetic-archive-styles";
+import { CLIService } from "./services/cli-service";
+import type { CLIResult } from "./services/cli-service";
+import {
+  getCliStateFilePathForDisplay,
+  syncCliCredentialsFromExtension,
+  clearCliCredentialsFile,
+  trySpawnGuardrailLogout,
+} from "./services/cli-credentials-sync";
+import { extractJsonObject } from "./scan-cli-map";
 
 let diagnosticsProvider: RealityCheckDiagnosticsProvider;
 let codeLensProvider: RealityCheckCodeLensProvider;
@@ -43,9 +53,42 @@ let statusBarItem: vscode.StatusBarItem;
 let agentVerifier: AgentVerifier;
 let extensionContext: vscode.ExtensionContext;
 
+/** Unified output for CLI invocations from the command palette / sidebar. */
+let cliOutputChannel: vscode.OutputChannel;
+
+function getCliForWorkspace(): CLIService | null {
+  const folders = vscode.workspace.workspaceFolders;
+  if (!folders?.length) {
+    return null;
+  }
+  return new CLIService(folders[0].uri.fsPath);
+}
+
+function showCliResultInOutputChannel(title: string, result: CLIResult): void {
+  cliOutputChannel.clear();
+  cliOutputChannel.appendLine(`=== ${title} ===`);
+  cliOutputChannel.appendLine(`Command: ${result.command}`);
+  cliOutputChannel.appendLine(
+    `Exit: ${result.exitCode} · ${result.duration}ms`,
+  );
+  if (result.stdout) {
+    cliOutputChannel.appendLine("");
+    cliOutputChannel.appendLine(result.stdout);
+  }
+  if (result.stderr) {
+    cliOutputChannel.appendLine("");
+    cliOutputChannel.appendLine("stderr:");
+    cliOutputChannel.appendLine(result.stderr);
+  }
+  cliOutputChannel.show(true);
+}
+
 export function activate(context: vscode.ExtensionContext) {
   // Store extension context for use in enterprise features
   extensionContext = context;
+
+  cliOutputChannel = vscode.window.createOutputChannel("Guardrail CLI");
+  context.subscriptions.push(cliOutputChannel);
 
   // Initialize MCP client and score badge
   mcpClient = new GuardrailMCPClient();
@@ -247,6 +290,9 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("guardrail.runSmells", () =>
       runSmells(),
     ),
+    vscode.commands.registerCommand("guardrail.runDoctor", () => runDoctorCli()),
+    vscode.commands.registerCommand("guardrail.runWhoami", () => runWhoamiCli()),
+    vscode.commands.registerCommand("guardrail.runGate", () => runGateCli()),
     vscode.commands.registerCommand("guardrail.openWebDashboard", () =>
       openWebDashboard(),
     ),
@@ -308,9 +354,33 @@ export function activate(context: vscode.ExtensionContext) {
             // Refresh sidebar to show logged-in state
             GuardrailSidebarViewProvider.refreshIfOpen();
 
-            void vscode.window.showInformationMessage(
-              `Logged in as ${result.user.email || result.user.name} (${result.plan})`,
-            );
+            const syncCli = vscode.workspace
+              .getConfiguration("guardrail")
+              .get<boolean>("syncCredentialsToCli", true);
+            if (syncCli) {
+              const apiKey = await extensionContext.secrets.get(
+                "guardrail.apiKey",
+              );
+              if (apiKey) {
+                await trySpawnGuardrailLogout();
+                await syncCliCredentialsFromExtension({
+                  apiKey,
+                  email: result.user.email,
+                  planLabel: result.plan,
+                });
+                void vscode.window.showInformationMessage(
+                  `Logged in as ${result.user.email || result.user.name} (${result.plan}). CLI updated: ${getCliStateFilePathForDisplay()}`,
+                );
+              } else {
+                void vscode.window.showInformationMessage(
+                  `Logged in as ${result.user.email || result.user.name} (${result.plan})`,
+                );
+              }
+            } else {
+              void vscode.window.showInformationMessage(
+                `Logged in as ${result.user.email || result.user.name} (${result.plan})`,
+              );
+            }
           } catch (error: unknown) {
             const msg = error instanceof Error ? error.message : "Login failed";
             if (msg !== "Login cancelled") {
@@ -324,8 +394,36 @@ export function activate(context: vscode.ExtensionContext) {
       const { ApiClient } = await import("./services/api-client");
       const client = new ApiClient(extensionContext);
       await client.logout();
+      const syncCli = vscode.workspace
+        .getConfiguration("guardrail")
+        .get<boolean>("syncCredentialsToCli", true);
+      if (syncCli) {
+        await trySpawnGuardrailLogout();
+        await clearCliCredentialsFile();
+      }
       GuardrailSidebarViewProvider.refreshIfOpen();
       void vscode.window.showInformationMessage("Logged out of Guardrail");
+    }),
+    vscode.commands.registerCommand("guardrail.syncCliCredentials", async () => {
+      const { ApiClient } = await import("./services/api-client");
+      const client = new ApiClient(extensionContext);
+      const apiKey = await extensionContext.secrets.get("guardrail.apiKey");
+      if (!apiKey) {
+        void vscode.window.showWarningMessage(
+          "Sign in first: run “Guardrail: Login” from the command palette or sidebar.",
+        );
+        return;
+      }
+      const user = await client.getUserInfo();
+      await trySpawnGuardrailLogout();
+      await syncCliCredentialsFromExtension({
+        apiKey,
+        email: user?.email,
+        planLabel: user?.plan,
+      });
+      void vscode.window.showInformationMessage(
+        `CLI credentials written to ${getCliStateFilePathForDisplay()}. Try \`guardrail whoami\` in a terminal.`,
+      );
     }),
     // Enterprise commands
     vscode.commands.registerCommand("guardrail.openMDCGenerator", () =>
@@ -909,7 +1007,7 @@ function escapeHtml(text: string): string {
 
 function getDashboardHtml(score: number): string {
   const scoreColor =
-    score >= 80 ? "#6bcb77" : score >= 50 ? "#ffd93d" : "#ff6b6b";
+    score >= 80 ? "#6ee7b7" : score >= 50 ? "#ffd93d" : "#ff6b6b";
   const statusEmoji = score >= 80 ? "🟢" : score >= 50 ? "🟡" : "🔴";
   const verdict =
     score >= 80
@@ -918,122 +1016,102 @@ function getDashboardHtml(score: number): string {
         ? "Needs Attention"
         : "Critical Issues";
 
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: var(--vscode-font-family); 
-      padding: 40px; 
-      background: var(--vscode-editor-background); 
-      color: var(--vscode-editor-foreground);
-      min-height: 100vh;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .logo {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
-    .title {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .subtitle {
-      color: var(--vscode-descriptionForeground);
-      font-size: 14px;
-    }
+  const dashboardCss = `
+    .db-pad { padding: 24px 16px 32px; max-width: 720px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 28px; }
+    .logo { font-size: 40px; margin-bottom: 8px; }
+    .title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: var(--on-surface); margin-bottom: 4px; }
+    .subtitle { color: var(--on-surface-variant); font-size: 13px; }
     .score-card {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      background: linear-gradient(135deg, var(--surface-container-low), var(--surface-container-high));
+      border: 1px solid var(--border-subtle);
       border-radius: 20px;
-      padding: 50px;
+      padding: 40px 24px;
       text-align: center;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      margin-bottom: 24px;
     }
     .score-value {
-      font-size: 96px;
-      font-weight: bold;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 88px;
+      font-weight: 700;
       color: ${scoreColor};
       line-height: 1;
     }
     .score-label {
-      font-size: 18px;
-      color: var(--vscode-descriptionForeground);
-      margin-top: 10px;
+      font-size: 14px;
+      color: var(--outline);
+      margin-top: 8px;
     }
     .verdict {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 30px;
+      margin-top: 16px;
+      padding: 10px 24px;
       background: ${scoreColor};
-      color: #000;
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 16px;
+      color: #001f24;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      font-family: 'Space Grotesk', sans-serif;
     }
     .actions {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-top: 30px;
+      gap: 12px;
+      margin-top: 20px;
     }
     .action-btn {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
-      border: none;
-      padding: 15px 20px;
-      border-radius: 8px;
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 12px 16px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background 0.2s;
+      transition: filter 0.15s;
     }
-    .action-btn:hover {
-      background: var(--vscode-button-hoverBackground);
-    }
+    .action-btn:hover { filter: brightness(1.08); }
     .features {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 40px;
+      gap: 16px;
+      margin-top: 32px;
     }
     .feature {
-      background: var(--vscode-input-background);
-      padding: 25px;
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      padding: 20px;
       border-radius: 12px;
       text-align: center;
     }
-    .feature-icon {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-    .feature-title {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .feature-desc {
-      font-size: 12px;
-      color: var(--vscode-descriptionForeground);
-    }
+    .feature-icon { font-size: 28px; margin-bottom: 8px; }
+    .feature-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+    .feature-desc { font-size: 11px; color: var(--on-surface-variant); line-height: 1.45; }
     .footer {
       text-align: center;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--vscode-input-border);
-      color: var(--vscode-descriptionForeground);
-      font-size: 12px;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--outline);
+      font-size: 11px;
     }
-  </style>
+  `;
+
+  return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  ${getGuardrailPanelHead(dashboardCss)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell db-pad">
   <div class="header">
     <div class="logo">🛡️</div>
     <div class="title">guardrail Dashboard</div>
@@ -1080,7 +1158,7 @@ function getDashboardHtml(score: number): string {
   </div>
 
   <div class="footer">
-    guardrail v1.0.0 • guardrail.dev
+    guardrail v${KINETIC_ARCHIVE_VERSION} · guardrail.dev
   </div>
 
   <script>
@@ -1090,6 +1168,7 @@ function getDashboardHtml(score: number): string {
     function validateCode() { vscode.postMessage({ command: 'validate' }); }
     function openSettings() { vscode.postMessage({ command: 'settings' }); }
   </script>
+  </div>
 </body>
 </html>`;
 }
@@ -1109,27 +1188,35 @@ function getProductionAuditHtml(result: any): string {
   const score = result.integrity?.score || 0;
   const grade = result.integrity?.grade || "F";
   const canShip = result.integrity?.canShip || false;
+  const shipColor = canShip ? "#6ee7b7" : "#ff6b6b";
 
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body { font-family: var(--vscode-font-family); padding: 30px; background: var(--vscode-editor-background); color: var(--vscode-editor-foreground); }
-    .score-box { text-align: center; padding: 40px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; margin-bottom: 30px; }
-    .score { font-size: 72px; font-weight: bold; color: ${canShip ? "#6bcb77" : "#ff6b6b"}; }
-    .grade { font-size: 32px; margin-top: 10px; }
-    .verdict { font-size: 24px; margin-top: 20px; padding: 10px 30px; border-radius: 8px; display: inline-block; background: ${canShip ? "#6bcb77" : "#ff6b6b"}; color: #000; }
-    .section { margin: 20px 0; padding: 20px; background: var(--vscode-input-background); border-radius: 12px; }
-    .section h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
-    .metric { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--vscode-input-border); }
+  const auditCss = `
+    .audit-pad { padding: 16px; }
+    .score-box { text-align: center; padding: 32px 20px; background: linear-gradient(135deg, var(--surface-container-low), var(--surface-container-high)); border: 1px solid var(--border-subtle); border-radius: 16px; margin-bottom: 24px; }
+    .score { font-size: 64px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: ${shipColor}; }
+    .grade { font-size: 24px; margin-top: 8px; color: var(--on-surface); }
+    .verdict { font-size: 15px; margin-top: 16px; padding: 10px 24px; border-radius: 10px; display: inline-block; background: ${shipColor}; color: #001f24; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+    .section { margin: 16px 0; padding: 18px; background: var(--surface-container-low); border: 1px solid var(--border-subtle); border-radius: 12px; }
+    .section h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
+    .metric { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); font-size: 13px; }
     .metric:last-child { border-bottom: none; }
-    .metric-value { font-weight: bold; }
+    .metric-value { font-weight: 700; }
     .critical { color: #ff6b6b; }
     .warning { color: #ffd93d; }
-    .ok { color: #6bcb77; }
-  </style>
+    .ok { color: #6ee7b7; }
+    .audit-foot { text-align: center; color: var(--outline); margin-top: 24px; font-size: 12px; }
+  `;
+
+  return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  ${getGuardrailPanelHead(auditCss)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell audit-pad">
   <div class="score-box">
     <div class="score">${score}</div>
     <div class="grade">Grade: ${grade}</div>
@@ -1160,9 +1247,10 @@ function getProductionAuditHtml(result: any): string {
     </div>
   </div>
 
-  <p style="text-align: center; color: var(--vscode-descriptionForeground); margin-top: 30px;">
+  <p class="audit-foot">
     Context Enhanced by guardrail AI
   </p>
+  </div>
 </body>
 </html>`;
 }
@@ -1182,19 +1270,28 @@ function showAIVerificationResults(
 }
 
 function getAIVerificationHtml(result: any): string {
+  const aiCss = `
+    .ai-pad { padding: 16px; max-width: 720px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 24px; }
+    .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--on-surface); margin-bottom: 8px; }
+    .header p { color: var(--on-surface-variant); font-size: 13px; }
+    .section { margin: 16px 0; padding: 16px; background: var(--surface-container-low); border: 1px solid var(--border-subtle); border-radius: 12px; }
+    .section-title { font-size: 12px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; color: var(--on-surface); }
+    .gap { background: rgba(255,107,107,0.12); border-left: 4px solid #ff6b6b; padding: 10px 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+    .suggestion { background: rgba(110,231,183,0.12); border-left: 4px solid #6ee7b7; padding: 10px 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+    .ai-foot { text-align: center; color: var(--outline); margin-top: 24px; font-size: 12px; }
+  `;
+
   return `<!DOCTYPE html>
-<html>
+<html class="dark" lang="en">
 <head>
-  <style>
-    body { font-family: var(--vscode-font-family); padding: 20px; background: var(--vscode-editor-background); color: var(--vscode-editor-foreground); }
-    .header { text-align: center; margin-bottom: 30px; }
-    .section { margin: 20px 0; padding: 15px; background: var(--vscode-input-background); border-radius: 8px; }
-    .section-title { font-size: 14px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .gap { background: #ff6b6b20; border-left: 4px solid #ff6b6b; padding: 10px; margin: 10px 0; border-radius: 0 4px 4px 0; }
-    .suggestion { background: #6bcb7720; border-left: 4px solid #6bcb77; padding: 10px; margin: 10px 0; border-radius: 0 4px 4px 0; }
-  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  ${getGuardrailPanelHead(aiCss)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell ai-pad">
   <div class="header">
     <h1>🤖 AI Intent Verification</h1>
     <p>Cross-checked your code against AI understanding</p>
@@ -1237,9 +1334,10 @@ function getAIVerificationHtml(result: any): string {
       : ""
   }
 
-  <p style="text-align: center; color: var(--vscode-descriptionForeground); margin-top: 30px;">
+  <p class="ai-foot">
     Context Enhanced by guardrail AI
   </p>
+  </div>
 </body>
 </html>`;
 }
@@ -1354,12 +1452,111 @@ async function runRealityMode(): Promise<void> {
   );
 }
 
+async function runDoctorCli(): Promise<void> {
+  const cli = getCliForWorkspace();
+  if (!cli) {
+    void vscode.window.showWarningMessage("Open a workspace to run guardrail doctor.");
+    return;
+  }
+  await vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: "Guardrail doctor…",
+      cancellable: false,
+    },
+    async () => {
+      const result = await cli.runDoctor();
+      showCliResultInOutputChannel("guardrail doctor", result);
+      if (result.exitCode === 0) {
+        void vscode.window.showInformationMessage("Doctor finished — see Guardrail CLI output.");
+      } else {
+        void vscode.window.showWarningMessage(
+          `Doctor exited with code ${result.exitCode}. See Guardrail CLI output.`,
+        );
+      }
+    },
+  );
+}
+
+async function runWhoamiCli(): Promise<void> {
+  const cli = getCliForWorkspace();
+  if (!cli) {
+    void vscode.window.showWarningMessage("Open a workspace to run guardrail whoami.");
+    return;
+  }
+  await vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: "Guardrail whoami…",
+      cancellable: false,
+    },
+    async () => {
+      const result = await cli.runWhoami();
+      showCliResultInOutputChannel("guardrail whoami", result);
+      if (result.exitCode === 0) {
+        void vscode.window.showInformationMessage("Whoami — see Guardrail CLI output.");
+      } else {
+        void vscode.window.showWarningMessage(
+          `whoami exited with code ${result.exitCode}. See Guardrail CLI output.`,
+        );
+      }
+    },
+  );
+}
+
+async function runGateCli(): Promise<void> {
+  const cli = getCliForWorkspace();
+  if (!cli) {
+    void vscode.window.showWarningMessage("Open a workspace to run guardrail gate.");
+    return;
+  }
+  await vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: "Guardrail gate…",
+      cancellable: false,
+    },
+    async () => {
+      const raw = await cli.executeCommand({
+        args: ["gate", "--json"],
+        options: { timeout: 300000 },
+      });
+      const data = extractJsonObject(raw.stdout);
+      if (data && typeof data === "object") {
+        cliOutputChannel.clear();
+        cliOutputChannel.appendLine("=== guardrail gate --json ===");
+        cliOutputChannel.appendLine(raw.command);
+        cliOutputChannel.appendLine("");
+        cliOutputChannel.appendLine(JSON.stringify(data, null, 2));
+        cliOutputChannel.show(true);
+        const blocked = (data as Record<string, unknown>)["blocked"];
+        void vscode.window.showInformationMessage(
+          typeof blocked === "boolean"
+            ? blocked
+              ? "Gate: blocked — see Guardrail CLI output."
+              : "Gate: pass — see Guardrail CLI output."
+            : raw.exitCode === 0
+              ? "Gate finished — see Guardrail CLI output."
+              : `Gate exited with code ${raw.exitCode}. See Guardrail CLI output.`,
+        );
+      } else {
+        showCliResultInOutputChannel("guardrail gate --json", raw);
+        void vscode.window.showErrorMessage(
+          raw.exitCode === 0
+            ? "Gate did not return JSON. See Guardrail CLI output."
+            : `Gate failed (exit ${raw.exitCode}). See Guardrail CLI output.`,
+        );
+      }
+    },
+  );
+}
+
 /**
- * Scan for Secrets command
+ * Scan for Secrets command — uses legacy `security` → `scan --only=security` (see bin/_router.js).
  */
 async function scanSecrets(): Promise<void> {
-  const workspaceFolders = vscode.workspace.workspaceFolders;
-  if (!workspaceFolders) {
+  const cli = getCliForWorkspace();
+  if (!cli) {
     vscode.window.showWarningMessage("Open a workspace to scan for secrets.");
     return;
   }
@@ -1372,21 +1569,34 @@ async function scanSecrets(): Promise<void> {
     },
     async () => {
       try {
-        const result = await mcpClient.execCLI("scan:secrets", ["--json"], workspaceFolders[0].uri.fsPath);
-        vscode.window.showInformationMessage("Secrets scan completed!", "View Report");
-      } catch (error: any) {
-        vscode.window.showErrorMessage(`Secrets scan failed: ${error.message}`);
+        const result = await cli.executeCommand({
+          args: ["security", "--json"],
+          options: { timeout: 300000 },
+        });
+        showCliResultInOutputChannel("guardrail security --json", result);
+        if (result.exitCode === 0) {
+          void vscode.window.showInformationMessage(
+            "Secrets scan completed — see Guardrail CLI output.",
+          );
+        } else {
+          void vscode.window.showErrorMessage(
+            `Secrets scan failed (exit ${result.exitCode}). See Guardrail CLI output.`,
+          );
+        }
+      } catch (error: unknown) {
+        const msg = error instanceof Error ? error.message : String(error);
+        vscode.window.showErrorMessage(`Secrets scan failed: ${msg}`);
       }
-    }
+    },
   );
 }
 
 /**
- * Scan Vulnerabilities command
+ * Scan Vulnerabilities command — full `guardrail scan --json` (includes dependency / vuln signals in scan JSON).
  */
 async function scanVulnerabilities(): Promise<void> {
-  const workspaceFolders = vscode.workspace.workspaceFolders;
-  if (!workspaceFolders) {
+  const cli = getCliForWorkspace();
+  if (!cli) {
     vscode.window.showWarningMessage("Open a workspace to scan vulnerabilities.");
     return;
   }
@@ -1399,21 +1609,36 @@ async function scanVulnerabilities(): Promise<void> {
     },
     async () => {
       try {
-        const result = await mcpClient.execCLI("scan:vulnerabilities", ["--json"], workspaceFolders[0].uri.fsPath);
-        vscode.window.showInformationMessage("Vulnerability scan completed!", "View Report");
-      } catch (error: any) {
-        vscode.window.showErrorMessage(`Vulnerability scan failed: ${error.message}`);
+        const parsed = await cli.runScanJson();
+        if (parsed.success && parsed.data) {
+          cliOutputChannel.clear();
+          cliOutputChannel.appendLine("=== guardrail scan --json ===");
+          cliOutputChannel.appendLine(parsed.command);
+          cliOutputChannel.appendLine("");
+          cliOutputChannel.appendLine(JSON.stringify(parsed.data, null, 2));
+          cliOutputChannel.show(true);
+          void vscode.window.showInformationMessage(
+            "Scan completed — see Guardrail CLI output.",
+          );
+        } else {
+          void vscode.window.showErrorMessage(
+            parsed.error || "Vulnerability scan produced no JSON.",
+          );
+        }
+      } catch (error: unknown) {
+        const msg = error instanceof Error ? error.message : String(error);
+        vscode.window.showErrorMessage(`Vulnerability scan failed: ${msg}`);
       }
-    }
+    },
   );
 }
 
 /**
- * Analyze Code Smells command
+ * Analyze Code Smells — legacy `hygiene` → `scan --only=hygiene` (see bin/_router.js).
  */
 async function runSmells(): Promise<void> {
-  const workspaceFolders = vscode.workspace.workspaceFolders;
-  if (!workspaceFolders) {
+  const cli = getCliForWorkspace();
+  if (!cli) {
     vscode.window.showWarningMessage("Open a workspace to analyze code smells.");
     return;
   }
@@ -1426,12 +1651,25 @@ async function runSmells(): Promise<void> {
     },
     async () => {
       try {
-        const result = await mcpClient.execCLI("smells", ["--json"], workspaceFolders[0].uri.fsPath);
-        vscode.window.showInformationMessage("Code smells analysis completed!", "View Report");
-      } catch (error: any) {
-        vscode.window.showErrorMessage(`Code smells analysis failed: ${error.message}`);
+        const result = await cli.executeCommand({
+          args: ["hygiene", "--json"],
+          options: { timeout: 300000 },
+        });
+        showCliResultInOutputChannel("guardrail hygiene --json", result);
+        if (result.exitCode === 0) {
+          void vscode.window.showInformationMessage(
+            "Hygiene scan completed — see Guardrail CLI output.",
+          );
+        } else {
+          void vscode.window.showErrorMessage(
+            `Hygiene scan failed (exit ${result.exitCode}). See Guardrail CLI output.`,
+          );
+        }
+      } catch (error: unknown) {
+        const msg = error instanceof Error ? error.message : String(error);
+        vscode.window.showErrorMessage(`Code smells analysis failed: ${msg}`);
       }
-    }
+    },
   );
 }
 
@@ -1439,18 +1677,32 @@ async function runSmells(): Promise<void> {
  * Open Web Dashboard command
  */
 async function openWebDashboard(): Promise<void> {
-  // Check if web dashboard is running locally
-  const dashboardUrl = "http://localhost:3000";
-  
-  try {
-    vscode.env.openExternal(vscode.Uri.parse(dashboardUrl));
-    vscode.window.showInformationMessage(`Opening web dashboard at ${dashboardUrl}`);
-  } catch (error: any) {
-    // Fallback to remote dashboard
-    const remoteUrl = "https://app.guardrail.dev";
-    vscode.env.openExternal(vscode.Uri.parse(remoteUrl));
-    vscode.window.showInformationMessage(`Opening web dashboard at ${remoteUrl}`);
+  const config = vscode.workspace.getConfiguration("guardrail");
+  const configured = config
+    .get<string>("webAppUrl", "https://app.guardrail.dev")
+    .replace(/\/$/, "");
+  const preferLocal = config.get<boolean>("openLocalWebAppFirst", false);
+
+  let target = `${configured}/?source=vscode`;
+  if (preferLocal) {
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 1200);
+      const r = await fetch("http://localhost:3000/", {
+        method: "HEAD",
+        signal: ctrl.signal,
+      });
+      clearTimeout(t);
+      if (r.ok) {
+        target = "http://localhost:3000/?source=vscode";
+      }
+    } catch {
+      /* use configured remote */
+    }
   }
+
+  await vscode.env.openExternal(vscode.Uri.parse(target));
+  void vscode.window.showInformationMessage("Opening Guardrail web app…");
 }
 
 /**

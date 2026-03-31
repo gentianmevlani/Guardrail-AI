@@ -1,6 +1,6 @@
 "use client";
 
-import { useDashboardContext } from "@/context/dashboard-context";
+import { useDashboardQueryContext } from "@/context/dashboard-query-context";
 import { logout } from "@/lib/api";
 import { logger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
@@ -32,7 +32,7 @@ export function CyberHeader() {
   const [loggingOut, setLoggingOut] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
-  const { notifications } = useDashboardContext();
+  const { notifications } = useDashboardQueryContext();
   const unreadCount = notifications.unreadCount;
 
   const isActive = (href: string) => {

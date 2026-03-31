@@ -3,7 +3,7 @@
 import { useAuth } from "@/context/auth-context";
 import { useGitHub } from "@/context/github-context";
 import { useRepository } from "@/context/repository-context";
-import { useDashboardContext } from "@/context/dashboard-context";
+import { useDashboardQueryContext } from "@/context/dashboard-query-context";
 import { useScan, type ScanResult } from "@/hooks";
 import { isDevAuthBypassEnabled } from "@/lib/dev-auth";
 import { logger } from "@/lib/logger";
@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +39,7 @@ const LIVE_FEED_ENTRIES = [
   { time: "14:22:25.88", level: "INFO", message: "System cleanup job initialized. Removing 1.2GB stale logs." },
 ];
 
-export default function Dashboard() {
+function DashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, isLoading, tier } = useAuth();
@@ -73,7 +73,8 @@ export default function Dashboard() {
     loading: githubLoading,
   } = useGitHub();
 
-  const { summary, findings, isScanning: dashboardScanning } = useDashboardContext();
+  const { summary, findings, isScanning: dashboardScanning } =
+    useDashboardQueryContext();
 
   const [scanError, setScanError] = useState<string | null>(null);
   const [scanning, setScanning] = useState(false);
@@ -644,5 +645,20 @@ export default function Dashboard() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 text-slate-500">
+          <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
+          <p className="text-sm">Loading dashboard…</p>
+        </div>
+      }
+    >
+      <DashboardContent />
+    </Suspense>
   );
 }

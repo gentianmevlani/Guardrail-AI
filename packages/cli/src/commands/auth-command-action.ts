@@ -12,12 +12,14 @@ import { icons, styles } from '../ui/cli-styles';
 import { frameLines } from '../ui/cli-frame-inline';
 import { printDivider } from '../ui/cli-menus';
 import { printLogo, spinner } from '../ui/cli-terminal';
+import { runDeviceLoginFlow } from './device-login';
 
 export async function runAuthOptionsAction(options: {
   key?: string;
   logout?: boolean;
   status?: boolean;
   refresh?: boolean;
+  device?: boolean;
 }): Promise<void> {
     printLogo();
     const configPath = getConfigPath();
@@ -96,6 +98,7 @@ export async function runAuthOptionsAction(options: {
           `${styles.brightRed}${styles.bold}${icons.error} NOT AUTHENTICATED${styles.reset}`,
           '',
           `${styles.dim}To authenticate, run:${styles.reset}`,
+          `${styles.brightCyan}guardrail login --device${styles.reset} ${styles.dim}(browser, same as VS Code)${styles.reset}`,
           `${styles.brightCyan}guardrail auth --key YOUR_API_KEY${styles.reset}`,
           '',
           `${styles.dim}Get your API key from:${styles.reset}`,
@@ -176,6 +179,11 @@ export async function runAuthOptionsAction(options: {
       console.log('');
       return;
     }
+
+    if (options.device && !options.key) {
+      await runDeviceLoginFlow();
+      return;
+    }
     
     // Handle no key provided - show help
     if (!options.key) {
@@ -193,6 +201,7 @@ export async function runAuthOptionsAction(options: {
         '',
         `${styles.bold}OPTIONS${styles.reset}`,
         `  ${styles.cyan}--key <key>${styles.reset}   Authenticate with API key`,
+        `  ${styles.cyan}--device${styles.reset}      Browser login (same device flow as VS Code)`,
         `  ${styles.cyan}--status${styles.reset}      Check authentication status (with masked key)`,
         `  ${styles.cyan}--refresh${styles.reset}     Force revalidate cached entitlements`,
         `  ${styles.cyan}--logout${styles.reset}      Remove stored credentials`,

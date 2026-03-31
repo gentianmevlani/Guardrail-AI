@@ -43,7 +43,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 // Score badge component
 function ScoreBadge({ score }: { score: number }) {
@@ -145,7 +145,7 @@ function SuiteCard({
 }
 
 // Main page component
-export default function IntelligencePage() {
+function IntelligencePageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
@@ -1080,5 +1080,20 @@ export default function IntelligencePage() {
         </TabsContent>
       </Tabs>
     </div>
+  );
+}
+
+export default function IntelligencePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 text-muted-foreground">
+          <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
+          <p className="text-sm">Loading intelligence…</p>
+        </div>
+      }
+    >
+      <IntelligencePageContent />
+    </Suspense>
   );
 }

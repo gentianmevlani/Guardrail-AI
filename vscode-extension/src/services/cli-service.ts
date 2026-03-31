@@ -81,7 +81,8 @@ function resolveGuardrailCli(workspacePath: string): {
 }
 
 export interface CLICommand {
-  command: string;
+  /** Subcommand name (e.g. `scan`); omit when `args` already includes the full argv tail. */
+  command?: string;
   args?: string[];
   options?: {
     cwd?: string;
@@ -368,8 +369,50 @@ export class CLIService {
   }
 
   /**
-   * Get production integrity data
+   * `guardrail doctor` — environment and CLI health (stdout text).
    */
+  async runDoctor(): Promise<CLIResult> {
+    return this.executeCommand({
+      args: ["doctor"],
+      options: { timeout: 120000 },
+    });
+  }
+
+  /**
+   * `guardrail whoami` — current user / plan when logged in.
+   */
+  async runWhoami(): Promise<CLIResult> {
+    return this.executeCommand({
+      args: ["whoami"],
+      options: { timeout: 30000 },
+    });
+  }
+
+  /**
+   * CI-style gate — `guardrail gate --json` (structured result).
+   */
+  async runGateJson(): Promise<CLICommandResult<Record<string, unknown>>> {
+    const result = await this.executeCommand({
+      args: ["gate", "--json"],
+      options: { timeout: 300000 },
+    });
+    const data = this.parseStdoutJson(result);
+    if (data && typeof data === "object") {
+      return {
+        success: result.exitCode === 0,
+        data: data as Record<string, unknown>,
+        duration: result.duration,
+        command: result.command,
+      };
+    }
+    return {
+      success: false,
+      error: result.stderr || "gate produced no JSON",
+      duration: result.duration,
+      command: result.command,
+    };
+  }
+
   /**
    * Workspace ship gate — maps to `guardrail ship --json` (no separate integrity subcommand).
    */

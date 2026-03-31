@@ -3,7 +3,7 @@
 import { logger } from "@/lib/logger";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useWebSocket, type WebSocketMessage } from "./useWebSocket";
-import { useDashboardContext } from "@/context/dashboard-context";
+import { useDashboardQueryContext } from "@/context/dashboard-query-context";
 
 export type ScanStatus =
   | "idle"
@@ -110,7 +110,7 @@ export function useScan(options: UseScanOptions = {}): UseScanReturn {
   const [scanId, setScanId] = useState<string | null>(null);
 
   const mountedRef = useRef(true);
-  const { refreshFindings, refreshSummary } = useDashboardContext();
+  const { refreshFindings, refreshSummary } = useDashboardQueryContext();
 
   // Type for WebSocket scan message data
   interface ScanMessageData {

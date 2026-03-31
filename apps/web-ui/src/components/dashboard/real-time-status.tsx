@@ -1,6 +1,6 @@
 "use client";
 
-import { useDashboardContext } from "@/context/dashboard-context";
+import { useDashboardQueryContext } from "@/context/dashboard-query-context";
 import { cn } from "@/lib/utils";
 import { AlertCircle, RefreshCw, Wifi, WifiOff } from "lucide-react";
 import { useState } from "react";
@@ -15,7 +15,7 @@ export function RealTimeStatus({
   showLabel = false,
 }: RealTimeStatusProps) {
   const { wsConnected, isLoading, error, lastUpdated, refresh } =
-    useDashboardContext();
+    useDashboardQueryContext();
   const [showTooltip, setShowTooltip] = useState(false);
 
   const getStatusColor = () => {
@@ -118,7 +118,7 @@ export function RealTimeStatus({
 }
 
 export function ConnectionIndicator({ className }: { className?: string }) {
-  const { wsConnected } = useDashboardContext();
+  const { wsConnected } = useDashboardQueryContext();
 
   return (
     <div

@@ -14,9 +14,6 @@ interface BlogPost {
   readTime: string;
 }
 
-// Static page - revalidate every hour
-export const revalidate = 3600;
-
 const blogPosts: BlogPost[] = [
   {
     id: "1",

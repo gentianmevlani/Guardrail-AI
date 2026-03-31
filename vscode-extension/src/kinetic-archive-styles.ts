@@ -246,20 +246,64 @@ export function getKineticArchiveCssBlock(): string {
       .anim-d2 { animation-delay: 0.1s; opacity: 0; }
       .anim-d3 { animation-delay: 0.15s; opacity: 0; }
 
-      /* Sidebar-only */
+      /* Sidebar-only — bounded height so inner scroll works in WebviewView */
+      html.ka-sidebar-root {
+        height: 100%;
+        margin: 0;
+      }
+      html.ka-sidebar-root body.ka-sidebar-body {
+        height: 100%;
+        margin: 0;
+      }
       body.ka-sidebar-body {
         font-family: 'Inter', sans-serif;
         background: var(--surface);
         color: var(--on-surface);
-        min-height: max(884px, 100dvh);
+        min-height: 0;
+        max-height: 100%;
         user-select: none;
         display: flex;
         flex-direction: column;
         overflow: hidden;
       }
+      .ka-sidebar-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 0 12px 10px;
+        flex-shrink: 0;
+        border-bottom: 1px solid var(--border-subtle);
+        background: #111316;
+      }
+      .ka-sidebar-tab {
+        flex: 1;
+        padding: 8px 6px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font: inherit;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--on-surface-variant);
+        background: transparent;
+      }
+      .ka-sidebar-tab:hover {
+        color: var(--on-surface);
+        background: var(--surface-container);
+      }
+      .ka-sidebar-tab.ka-tab-active {
+        color: var(--cyan-glow);
+        background: var(--surface-container-high);
+      }
+      .ka-tab-panel[hidden] {
+        display: none !important;
+      }
       .ka-sidebar-inner {
         flex: 1;
+        min-height: 0;
         overflow-y: auto;
+        overflow-x: hidden;
         padding: 0 16px 24px;
         display: flex;
         flex-direction: column;
@@ -800,6 +844,9 @@ export function getKineticArchiveCssBlock(): string {
         line-height: 1.7;
         max-height: 150px;
         overflow-y: auto;
+      }
+      .ka-sidebar-inner .ka-feed-body {
+        max-height: min(320px, 42vh);
       }
       .ka-feed-line {
         display: flex;
