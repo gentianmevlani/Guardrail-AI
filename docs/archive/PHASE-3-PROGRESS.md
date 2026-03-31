@@ -50,5 +50,5 @@
 
 **Phase 3 Status: 40% COMPLETE** 🚀
 
-*Building features Giga doesn't have!*
+*Building differentiated features!*
 

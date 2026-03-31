@@ -26,9 +26,11 @@ try {
   try {
     coreEntitlements = require("../../../packages/core/dist/index.js");
   } catch (e2) {
-    console.error(
-      "[entitlements] Failed to load @guardrail/core. Run `pnpm build` in packages/core first.",
-    );
+    // Silent fallback — @guardrail/core not available (standalone CLI install)
+    // Only log in debug mode
+    if (process.env.GUARDRAIL_DEBUG) {
+      console.warn("[entitlements] @guardrail/core not found, using built-in fallback.");
+    }
     // Provide minimal fallback
     coreEntitlements = {
       TIER_CONFIG: {},

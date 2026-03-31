@@ -65,9 +65,13 @@ export class CLIService {
   async executeCommand(command: CLICommand): Promise<CLIResult> {
     return new Promise((resolve) => {
       const startTime = Date.now();
-      const args = command.args || [];
+      const rawArgs = command.args || [];
+      const args =
+        command.command && command.command.length > 0
+          ? [command.command, ...rawArgs]
+          : rawArgs;
       const options = command.options || {};
-      
+
       const child = spawn(this._cliPath, args, {
         cwd: options.cwd || this._workspacePath,
         env: { ...process.env, ...options.env },
@@ -397,72 +401,75 @@ export class CLIService {
    */
   async getTeamData(): Promise<CLICommandResult> {
     const result = await this.executeCommand({
-      command: 'team',
-      args: ['--format', 'json'],
-      options: { timeout: 30000 } // 30 seconds
+      args: ["team", "--format", "json"],
+      options: { timeout: 30000 },
     });
 
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
+    const out = result.stdout?.trim();
+    if (out) {
+      try {
+        const data = JSON.parse(out);
         return {
           success: true,
           data,
           duration: result.duration,
-          command: result.command
+          command: result.command,
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: `Failed to parse team data: ${error}`,
+          duration: result.duration,
+          command: result.command,
         };
       }
-    } catch (error) {
-      return {
-        success: false,
-        error: `Failed to parse team data: ${error}`,
-        duration: result.duration,
-        command: result.command
-      };
     }
 
     return {
       success: false,
-      error: result.stderr || 'Failed to get team data',
+      error: result.stderr || "Failed to get team data",
       duration: result.duration,
-      command: result.command
+      command: result.command,
     };
   }
 
   /**
    * Get production integrity data
    */
+  /**
+   * Workspace ship gate — maps to `guardrail ship --json` (no separate integrity subcommand).
+   */
   async getProductionIntegrity(): Promise<CLICommandResult> {
     const result = await this.executeCommand({
-      command: 'integrity',
-      args: ['--format', 'json'],
-      options: { timeout: 60000 } // 1 minute
+      args: ["ship", "--json"],
+      options: { timeout: 120000 },
     });
 
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
+    const out = result.stdout?.trim();
+    if (out) {
+      try {
+        const data = JSON.parse(out);
         return {
           success: true,
           data,
           duration: result.duration,
-          command: result.command
+          command: result.command,
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: `Failed to parse ship JSON: ${error}`,
+          duration: result.duration,
+          command: result.command,
         };
       }
-    } catch (error) {
-      return {
-        success: false,
-        error: `Failed to parse production integrity data: ${error}`,
-        duration: result.duration,
-        command: result.command
-      };
     }
 
     return {
       success: false,
-      error: result.stderr || 'Failed to get production integrity data',
+      error: result.stderr || "Ship check produced no JSON output",
       duration: result.duration,
-      command: result.command
+      command: result.command,
     };
   }
 

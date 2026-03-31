@@ -21,6 +21,14 @@ export interface ScanResult {
     integrity?: number;
   };
   issues: Issue[];
+  /** Present when output came from `guardrail scan --json` (severity buckets; use when issues are empty due to free-tier redaction). */
+  cliSummary?: {
+    totalFindings: number;
+    critical: number;
+    high: number;
+    medium: number;
+    low: number;
+  };
 }
 
 export interface Issue {
@@ -94,20 +102,13 @@ export class GuardrailMCPClient {
   }
 
   /**
-   * Scan workspace for issues
+   * Scan workspace for issues (`guardrail scan --json`; no `--profile` — not supported by current CLI).
    */
-  async scan(
-    projectPath: string,
-    profile: string = "quick",
-  ): Promise<ScanResult> {
-    this.log(`Scanning ${projectPath} with profile: ${profile}`);
+  async scan(projectPath: string): Promise<ScanResult> {
+    this.log(`Scanning ${projectPath}`);
 
     try {
-      const result = await this.execCLI(
-        "scan",
-        [`--profile=${profile}`, "--json"],
-        projectPath,
-      );
+      const result = await this.execCLI("scan", ["--json"], projectPath);
 
       return this.parseScanResult(result);
     } catch (error: any) {
@@ -227,17 +228,26 @@ export class GuardrailMCPClient {
   }
 
   /**
-   * Get last scan summary
+   * Load last machine-readable scan (same shapes as CLI stdout).
+   * Prefers `scan.json`, then `ship.json`, then legacy `summary.json`.
    */
   async getLastScan(projectPath: string): Promise<ScanResult | null> {
-    try {
-      const fs = require("fs").promises;
-      const summaryPath = path.join(projectPath, ".guardrail", "summary.json");
-      const content = await fs.readFile(summaryPath, "utf-8");
-      return JSON.parse(content);
-    } catch {
-      return null;
+    const fs = require("fs").promises;
+    const guardrailDir = path.join(projectPath, ".guardrail");
+    const candidates = [
+      path.join(guardrailDir, "scan.json"),
+      path.join(guardrailDir, "ship.json"),
+      path.join(guardrailDir, "summary.json"),
+    ];
+    for (const p of candidates) {
+      try {
+        const content = await fs.readFile(p, "utf-8");
+        return this.parseScanResult(content);
+      } catch {
+        continue;
+      }
     }
+    return null;
   }
 
   /**
@@ -282,18 +292,11 @@ export class GuardrailMCPClient {
   }
 
   private parseScanResult(output: string): ScanResult {
+    const raw = this.extractJsonPayload(output);
     try {
-      // Try to parse as JSON first
-      const json = JSON.parse(output);
-      return {
-        score: json.score || 0,
-        grade: json.grade || "F",
-        canShip: json.canShip || false,
-        counts: json.counts || {},
-        issues: json.issues || [],
-      };
+      const parsed: unknown = JSON.parse(raw);
+      return this.jsonToScanResult(parsed);
     } catch {
-      // Parse text output
       const scoreMatch = output.match(/Score:\s*(\d+)/i);
       const gradeMatch = output.match(/Grade:\s*([A-F][+-]?)/i);
       const canShipMatch = output.match(/(SHIP|NO-SHIP|CLEAR|BLOCKED)/i);
@@ -306,6 +309,207 @@ export class GuardrailMCPClient {
         issues: [],
       };
     }
+  }
+
+  /** First JSON object in stdout (CLI may print a newline before `{`). */
+  private extractJsonPayload(output: string): string {
+    const t = output.trim();
+    if (t.startsWith("{")) return t;
+    const start = t.indexOf("{");
+    const end = t.lastIndexOf("}");
+    if (start >= 0 && end > start) {
+      return t.slice(start, end + 1);
+    }
+    return t;
+  }
+
+  private scoreToGrade(score: number): string {
+    if (score >= 90) return "A";
+    if (score >= 80) return "B";
+    if (score >= 70) return "C";
+    if (score >= 60) return "D";
+    return "F";
+  }
+
+  private severityToIssueType(sev: string): Issue["type"] {
+    const s = (sev || "").toLowerCase();
+    if (s === "critical") return "critical";
+    if (s === "high" || s === "medium") return "warning";
+    return "suggestion";
+  }
+
+  private cliFindingToIssue(f: Record<string, unknown>): Issue {
+    const sev = String(f.severity ?? "");
+    const typ = String(f.type ?? "finding");
+    const file = typeof f.file === "string" ? f.file : undefined;
+    const line = typeof f.line === "number" ? f.line : undefined;
+    const parts = [typ, sev ? `(${sev})` : ""].filter(Boolean).join(" ");
+    const loc = file ? ` — ${file}${line != null ? `:${line}` : ""}` : "";
+    return {
+      type: this.severityToIssueType(sev),
+      category: typ,
+      file,
+      line,
+      message: `${parts}${loc}`,
+    };
+  }
+
+  private scanRecordToScanResult(
+    scanObj: Record<string, unknown>,
+    canShipOverride?: boolean,
+  ): ScanResult {
+    const summary = scanObj.summary as Record<string, unknown> | undefined;
+    const totalScore =
+      typeof summary?.totalScore === "number"
+        ? summary.totalScore
+        : typeof scanObj.score === "number"
+          ? scanObj.score
+          : 0;
+
+    const rawFindings = Array.isArray(scanObj.findings) ? scanObj.findings : [];
+    const issues: Issue[] = rawFindings.map((item) =>
+      this.cliFindingToIssue(item as Record<string, unknown>),
+    );
+
+    const cliSummary =
+      summary && typeof summary.totalFindings === "number"
+        ? {
+            totalFindings: summary.totalFindings,
+            critical: Number(summary.critical) || 0,
+            high: Number(summary.high) || 0,
+            medium: Number(summary.medium) || 0,
+            low: Number(summary.low) || 0,
+          }
+        : undefined;
+
+    const verdict = scanObj.verdict;
+    let canShip = canShipOverride;
+    if (canShip === undefined) {
+      if (verdict === "PASS") canShip = true;
+      else if (verdict === "FAIL" || verdict === "WARN") canShip = false;
+      else canShip = false;
+    }
+
+    const grade =
+      typeof scanObj.grade === "string"
+        ? scanObj.grade
+        : this.scoreToGrade(totalScore);
+
+    const counts =
+      scanObj.counts && typeof scanObj.counts === "object"
+        ? (scanObj.counts as ScanResult["counts"])
+        : {};
+
+    return {
+      score: totalScore,
+      grade,
+      canShip,
+      counts,
+      issues,
+      ...(cliSummary ? { cliSummary } : {}),
+    };
+  }
+
+  private jsonToScanResult(json: unknown): ScanResult {
+    if (!json || typeof json !== "object") {
+      return {
+        score: 0,
+        grade: "F",
+        canShip: false,
+        counts: {},
+        issues: [],
+      };
+    }
+
+    const j = json as Record<string, unknown>;
+
+    // Standardized CLI wrapper: { success, data }
+    if (j.success === true && j.data && typeof j.data === "object") {
+      return this.jsonToScanResult(j.data);
+    }
+
+    // `guardrail ship --json`: nested scan + GO | NO-GO | WARN
+    if (
+      j.scan &&
+      typeof j.scan === "object" &&
+      (j.verdict === "GO" || j.verdict === "NO-GO" || j.verdict === "WARN")
+    ) {
+      const scanPart = this.scanRecordToScanResult(
+        j.scan as Record<string, unknown>,
+        j.verdict === "GO",
+      );
+      const deadUI = j.deadUI as Record<string, unknown> | undefined;
+      const deadFindings = deadUI?.findings;
+      const extra: Issue[] = [];
+      if (Array.isArray(deadFindings)) {
+        for (const item of deadFindings) {
+          const df = item as Record<string, unknown>;
+          const sev = String(df.severity ?? "");
+          extra.push({
+            type: this.severityToIssueType(sev),
+            category: String(df.type ?? "dead-ui"),
+            file: typeof df.file === "string" ? df.file : undefined,
+            line: typeof df.line === "number" ? df.line : undefined,
+            message: String(df.issue ?? df.type ?? "Dead UI finding"),
+          });
+        }
+      }
+      return {
+        ...scanPart,
+        issues: [...scanPart.issues, ...extra],
+        canShip: j.verdict === "GO",
+      };
+    }
+
+    // `guardrail scan --json` (findings + summary.totalScore; takes precedence over empty legacy issues)
+    if (j.findings !== undefined || j.summary !== undefined) {
+      return this.scanRecordToScanResult(j);
+    }
+
+    // Legacy extension shape: score + issues[]
+    if (Array.isArray(j.issues) && j.issues.length > 0) {
+      return {
+        score: typeof j.score === "number" ? j.score : 0,
+        grade: typeof j.grade === "string" ? j.grade : "F",
+        canShip: Boolean(j.canShip),
+        counts:
+          j.counts && typeof j.counts === "object"
+            ? (j.counts as ScanResult["counts"])
+            : {},
+        issues: j.issues as Issue[],
+      };
+    }
+
+    // Runner `summary.json` (no findings list)
+    if (
+      typeof j.score === "number" &&
+      !j.findings &&
+      !j.scan &&
+      !Array.isArray(j.issues)
+    ) {
+      return {
+        score: j.score,
+        grade: typeof j.grade === "string" ? j.grade : this.scoreToGrade(j.score),
+        canShip: Boolean(j.canShip),
+        counts:
+          j.counts && typeof j.counts === "object"
+            ? (j.counts as ScanResult["counts"])
+            : {},
+        issues: [],
+      };
+    }
+
+    // Last resort: flat score / issues
+    return {
+      score: typeof j.score === "number" ? j.score : 0,
+      grade: typeof j.grade === "string" ? j.grade : "F",
+      canShip: Boolean(j.canShip),
+      counts:
+        j.counts && typeof j.counts === "object"
+          ? (j.counts as ScanResult["counts"])
+          : {},
+      issues: Array.isArray(j.issues) ? (j.issues as Issue[]) : [],
+    };
   }
 
   /**

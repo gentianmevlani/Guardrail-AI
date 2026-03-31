@@ -9,6 +9,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
+import { getGuardrailPanelHead } from '../webview-shared-styles';
 
 export interface PerformanceMetric {
   type: 'cpu' | 'memory' | 'io' | 'network' | 'render';
@@ -571,118 +572,94 @@ export class PerformancePanel {
   }
 
   private _getHtmlContent(): string {
+    const panelCss = `
+    .perf-main { padding: 16px; flex: 1; }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .metric-card {
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .metric-value { font-size: 32px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .metric-label { color: var(--on-surface-variant); margin-top: 8px; font-size: 12px; }
+    .metric-good { color: #6ee7b7; }
+    .metric-warning { color: #ffd93d; }
+    .metric-critical { color: #ff6b6b; }
+    .chart-container {
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--on-surface-variant);
+      font-size: 13px;
+    }
+    .insights-section h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 12px;
+    }
+    .insight-item {
+      padding: 14px 16px;
+      border-left: 4px solid;
+      margin-bottom: 10px;
+      background: var(--surface-container-lowest);
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+    .insight-high { border-left-color: #ff6b6b; }
+    .insight-medium { border-left-color: #ffd93d; }
+    .insight-low { border-left-color: #6ee7b7; }
+    .insight-title { font-weight: 700; margin-bottom: 6px; font-size: 13px; }
+    .insight-description { font-size: 12px; color: var(--on-surface-variant); line-height: 1.5; }
+    `;
     return `<!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Performance Monitor</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 20px;
-      background: var(--vscode-editor-background);
-      color: var(--vscode-editor-foreground);
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--vscode-input-border);
-    }
-    .header-left { display: flex; align-items: center; gap: 15px; }
-    .logo { font-size: 32px; }
-    .title { font-size: 24px; font-weight: bold; }
-    .subtitle { color: var(--vscode-descriptionForeground); font-size: 14px; }
-    .btn {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn:hover { background: var(--vscode-button-hoverBackground); }
-    .btn-secondary {
-      background: var(--vscode-button-secondaryBackground);
-      color: var(--vscode-button-secondaryForeground);
-    }
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    .metric-card {
-      background: var(--vscode-input-background);
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-    }
-    .metric-value { font-size: 36px; font-weight: bold; }
-    .metric-label { color: var(--vscode-descriptionForeground); margin-top: 5px; }
-    .metric-good { color: #6bcb77; }
-    .metric-warning { color: #ffd93d; }
-    .metric-critical { color: #ff6b6b; }
-    .chart-container {
-      background: var(--vscode-input-background);
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--vscode-descriptionForeground);
-    }
-    .insights-section {
-      background: var(--vscode-input-background);
-      padding: 20px;
-      border-radius: 8px;
-    }
-    .insight-item {
-      padding: 15px;
-      border-left: 4px solid;
-      margin-bottom: 10px;
-      background: var(--vscode-editor-background);
-      border-radius: 4px;
-    }
-    .insight-high { border-left-color: #ff6b6b; }
-    .insight-medium { border-left-color: #ffd93d; }
-    .insight-low { border-left-color: #6bcb77; }
-    .insight-title { font-weight: bold; margin-bottom: 5px; }
-    .insight-description { font-size: 14px; color: var(--vscode-descriptionForeground); }
-  </style>
+  ${getGuardrailPanelHead(panelCss)}
 </head>
-<body>
-  <div class="header">
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <header class="header">
     <div class="header-left">
-      <span class="logo">⚡</span>
+      <span class="material-symbols-outlined logo" style="font-size:28px;color:var(--cyan-glow);">speed</span>
       <div>
         <div class="title">Performance Monitor</div>
-        <div class="subtitle">Real-time performance metrics and CodeLens insights</div>
+        <div class="subtitle">Real-time metrics · CodeLens insights</div>
       </div>
     </div>
-    <div style="display: flex; gap: 10px;">
-      <button class="btn btn-secondary" onclick="refresh()">
-        <span>🔄</span> Refresh
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button type="button" class="btn btn-secondary" onclick="refresh()">
+        <span class="material-symbols-outlined" style="font-size:18px;">refresh</span> Refresh
       </button>
-      <button class="btn" onclick="optimize()">
-        <span>🚀</span> Optimize
+      <button type="button" class="btn" onclick="optimize()">
+        <span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span> Optimize
       </button>
-      <button class="btn btn-secondary" onclick="exportReport()">
-        <span>📤</span> Export
+      <button type="button" class="btn btn-secondary" onclick="exportReport()">
+        <span class="material-symbols-outlined" style="font-size:18px;">upload</span> Export
       </button>
     </div>
-  </div>
+  </header>
 
+  <div class="perf-main">
   <div class="metrics-grid" id="metricsGrid">
     <div class="metric-card">
       <div class="metric-value" id="cpuValue">--</div>
@@ -711,17 +688,19 @@ export class PerformancePanel {
   </div>
 
   <div class="chart-container">
-    <div>📈 Performance charts will be displayed here</div>
+    <span class="material-symbols-outlined" style="font-size:48px;opacity:0.35;margin-right:12px;">show_chart</span>
+    <span>Charts connect when profiling data is available.</span>
   </div>
 
   <div class="insights-section">
     <h3>Performance Insights</h3>
     <div id="insightsList">
       <div class="insight-item insight-low">
-        <div class="insight-title">✅ Performance is optimal</div>
-        <div class="insight-description">No performance issues detected in your code.</div>
+        <div class="insight-title">Performance is nominal</div>
+        <div class="insight-description">No blocking issues detected in the latest sample.</div>
       </div>
     </div>
+  </div>
   </div>
 
   <script>
@@ -788,6 +767,7 @@ export class PerformancePanel {
     // Request initial metrics
     refresh();
   </script>
+  </div>
 </body>
 </html>`;
   }

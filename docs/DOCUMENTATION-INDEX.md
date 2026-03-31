@@ -68,7 +68,6 @@ The following files are outdated, duplicated, or superseded:
 - `FINAL-SUMMARY.md`
 - `FINAL-TOUCHES.md`
 - `FINAL-RELEASE.md`
-- `OVERALL-PROGRESS-REPORT.md`
 
 ### Marketing & Strategy (Archive)
 - `MARKETING-STRATEGY.md`
@@ -76,7 +75,6 @@ The following files are outdated, duplicated, or superseded:
 - `PRICING.md`
 - `MONETIZATION-GUIDE.md`
 - `MONETIZATION-COMPLETE.md`
-- `BECOME-THE-ALPHA-STRATEGY.md`
 
 ### Feature Lists (Archive)
 - `COMPLETE-FEATURE-LIST.md`
@@ -110,7 +108,6 @@ The following files are outdated, duplicated, or superseded:
 ### Web UI (Review)
 - `WEB-UI-GUIDE.md`
 - `WEB-UI-COMPLETE.md`
-- `WEB-APP-COMPLETE-SUMMARY.md`
 
 ## Recommended Actions
 

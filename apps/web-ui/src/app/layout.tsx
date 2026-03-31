@@ -7,9 +7,9 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-// Force dynamic rendering
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
+// Let Next.js decide static vs dynamic per-page.
+// force-dynamic on the root layout made every route SSR through Netlify Functions,
+// causing cold-start timeouts and blank pages in production.
 
 const inter = Inter({
   subsets: ["latin"],

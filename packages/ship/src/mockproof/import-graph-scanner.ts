@@ -10,7 +10,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { stripeTestSkOrPkTestPatternString } from "guardrail-security/secrets/stripe-placeholder-prefix";
+import { stripeTestSkOrPkTestPatternString } from "guardrail-security";
 
 export interface BannedImport {
   pattern: string;

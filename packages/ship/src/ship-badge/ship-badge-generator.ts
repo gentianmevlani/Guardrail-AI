@@ -20,7 +20,7 @@ import * as crypto from "crypto";
 import {
   STRIPE_PK_TEST_PREFIX,
   STRIPE_TEST_PREFIX,
-} from "guardrail-security/secrets/stripe-placeholder-prefix";
+} from "guardrail-security";
 
 export interface ShipCheck {
   id: string;

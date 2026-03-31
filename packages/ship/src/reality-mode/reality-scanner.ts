@@ -19,7 +19,7 @@ import {
   STRIPE_PK_TEST_PREFIX,
   STRIPE_TEST_PREFIX,
   stripeTestSkPkTestOrGenericTestKeyRegex,
-} from "guardrail-security/secrets/stripe-placeholder-prefix";
+} from "guardrail-security";
 import { TrafficClassifier } from "./traffic-classifier";
 import { FakeSuccessDetector } from "./fake-success-detector";
 import { AuthEnforcer } from "./auth-enforcer";

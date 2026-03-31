@@ -9,6 +9,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
+import { getGuardrailPanelHead } from '../webview-shared-styles';
 
 export interface ImpactAnalysis {
   timestamp: string;
@@ -777,49 +778,8 @@ export class ChangeImpactPanel {
   }
 
   private _getHtmlContent(): string {
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Change Impact Analysis</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 20px;
-      background: var(--vscode-editor-background);
-      color: var(--vscode-editor-foreground);
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--vscode-input-border);
-    }
-    .header-left { display: flex; align-items: center; gap: 15px; }
-    .logo { font-size: 32px; }
-    .title { font-size: 24px; font-weight: bold; }
-    .subtitle { color: var(--vscode-descriptionForeground); font-size: 14px; }
-    .btn {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn:hover { background: var(--vscode-button-hoverBackground); }
-    .btn-secondary {
-      background: var(--vscode-button-secondaryBackground);
-      color: var(--vscode-button-secondaryForeground);
-    }
+    const panelCss = `
+    .cim-wrap { padding: 16px; flex: 1; }
     .summary-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -827,89 +787,112 @@ export class ChangeImpactPanel {
       margin-bottom: 20px;
     }
     .summary-card {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
       padding: 20px;
-      border-radius: 8px;
+      border-radius: 12px;
       text-align: center;
     }
-    .summary-value { font-size: 28px; font-weight: bold; }
-    .summary-label { font-size: 12px; color: var(--vscode-descriptionForeground); margin-top: 5px; }
+    .summary-value { font-size: 28px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+    .summary-label { font-size: 12px; color: var(--on-surface-variant); margin-top: 5px; }
     .risk-score {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      background: linear-gradient(135deg, var(--surface-container-low), var(--surface-container-high));
       border-radius: 16px;
       padding: 30px;
       text-align: center;
       margin-bottom: 20px;
+      border: 1px solid var(--border-subtle);
     }
-    .risk-value { font-size: 64px; font-weight: bold; }
-    .risk-label { color: var(--vscode-descriptionForeground); margin-top: 5px; }
-    .risk-low { color: #6bcb77; }
+    .risk-value { font-size: 64px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+    .risk-label { color: var(--outline); margin-top: 5px; }
+    .risk-low { color: #6ee7b7; }
     .risk-medium { color: #ffd93d; }
     .risk-high { color: #ff6b6b; }
     .changes-section { margin-top: 20px; }
+    .changes-section h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 12px;
+    }
     .change-card {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 10px;
-      border-left: 4px solid;
+      border-left: 4px solid var(--outline-variant);
       cursor: pointer;
       transition: transform 0.2s;
     }
-    .change-card:hover { transform: translateX(5px); }
+    .change-card:hover { transform: translateX(5px); background: var(--surface-container-high); }
     .change-high { border-left-color: #ff6b6b; }
     .change-medium { border-left-color: #ffd93d; }
-    .change-low { border-left-color: #6bcb77; }
+    .change-low { border-left-color: #6ee7b7; }
     .change-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
     }
-    .change-title { font-weight: bold; }
+    .change-title { font-weight: 700; font-size: 13px; }
     .change-badge {
       padding: 3px 10px;
       border-radius: 12px;
       font-size: 11px;
-      font-weight: bold;
+      font-weight: 700;
     }
-    .badge-high { background: #ff6b6b; color: #000; }
-    .badge-medium { background: #ffd93d; color: #000; }
-    .badge-low { background: #6bcb77; color: #000; }
+    .badge-high { background: rgba(255,107,107,0.25); color: #ffb4ab; }
+    .badge-medium { background: rgba(255,217,61,0.2); color: #ffe082; }
+    .badge-low { background: rgba(110,231,183,0.2); color: #6ee7b7; }
     .change-meta {
       display: flex;
-      gap: 15px;
+      flex-wrap: wrap;
+      gap: 12px;
       font-size: 12px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
       margin-bottom: 10px;
     }
     .recommendations {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
       padding: 20px;
-      border-radius: 8px;
+      border-radius: 12px;
       margin-top: 20px;
     }
+    .recommendations h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 12px;
+    }
     .recommendation-item {
-      padding: 10px;
-      background: var(--vscode-editor-background);
-      border-radius: 4px;
+      padding: 10px 12px;
+      background: var(--surface-container-lowest);
+      border-radius: 8px;
       margin-bottom: 10px;
-      border-left: 3px solid #6bcb77;
+      border-left: 3px solid var(--primary-fixed-dim);
+      font-size: 12px;
+      color: var(--on-surface);
     }
     .empty-state {
       text-align: center;
       padding: 60px 20px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
-    .empty-icon { font-size: 48px; margin-bottom: 15px; }
+    .empty-icon { margin-bottom: 15px; color: var(--cyan-glow); }
     .analyzing {
       text-align: center;
       padding: 60px 20px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .spinner {
-      border: 3px solid var(--vscode-input-border);
-      border-top: 3px solid var(--vscode-progressBar-background);
+      border: 3px solid var(--border-subtle);
+      border-top: 3px solid var(--primary-container);
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -920,29 +903,39 @@ export class ChangeImpactPanel {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-  </style>
+    `;
+    return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Impact Analysis</title>
+  ${getGuardrailPanelHead(panelCss)}
 </head>
-<body>
-  <div class="header">
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <header class="header">
     <div class="header-left">
-      <span class="logo">🔄</span>
+      <span class="material-symbols-outlined logo" style="font-size:28px;color:var(--cyan-glow);">hub</span>
       <div>
         <div class="title">Change Impact Analysis</div>
-        <div class="subtitle">Analyze code changes before deployment</div>
+        <div class="subtitle">Blast radius · dependencies · dependents</div>
       </div>
     </div>
-    <div style="display: flex; gap: 10px;">
-      <button class="btn" onclick="runAnalysis()">
-        <span>🔍</span> Analyze Changes
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button type="button" class="btn" onclick="runAnalysis()">
+        <span class="material-symbols-outlined" style="font-size:18px;">search</span> Analyze Changes
       </button>
-      <button class="btn btn-secondary" id="exportBtn" onclick="exportReport()" disabled>
-        <span>📤</span> Export Report
+      <button type="button" class="btn btn-secondary" id="exportBtn" onclick="exportReport()" disabled>
+        <span class="material-symbols-outlined" style="font-size:18px;">upload</span> Export Report
       </button>
     </div>
-  </div>
+  </header>
 
+  <div class="cim-wrap">
   <div class="empty-state" id="emptyState">
-    <div class="empty-icon">🔄</div>
+    <div class="empty-icon"><span class="material-symbols-outlined" style="font-size:56px;">analytics</span></div>
     <h3>No Analysis Yet</h3>
     <p>Click "Analyze Changes" to analyze the impact of your code changes.</p>
   </div>
@@ -987,6 +980,7 @@ export class ChangeImpactPanel {
       <h3>Recommendations</h3>
       <div id="recommendationsList"></div>
     </div>
+  </div>
   </div>
 
   <script>
@@ -1082,6 +1076,7 @@ export class ChangeImpactPanel {
       }
     });
   </script>
+  </div>
 </body>
 </html>`;
   }

@@ -8,6 +8,7 @@
 import * as vscode from 'vscode';
 import { getLastScanResult } from '../scan-state';
 import type { ScanResult } from '../mcp-client';
+import { KINETIC_ARCHIVE_VERSION } from '../kinetic-archive-styles';
 import { getGuardrailSharedStyles } from '../webview-shared-styles';
 
 export class GuardrailDashboardPanel {
@@ -31,6 +32,9 @@ export class GuardrailDashboardPanel {
             break;
           case 'scan':
             vscode.commands.executeCommand('guardrail.scanWorkspace');
+            break;
+          case 'showFindings':
+            vscode.commands.executeCommand('guardrail.showFindings');
             break;
           case 'runCLI':
             vscode.commands.executeCommand('guardrail.runShip');
@@ -111,21 +115,24 @@ export class GuardrailDashboardPanel {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Guardrail</title>
+  <title>Guardrail — Kinetic Archive</title>
   ${getGuardrailSharedStyles()}
 </head>
-<body>
+<body class="ka-dashboard-body">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
   <!-- Top Bar -->
   <header class="top-bar">
-    <div class="brand">
-      <span class="material-symbols-outlined">shield</span>
+    <button type="button" class="brand" onclick="nav('home')" title="Home" style="cursor:pointer;border:none;background:none;padding:0;color:inherit;font:inherit;display:flex;align-items:center;gap:8px;">
+      <span class="material-symbols-outlined">shield_lock</span>
       <span>GUARDRAIL</span>
-    </div>
+    </button>
     <button class="scan-btn" onclick="post('scan')">Scan</button>
   </header>
 
   ${body}
 
+  </div>
   <!-- Bottom Nav -->
   <nav class="bottom-nav">
     <button class="nav-item ${page === 'home' ? 'active' : ''}" onclick="nav('home')">
@@ -156,21 +163,36 @@ export class GuardrailDashboardPanel {
   private _homeBody(scan: ScanResult | null): string {
     if (!scan) {
       return `
-  <div class="page-content">
-    <section class="anim">
-      <div class="card" style="border-left:4px solid var(--tertiary-container); padding: 20px;">
-        <p style="font-size:14px; font-weight:700; margin-bottom:8px;">No scan data yet</p>
-        <p style="font-size:12px; color:var(--on-surface-variant); line-height:1.5;">
-          Run <strong>Scan Workspace</strong> (⌘⇧⌥G / Ctrl+Shift+Alt+G) or <strong>Run Ship Check</strong> from the Command Palette. Results from the CLI (e.g. <code style="color:var(--primary);">guardrail ship --json</code>) are loaded when a summary exists under <code style="color:var(--primary);">.guardrail/</code>.
+  <div class="page-content" style="padding-top:32px;">
+    <section class="anim" style="text-align:center;padding:0 8px 24px;">
+      <span class="material-symbols-outlined" style="font-size:56px;color:var(--outline-variant);">terminal</span>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--on-surface-variant);margin:16px 0 10px;letter-spacing:-0.02em;">KINETIC ARCHIVE</h2>
+      <p style="font-size:13px;color:var(--outline);line-height:1.65;max-width:380px;margin:0 auto 20px;">
+        Select a security operation from the sidebar or run a scan. CLI output (for example <code style="color:var(--primary-fixed-dim);">guardrail ship --json</code>) loads when a summary exists under <code style="color:var(--primary-fixed-dim);">.guardrail/</code>.
+      </p>
+      <div class="card" style="text-align:left;border-left:4px solid var(--primary-container);padding:20px;max-width:420px;margin:0 auto;">
+        <p style="font-size:12px;color:var(--on-surface-variant);line-height:1.55;margin-bottom:14px;">
+          Use <strong style="color:var(--on-surface);">Scan Workspace</strong> (⌘⇧⌥G / Ctrl+Shift+Alt+G) or <strong style="color:var(--on-surface);">Run Ship Check</strong> from the Command Palette.
         </p>
+        <button type="button" onclick="post('scan')" style="width:100%;padding:12px 16px;border-radius:10px;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;background:linear-gradient(to bottom right,var(--primary-container),var(--secondary-container));color:#001f24;box-shadow:0 0 24px rgba(0,229,255,0.2);">
+          Run scan now
+        </button>
       </div>
     </section>
   </div>`;
     }
 
-    const critical = scan.issues.filter((i) => i.type === 'critical').length;
-    const warnings = scan.issues.filter((i) => i.type === 'warning').length;
-    const suggestions = scan.issues.filter((i) => i.type === 'suggestion').length;
+    const s = scan.cliSummary;
+    const critical = s
+      ? s.critical
+      : scan.issues.filter((i) => i.type === 'critical').length;
+    const warnings = s
+      ? s.high + s.medium
+      : scan.issues.filter((i) => i.type === 'warning').length;
+    const suggestions = s
+      ? s.low
+      : scan.issues.filter((i) => i.type === 'suggestion').length;
+    const issueLineTotal = s ? s.totalFindings : scan.issues.length;
     const shipLabel = scan.canShip ? 'SHIP' : 'BLOCK';
     const scorePct = Math.max(0, Math.min(100, Math.round(scan.score)));
     const grade = scan.grade || '—';
@@ -193,23 +215,23 @@ export class GuardrailDashboardPanel {
           <span class="status-label">${shipLabel}</span>
         </div>
       </div>
-      <p style="font-size:11px;color:var(--outline);margin:-8px 0 12px 0;">Grade <strong>${grade}</strong> · ${scan.issues.length} issue(s) in last run</p>
+      <p style="font-size:11px;color:var(--outline);margin:-8px 0 12px 0;">Grade <strong>${grade}</strong> · ${issueLineTotal} issue(s) in last run</p>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-        <div class="card" style="border-left:4px solid var(--primary);">
+        <div class="card" role="button" tabindex="0" title="Open analytics" style="border-left:4px solid var(--primary);cursor:pointer;transition:filter 0.15s;" onclick="nav('analytics')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
           <span style="font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700;">${scorePct}</span>
           <span style="display:block; font-size:10px; color:var(--primary); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Score</span>
         </div>
-        <div class="card" style="border-left:4px solid var(--tertiary-container);">
+        <div class="card" role="button" tabindex="0" title="Show findings" style="border-left:4px solid var(--tertiary-container);cursor:pointer;transition:filter 0.15s;" onclick="post('showFindings')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
           <span style="font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700;">${warnings}</span>
           <span style="display:block; font-size:10px; color:var(--tertiary-container); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Warnings</span>
         </div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
-        <div class="card" style="border-left:4px solid var(--error-container);">
+        <div class="card" role="button" tabindex="0" title="Show findings" style="border-left:4px solid var(--error-container);cursor:pointer;transition:filter 0.15s;" onclick="post('showFindings')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
           <span style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700;">${critical}</span>
           <span style="display:block; font-size:10px; color:var(--error); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Critical</span>
         </div>
-        <div class="card" style="border-left:4px solid var(--outline-variant);">
+        <div class="card" role="button" tabindex="0" title="Show findings" style="border-left:4px solid var(--outline-variant);cursor:pointer;transition:filter 0.15s;" onclick="post('showFindings')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
           <span style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700;">${suggestions}</span>
           <span style="display:block; font-size:10px; color:var(--on-surface-variant); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Hints</span>
         </div>
@@ -232,17 +254,17 @@ export class GuardrailDashboardPanel {
     <section class="anim anim-d2">
       <h2 class="section-title">CLI Shortcuts</h2>
       <div class="card" style="padding:6px; background:var(--surface-lowest);">
-        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(173,198,255,0.1)'" onmouseout="this.style.background='none'">
+        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(0,229,255,0.08)'" onmouseout="this.style.background='none'">
           <span style="font-family:monospace;font-size:13px;color:var(--primary);font-weight:700;">guardrail scan</span>
           <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.4);font-size:20px;">terminal</span>
         </button>
         <div style="height:1px;background:var(--border-subtle);margin:0 16px;"></div>
-        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(173,198,255,0.1)'" onmouseout="this.style.background='none'">
+        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(0,229,255,0.08)'" onmouseout="this.style.background='none'">
           <span style="font-family:monospace;font-size:13px;color:var(--primary);font-weight:700;">guardrail gate</span>
           <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.4);font-size:20px;">lock_open</span>
         </button>
         <div style="height:1px;background:var(--border-subtle);margin:0 16px;"></div>
-        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(173,198,255,0.1)'" onmouseout="this.style.background='none'">
+        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(0,229,255,0.08)'" onmouseout="this.style.background='none'">
           <span style="font-family:monospace;font-size:13px;color:var(--primary);font-weight:700;">guardrail fix</span>
           <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.4);font-size:20px;">auto_fix_high</span>
         </button>
@@ -251,17 +273,17 @@ export class GuardrailDashboardPanel {
 
     <!-- Tier -->
     <section class="anim anim-d3">
-      <div style="background:rgba(26,36,61,0.4);backdrop-filter:blur(12px);padding:20px;border-radius:16px;border:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,0.3);">
+      <div style="background:rgba(30,32,35,0.45);backdrop-filter:blur(12px);padding:20px;border-radius:16px;border:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,0.35);">
         <div style="display:flex;align-items:center;gap:16px;">
-          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-container));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(173,198,255,0.2);">
-            <span class="material-symbols-outlined" style="color:var(--on-primary);font-size:24px;font-variation-settings:'FILL' 1;">workspace_premium</span>
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,229,255,0.25);">
+            <span class="material-symbols-outlined" style="color:#001f24;font-size:24px;font-variation-settings:'FILL' 1;">workspace_premium</span>
           </div>
           <div>
-            <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;color:var(--primary);">DATA</p>
+            <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;color:var(--primary-fixed-dim);">DATA</p>
             <p style="font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif;">Last workspace scan</p>
           </div>
         </div>
-        <button onclick="nav('upgrade')" style="border:none;background:none;color:var(--primary);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;text-decoration:underline;text-underline-offset:4px;">Upgrade</button>
+        <button onclick="nav('upgrade')" style="border:none;background:none;color:var(--primary-fixed-dim);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;text-decoration:underline;text-underline-offset:4px;">Upgrade</button>
       </div>
     </section>
   </div>`;
@@ -270,7 +292,7 @@ export class GuardrailDashboardPanel {
   private _moduleCard(icon: string, title: string, subtitle: string, iconColor: string, statusIcon: string, panel: string, isWarning: boolean = false, isMuted: boolean = false): string {
     const borderStyle = isWarning ? `border:1px solid rgba(255,140,0,0.3);` : `border:1px solid var(--border-subtle);`;
     const opacity = isMuted ? 'opacity:0.8;' : '';
-    const iconBg = iconColor === 'primary' ? 'rgba(173,198,255,0.1)' : iconColor === 'tertiary-container' ? 'rgba(255,140,0,0.1)' : 'rgba(255,255,255,0.05)';
+    const iconBg = iconColor === 'primary' ? 'rgba(0,229,255,0.1)' : iconColor === 'tertiary-container' ? 'rgba(255,193,192,0.12)' : 'rgba(255,255,255,0.05)';
     const iconClr = iconColor === 'primary' ? 'var(--primary)' : iconColor === 'tertiary-container' ? 'var(--tertiary-container)' : 'var(--on-surface-variant)';
     const statusClr = statusIcon === 'warning' ? 'var(--tertiary-container)' : statusIcon === 'check_circle' ? 'var(--primary)' : 'var(--outline)';
     const statusFill = statusIcon === 'circle' ? '' : "font-variation-settings:'FILL' 1;";
@@ -315,8 +337,8 @@ export class GuardrailDashboardPanel {
     return `
     <div class="card card-row" style="cursor:pointer;" onclick="openPanel('${panel}')">
       <div class="card-left">
-        <div class="icon-box" style="background:rgba(173,198,255,0.1);">
-          <span class="material-symbols-outlined" style="color:var(--primary);font-size:24px;">${icon}</span>
+        <div class="icon-box" style="background:rgba(0,229,255,0.1);">
+          <span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:24px;">${icon}</span>
         </div>
         <div>
           <p style="font-size:14px;font-weight:700;">${title}</p>
@@ -336,8 +358,8 @@ export class GuardrailDashboardPanel {
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div class="card card-row" style="cursor:pointer;" onclick="post('openSettings')">
           <div class="card-left">
-            <div class="icon-box" style="background:rgba(173,198,255,0.1);">
-              <span class="material-symbols-outlined" style="color:var(--primary);">tune</span>
+            <div class="icon-box" style="background:rgba(0,229,255,0.1);">
+              <span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);">tune</span>
             </div>
             <div>
               <p style="font-size:14px;font-weight:700;">Extension Settings</p>
@@ -348,7 +370,7 @@ export class GuardrailDashboardPanel {
         </div>
         <div class="card card-row" style="cursor:pointer;" onclick="post('openExternal',{url:'https://docs.guardrail.dev'})">
           <div class="card-left">
-            <div class="icon-box" style="background:rgba(255,183,134,0.1);">
+            <div class="icon-box" style="background:rgba(255,193,192,0.12);">
               <span class="material-symbols-outlined" style="color:var(--tertiary);">menu_book</span>
             </div>
             <div>
@@ -373,7 +395,7 @@ export class GuardrailDashboardPanel {
       </div>
     </section>
     <section class="anim anim-d1">
-      <p style="text-align:center;font-size:11px;color:var(--outline);margin-top:24px;">Guardrail v2.0.0 · guardrail.dev</p>
+      <p style="text-align:center;font-size:11px;color:var(--outline);margin-top:24px;">Guardrail v${KINETIC_ARCHIVE_VERSION} · guardrail.dev</p>
     </section>
   </div>`;
   }
@@ -384,8 +406,8 @@ export class GuardrailDashboardPanel {
   <div class="page-content">
     <section class="anim">
       <div style="text-align:center;padding:24px 0;">
-        <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary-container));display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 24px rgba(173,198,255,0.3);">
-          <span class="material-symbols-outlined" style="color:var(--on-primary);font-size:32px;font-variation-settings:'FILL' 1;">workspace_premium</span>
+        <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,229,255,0.25);">
+          <span class="material-symbols-outlined" style="color:#001f24;font-size:32px;font-variation-settings:'FILL' 1;">workspace_premium</span>
         </div>
         <h2 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:8px;">Upgrade to Pro</h2>
         <p style="font-size:13px;color:var(--on-surface-variant);max-width:320px;margin:0 auto;">Unlock advanced engines, team features, and priority support.</p>
@@ -404,7 +426,7 @@ export class GuardrailDashboardPanel {
     </section>
 
     <section class="anim anim-d2" style="text-align:center;padding-top:8px;">
-      <button onclick="post('openExternal',{url:'https://guardrail.dev/pricing'})" style="background:var(--primary);color:var(--on-primary);border:none;padding:14px 48px;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 24px rgba(173,198,255,0.3);transition:all 0.2s;" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'">
+      <button onclick="post('openExternal',{url:'https://guardrail.dev/pricing'})" style="background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));color:#001f24;border:none;padding:14px 48px;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 24px rgba(0,229,255,0.25);transition:all 0.2s;" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
         View Plans
       </button>
       <p style="font-size:11px;color:var(--outline);margin-top:12px;">Free 14-day trial · No credit card required</p>

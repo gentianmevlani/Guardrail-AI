@@ -30,7 +30,8 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
   const scaleBackground = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const yText = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const yVisual = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  /** Scroll-based fade for the hero block — keep separate from Framer `animate` opacity to avoid composed opacity staying 0 (blank page on slow/failed hydration). */
+  const scrollFade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
@@ -46,7 +47,7 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
       {/* WebGL warp (renders on top when available) */}
       <motion.div
         className="absolute inset-0 z-[1]"
-        style={{ y: yBackground, scale: scaleBackground, opacity }}
+        style={{ y: yBackground, scale: scaleBackground, opacity: scrollFade }}
       >
         <WarpBackground speed={0.3} intensity={0.8} />
       </motion.div>
@@ -54,18 +55,22 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28 lg:px-8 lg:pt-32">
         <div className="flex flex-col gap-10 py-8 sm:gap-12 sm:py-10">
           <motion.div
-            style={{ y: yText, opacity }}
-            initial={{ opacity: 0, y: -30, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ opacity: scrollFade }}
             className="flex flex-col items-center text-center"
           >
+            <motion.div
+              style={{ y: yText }}
+              initial={false}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center text-center"
+            >
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-teal-400/80">
               guardrail
             </p>
             <h1 className="font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               <motion.span
-                initial={{ opacity: 0, y: 30 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="inline-block"
@@ -74,7 +79,7 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
               </motion.span>
               <br />
               <motion.span
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{
                   duration: 0.8,
@@ -88,7 +93,7 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
             </h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
               className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400 sm:text-xl"
@@ -99,7 +104,7 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              initial={false}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
                 duration: 0.6,
@@ -124,16 +129,19 @@ export function HeroSection({ onOpenAuth }: HeroSectionProps) {
                 </MagneticButton>
               </motion.div>
             </motion.div>
+            </motion.div>
           </motion.div>
 
-          <motion.div
-            style={{ y: yVisual, opacity }}
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full flex items-center justify-center"
-          >
-            <TerminalVideo />
+          <motion.div style={{ opacity: scrollFade }}>
+            <motion.div
+              style={{ y: yVisual }}
+              initial={false}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full flex items-center justify-center"
+            >
+              <TerminalVideo />
+            </motion.div>
           </motion.div>
         </div>
       </div>

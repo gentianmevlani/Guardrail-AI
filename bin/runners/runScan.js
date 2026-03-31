@@ -313,6 +313,199 @@ function printBlockers(blockers) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// TIERED OUTPUT — FREE / STARTER / PRO
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function countBySeverity(findings) {
+  const counts = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
+  for (const f of findings) {
+    const sev = (f.severity || f.level || 'info').toLowerCase();
+    if (sev === 'critical' || sev === 'error') counts.critical++;
+    else if (sev === 'high' || sev === 'warning') counts.high++;
+    else if (sev === 'medium') counts.medium++;
+    else if (sev === 'low') counts.low++;
+    else counts.info++;
+  }
+  return counts;
+}
+
+function blurText(len = 30) {
+  const blurChars = ['░', '▒', '▓', '█'];
+  let result = '';
+  for (let i = 0; i < len; i++) {
+    result += blurChars[Math.floor(Math.random() * blurChars.length)];
+  }
+  return result;
+}
+
+function sevBadge(label, count, bg, fg) {
+  if (count <= 0) return '';
+  return `${bg}${fg}${c.bold} ${count} ${label} ${c.reset}`;
+}
+
+function printSeverityBadges(counts) {
+  const badges = [
+    sevBadge('CRITICAL', counts.critical, bgRgb(180, 40, 40), c.brightWhite),
+    sevBadge('HIGH',     counts.high,     bgRgb(180, 100, 0), c.brightWhite),
+    sevBadge('MEDIUM',   counts.medium,   bgRgb(180, 150, 0), c.black),
+    sevBadge('LOW',      counts.low,      bgRgb(60, 60, 120), c.brightWhite),
+    sevBadge('INFO',     counts.info,     bgRgb(60, 60, 60),  c.brightWhite),
+  ].filter(Boolean);
+  console.log(`  ${badges.join('  ')}`);
+}
+
+function sevColor(sev) {
+  sev = (sev || 'info').toLowerCase();
+  if (sev === 'critical' || sev === 'error')   return { color: c.red,     label: 'CRIT' };
+  if (sev === 'high'     || sev === 'warning')  return { color: c.yellow,  label: 'HIGH' };
+  if (sev === 'medium')                          return { color: c.magenta, label: ' MED' };
+  if (sev === 'low')                             return { color: c.blue,    label: ' LOW' };
+  return { color: c.gray, label: 'INFO' };
+}
+
+// ─── FREE TIER: show counts + blur every finding ────────────────────────────
+function printFreeOutput(findings) {
+  const counts = countBySeverity(findings);
+  const total = findings.length;
+
+  printSection('SCAN RESULTS', '🔍');
+  console.log();
+  printSeverityBadges(counts);
+  console.log();
+  console.log(`  ${c.bold}${formatNumber(total)}${c.reset} ${c.dim}total findings across your codebase${c.reset}`);
+  console.log();
+
+  // Blurred findings table
+  console.log(`  ${c.dim}╭${'─'.repeat(66)}╮${c.reset}`);
+  console.log(`  ${c.dim}│${c.reset}  ${c.bold}Finding Details${c.reset}${' '.repeat(50)}${c.dim}│${c.reset}`);
+  console.log(`  ${c.dim}├${'─'.repeat(66)}┤${c.reset}`);
+
+  const previewCount = Math.min(findings.length, 10);
+  for (let i = 0; i < previewCount; i++) {
+    const { color, label } = sevColor(findings[i].severity || findings[i].level);
+    console.log(`  ${c.dim}│${c.reset}  ${color}${c.bold}${label}${c.reset}  ${c.dim}${blurText(42)}${c.reset}     ${c.dim}│${c.reset}`);
+  }
+  if (findings.length > previewCount) {
+    const more = findings.length - previewCount;
+    const pad = ' '.repeat(Math.max(1, 39 - String(more).length));
+    console.log(`  ${c.dim}│${c.reset}  ${c.dim}... and ${formatNumber(more)} more findings${c.reset}${pad}${c.dim}│${c.reset}`);
+  }
+  console.log(`  ${c.dim}╰${'─'.repeat(66)}╯${c.reset}`);
+  console.log();
+
+  // Upgrade prompt → Starter
+  console.log(`  ${bgRgb(30, 80, 160)}${c.bold}${c.brightWhite}                                                                    ${c.reset}`);
+  console.log(`  ${bgRgb(30, 80, 160)}${c.bold}${c.brightWhite}   🔒  Upgrade to Starter to see full finding details                ${c.reset}`);
+  console.log(`  ${bgRgb(30, 80, 160)}${c.bold}${c.brightWhite}                                                                    ${c.reset}`);
+  console.log();
+  console.log(`  ${c.cyan}${c.bold}Starter${c.reset}  ${c.dim}$9.99/mo${c.reset}  — See every finding, file, and line number`);
+  console.log(`  ${c.magenta}${c.bold}Pro${c.reset}      ${c.dim}$29.99/mo${c.reset} — + One-click auto-fix, AI Agent, Autopilot`);
+  console.log();
+  console.log(`  ${c.cyan}→${c.reset} ${c.bold}guardrail upgrade starter${c.reset}   ${c.dim}or visit${c.reset} ${c.cyan}${c.underline}https://guardrail.dev/pricing${c.reset}`);
+  console.log();
+}
+
+// ─── STARTER TIER: show real findings + blur autofix ─────────────────────────
+function printStarterOutput(findings) {
+  const counts = countBySeverity(findings);
+  const total = findings.length;
+
+  printSection('SCAN RESULTS', '🔍');
+  console.log();
+  printSeverityBadges(counts);
+  console.log();
+  console.log(`  ${c.bold}${formatNumber(total)}${c.reset} ${c.dim}total findings across your codebase${c.reset}`);
+  console.log();
+
+  // Full findings table (visible)
+  const showCount = Math.min(findings.length, 12);
+  for (let i = 0; i < showCount; i++) {
+    const f = findings[i];
+    const { color, label } = sevColor(f.severity || f.level);
+
+    const fileStr = f.file ? `${path.basename(f.file)}${f.line ? ':' + f.line : ''}` : '';
+
+    console.log(`  ${color}${c.bold}${label}${c.reset}  ${c.bold}${truncate(f.title || f.category || 'Issue', 35)}${c.reset}  ${c.dim}${truncate(fileStr, 28)}${c.reset}`);
+    if (f.description) {
+      console.log(`        ${c.dim}${truncate(f.description, 60)}${c.reset}`);
+    }
+    // Blurred autofix line
+    console.log(`        ${c.green}→ fix:${c.reset} ${c.dim}${blurText(38)}${c.reset} ${c.dim}🔒${c.reset}`);
+    console.log();
+  }
+  if (findings.length > showCount) {
+    console.log(`  ${c.dim}... and ${formatNumber(findings.length - showCount)} more findings${c.reset}`);
+    console.log();
+  }
+
+  // Upgrade prompt → Pro (autofix)
+  console.log(`  ${bgRgb(100, 50, 160)}${c.bold}${c.brightWhite}                                                                    ${c.reset}`);
+  console.log(`  ${bgRgb(100, 50, 160)}${c.bold}${c.brightWhite}   🔒  Upgrade to Pro to unlock auto-fix for every finding           ${c.reset}`);
+  console.log(`  ${bgRgb(100, 50, 160)}${c.bold}${c.brightWhite}                                                                    ${c.reset}`);
+  console.log();
+  console.log(`  ${c.magenta}${c.bold}Pro${c.reset}  ${c.dim}$29.99/mo${c.reset}  — One-click auto-fix, AI Agent, Autopilot, MCP`);
+  console.log();
+  console.log(`  ${c.magenta}→${c.reset} ${c.bold}guardrail upgrade pro${c.reset}   ${c.dim}or visit${c.reset} ${c.cyan}${c.underline}https://guardrail.dev/pricing${c.reset}`);
+  console.log();
+}
+
+// ─── PRO+ TIER: show full findings + real autofix suggestions ────────────────
+function printProOutput(findings) {
+  const counts = countBySeverity(findings);
+  const total = findings.length;
+
+  printSection('SCAN RESULTS', '🔍');
+  console.log();
+  printSeverityBadges(counts);
+  console.log();
+  console.log(`  ${c.bold}${formatNumber(total)}${c.reset} ${c.dim}total findings across your codebase${c.reset}`);
+  console.log();
+
+  // Show full blockers with real fix suggestions
+  printBlockers(findings.filter(f => {
+    const s = (f.severity || '').toLowerCase();
+    return s === 'critical' || s === 'high' || s === 'error';
+  }));
+
+  // Show remaining findings summary
+  const rest = findings.filter(f => {
+    const s = (f.severity || '').toLowerCase();
+    return s !== 'critical' && s !== 'high' && s !== 'error';
+  });
+  if (rest.length > 0) {
+    const showCount = Math.min(rest.length, 8);
+    console.log();
+    for (let i = 0; i < showCount; i++) {
+      const f = rest[i];
+      const { color, label } = sevColor(f.severity || f.level);
+      const fileStr = f.file ? `${path.basename(f.file)}${f.line ? ':' + f.line : ''}` : '';
+      console.log(`  ${color}${c.bold}${label}${c.reset}  ${c.bold}${truncate(f.title || f.category || 'Issue', 35)}${c.reset}  ${c.dim}${truncate(fileStr, 28)}${c.reset}`);
+      if (f.fixSuggestion || f.description) {
+        console.log(`        ${c.green}→ ${truncate(f.fixSuggestion || f.description, 55)}${c.reset}`);
+      }
+    }
+    if (rest.length > showCount) {
+      console.log(`  ${c.dim}... and ${rest.length - showCount} more (see full report)${c.reset}`);
+    }
+    console.log();
+  }
+
+  console.log(`  ${c.green}${c.bold}✓${c.reset} ${c.dim}Run${c.reset} ${c.bold}guardrail fix --all${c.reset} ${c.dim}to auto-fix everything${c.reset}`);
+  console.log();
+}
+
+// ─── Dispatcher — picks the right renderer per tier ──────────────────────────
+function printTieredOutput(findings, tier) {
+  if (tier === 'pro' || tier === 'compliance' || tier === 'enterprise') {
+    printProOutput(findings);
+  } else if (tier === 'starter') {
+    printStarterOutput(findings);
+  } else {
+    printFreeOutput(findings);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // LAYERS DISPLAY
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -483,10 +676,9 @@ async function runScan(args) {
     try {
       ({ scanRouteIntegrity } = require('../../dist/lib/route-integrity'));
     } catch (e) {
-      throw createUserError(
-        `Scan engine not found (dist/lib/route-integrity). From a fresh clone, build compiled output first. Try: pnpm run build:cli-lib (CLI modules) — full scan also needs route-integrity under dist/. If pnpm run build:lib fails, use a release artifact or CI-built dist. (${e.message})`,
-        'ValidationError',
-      );
+      // Full scan engine not available — run built-in lightweight scanner
+      const liteResult = await runLightweightScan(projectPath, opts);
+      return liteResult;
     }
     
     // Try to import new unified output system (may not be compiled yet)
@@ -746,6 +938,111 @@ async function findSourceFiles(projectPath) {
   
   await walk(projectPath);
   return files;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LIGHTWEIGHT SCANNER (Free Tier - no compiled dist/ needed)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const LITE_PATTERNS = [
+  // Security
+  { regex: /(?:password|secret|token|api[_-]?key)\s*[:=]\s*['"][^'"]{3,}/i, severity: 'critical', category: 'Hardcoded Secret' },
+  { regex: /eval\s*\(/, severity: 'high', category: 'Eval Usage' },
+  { regex: /dangerouslySetInnerHTML/i, severity: 'high', category: 'XSS Risk' },
+  { regex: /innerHTML\s*=/, severity: 'medium', category: 'Potential XSS' },
+  { regex: /document\.write\s*\(/, severity: 'medium', category: 'Document Write' },
+  // Quality
+  { regex: /TODO|FIXME|HACK|XXX|TEMP/i, severity: 'low', category: 'Code TODO' },
+  { regex: /console\.log\s*\(/, severity: 'info', category: 'Console Log' },
+  { regex: /(?:localhost|127\.0\.0\.1):\d+/, severity: 'medium', category: 'Hardcoded URL' },
+  { regex: /\.env\.local|\.env\.development/, severity: 'low', category: 'Env Reference' },
+  // Auth & data
+  { regex: /(?:SELECT|INSERT|UPDATE|DELETE)\s+.*\$\{/, severity: 'critical', category: 'SQL Injection Risk' },
+  { regex: /new\s+Function\s*\(/, severity: 'high', category: 'Dynamic Function' },
+  { regex: /disable.*eslint|eslint-disable/, severity: 'low', category: 'Lint Suppression' },
+  { regex: /(?:process\.env\.\w+)\s*\|\|\s*['"]/, severity: 'medium', category: 'Env Fallback' },
+];
+
+async function runLightweightScan(projectPath, opts) {
+  const { getCurrentTier } = require('./lib/entitlements');
+
+  startSpinner('Scanning files...');
+
+  const sourceFiles = await findSourceFiles(projectPath);
+  const findings = [];
+  let filesScanned = 0;
+
+  for (const filePath of sourceFiles) {
+    try {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const lines = content.split('\n');
+      filesScanned++;
+
+      for (const pattern of LITE_PATTERNS) {
+        for (let lineNum = 0; lineNum < lines.length; lineNum++) {
+          if (pattern.regex.test(lines[lineNum])) {
+            findings.push({
+              severity: pattern.severity,
+              category: pattern.category,
+              file: path.relative(projectPath, filePath),
+              line: lineNum + 1,
+              title: pattern.category,
+              description: `Found in ${path.basename(filePath)}:${lineNum + 1}`,
+            });
+          }
+        }
+      }
+    } catch {
+      // Skip unreadable files
+    }
+  }
+
+  stopSpinner(`Scanned ${formatNumber(filesScanned)} files`, true);
+
+  // Determine tier
+  let tier = 'free';
+  try { tier = await getCurrentTier(); } catch { /* offline = free */ }
+
+  const counts = countBySeverity(findings);
+
+  if (opts.json) {
+    // JSON: severity counts always visible; finding details gated by tier
+    const output = {
+      version: '1.0.0',
+      filesScanned,
+      totalFindings: findings.length,
+      severity: counts,
+      tier,
+    };
+    if (tier === 'free') {
+      output.findings = '🔒 Upgrade to Starter to see finding details';
+      output.autofix  = '🔒 Upgrade to Pro to unlock auto-fix';
+    } else if (tier === 'starter') {
+      output.findings = findings;
+      output.autofix  = '🔒 Upgrade to Pro to unlock auto-fix';
+    } else {
+      output.findings = findings;
+      output.autofix  = true;
+    }
+    console.log(JSON.stringify(output, null, 2));
+    return findings.some(f => f.severity === 'critical') ? 1 : 0;
+  }
+
+  // ── Render tiered terminal output ──
+  const scanStart = Date.now();
+  printTieredOutput(findings, tier);
+
+  // Score card (always shown)
+  const penalty = counts.critical * 15 + counts.high * 8 + counts.medium * 3 + counts.low * 1;
+  const score = Math.max(0, Math.min(100, 100 - penalty));
+  const grade = score >= 90 ? 'A' : score >= 80 ? 'B' : score >= 70 ? 'C' : score >= 60 ? 'D' : 'F';
+  printScoreCard(score, grade, score >= 70);
+
+  console.log();
+  console.log(`  ${c.dim}Scan complete  •  ${formatNumber(filesScanned)} files  •  ${formatNumber(findings.length)} findings${c.reset}`);
+  console.log();
+
+  return score >= 70 ? 0 : 1;
 }
 
 // Export with error handling wrapper

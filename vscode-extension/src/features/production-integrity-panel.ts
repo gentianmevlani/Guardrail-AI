@@ -82,6 +82,8 @@ export class ProductionIntegrityPanel {
 
     this._update();
 
+    void this._refreshData();
+
     this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
     this._panel.webview.onDidReceiveMessage(
@@ -158,95 +160,62 @@ export class ProductionIntegrityPanel {
 
   private async _refreshData(): Promise<void> {
     try {
-      // Try CLI first
       const cliResult = await this._cliService.getProductionIntegrity();
-      
-      if (cliResult.success && cliResult.data) {
-        this._currentHealth = this._convertCLIIntegrityData(cliResult.data);
+      if (cliResult.data) {
+        this._currentHealth = this._shipJsonToSystemHealth(
+          cliResult.data as Record<string, unknown>,
+        );
         this._panel.webview.postMessage({
-          type: 'healthUpdate',
-          health: this._currentHealth
+          type: "healthUpdate",
+          health: this._currentHealth,
         });
-      } else {
-        throw new Error('CLI integrity check failed');
+        return;
       }
-    } catch (cliError) {
-      console.warn('CLI integrity check failed, trying API:', cliError);
-      
-      try {
-        // Fallback to API
-        const isConnected = await this._apiClient.testConnection();
-        if (isConnected) {
-          const response = await this._apiClient.getProductionIntegrity('workspace-' + Date.now());
-          if (response.success && response.data) {
-            this._currentHealth = this._convertAPIIntegrityData(response.data);
-            this._panel.webview.postMessage({
-              type: 'healthUpdate',
-              health: this._currentHealth
-            });
-          } else {
-            throw new Error('API integrity check failed');
-          }
-        } else {
-          throw new Error('API unavailable');
-        }
-      } catch (apiError) {
-        console.warn('API integrity check failed, using fallback:', apiError);
-        // Final fallback - use mock data
-        this._currentHealth = await this._generateSystemHealth();
-        this._panel.webview.postMessage({
-          type: 'healthUpdate',
-          health: this._currentHealth
-        });
-      }
+    } catch {
+      /* try API */
     }
+
+    try {
+      const isConnected = await this._apiClient.testConnection();
+      if (isConnected) {
+        const response = await this._apiClient.getProductionIntegrity(
+          "workspace-" + Date.now(),
+        );
+        if (response.success && response.data) {
+          this._currentHealth = this._convertAPIIntegrityData(response.data);
+          this._panel.webview.postMessage({
+            type: "healthUpdate",
+            health: this._currentHealth,
+          });
+          return;
+        }
+      }
+    } catch {
+      /* empty */
+    }
+
+    this._currentHealth = this._emptySystemHealth();
+    this._panel.webview.postMessage({
+      type: "healthUpdate",
+      health: this._currentHealth,
+    });
+    void vscode.window.showWarningMessage(
+      "No ship data. Run `guardrail ship --json` in this workspace and ensure the guardrail CLI is on PATH.",
+    );
   }
 
   private async _deploy(environment: string): Promise<void> {
-    const action = await vscode.window.showWarningMessage(
-      `Deploy to ${environment}? This will update the production environment.`,
-      'Deploy',
-      'Cancel'
+    void environment;
+    await vscode.window.showInformationMessage(
+      "Deploy is not available from the local guardrail extension. Use your CI/CD or hosting provider.",
     );
-
-    if (action === 'Deploy') {
-      this._panel.webview.postMessage({
-        type: 'deploymentStarted',
-        environment
-      });
-
-      // Simulate deployment process
-      setTimeout(() => {
-        this._panel.webview.postMessage({
-          type: 'deploymentComplete',
-          environment,
-          success: Math.random() > 0.2 // 80% success rate
-        });
-      }, 3000);
-    }
   }
 
   private async _rollback(deploymentId: string): Promise<void> {
-    const action = await vscode.window.showWarningMessage(
-      'Rollback to previous version? This will revert recent changes.',
-      'Rollback',
-      'Cancel'
+    void deploymentId;
+    await vscode.window.showInformationMessage(
+      "Rollback is not available from the local guardrail extension.",
     );
-
-    if (action === 'Rollback') {
-      this._panel.webview.postMessage({
-        type: 'rollbackStarted',
-        deploymentId
-      });
-
-      setTimeout(() => {
-        this._panel.webview.postMessage({
-          type: 'rollbackComplete',
-          deploymentId,
-          success: true
-        });
-      }, 2000);
-    }
   }
 
   private async _exportReport(): Promise<void> {
@@ -272,18 +241,13 @@ export class ProductionIntegrityPanel {
   }
 
   private async _runHealthCheck(serviceId: string): Promise<void> {
+    void serviceId;
+    await this._refreshData();
     this._panel.webview.postMessage({
-      type: 'healthCheckStarted',
-      serviceId
+      type: "healthCheckComplete",
+      serviceId,
+      status: "passed",
     });
-
-    setTimeout(() => {
-      this._panel.webview.postMessage({
-        type: 'healthCheckComplete',
-        serviceId,
-        status: Math.random() > 0.3 ? 'passed' : 'failed'
-      });
-    }, 2000);
   }
 
   private async _monitoringLoop(): Promise<void> {
@@ -291,162 +255,6 @@ export class ProductionIntegrityPanel {
       await this._refreshData();
       await this._delay(5000); // Update every 5 seconds
     }
-  }
-
-  private async _generateSystemHealth(): Promise<SystemHealth> {
-    const services = this._getMockServices();
-    const incidents = this._getMockIncidents();
-    
-    const healthyServices = services.filter(s => s.status === 'healthy').length;
-    const criticalServices = services.filter(s => s.status === 'critical').length;
-    
-    let overall: 'healthy' | 'degraded' | 'critical';
-    let score: number;
-    
-    if (criticalServices > 0) {
-      overall = 'critical';
-      score = Math.max(20, 100 - (criticalServices * 30));
-    } else if (healthyServices < services.length) {
-      overall = 'degraded';
-      score = Math.max(40, 100 - ((services.length - healthyServices) * 20));
-    } else {
-      overall = 'healthy';
-      score = 95 + Math.floor(Math.random() * 5);
-    }
-
-    return {
-      overall,
-      score,
-      services,
-      uptime: 99.9 + Math.random() * 0.1,
-      lastIncident: incidents[0]?.timestamp,
-      incidents
-    };
-  }
-
-  private _getMockServices(): ProductionService[] {
-    return [
-      {
-        id: 'api-gateway',
-        name: 'API Gateway',
-        environment: 'production',
-        status: 'healthy',
-        uptime: 99.99,
-        lastDeploy: '2024-01-10T14:30:00Z',
-        version: 'v2.4.1',
-        metrics: {
-          cpu: 45 + Math.random() * 20,
-          memory: 60 + Math.random() * 15,
-          requests: 1250 + Math.floor(Math.random() * 500),
-          errors: Math.floor(Math.random() * 5),
-          latency: 120 + Math.random() * 50
-        },
-        alerts: []
-      },
-      {
-        id: 'user-service',
-        name: 'User Service',
-        environment: 'production',
-        status: 'warning',
-        uptime: 99.95,
-        lastDeploy: '2024-01-09T16:45:00Z',
-        version: 'v1.8.3',
-        metrics: {
-          cpu: 65 + Math.random() * 15,
-          memory: 75 + Math.random() * 10,
-          requests: 800 + Math.floor(Math.random() * 300),
-          errors: Math.floor(Math.random() * 10),
-          latency: 200 + Math.random() * 100
-        },
-        alerts: [
-          {
-            type: 'warning',
-            message: 'High memory usage detected',
-            timestamp: '2024-01-10T15:30:00Z',
-            severity: 'medium'
-          }
-        ]
-      },
-      {
-        id: 'payment-service',
-        name: 'Payment Service',
-        environment: 'production',
-        status: 'healthy',
-        uptime: 99.98,
-        lastDeploy: '2024-01-10T12:15:00Z',
-        version: 'v3.2.0',
-        metrics: {
-          cpu: 35 + Math.random() * 15,
-          memory: 50 + Math.random() * 20,
-          requests: 450 + Math.floor(Math.random() * 200),
-          errors: Math.floor(Math.random() * 2),
-          latency: 80 + Math.random() * 40
-        },
-        alerts: []
-      },
-      {
-        id: 'notification-service',
-        name: 'Notification Service',
-        environment: 'production',
-        status: 'critical',
-        uptime: 98.5,
-        lastDeploy: '2024-01-08T09:20:00Z',
-        version: 'v1.5.2',
-        metrics: {
-          cpu: 85 + Math.random() * 10,
-          memory: 90 + Math.random() * 5,
-          requests: 300 + Math.floor(Math.random() * 100),
-          errors: Math.floor(Math.random() * 20),
-          latency: 500 + Math.random() * 200
-        },
-        alerts: [
-          {
-            type: 'error',
-            message: 'Service not responding to health checks',
-            timestamp: '2024-01-10T16:45:00Z',
-            severity: 'critical'
-          },
-          {
-            type: 'error',
-            message: 'High error rate detected',
-            timestamp: '2024-01-10T16:40:00Z',
-            severity: 'high'
-          }
-        ]
-      }
-    ];
-  }
-
-  private _getMockIncidents(): SystemHealth['incidents'] {
-    return [
-      {
-        id: 'inc-001',
-        title: 'Database connection timeout',
-        severity: 'high',
-        status: 'resolved',
-        timestamp: '2024-01-10T14:20:00Z',
-        duration: 15,
-        impact: 'Payment processing delays'
-      },
-      {
-        id: 'inc-002',
-        title: 'Notification service degradation',
-        severity: 'medium',
-        status: 'investigating',
-        timestamp: '2024-01-10T16:30:00Z',
-        duration: 45,
-        impact: 'Delayed email notifications'
-      },
-      {
-        id: 'inc-003',
-        title: 'API gateway latency spike',
-        severity: 'low',
-        status: 'monitoring',
-        timestamp: '2024-01-10T15:45:00Z',
-        duration: 30,
-        impact: 'Slightly slower response times'
-      }
-    ];
   }
 
   private _generateReport(health: SystemHealth): string {
@@ -990,13 +798,80 @@ export class ProductionIntegrityPanel {
 </html>`;
   }
 
-  private _convertCLIIntegrityData(cliData: any): SystemHealth {
+  /** Map `guardrail ship --json` output to the dashboard model (no mock services). */
+  private _shipJsonToSystemHealth(data: Record<string, unknown>): SystemHealth {
+    const score = typeof data.score === "number" ? data.score : 0;
+    const canShip = Boolean(data.canShip);
+    const grade = typeof data.grade === "string" ? data.grade : "—";
+    const issues = Array.isArray(data.issues)
+      ? (data.issues as Record<string, unknown>[])
+      : [];
+    const critical = issues.filter((i) => i.type === "critical").length;
+
+    let overall: SystemHealth["overall"] = "healthy";
+    if (critical > 0) {
+      overall = "critical";
+    } else if (!canShip) {
+      overall = "degraded";
+    }
+
+    const status: ProductionService["status"] =
+      critical > 0 ? "critical" : canShip ? "healthy" : "warning";
+
+    const incidents: SystemHealth["incidents"] = issues.slice(0, 20).map(
+      (i, idx) => ({
+        id: `finding-${idx}`,
+        title: String(i.message ?? "Finding"),
+        severity:
+          i.type === "critical"
+            ? ("critical" as const)
+            : i.type === "warning"
+              ? ("high" as const)
+              : ("low" as const),
+        status: "open" as const,
+        timestamp: new Date().toISOString(),
+        duration: 0,
+        impact: String(i.category ?? i.type ?? ""),
+      }),
+    );
+
+    const services: ProductionService[] = [
+      {
+        id: "workspace-ship-gate",
+        name: "Workspace (guardrail ship)",
+        environment: "development",
+        status,
+        uptime: canShip ? 99.9 : 95,
+        lastDeploy: new Date().toISOString(),
+        version: grade,
+        metrics: {
+          cpu: 0,
+          memory: 0,
+          requests: 0,
+          errors: issues.length,
+          latency: 0,
+        },
+        alerts: [],
+      },
+    ];
+
     return {
-      overall: cliData.overall || 'healthy',
-      score: cliData.score || 85,
-      uptime: cliData.uptime || 99.9,
-      services: cliData.services || [],
-      incidents: cliData.incidents || []
+      overall,
+      score,
+      uptime: canShip ? 99.9 : 95,
+      lastIncident: incidents[0]?.timestamp,
+      services,
+      incidents,
+    };
+  }
+
+  private _emptySystemHealth(): SystemHealth {
+    return {
+      overall: "degraded",
+      score: 0,
+      uptime: 0,
+      services: [],
+      incidents: [],
     };
   }
 

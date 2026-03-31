@@ -9,6 +9,7 @@
 
 import * as vscode from "vscode";
 import { GuardrailMCPClient, ScanResult } from "./mcp-client";
+import { GuardrailSidebarViewProvider } from "./features/guardrail-sidebar-view";
 import { setLastScanResult } from "./scan-state";
 
 export class ScoreBadge {
@@ -56,6 +57,7 @@ export class ScoreBadge {
     this.isScanning = false;
     this.currentScore = result.score;
     setLastScanResult(result);
+    GuardrailSidebarViewProvider.refreshIfOpen();
 
     const { icon, color, bgColor } = this.getScoreDisplay(result.score);
 
@@ -126,8 +128,16 @@ export class ScoreBadge {
     md.appendMarkdown(`**Grade:** ${result.grade}\n\n`);
     md.appendMarkdown(`**Verdict:** ${verdict}\n\n`);
 
+    if (result.cliSummary) {
+      const c = result.cliSummary;
+      md.appendMarkdown(`### Findings (last scan)\n\n`);
+      md.appendMarkdown(
+        `- Critical: ${c.critical} · High: ${c.high} · Medium: ${c.medium} · Low: ${c.low} · **Total: ${c.totalFindings}**\n\n`,
+      );
+    }
+
     if (result.counts) {
-      md.appendMarkdown(`### Issues Found\n\n`);
+      md.appendMarkdown(`### Summary counts\n\n`);
       const counts = result.counts;
       if (counts.secrets)
         md.appendMarkdown(`- 🔑 Secrets: ${counts.secrets}\n`);

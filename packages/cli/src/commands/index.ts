@@ -27,6 +27,7 @@ import { registerCiUploadCommand } from './ci-upload';
 import { registerDoctorCommand } from './doctor';
 import { registerPluginCommand } from './plugin';
 import { registerMenuCommand } from './register-menu';
+import { registerTeamCommand } from './register-team';
 import { printLogo } from '../ui/cli-terminal';
 
 /**
@@ -62,6 +63,7 @@ export function registerAllCommands(program: Command): void {
   registerDoctorCommand(program);
   registerPluginCommand(program);
   registerMenuCommand(program);
+  registerTeamCommand(program);
 }
 
 export { registerScanSecretsCommand } from './scan-secrets';

@@ -410,7 +410,7 @@ async function scanWorkspace(): Promise<void> {
       try {
         progress.report({ message: "Analyzing workspace..." });
 
-        const result = await mcpClient.scan(projectPath, "ship");
+        const result = await mcpClient.scan(projectPath);
 
         scoreBadge.updateScore(result);
         GuardrailDashboardPanel.refreshIfOpen();
