@@ -5,11 +5,13 @@
  * standards directly in VS Code.
  */
 
-import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
-import { ApiClient } from '../services/api-client';
-import { getGuardrailPanelHead } from '../webview-shared-styles';
+import * as vscode from "vscode";
+import * as path from "path";
+import * as fs from "fs";
+import { ApiClient } from "../services/api-client";
+import { CLIService } from "../services/cli-service";
+import { getGuardrailPanelHead } from "../webview-shared-styles";
+import { mapScanToComplianceChecks } from "../scan-cli-map";
 
 export interface ComplianceCheck {
   id: string;
@@ -47,11 +49,13 @@ export class ComplianceDashboard {
   private _report: ComplianceReport | null = null;
   private _isScanning: boolean = false;
   private _apiClient: ApiClient;
+  private _cliService: CLIService;
 
   private constructor(panel: vscode.WebviewPanel, workspacePath: string, extensionContext: vscode.ExtensionContext) {
     this._panel = panel;
     this._workspacePath = workspacePath;
     this._apiClient = new ApiClient(extensionContext);
+    this._cliService = new CLIService(workspacePath);
 
     this._update();
 
@@ -106,80 +110,105 @@ export class ComplianceDashboard {
     if (this._isScanning) return;
 
     this._isScanning = true;
-    this._panel.webview.postMessage({ type: 'scanning', progress: 0 });
+    this._panel.webview.postMessage({ type: "scanning", progress: 0 });
 
     try {
-      // Check API connection first
-      const isConnected = await this._apiClient.testConnection();
-      if (!isConnected) {
-        throw new Error('Unable to connect to guardrail API. Please check your configuration.');
+      const fws = frameworks.length
+        ? frameworks
+        : ["SOC2", "HIPAA", "GDPR", "PCI-DSS"];
+      let checks: ComplianceCheck[] = [];
+
+      this._panel.webview.postMessage({
+        type: "progress",
+        message: "Running guardrail scan --json…",
+        progress: 30,
+      });
+
+      const cli = await this._cliService.runScanJson();
+      if (cli.data) {
+        const mapped = mapScanToComplianceChecks(cli.data, fws);
+        checks = mapped.map((c) => ({
+          ...c,
+          evidence: [],
+          remediation: undefined,
+          file: undefined,
+          line: undefined,
+        }));
       }
 
-      const projectId = 'workspace-' + Date.now(); // Generate project ID from workspace
-      const checks: ComplianceCheck[] = [];
-
-      // Run real compliance assessments for each framework
-      for (let i = 0; i < frameworks.length; i++) {
-        const framework = frameworks[i];
-        const progress = 25 + (i * 75 / frameworks.length);
-        
-        this._panel.webview.postMessage({ 
-          type: 'progress', 
-          message: `Checking ${framework} compliance...`, 
-          progress 
+      if (checks.length === 0) {
+        this._panel.webview.postMessage({
+          type: "progress",
+          message: "Trying Guardrail API…",
+          progress: 55,
         });
-
         try {
-          const response = await this._apiClient.runComplianceAssessment(projectId, framework);
-          
-          if (response.success && response.data) {
-            // Convert API response to ComplianceCheck format
-            const apiChecks = response.data.checks || [];
-            checks.push(...apiChecks.map((check: any) => ({
-              id: check.id || `${framework}-${Date.now()}`,
-              framework: framework as any,
-              control: check.control || check.controlId || 'Unknown',
-              title: check.title || check.name || 'Compliance Check',
-              description: check.description || check.requirement || 'No description available',
-              status: check.status || 'warning',
-              severity: check.severity || 'medium',
-              evidence: check.evidence || [],
-              remediation: check.remediation || check.recommendation,
-              file: check.file,
-              line: check.line
-            })));
-          } else {
-            // Fallback to mock data if API fails
-            checks.push(...this._getFallbackFrameworkChecks(framework));
+          const isConnected = await this._apiClient.testConnection();
+          if (isConnected) {
+            const projectId = "workspace-" + Date.now();
+            for (let i = 0; i < fws.length; i++) {
+              const framework = fws[i];
+              const progress = 55 + (i * 35) / fws.length;
+              this._panel.webview.postMessage({
+                type: "progress",
+                message: `Checking ${framework}…`,
+                progress,
+              });
+              const response = await this._apiClient.runComplianceAssessment(
+                projectId,
+                framework,
+              );
+              if (response.success && response.data) {
+                const apiChecks = response.data.checks || [];
+                checks.push(
+                  ...apiChecks.map((check: Record<string, unknown>) => ({
+                    id: String(check.id ?? `${framework}-${Date.now()}`),
+                    framework: framework as ComplianceCheck["framework"],
+                    control: String(check.control ?? check.controlId ?? "—"),
+                    title: String(check.title ?? check.name ?? "Check"),
+                    description: String(
+                      check.description ?? check.requirement ?? "",
+                    ),
+                    status: (check.status as ComplianceCheck["status"]) ?? "warning",
+                    severity:
+                      (check.severity as ComplianceCheck["severity"]) ?? "medium",
+                    evidence: (check.evidence as string[]) || [],
+                    remediation: check.remediation as string | undefined,
+                    file: check.file as string | undefined,
+                    line: check.line as number | undefined,
+                  })),
+                );
+              }
+              await this._delay(200);
+            }
           }
-        } catch (error) {
-          console.warn(`Failed to get ${framework} compliance data:`, error);
-          // Add fallback checks for this framework
-          checks.push(...this._getFallbackFrameworkChecks(framework));
+        } catch {
+          /* leave checks empty */
         }
-
-        await this._delay(300); // Small delay for UI updates
       }
 
-      // Calculate scores
-      const frameworkScores: ComplianceReport['frameworks'] = {};
-
-      for (const fw of frameworks) {
-        const fwChecks = checks.filter(c => c.framework === fw);
-        const passed = fwChecks.filter(c => c.status === 'passed').length;
-        const failed = fwChecks.filter(c => c.status === 'failed').length;
-        const warnings = fwChecks.filter(c => c.status === 'warning').length;
-
+      const frameworkScores: ComplianceReport["frameworks"] = {};
+      for (const fw of fws) {
+        const fwChecks = checks.filter((c) => c.framework === fw);
+        const passed = fwChecks.filter((c) => c.status === "passed").length;
+        const failed = fwChecks.filter((c) => c.status === "failed").length;
+        const warnings = fwChecks.filter((c) => c.status === "warning").length;
         frameworkScores[fw] = {
           passed,
           failed,
           warnings,
-          score: fwChecks.length > 0 ? Math.round((passed / fwChecks.length) * 100) : 0,
+          score:
+            fwChecks.length > 0
+              ? Math.round((passed / fwChecks.length) * 100)
+              : 0,
         };
       }
 
-      const totalPassed = checks.filter(c => c.status === 'passed').length;
-      const overallScore = checks.length > 0 ? Math.round((totalPassed / checks.length) * 100) : 0;
+      const totalPassed = checks.filter((c) => c.status === "passed").length;
+      const overallScore =
+        checks.length > 0
+          ? Math.round((totalPassed / checks.length) * 100)
+          : 0;
 
       this._report = {
         timestamp: new Date().toISOString(),
@@ -189,91 +218,18 @@ export class ComplianceDashboard {
       };
 
       this._panel.webview.postMessage({
-        type: 'complete',
+        type: "complete",
         report: this._report,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : "Compliance scan failed";
       this._panel.webview.postMessage({
-        type: 'error',
-        message: error.message || 'Failed to run compliance scan',
+        type: "error",
+        message: msg,
       });
     } finally {
       this._isScanning = false;
     }
-  }
-
-  private _getFallbackFrameworkChecks(framework: string): ComplianceCheck[] {
-    // Fallback mock data if API is unavailable
-    const fallbackChecks: Record<string, ComplianceCheck[]> = {
-      'SOC2': [
-        {
-          id: 'SOC2-CC6.1',
-          framework: 'SOC2',
-          control: 'CC6.1',
-          title: 'Logical Access Controls',
-          description: 'System restricts logical access through appropriate mechanisms',
-          status: 'passed',
-          severity: 'high',
-          evidence: ['Authentication middleware detected'],
-        },
-        {
-          id: 'SOC2-CC6.6',
-          framework: 'SOC2',
-          control: 'CC6.6',
-          title: 'Encryption at Rest and in Transit',
-          description: 'Data is encrypted when stored and transmitted',
-          status: 'warning',
-          severity: 'critical',
-          remediation: 'Implement encryption for sensitive data',
-        }
-      ],
-      'HIPAA': [
-        {
-          id: 'HIPAA-164.312(a)(1)',
-          framework: 'HIPAA',
-          control: '164.312(a)(1)',
-          title: 'Access Control',
-          description: 'Implement technical policies for access to ePHI',
-          status: 'passed',
-          severity: 'critical',
-        },
-        {
-          id: 'HIPAA-164.312(b)',
-          framework: 'HIPAA',
-          control: '164.312(b)',
-          title: 'Audit Controls',
-          description: 'Implement mechanisms to record and examine activity',
-          status: 'failed',
-          severity: 'high',
-          remediation: 'Implement audit logging for all PHI access',
-        }
-      ],
-      'GDPR': [
-        {
-          id: 'GDPR-Art17',
-          framework: 'GDPR',
-          control: 'Article 17',
-          title: 'Right to Erasure',
-          description: 'Ability to delete personal data upon request',
-          status: 'warning',
-          severity: 'high',
-          remediation: 'Implement data deletion endpoints and processes',
-        }
-      ],
-      'PCI-DSS': [
-        {
-          id: 'PCI-DSS-3',
-          framework: 'PCI-DSS',
-          control: 'Requirement 3',
-          title: 'Protect Stored Cardholder Data',
-          description: 'Cardholder data should not be stored in code',
-          status: 'passed',
-          severity: 'critical',
-        }
-      ]
-    };
-
-    return fallbackChecks[framework] || [];
   }
 
   private async _openFile(filePath: string, line?: number): Promise<void> {

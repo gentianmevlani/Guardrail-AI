@@ -2434,3 +2434,73 @@
     animation: spin-slow 3s linear infinite;
   }
 }
+
+/* ============================================================
+   CYBER DASHBOARD THEME v1.0
+   Dark slate + cyan accent theme for dashboard views
+   ============================================================ */
+
+/* Cyber glow effects */
+.glow-cyan {
+  filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4));
+}
+
+.glow-cyan-text {
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+/* Cyber scrollbar */
+.cyber-scroll::-webkit-scrollbar { width: 4px; }
+.cyber-scroll::-webkit-scrollbar-track { background: #111316; }
+.cyber-scroll::-webkit-scrollbar-thumb { background: #333538; border-radius: 2px; }
+
+/* Cyber card hover */
+.cyber-card {
+  transition: all 0.2s ease;
+}
+.cyber-card:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Cyber sidebar active item */
+.cyber-nav-active {
+  background: rgba(0, 229, 255, 0.08);
+  border-left: 2px solid #00e5ff;
+}
+
+/* Cyber progress bar */
+.cyber-progress {
+  background: #0f172a;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.cyber-progress-bar {
+  background: linear-gradient(90deg, #00e5ff, #00bcd4);
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+/* Terminal log font */
+.font-terminal {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Cyber header glass effect */
+.cyber-header-glass {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Threat map dot animation */
+@keyframes threat-ping {
+  0% { transform: scale(1); opacity: 1; }
+  75% { transform: scale(2.5); opacity: 0; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.animate-threat-ping {
+  animation: threat-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

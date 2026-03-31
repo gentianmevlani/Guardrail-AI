@@ -21,9 +21,10 @@ const withMDX = createMDX({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable static export - force dynamic rendering
-  // Note: trailingSlash removed for better Netlify compatibility
-  
+  // Netlify OpenNext adapter + App Router — standalone output ensures proper SSR.
+  // Pages that fail static generation are served dynamically via Netlify Functions.
+  output: "standalone",
+
   // Enable strict mode for proper hydration debugging
   reactStrictMode: true,
 

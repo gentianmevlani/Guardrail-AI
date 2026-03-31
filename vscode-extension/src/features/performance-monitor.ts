@@ -5,11 +5,13 @@
  * and code optimization suggestions directly in the editor.
  */
 
-import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
-import { ApiClient } from '../services/api-client';
-import { getGuardrailPanelHead } from '../webview-shared-styles';
+import * as vscode from "vscode";
+import * as path from "path";
+import * as fs from "fs";
+import { ApiClient } from "../services/api-client";
+import { CLIService } from "../services/cli-service";
+import { getGuardrailPanelHead } from "../webview-shared-styles";
+import { buildPerformanceMetricsFromScan } from "../scan-cli-map";
 
 export interface PerformanceMetric {
   type: 'cpu' | 'memory' | 'io' | 'network' | 'render';
@@ -46,9 +48,11 @@ export class PerformanceMonitor {
   private _statusBarItem: vscode.StatusBarItem;
   private _metrics: PerformanceMetric[] = [];
   private _codeLensProvider: PerformanceCodeLensProvider;
+  private _cliService: CLIService;
 
   constructor(workspacePath: string) {
     this._workspacePath = workspacePath;
+    this._cliService = new CLIService(workspacePath);
     this._statusBarItem = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Right,
       100
@@ -97,14 +101,19 @@ export class PerformanceMonitor {
   }
 
   private _startMonitoring() {
-    // Update status bar every 5 seconds
     setInterval(() => {
-      this._updatePerformanceMetrics();
-      this._updateStatusBar();
+      void this._refreshMetricsFromScan();
     }, 5000);
+    void this._refreshMetricsFromScan();
+  }
 
-    // Initial update
-    this._updatePerformanceMetrics();
+  private async _refreshMetricsFromScan(): Promise<void> {
+    const cli = await this._cliService.runScanJson();
+    if (cli.data) {
+      this._metrics = buildPerformanceMetricsFromScan(cli.data);
+    } else {
+      this._metrics = [];
+    }
     this._updateStatusBar();
   }
 
@@ -248,50 +257,17 @@ export class PerformanceMonitor {
     return insights;
   }
 
-  private _updatePerformanceMetrics() {
-    const now = new Date().toISOString();
-
-    // Simulate performance metrics (in production, would use actual monitoring)
-    this._metrics = [
-      {
-        type: 'cpu',
-        value: Math.random() * 100,
-        unit: '%',
-        threshold: 80,
-        status: 'good',
-        timestamp: now
-      },
-      {
-        type: 'memory',
-        value: Math.random() * 100,
-        unit: '%',
-        threshold: 85,
-        status: 'good',
-        timestamp: now
-      },
-      {
-        type: 'io',
-        value: Math.random() * 1000,
-        unit: 'MB/s',
-        threshold: 500,
-        status: 'good',
-        timestamp: now
-      }
-    ];
-
-    // Update status based on thresholds
-    this._metrics.forEach(metric => {
-      if (metric.value > metric.threshold) {
-        metric.status = 'critical';
-      } else if (metric.value > metric.threshold * 0.8) {
-        metric.status = 'warning';
-      } else {
-        metric.status = 'good';
-      }
-    });
-  }
-
   private _updateStatusBar() {
+    if (this._metrics.length === 0) {
+      this._statusBarItem.text = "$(info) Performance: run guardrail scan";
+      this._statusBarItem.color = new vscode.ThemeColor('statusBarItem.prominentForeground');
+      this._statusBarItem.backgroundColor = undefined;
+      this._statusBarItem.tooltip = 'Click to view details — scan-derived metrics (not OS telemetry)';
+      this._statusBarItem.command = 'performance.showDetails';
+      this._statusBarItem.show();
+      return;
+    }
+
     const criticalIssues = this._metrics.filter(m => m.status === 'critical').length;
     const warningIssues = this._metrics.filter(m => m.status === 'warning').length;
 
@@ -309,7 +285,7 @@ export class PerformanceMonitor {
       this._statusBarItem.backgroundColor = undefined;
     }
 
-    this._statusBarItem.tooltip = 'Click to view performance details';
+    this._statusBarItem.tooltip = 'Scan-derived risk metrics (not OS CPU/memory)';
     this._statusBarItem.command = 'performance.showDetails';
     this._statusBarItem.show();
   }
@@ -357,11 +333,13 @@ export class PerformancePanel {
   private _isMonitoring: boolean = false;
   private _monitoringInterval: NodeJS.Timeout | null = null;
   private _apiClient: ApiClient;
+  private _cliService: CLIService;
 
   private constructor(panel: vscode.WebviewPanel, workspacePath: string, extensionContext: vscode.ExtensionContext) {
     this._panel = panel;
     this._workspacePath = workspacePath;
     this._apiClient = new ApiClient(extensionContext);
+    this._cliService = new CLIService(workspacePath);
 
     this._update();
 
@@ -421,30 +399,13 @@ export class PerformancePanel {
     this._isMonitoring = true;
     this._panel.webview.postMessage({ type: 'monitoring', status: true });
 
-    try {
-      // Check API connection first
-      const isConnected = await this._apiClient.testConnection();
-      if (!isConnected) {
-        throw new Error('Unable to connect to guardrail API. Please check your configuration.');
+    this._monitoringInterval = setInterval(async () => {
+      if (this._panel.visible && this._isMonitoring) {
+        await this._refreshMetrics();
       }
+    }, 5000);
 
-      // Start real performance monitoring
-      this._monitoringInterval = setInterval(async () => {
-        if (this._panel.visible && this._isMonitoring) {
-          await this._refreshMetrics();
-        }
-      }, 5000);
-
-      // Initial metrics fetch
-      await this._refreshMetrics();
-    } catch (error: any) {
-      this._panel.webview.postMessage({
-        type: 'error',
-        message: error.message || 'Failed to start performance monitoring'
-      });
-      this._isMonitoring = false;
-      this._panel.webview.postMessage({ type: 'monitoring', status: false });
-    }
+    await this._refreshMetrics();
   }
 
   private async _stopMonitoring(): Promise<void> {
@@ -460,27 +421,36 @@ export class PerformancePanel {
     try {
       let metrics: PerformanceMetric[] = [];
 
-      try {
-        const response = await this._apiClient.getPerformanceMetrics(this._workspacePath);
-        
-        if (response.success && response.data) {
-          // Convert API response to PerformanceMetric format
-          metrics = response.data.map((metric: any) => ({
-            type: metric.type || 'cpu',
-            value: metric.value || 0,
-            unit: metric.unit || '%',
-            threshold: metric.threshold || 80,
-            status: this._determineStatus(metric.value, metric.threshold),
-            timestamp: metric.timestamp || new Date().toISOString()
-          }));
-        } else {
-          // Fallback to mock data
-          metrics = this._getFallbackMetrics();
+      const cli = await this._cliService.runScanJson();
+      if (cli.data) {
+        metrics = buildPerformanceMetricsFromScan(cli.data);
+      }
+
+      if (metrics.length === 0) {
+        try {
+          const response = await this._apiClient.getPerformanceMetrics(this._workspacePath);
+          if (response.success && response.data?.length) {
+            metrics = response.data.map((metric: {
+              type?: string;
+              value?: number;
+              unit?: string;
+              threshold?: number;
+              timestamp?: string;
+            }) => ({
+              type: (metric.type || "cpu") as PerformanceMetric["type"],
+              value: metric.value ?? 0,
+              unit: metric.unit || "%",
+              threshold: metric.threshold ?? 80,
+              status: this._determineStatus(
+                metric.value ?? 0,
+                metric.threshold ?? 80,
+              ),
+              timestamp: metric.timestamp || new Date().toISOString(),
+            }));
+          }
+        } catch {
+          /* keep empty */
         }
-      } catch (error) {
-        console.warn('Failed to fetch performance metrics via API:', error);
-        // Use fallback data
-        metrics = this._getFallbackMetrics();
       }
 
       this._currentMetrics = {
@@ -498,10 +468,12 @@ export class PerformancePanel {
         type: 'metrics',
         data: this._currentMetrics
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const msg =
+        error instanceof Error ? error.message : "Failed to refresh metrics";
       this._panel.webview.postMessage({
         type: 'error',
-        message: error.message || 'Failed to refresh metrics'
+        message: msg
       });
     }
   }
@@ -510,36 +482,6 @@ export class PerformancePanel {
     if (value > threshold) return 'critical';
     if (value > threshold * 0.8) return 'warning';
     return 'good';
-  }
-
-  private _getFallbackMetrics(): PerformanceMetric[] {
-    const now = new Date().toISOString();
-    return [
-      {
-        type: 'cpu',
-        value: Math.random() * 100,
-        unit: '%',
-        threshold: 80,
-        status: 'good',
-        timestamp: now
-      },
-      {
-        type: 'memory',
-        value: Math.random() * 100,
-        unit: '%',
-        threshold: 85,
-        status: 'good',
-        timestamp: now
-      },
-      {
-        type: 'io',
-        value: Math.random() * 1000,
-        unit: 'MB/s',
-        threshold: 500,
-        status: 'good',
-        timestamp: now
-      }
-    ];
   }
 
   private async _exportReport(format: string): Promise<void> {

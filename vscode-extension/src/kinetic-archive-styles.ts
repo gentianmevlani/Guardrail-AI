@@ -460,5 +460,368 @@ export function getKineticArchiveCssBlock(): string {
       body.ka-dashboard-body.ka-panel-page {
         padding-bottom: 0;
       }
+
+      /* ── Cyber-Circuit Sidebar Enhancements ── */
+      .ka-cyber-posture {
+        position: relative;
+        overflow: hidden;
+        background: var(--surface-container);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .ka-cyber-posture::before {
+        content: '';
+        position: absolute;
+        right: -40px;
+        bottom: -40px;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: rgba(0, 229, 255, 0.06);
+        filter: blur(40px);
+        pointer-events: none;
+        transition: background 0.3s;
+      }
+      .ka-cyber-posture:hover::before {
+        background: rgba(0, 229, 255, 0.12);
+      }
+      .ka-posture-label {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--outline);
+        margin-bottom: 12px;
+      }
+      .ka-posture-score {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+      }
+      .ka-posture-score .ka-score-num {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 52px;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--cyan-glow);
+        filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.45));
+      }
+      .ka-posture-score .ka-score-max {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 18px;
+        color: var(--on-surface-variant);
+      }
+      .ka-posture-desc {
+        font-size: 12px;
+        color: #94a3b8;
+        margin-top: 12px;
+        line-height: 1.5;
+      }
+      .ka-posture-desc strong {
+        color: var(--cyan-glow);
+        font-weight: 700;
+      }
+      .ka-posture-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .ka-posture-meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .ka-posture-meta-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #64748b;
+      }
+      .ka-posture-meta-val {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+      .ka-posture-divider {
+        width: 1px;
+        height: 28px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      /* Vulnerability bars */
+      .ka-vuln-card {
+        background: var(--surface-container);
+        border-radius: 12px;
+        padding: 16px;
+        transition: background 0.2s;
+      }
+      .ka-vuln-card:hover {
+        background: var(--surface-container-high);
+      }
+      .ka-vuln-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .ka-vuln-header .material-symbols-outlined {
+        color: var(--cyan-glow);
+        background: rgba(0, 229, 255, 0.1);
+        padding: 6px;
+        border-radius: 6px;
+        font-size: 18px;
+      }
+      .ka-vuln-ref {
+        font-size: 9px;
+        font-family: monospace;
+        color: #475569;
+      }
+      .ka-vuln-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--on-surface);
+        margin-bottom: 12px;
+      }
+      .ka-vuln-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .ka-vuln-row:last-child { margin-bottom: 0; }
+      .ka-vuln-row-label {
+        font-size: 11px;
+        color: #94a3b8;
+        min-width: 50px;
+      }
+      .ka-vuln-bar-track {
+        flex: 1;
+        height: 4px;
+        background: var(--surface-container-highest);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .ka-vuln-bar-fill {
+        height: 100%;
+        border-radius: 999px;
+        transition: width 0.6s ease;
+      }
+      .ka-vuln-row-count {
+        font-size: 11px;
+        font-family: monospace;
+        font-weight: 700;
+        min-width: 20px;
+        text-align: right;
+      }
+
+      /* Recent ship checks */
+      .ka-checks-card {
+        background: var(--surface-container);
+        border-radius: 12px;
+        padding: 16px;
+        transition: background 0.2s;
+      }
+      .ka-checks-card:hover {
+        background: var(--surface-container-high);
+      }
+      .ka-checks-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .ka-checks-header .material-symbols-outlined {
+        color: var(--secondary);
+        background: rgba(176, 198, 255, 0.1);
+        padding: 6px;
+        border-radius: 6px;
+        font-size: 18px;
+      }
+      .ka-checks-badge {
+        font-size: 9px;
+        font-family: monospace;
+        color: #475569;
+      }
+      .ka-checks-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--on-surface);
+        margin-bottom: 12px;
+      }
+      .ka-check-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        padding: 6px 0;
+      }
+      .ka-check-item .material-symbols-outlined {
+        font-size: 16px;
+      }
+      .ka-check-name {
+        flex: 1;
+        color: #94a3b8;
+      }
+      .ka-check-time {
+        font-size: 9px;
+        font-family: monospace;
+        color: #475569;
+      }
+
+      /* Active scans */
+      .ka-scans-card {
+        background: var(--surface-container);
+        border-radius: 12px;
+        padding: 16px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.2s;
+      }
+      .ka-scans-card:hover {
+        background: var(--surface-container-high);
+      }
+      .ka-scans-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .ka-scans-header .material-symbols-outlined {
+        color: var(--primary);
+        background: rgba(195, 245, 255, 0.1);
+        padding: 6px;
+        border-radius: 6px;
+        font-size: 18px;
+      }
+      .ka-scans-running {
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: rgba(0, 229, 255, 0.15);
+        color: var(--cyan-glow);
+        font-size: 9px;
+        font-weight: 800;
+      }
+      .ka-scans-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--on-surface);
+        margin-bottom: 12px;
+      }
+      .ka-scan-progress {
+        padding: 10px;
+        background: var(--surface-container-lowest);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 8px;
+        margin-bottom: 6px;
+      }
+      .ka-scan-progress:last-child { margin-bottom: 0; }
+      .ka-scan-progress-head {
+        display: flex;
+        justify-content: space-between;
+        font-size: 9px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #64748b;
+        margin-bottom: 6px;
+      }
+      .ka-scan-progress-bar {
+        height: 4px;
+        width: 100%;
+        background: #0f172a;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .ka-scan-progress-fill {
+        height: 100%;
+        background: var(--cyan-glow);
+        border-radius: 999px;
+        transition: width 0.6s ease;
+      }
+
+      /* Live status feed */
+      .ka-feed-card {
+        background: var(--surface-container-lowest);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        overflow: hidden;
+      }
+      .ka-feed-header {
+        padding: 10px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--surface-container-low);
+      }
+      .ka-feed-header-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ka-feed-header-left .material-symbols-outlined {
+        font-size: 14px;
+        color: #64748b;
+      }
+      .ka-feed-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 9px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: #94a3b8;
+      }
+      .ka-feed-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 9px;
+        font-family: monospace;
+        color: #475569;
+      }
+      .ka-feed-dot-live {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #22c55e;
+      }
+      .ka-feed-body {
+        padding: 10px 14px;
+        font-family: monospace;
+        font-size: 10px;
+        line-height: 1.7;
+        max-height: 150px;
+        overflow-y: auto;
+      }
+      .ka-feed-line {
+        display: flex;
+        gap: 8px;
+        transition: color 0.15s;
+      }
+      .ka-feed-line:hover .ka-feed-msg {
+        color: var(--on-surface);
+      }
+      .ka-feed-ts {
+        color: #334155;
+        white-space: nowrap;
+      }
+      .ka-feed-level {
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .ka-feed-level-info { color: var(--cyan-glow); }
+      .ka-feed-level-warn { color: var(--secondary); }
+      .ka-feed-level-fail { color: var(--error); }
+      .ka-feed-msg {
+        color: #94a3b8;
+      }
   `;
 }

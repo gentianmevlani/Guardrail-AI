@@ -419,6 +419,89 @@ export class ApiClient {
     return this.makeRequest('/api/auth/profile');
   }
 
+  // ── Device Code Flow ──
+
+  /** Step 1: Request a device code pair from the API */
+  async requestDeviceCode(): Promise<ApiResponse<{
+    device_code: string;
+    user_code: string;
+    verification_url: string;
+    expires_in: number;
+    interval: number;
+  }>> {
+    return this.makeRequest('/api/auth/device', {
+      method: 'POST',
+      body: { client_type: 'vscode' }
+    });
+  }
+
+  /** Step 2: Poll for authorization status */
+  async pollDeviceCode(deviceCode: string): Promise<ApiResponse<{
+    status: 'pending' | 'authorized' | 'expired';
+    access_token?: string;
+    user?: { id: string; email: string; name: string };
+    plan?: string;
+    scopes?: string[];
+  }>> {
+    return this.makeRequest('/api/auth/device/poll', {
+      method: 'POST',
+      body: { device_code: deviceCode }
+    });
+  }
+
+  /**
+   * Run the full device code login flow.
+   * Opens browser, polls for authorization, stores token on success.
+   * Returns the user info or throws on failure/timeout.
+   */
+  async deviceCodeLogin(
+    onCode: (userCode: string, verificationUrl: string) => void,
+    signal?: { cancelled: boolean },
+  ): Promise<{ user: { id: string; email: string; name: string }; plan: string }> {
+    // Request device code
+    const codeRes = await this.requestDeviceCode();
+    if (!codeRes.device_code) {
+      throw new Error(codeRes.error || 'Failed to start device code flow');
+    }
+
+    const { device_code, user_code, verification_url, expires_in, interval } = codeRes as any;
+
+    // Notify caller of the code (for display)
+    onCode(user_code, verification_url);
+
+    // Poll until authorized or expired
+    const deadline = Date.now() + (expires_in || 600) * 1000;
+    const pollInterval = (interval || 5) * 1000;
+
+    while (Date.now() < deadline) {
+      if (signal?.cancelled) {
+        throw new Error('Login cancelled');
+      }
+
+      await new Promise(resolve => setTimeout(resolve, pollInterval));
+
+      const pollRes = await this.pollDeviceCode(device_code);
+      const status = (pollRes as any).status;
+
+      if (status === 'authorized') {
+        const token = (pollRes as any).access_token;
+        if (token) {
+          await this.setApiKey(token);
+        }
+        return {
+          user: (pollRes as any).user || { id: '', email: '', name: '' },
+          plan: (pollRes as any).plan || 'free',
+        };
+      }
+
+      if (status === 'expired') {
+        throw new Error('Device code expired — please try again');
+      }
+    }
+
+    throw new Error('Login timed out — please try again');
+  }
+
   // Utility methods
   async testConnection(): Promise<boolean> {
     try {
@@ -433,11 +516,33 @@ export class ApiClient {
     return !!(this.config.apiKey || this.config.token);
   }
 
+  getAuthEmail(): string | undefined {
+    return undefined; // Will be populated from stored user info
+  }
+
   async logout(): Promise<void> {
     const secretStorage = this.extensionContext.secrets;
     await secretStorage.delete('guardrail.apiKey');
     await secretStorage.delete('guardrail.token');
+    await secretStorage.delete('guardrail.userInfo');
     this.config.apiKey = undefined;
     this.config.token = undefined;
+  }
+
+  /** Store user info after successful login */
+  async setUserInfo(info: { id: string; email: string; name: string; plan: string }): Promise<void> {
+    const secretStorage = this.extensionContext.secrets;
+    await secretStorage.store('guardrail.userInfo', JSON.stringify(info));
+  }
+
+  /** Get stored user info */
+  async getUserInfo(): Promise<{ id: string; email: string; name: string; plan: string } | null> {
+    const secretStorage = this.extensionContext.secrets;
+    try {
+      const raw = await secretStorage.get('guardrail.userInfo');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
   }
 }

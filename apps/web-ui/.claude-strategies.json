@@ -1,7 +1,7 @@
 {
   "project": "/Users/liquidgroove/Downloads/Guardrail/Ofiicial/main",
-  "lastConsolidated": "2026-03-30T22:12:57.484Z",
-  "sessionsAnalyzed": 14,
+  "lastConsolidated": "2026-03-31T05:26:56.354Z",
+  "sessionsAnalyzed": 19,
   "strategies": [
     {
       "id": "strat_0",
@@ -24,7 +24,7 @@
       },
       "content": "📋 Module checkpoint for Downloads/Guardrail-Ofiicial-main (based on 4 sessions):\nWhen entering this module, preload context on:\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/package.json (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/index.ts (touched in 75% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/init.ts (touched in 50% of sessions)",
       "scope": "project",
-      "confidence": 0.7499999999768521,
+      "confidence": 0.95,
       "supportingEvidence": [
         {
           "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
@@ -145,10 +145,710 @@
           "timestamp": "2026-03-30T18:31:54.316Z",
           "outcome": "confirmed",
           "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
+          "timestamp": "2026-03-30T22:01:42.202Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
         }
       ],
       "createdAt": "2026-03-30T22:08:25.779Z",
-      "lastValidated": "2026-03-30T22:12:57.484Z",
+      "lastValidated": "2026-03-31T05:26:56.354Z",
+      "decayRatePerDay": 0.002,
+      "injectionCount": 0,
+      "successCount": 0,
+      "tags": [
+        "convergence",
+        "module-checkpoint",
+        "auto-extracted"
+      ]
+    },
+    {
+      "id": "strat_1",
+      "triggerPattern": {
+        "filePatterns": [
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/package.json",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/spinner.ts",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/progress.ts",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/summary.ts",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/index.ts"
+        ],
+        "errorPatterns": [],
+        "moduleAreas": [
+          "packages/cli"
+        ],
+        "promptKeywords": [
+          "packages",
+          "cli"
+        ]
+      },
+      "content": "📋 Module checkpoint for packages/cli (based on 2 sessions):\nWhen entering this module, preload context on:\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/package.json (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/spinner.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/progress.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/summary.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/index.ts (touched in 50% of sessions)",
+      "scope": "project",
+      "confidence": 0.7499999999768521,
+      "supportingEvidence": [
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        }
+      ],
+      "createdAt": "2026-03-31T00:29:16.249Z",
+      "lastValidated": "2026-03-31T05:26:56.354Z",
+      "decayRatePerDay": 0.002,
+      "injectionCount": 0,
+      "successCount": 0,
+      "tags": [
+        "convergence",
+        "module-checkpoint",
+        "auto-extracted"
+      ]
+    },
+    {
+      "id": "strat_1",
+      "triggerPattern": {
+        "filePatterns": [
+          "Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/layout.tsx",
+          "Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/page.tsx",
+          "Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/globals.css",
+          "apps/web-ui/src/components/landing/home-landing.tsx",
+          "Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx"
+        ],
+        "errorPatterns": [],
+        "moduleAreas": [
+          "apps/web-ui"
+        ],
+        "promptKeywords": [
+          "apps",
+          "web-ui"
+        ]
+      },
+      "content": "📋 Module checkpoint for apps/web-ui (based on 2 sessions):\nWhen entering this module, preload context on:\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/layout.tsx (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/page.tsx (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/globals.css (touched in 100% of sessions)\n  - apps/web-ui/src/components/landing/home-landing.tsx (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx (touched in 100% of sessions)",
+      "scope": "project",
+      "confidence": 0.49999999997685185,
+      "supportingEvidence": [
+        {
+          "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
+          "timestamp": "2026-03-30T22:06:44.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched apps/web-ui module"
+        },
+        {
+          "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
+          "timestamp": "2026-03-30T18:49:46.255Z",
+          "outcome": "confirmed",
+          "summary": "Session touched apps/web-ui module"
+        },
+        {
+          "sessionId": "be5c5249-6389-4d84-8702-3b0aaeb2ef7b",
+          "timestamp": "2026-03-30T23:33:46.399Z",
+          "outcome": "confirmed",
+          "summary": "Session touched apps/web-ui module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched apps/web-ui module"
+        },
+        {
+          "sessionId": "22a44996-f714-4993-a445-92481a3dbae8",
+          "timestamp": "2026-03-31T04:23:38.417Z",
+          "outcome": "confirmed",
+          "summary": "Session touched apps/web-ui module"
+        }
+      ],
+      "createdAt": "2026-03-31T05:26:56.353Z",
+      "lastValidated": "2026-03-31T05:26:56.353Z",
       "decayRatePerDay": 0.002,
       "injectionCount": 0,
       "successCount": 0,
@@ -163,21 +863,21 @@
   "optimalPaths": [
     {
       "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
-      "actualSteps": 12,
+      "actualSteps": 14,
       "optimalSteps": 2,
-      "efficiency": 0.17,
+      "efficiency": 0.14,
       "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/CLAUDE_STRATEGIES.md but resolution was in ",
       "wrongTurnNodeId": "node_35",
       "correctAlternative": "Should have gone directly to "
     },
     {
       "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
-      "actualSteps": 38,
-      "optimalSteps": 16,
-      "efficiency": 0.42,
-      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/page.tsx but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/hero-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/cta-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/faq-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/faq-accordion.tsx",
+      "actualSteps": 143,
+      "optimalSteps": 33,
+      "efficiency": 0.23,
+      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/page.tsx but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/hero-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/cta-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/faq-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/faq-accordion.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/warp-background.tsx",
       "wrongTurnNodeId": "node_7",
-      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/hero-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/cta-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/faq-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/faq-accordion.tsx"
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/hero-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/cta-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/faq-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/faq-accordion.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/warp-background.tsx"
     },
     {
       "sessionId": "949bbe98-e9d1-46ce-b4b2-7eebae92962d",
@@ -232,6 +932,51 @@
       "keyInsight": "Agent investigated **/package.json but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/trust-score-public.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/github-app-service.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/webhooks.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.github/workflows/guardrail-scan.yml, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/database/prisma/schema.prisma, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/trust-score-public.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/badge.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/__tests__/pr-comment.test.ts",
       "wrongTurnNodeId": "node_5",
       "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/trust-score-public.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/github-app-service.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/webhooks.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.github/workflows/guardrail-scan.yml, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/database/prisma/schema.prisma, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/trust-score-public.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/__tests__/badge.test.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/api/src/services/__tests__/pr-comment.test.ts"
+    },
+    {
+      "sessionId": "be5c5249-6389-4d84-8702-3b0aaeb2ef7b",
+      "actualSteps": 35,
+      "optimalSteps": 4,
+      "efficiency": 0.11,
+      "keyInsight": "Agent investigated **/netlify.toml but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/layout.tsx",
+      "wrongTurnNodeId": "node_5",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/layout.tsx"
+    },
+    {
+      "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+      "actualSteps": 172,
+      "optimalSteps": 40,
+      "efficiency": 0.23,
+      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/unified-output.js but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/runScan.js, /tmp/guardrail-cli-publish/package.json, /tmp/guardrail-cli-publish/README.md, /tmp/guardrail-cli-publish/LICENSE, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/entitlements.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/layout.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/template.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/not-found.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/blog/[slug]/page.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/next.config.mjs",
+      "wrongTurnNodeId": "node_10",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/runScan.js, /tmp/guardrail-cli-publish/package.json, /tmp/guardrail-cli-publish/README.md, /tmp/guardrail-cli-publish/LICENSE, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/entitlements.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/layout.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/template.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/not-found.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/blog/[slug]/page.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/next.config.mjs"
+    },
+    {
+      "sessionId": "22a44996-f714-4993-a445-92481a3dbae8",
+      "actualSteps": 29,
+      "optimalSteps": 2,
+      "efficiency": 0.07,
+      "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.vibecheck/truthpack/product.json but resolution was in ",
+      "wrongTurnNodeId": "node_3",
+      "correctAlternative": "Should have gone directly to "
+    },
+    {
+      "sessionId": "dac63a62-db50-4e85-b8be-b148f2537406",
+      "actualSteps": 41,
+      "optimalSteps": 10,
+      "efficiency": 0.24,
+      "keyInsight": "Agent investigated vscode-extension/**/*panel* but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/kinetic-archive-styles.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-sidebar-view.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/index.html",
+      "wrongTurnNodeId": "node_5",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/kinetic-archive-styles.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-sidebar-view.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/index.html"
+    },
+    {
+      "sessionId": "2dec185b-09d4-4f51-9d8e-c9c3c1d574b4",
+      "actualSteps": 30,
+      "optimalSteps": 13,
+      "efficiency": 0.43,
+      "keyInsight": "Agent investigated apps/web-ui/src/**/*.{tsx,ts,css} but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/globals.css, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/layout.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/dashboard/cyber-header.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/dashboard/cyber-sidebar.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/dashboard/page.tsx",
+      "wrongTurnNodeId": "node_5",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/globals.css, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/layout.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/dashboard/cyber-header.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/dashboard/cyber-sidebar.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/dashboard/page.tsx"
     }
   ],
   "schemaVersion": 1

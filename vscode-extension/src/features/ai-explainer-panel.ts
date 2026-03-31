@@ -10,6 +10,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
+import { getGuardrailPanelHead } from '../webview-shared-styles';
 
 export interface CodeExplanation {
   id: string;
@@ -36,6 +37,8 @@ export interface ExplanationRequest {
   context?: string;
   includeExamples: boolean;
   detailLevel: 'basic' | 'detailed' | 'comprehensive';
+  /** When set, runs `guardrail explain <id>` (CLI); API path uses code + language. */
+  findingId?: string;
 }
 
 export class AIExplainerPanel {
@@ -115,69 +118,48 @@ export class AIExplainerPanel {
     try {
       let explanation: CodeExplanation;
 
-      // Try CLI first (preferred approach as you suggested)
-      this._panel.webview.postMessage({
-        type: 'progress',
-        message: 'Running CLI analysis...',
-        progress: 20
-      });
-
-      try {
-        const cliResult = await this._cliService.runAIExplanation(
-          request.code,
-          request.language,
-          {
-            detailLevel: request.detailLevel,
-            includeExamples: request.includeExamples
-          }
-        );
-
-        if (cliResult.success && cliResult.data) {
-          // Convert CLI result to CodeExplanation format
-          explanation = this._convertCLIResultToExplanation(cliResult.data, request);
-          
-          this._panel.webview.postMessage({
-            type: 'progress',
-            message: 'CLI analysis complete!',
-            progress: 100
-          });
-        } else {
-          throw new Error('CLI analysis failed');
-        }
-      } catch (cliError) {
-        console.warn('CLI analysis failed, falling back to API:', cliError);
-        
-        // Fallback to API
+      const findingId = request.findingId?.trim();
+      if (findingId) {
         this._panel.webview.postMessage({
           type: 'progress',
-          message: 'CLI unavailable, trying API...',
-          progress: 40
+          message: 'Running guardrail explain…',
+          progress: 40,
         });
-
-        try {
-          const isConnected = await this._apiClient.testConnection();
-          if (!isConnected) {
-            throw new Error('API connection failed');
-          }
-
-          const response = await this._apiClient.explainCode(request.code, request.language, request.detailLevel);
-
-          if (response.success && response.data) {
-            explanation = this._convertAPIResultToExplanation(response.data, request);
-          } else {
-            throw new Error('API analysis failed');
-          }
-        } catch (apiError) {
-          console.warn('API analysis failed, using fallback:', apiError);
-          
-          // Final fallback to mock data
-          this._panel.webview.postMessage({
-            type: 'progress',
-            message: 'Using offline analysis...',
-            progress: 60
-          });
-
-          explanation = this._generateFallbackExplanation(request);
+        const cli = await this._cliService.runExplainFinding(findingId);
+        if (cli.success && cli.data?.text) {
+          explanation = this._explainTextToCodeExplanation(
+            cli.data.text,
+            findingId,
+          );
+        } else {
+          throw new Error(
+            cli.error ?? "guardrail explain produced no output",
+          );
+        }
+      } else {
+        this._panel.webview.postMessage({
+          type: 'progress',
+          message: 'Calling API…',
+          progress: 40,
+        });
+        const isConnected = await this._apiClient.testConnection();
+        if (!isConnected) {
+          throw new Error(
+            'Enter a finding ID (from `guardrail scan --json`) for CLI explain, or configure the Guardrail API for code-based explain.',
+          );
+        }
+        const response = await this._apiClient.explainCode(
+          request.code,
+          request.language,
+          request.detailLevel,
+        );
+        if (response.success && response.data) {
+          explanation = this._convertAPIResultToExplanation(
+            response.data as Record<string, unknown>,
+            request,
+          );
+        } else {
+          throw new Error('API returned no explanation');
         }
       }
 
@@ -185,108 +167,63 @@ export class AIExplainerPanel {
 
       this._panel.webview.postMessage({
         type: 'complete',
-        explanation: this._currentExplanation
+        explanation: this._currentExplanation,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Failed to explain code';
       this._panel.webview.postMessage({
         type: 'error',
-        message: error.message || 'Failed to explain code'
+        message,
       });
     } finally {
       this._isExplaining = false;
     }
   }
 
-  private _convertCLIResultToExplanation(cliData: any, request: ExplanationRequest): CodeExplanation {
+  private _explainTextToCodeExplanation(
+    text: string,
+    findingId: string,
+  ): CodeExplanation {
+    const trimmed = text.trim();
     return {
-      id: `cli-${Date.now()}`,
-      summary: cliData.summary || 'Code analysis completed via CLI',
-      purpose: cliData.purpose || 'Analyze code structure and functionality',
-      keyComponents: cliData.components || [
-        {
-          name: 'Main Function',
-          description: 'Primary execution logic',
-          line: 1
-        }
-      ],
-      patterns: cliData.patterns || [
-        {
-          name: 'Standard Pattern',
-          description: 'Common coding pattern detected',
-          confidence: 0.8
-        }
-      ],
-      complexity: cliData.complexity || 'moderate',
-      estimatedTime: cliData.estimatedTime || '2 minutes',
-      suggestions: cliData.suggestions || [
-        'Consider adding error handling',
-        'Add documentation for better maintainability'
-      ]
+      id: findingId,
+      summary: trimmed,
+      purpose: `Output of \`guardrail explain ${findingId}\``,
+      keyComponents: [],
+      patterns: [],
+      complexity: 'moderate',
+      estimatedTime: '—',
+      suggestions: [],
     };
   }
 
-  private _convertAPIResultToExplanation(apiData: any, request: ExplanationRequest): CodeExplanation {
+  private _convertAPIResultToExplanation(
+    apiData: Record<string, unknown>,
+    _request: ExplanationRequest,
+  ): CodeExplanation {
+    const kc = apiData.keyComponents;
+    const pat = apiData.patterns;
+    const sug = apiData.suggestions;
     return {
       id: `api-${Date.now()}`,
-      summary: apiData.summary || 'Code analysis completed via API',
-      purpose: apiData.purpose || 'Analyze code structure and functionality',
-      keyComponents: apiData.keyComponents || [
-        {
-          name: 'Main Function',
-          description: 'Primary execution logic',
-          line: 1
-        }
-      ],
-      patterns: apiData.patterns || [
-        {
-          name: 'Standard Pattern',
-          description: 'Common coding pattern detected',
-          confidence: 0.8
-        }
-      ],
-      complexity: apiData.complexity || 'moderate',
-      estimatedTime: apiData.estimatedTime || '2 minutes',
-      suggestions: apiData.suggestions || [
-        'Consider adding error handling',
-        'Add documentation for better maintainability'
-      ]
-    };
-  }
-
-  private _generateFallbackExplanation(request: ExplanationRequest): CodeExplanation {
-    const lines = request.code.split('\n').length;
-    const complexity = lines > 50 ? 'complex' : lines > 20 ? 'moderate' : 'simple';
-    
-    return {
-      id: `fallback-${Date.now()}`,
-      summary: `Analysis of ${request.language} code (${lines} lines)`,
-      purpose: 'Provide code explanation and documentation',
-      keyComponents: [
-        {
-          name: 'Code Structure',
-          description: 'Overall code organization and flow',
-          line: 1
-        },
-        {
-          name: 'Logic Implementation',
-          description: 'Core business logic and algorithms',
-          line: Math.floor(lines / 2)
-        }
-      ],
-      patterns: [
-        {
-          name: 'Code Pattern',
-          description: 'Identified coding patterns and conventions',
-          confidence: 0.7
-        }
-      ],
-      complexity,
-      estimatedTime: complexity === 'complex' ? '5 minutes' : complexity === 'moderate' ? '3 minutes' : '1 minute',
-      suggestions: [
-        'Add comprehensive documentation',
-        'Consider unit tests for validation',
-        'Review code for optimization opportunities'
-      ]
+      summary: typeof apiData.summary === 'string' ? apiData.summary : '',
+      purpose: typeof apiData.purpose === 'string' ? apiData.purpose : '',
+      keyComponents: Array.isArray(kc) ? (kc as CodeExplanation['keyComponents']) : [],
+      patterns: Array.isArray(pat) ? (pat as CodeExplanation['patterns']) : [],
+      complexity:
+        apiData.complexity === 'simple' ||
+        apiData.complexity === 'moderate' ||
+        apiData.complexity === 'complex'
+          ? apiData.complexity
+          : 'moderate',
+      estimatedTime:
+        typeof apiData.estimatedTime === 'string' ? apiData.estimatedTime : '—',
+      suggestions: Array.isArray(sug)
+        ? (sug as string[])
+        : typeof sug === 'string'
+          ? [sug]
+          : [],
     };
   }
 
@@ -330,290 +267,6 @@ export class AIExplainerPanel {
       includeExamples: true,
       detailLevel: 'comprehensive'
     });
-  }
-
-  private async _generateExplanation(request: ExplanationRequest): Promise<CodeExplanation> {
-    const lines = request.code.split('\n');
-    const complexity = this._analyzeComplexity(request.code);
-    
-    // Extract key components
-    const keyComponents = this._extractComponents(request.code, lines);
-    
-    // Identify patterns
-    const patterns = this._identifyPatterns(request.code);
-    
-    // Generate summary based on language and patterns
-    const summary = this._generateSummary(request, patterns, complexity);
-    
-    // Determine purpose
-    const purpose = this._determinePurpose(request.code, patterns);
-    
-    // Calculate estimated reading time
-    const estimatedTime = this._calculateReadingTime(lines.length, complexity);
-    
-    // Generate suggestions
-    const suggestions = this._generateSuggestions(request.code, patterns, complexity);
-
-    return {
-      id: `explanation-${Date.now()}`,
-      summary,
-      purpose,
-      keyComponents,
-      patterns,
-      complexity,
-      estimatedTime,
-      suggestions
-    };
-  }
-
-  private _analyzeComplexity(code: string): 'simple' | 'moderate' | 'complex' {
-    let complexity = 0;
-    
-    // Count control structures
-    complexity += (code.match(/if|else|while|for|switch/g) || []).length * 2;
-    complexity += (code.match(/try|catch|throw/g) || []).length * 3;
-    complexity += (code.match(/async|await|Promise/g) || []).length * 2;
-    complexity += (code.match(/class|interface|abstract/g) || []).length * 2;
-    complexity += (code.match(/function|=>/g) || []).length;
-    
-    if (complexity < 10) return 'simple';
-    if (complexity < 25) return 'moderate';
-    return 'complex';
-  }
-
-  private _extractComponents(code: string, lines: string[]): Array<{name: string; description: string; line: number}> {
-    const components: Array<{name: string; description: string; line: number}> = [];
-    
-    // Find functions
-    const functionMatches = code.match(/(?:function|const|let)\s+(\w+)\s*[=:(]/g);
-    if (functionMatches) {
-      functionMatches.forEach((match, index) => {
-        const name = match.match(/(\w+)\s*[=:(]/)?.[1] || `function_${index}`;
-        const line = this._findLineNumber(code, match);
-        components.push({
-          name,
-          description: `Function or method: ${name}`,
-          line
-        });
-      });
-    }
-    
-    // Find classes
-    const classMatches = code.match(/class\s+(\w+)/g);
-    if (classMatches) {
-      classMatches.forEach((match) => {
-        const name = match.match(/class\s+(\w+)/)?.[1] || 'Unknown';
-        const line = this._findLineNumber(code, match);
-        components.push({
-          name,
-          description: `Class definition: ${name}`,
-          line
-        });
-      });
-    }
-    
-    // Find imports/exports
-    const importMatches = code.match(/import.*from\s+['"](.+)['"]/g);
-    if (importMatches) {
-      importMatches.forEach((match) => {
-        const module = match.match(/from\s+['"](.+)['"]/)?.[1] || 'Unknown';
-        const line = this._findLineNumber(code, match);
-        components.push({
-          name: module,
-          description: `Imported module: ${module}`,
-          line
-        });
-      });
-    }
-    
-    return components.slice(0, 10); // Limit to 10 components
-  }
-
-  private _identifyPatterns(code: string): Array<{name: string; description: string; confidence: number}> {
-    const patterns: Array<{name: string; description: string; confidence: number}> = [];
-    
-    // Common patterns
-    if (code.includes('async') && code.includes('await')) {
-      patterns.push({
-        name: 'Async/Await Pattern',
-        description: 'Asynchronous programming with async/await',
-        confidence: 0.9
-      });
-    }
-    
-    if (code.includes('class') && code.includes('extends')) {
-      patterns.push({
-        name: 'Inheritance Pattern',
-        description: 'Class inheritance and extension',
-        confidence: 0.85
-      });
-    }
-    
-    if (code.includes('map') || code.includes('filter') || code.includes('reduce')) {
-      patterns.push({
-        name: 'Functional Programming',
-        description: 'Use of functional array methods',
-        confidence: 0.8
-      });
-    }
-    
-    if (code.includes('try') && code.includes('catch')) {
-      patterns.push({
-        name: 'Error Handling',
-        description: 'Try-catch error handling pattern',
-        confidence: 0.95
-      });
-    }
-    
-    if (code.includes('useState') || code.includes('useEffect')) {
-      patterns.push({
-        name: 'React Hooks',
-        description: 'React functional component hooks',
-        confidence: 0.9
-      });
-    }
-    
-    if (code.includes('Promise') || code.includes('.then(')) {
-      patterns.push({
-        name: 'Promise Pattern',
-        description: 'Promise-based asynchronous operations',
-        confidence: 0.85
-      });
-    }
-    
-    return patterns;
-  }
-
-  private _generateSummary(request: ExplanationRequest, patterns: any[], complexity: string): string {
-    const language = request.language;
-    const patternNames = patterns.map(p => p.name).join(', ');
-    
-    let summary = `This ${language} code `;
-    
-    switch (complexity) {
-      case 'simple':
-        summary += 'implements a straightforward solution';
-        break;
-      case 'moderate':
-        summary += 'provides a well-structured implementation';
-        break;
-      case 'complex':
-        summary += 'delivers a sophisticated solution with multiple components';
-        break;
-    }
-    
-    if (patterns.length > 0) {
-      summary += ` utilizing ${patternNames}`;
-    }
-    
-    summary += `. The code follows modern ${language} practices and `;
-    
-    if (complexity === 'simple') {
-      summary += 'is easy to understand and maintain.';
-    } else if (complexity === 'moderate') {
-      summary += 'offers good balance between functionality and readability.';
-    } else {
-      summary += 'requires careful consideration due to its complexity.';
-    }
-    
-    return summary;
-  }
-
-  private _determinePurpose(code: string, patterns: any[]): string {
-    if (code.includes('export') || code.includes('module.exports')) {
-      return 'Module/library code intended for reuse';
-    }
-    
-    if (code.includes('app.') || code.includes('server') || code.includes('listen')) {
-      return 'Server application or API endpoint';
-    }
-    
-    if (code.includes('component') || code.includes('render') || code.includes('useState')) {
-      return 'UI component or frontend logic';
-    }
-    
-    if (code.includes('database') || code.includes('query') || code.includes('SELECT')) {
-      return 'Database operations or data access';
-    }
-    
-    if (code.includes('test') || code.includes('describe') || code.includes('it(')) {
-      return 'Test code or test utilities';
-    }
-    
-    if (code.includes('config') || code.includes('env') || code.includes('settings')) {
-      return 'Configuration or environment setup';
-    }
-    
-    return 'General purpose utility or business logic';
-  }
-
-  private _calculateReadingTime(lineCount: number, complexity: string): string {
-    let baseTime = lineCount * 0.5; // 30 seconds per 60 lines
-    
-    switch (complexity) {
-      case 'simple':
-        baseTime *= 0.8;
-        break;
-      case 'moderate':
-        baseTime *= 1.2;
-        break;
-      case 'complex':
-        baseTime *= 1.5;
-        break;
-    }
-    
-    const minutes = Math.ceil(baseTime / 60);
-    return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
-  }
-
-  private _generateSuggestions(code: string, patterns: any[], complexity: string): string[] {
-    const suggestions: string[] = [];
-    
-    // General suggestions
-    if (complexity === 'complex') {
-      suggestions.push('Consider breaking this into smaller, more focused functions');
-      suggestions.push('Add comprehensive documentation for complex logic');
-    }
-    
-    if (!code.includes('/*') && !code.includes('//')) {
-      suggestions.push('Add comments to explain complex logic');
-    }
-    
-    if (!code.includes('console.log') && !code.includes('logger')) {
-      suggestions.push('Consider adding logging for debugging and monitoring');
-    }
-    
-    // Pattern-specific suggestions
-    const hasErrorHandling = patterns.some(p => p.name.includes('Error'));
-    if (!hasErrorHandling && (code.includes('fetch') || code.includes('async'))) {
-      suggestions.push('Add error handling for asynchronous operations');
-    }
-    
-    const hasTests = code.includes('test') || code.includes('spec');
-    if (!hasTests) {
-      suggestions.push('Write unit tests to ensure code reliability');
-    }
-    
-    // Language-specific suggestions
-    if (code.includes('var')) {
-      suggestions.push('Replace var with let or const for better scoping');
-    }
-    
-    if (code.includes('==') && !code.includes('===')) {
-      suggestions.push('Use strict equality (===) instead of loose equality (==)');
-    }
-    
-    return suggestions.slice(0, 5); // Limit to 5 suggestions
-  }
-
-  private _findLineNumber(code: string, searchText: string): number {
-    const lines = code.split('\n');
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].includes(searchText)) {
-        return i + 1;
-      }
-    }
-    return 1;
   }
 
   private async _exportExplanation(): Promise<void> {
@@ -716,43 +369,40 @@ export class AIExplainerPanel {
     return jsdoc;
   }
 
-  private _delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   private _update() {
     this._panel.webview.html = this._getHtmlContent();
   }
 
   private _getHtmlContent(): string {
     return `<!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Code Explainer</title>
-  <style>
+  ${getGuardrailPanelHead(`
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 20px;
-      background: var(--vscode-editor-background);
-      color: var(--vscode-editor-foreground);
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
     }
+    .ka-shell { padding: 16px; }
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 30px;
       padding-bottom: 20px;
-      border-bottom: 1px solid var(--vscode-input-border);
+      border-bottom: 1px solid var(--border-subtle);
     }
     .header-left { display: flex; align-items: center; gap: 15px; }
     .logo { font-size: 32px; }
     .title { font-size: 24px; font-weight: bold; }
-    .subtitle { color: var(--vscode-descriptionForeground); font-size: 14px; }
+    .subtitle { color: var(--on-surface-variant); font-size: 14px; }
     .controls {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       padding: 20px;
       border-radius: 8px;
       margin-bottom: 20px;
@@ -768,35 +418,38 @@ export class AIExplainerPanel {
       display: block;
       margin-bottom: 5px;
       font-size: 12px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     select, textarea {
-      background: var(--vscode-input-background);
-      border: 1px solid var(--vscode-input-border);
-      color: var(--vscode-input-foreground);
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      color: var(--on-surface);
       padding: 8px;
       border-radius: 4px;
       width: 100%;
-      font-family: var(--vscode-font-family);
+      font-family: 'Inter', sans-serif;
     }
     textarea { min-height: 100px; resize: vertical; }
     .btn {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
       border: none;
       padding: 10px 20px;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .btn:hover { background: var(--vscode-button-hoverBackground); }
+    .btn:hover { filter: brightness(1.08); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-secondary {
-      background: var(--vscode-button-secondaryBackground);
-      color: var(--vscode-button-secondaryForeground);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
     }
     .button-row {
       display: flex;
@@ -807,30 +460,30 @@ export class AIExplainerPanel {
       display: none;
       margin: 20px 0;
       padding: 20px;
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       border-radius: 8px;
     }
     .progress-bar {
       height: 8px;
-      background: var(--vscode-input-border);
+      background: var(--surface-container-highest);
       border-radius: 4px;
       overflow: hidden;
       margin-top: 10px;
     }
     .progress-fill {
       height: 100%;
-      background: var(--vscode-progressBar-background);
+      background: linear-gradient(90deg, var(--primary-container), var(--secondary-container));
       transition: width 0.3s ease;
     }
     .explanation-result {
       display: none;
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       padding: 20px;
       border-radius: 8px;
       margin-top: 20px;
     }
     .explanation-header {
-      border-bottom: 1px solid var(--vscode-input-border);
+      border-bottom: 1px solid var(--border-subtle);
       padding-bottom: 15px;
       margin-bottom: 20px;
     }
@@ -839,7 +492,7 @@ export class AIExplainerPanel {
       display: flex;
       gap: 20px;
       font-size: 14px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .explanation-section {
       margin-bottom: 25px;
@@ -848,7 +501,7 @@ export class AIExplainerPanel {
       font-size: 16px;
       font-weight: bold;
       margin-bottom: 10px;
-      color: var(--vscode-editor-foreground);
+      color: var(--on-surface);
     }
     .complexity-badge {
       padding: 4px 12px;
@@ -864,31 +517,33 @@ export class AIExplainerPanel {
       padding: 0;
     }
     .component-item, .pattern-item, .suggestion-item {
-      background: var(--vscode-editor-background);
+      background: var(--surface-container-lowest);
       padding: 12px;
       border-radius: 6px;
       margin-bottom: 8px;
-      border-left: 3px solid var(--vscode-button-background);
+      border-left: 3px solid var(--primary-container);
     }
     .component-name, .pattern-name { font-weight: bold; margin-bottom: 4px; }
     .component-description, .pattern-description {
       font-size: 13px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .confidence {
       font-size: 11px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
       margin-top: 4px;
     }
     .empty-state {
       text-align: center;
       padding: 60px 20px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .empty-icon { font-size: 48px; margin-bottom: 15px; }
-  </style>
+  `)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
   <div class="header">
     <div class="header-left">
       <span class="logo">🤖</span>
@@ -915,6 +570,13 @@ export class AIExplainerPanel {
           <option value="true" selected>Yes</option>
           <option value="false">No</option>
         </select>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <div class="control-group">
+        <label>Finding ID (optional — runs <code>guardrail explain &lt;id&gt;</code>)</label>
+        <input type="text" id="findingIdInput" placeholder="From guardrail scan --json" style="width:100%;padding:8px;border-radius:6px;background:var(--vscode-input-background);color:var(--vscode-input-foreground);border:1px solid var(--vscode-input-border);" />
       </div>
     </div>
 
@@ -988,7 +650,7 @@ export class AIExplainerPanel {
   <div class="empty-state" id="emptyState">
     <div class="empty-icon">🤖</div>
     <h3>No Code Explained Yet</h3>
-    <p>Paste code above, use selection, or explain the current file to get AI-powered explanations.</p>
+    <p>Enter a finding ID from <code>guardrail scan --json</code>, or paste code and use the API.</p>
   </div>
 
   <script>
@@ -997,18 +659,19 @@ export class AIExplainerPanel {
 
     function explainCode() {
       const code = document.getElementById('codeInput').value;
+      const findingId = document.getElementById('findingIdInput').value.trim();
       const detailLevel = document.getElementById('detailLevel').value;
       const includeExamples = document.getElementById('includeExamples').value === 'true';
 
-      if (!code.trim()) {
-        alert('Please enter code to explain');
+      if (!findingId && !code.trim()) {
+        alert('Enter a finding ID for CLI explain, or paste code for the API');
         return;
       }
 
       document.getElementById('explainBtn').disabled = true;
       vscode.postMessage({
         command: 'explain',
-        request: { code, detailLevel, includeExamples }
+        request: { code, detailLevel, includeExamples, language: 'typescript', findingId }
       });
     }
 
@@ -1096,6 +759,7 @@ export class AIExplainerPanel {
       }
     });
   </script>
+  </div>
 </body>
 </html>`;
   }

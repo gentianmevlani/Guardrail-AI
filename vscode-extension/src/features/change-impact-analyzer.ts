@@ -5,11 +5,13 @@
  * across the entire codebase before deployment.
  */
 
-import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
-import { ApiClient } from '../services/api-client';
-import { getGuardrailPanelHead } from '../webview-shared-styles';
+import * as vscode from "vscode";
+import * as path from "path";
+import * as fs from "fs";
+import { ApiClient } from "../services/api-client";
+import { CLIService } from "../services/cli-service";
+import { getGuardrailPanelHead } from "../webview-shared-styles";
+import { buildImpactAnalysisFromScan } from "../scan-cli-map";
 
 export interface ImpactAnalysis {
   timestamp: string;
@@ -575,11 +577,13 @@ export class ChangeImpactPanel {
   private _currentAnalysis: ImpactAnalysis | null = null;
   private _isAnalyzing: boolean = false;
   private _apiClient: ApiClient;
+  private _cliService: CLIService;
 
   private constructor(panel: vscode.WebviewPanel, workspacePath: string, extensionContext: vscode.ExtensionContext) {
     this._panel = panel;
     this._workspacePath = workspacePath;
     this._apiClient = new ApiClient(extensionContext);
+    this._cliService = new CLIService(workspacePath);
 
     this._update();
 
@@ -642,94 +646,80 @@ export class ChangeImpactPanel {
     this._panel.webview.postMessage({ type: 'analyzing', files: changedFiles });
 
     try {
-      // Check API connection first
-      const isConnected = await this._apiClient.testConnection();
-      if (!isConnected) {
-        throw new Error('Unable to connect to guardrail API. Please check your configuration.');
-      }
-
       let analysis: ImpactAnalysis;
 
-      try {
-        const projectId = 'workspace-' + Date.now();
-        const response = await this._apiClient.analyzeChangeImpact(changedFiles, projectId);
-        
-        if (response.success && response.data) {
-          // Convert API response to ImpactAnalysis format
-          analysis = {
-            timestamp: response.data.timestamp || new Date().toISOString(),
-            changes: response.data.changes || [],
-            summary: response.data.summary || {
-              totalFiles: changedFiles.length,
-              highImpact: 0,
-              mediumImpact: 0,
-              lowImpact: 0,
-              affectedComponents: []
-            },
-            recommendations: response.data.recommendations || []
-          };
-        } else {
-          // Fallback to mock analysis
-          analysis = this._getFallbackAnalysis(changedFiles);
+      const cli = await this._cliService.runScanJson();
+      if (cli.data) {
+        analysis = buildImpactAnalysisFromScan(
+          cli.data,
+        ) as ImpactAnalysis;
+      } else {
+        analysis = {
+          timestamp: new Date().toISOString(),
+          changes: [],
+          summary: {
+            totalFiles: 0,
+            highImpact: 0,
+            mediumImpact: 0,
+            lowImpact: 0,
+            affectedComponents: [],
+            riskScore: 0,
+          },
+          recommendations: [
+            "Run `guardrail scan --json` in this workspace to populate hotspots.",
+          ],
+        };
+      }
+
+      if (analysis.changes.length === 0) {
+        try {
+          const isConnected = await this._apiClient.testConnection();
+          if (isConnected) {
+            const projectId = "workspace-" + Date.now();
+            const response = await this._apiClient.analyzeChangeImpact(
+              changedFiles,
+              projectId,
+            );
+            if (response.success && response.data) {
+              analysis = {
+                timestamp:
+                  response.data.timestamp || new Date().toISOString(),
+                changes: response.data.changes || [],
+                summary: response.data.summary || {
+                  totalFiles: changedFiles.length,
+                  highImpact: 0,
+                  mediumImpact: 0,
+                  lowImpact: 0,
+                  affectedComponents: [],
+                  riskScore: 0,
+                },
+                recommendations: response.data.recommendations || [],
+              };
+            }
+          }
+        } catch {
+          /* keep CLI-empty analysis */
         }
-      } catch (error) {
-        console.warn('Failed to run change impact analysis via API:', error);
-        // Use fallback analysis
-        analysis = this._getFallbackAnalysis(changedFiles);
       }
 
       this._currentAnalysis = analysis;
-      
+
       this._panel.webview.postMessage({
-        type: 'complete',
-        analysis
+        type: "complete",
+        analysis,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const msg =
+        error instanceof Error
+          ? error.message
+          : "Failed to run change impact analysis";
       this._panel.webview.postMessage({
-        type: 'error',
-        message: error.message || 'Failed to run change impact analysis'
+        type: "error",
+        message: msg,
       });
     } finally {
       this._isAnalyzing = false;
     }
-  }
-
-  private _getFallbackAnalysis(changedFiles: string[]): ImpactAnalysis {
-    // Fallback mock analysis if API is unavailable
-    const changes: ChangeImpact[] = changedFiles.map((file, index) => ({
-      file,
-      type: 'modified',
-      impact: index % 3 === 0 ? 'high' : index % 2 === 0 ? 'medium' : 'low',
-      riskScore: Math.floor(Math.random() * 100),
-      dependents: [`file${index + 1}.ts`, `file${index + 2}.ts`],
-      affectedTests: [`test${index + 1}.test.ts`],
-      breakingChanges: [],
-      riskFactors: [{
-        category: 'complexity',
-        score: Math.floor(Math.random() * 50),
-        description: 'Code complexity detected'
-      }],
-      dependencies: [`module${index + 1}`, `module${index + 2}`],
-      affectedDocs: [`docs/${file}.md`]
-    }));
-
-    return {
-      timestamp: new Date().toISOString(),
-      changes,
-      summary: {
-        totalFiles: changedFiles.length,
-        highImpact: changes.filter(c => c.impact === 'high').length,
-        mediumImpact: changes.filter(c => c.impact === 'medium').length,
-        lowImpact: changes.filter(c => c.impact === 'low').length,
-        affectedComponents: ['frontend', 'backend', 'database'],
-        riskScore: Math.floor(Math.random() * 100)
-      },
-      recommendations: [
-        'Review high-impact changes carefully',
-        'Add additional tests for modified components',
-        'Consider incremental deployment'
-      ]
-    };
   }
 
   private async _getChangedFiles(): Promise<string[]> {

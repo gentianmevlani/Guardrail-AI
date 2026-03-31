@@ -10,6 +10,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
+import { getGuardrailPanelHead } from '../webview-shared-styles';
+import { mapContextJsonToMdcResults } from '../scan-cli-map';
 
 export interface MDCResult {
   fileName: string;
@@ -112,112 +114,68 @@ export class MDCGeneratorPanel {
     this._panel.webview.postMessage({ type: 'generating', progress: 0 });
 
     try {
-      // Try CLI first
       this._panel.webview.postMessage({
         type: 'progress',
-        message: 'Running CLI MDC generation...',
-        progress: 20
+        message: 'Running guardrail context --json...',
+        progress: 25,
       });
 
-      let results: MDCResult[];
+      let results: MDCResult[] = [];
 
-      try {
-        const cliResult = await this._cliService.generateMDC({
-          framework: options.categories.join(','),
-          output: 'docs',
-          template: options.depth
-        });
-
-        if (cliResult.success && cliResult.data) {
-          // Convert CLI result to MDCResult format
-          results = this._convertCLIMDCData(cliResult.data);
-
-          this._panel.webview.postMessage({
-            type: 'progress',
-            message: 'CLI MDC generation complete!',
-            progress: 100
-          });
-        } else {
-          throw new Error('CLI MDC generation failed');
+      const cliResult = await this._cliService.runContextStdoutJson();
+      if (cliResult.success && cliResult.data) {
+        results = mapContextJsonToMdcResults(cliResult.data) as MDCResult[];
+        if (options.categories.length > 0) {
+          results = results.filter((r) =>
+            options.categories.includes(r.category),
+          );
         }
-      } catch (cliError) {
-        console.warn('CLI MDC generation failed, trying API:', cliError);
-
-        // Fallback to API
         this._panel.webview.postMessage({
           type: 'progress',
-          message: 'CLI unavailable, trying API...',
-          progress: 40
+          message: 'Context JSON loaded',
+          progress: 100,
         });
+      }
 
-        try {
-          const isConnected = await this._apiClient.testConnection();
-          if (isConnected) {
-            const response = await this._apiClient.generateMDC(this._workspacePath, {
-              depth: options.depth,
-              categories: options.categories,
-              includeExamples: options.includeExamples
-            });
-
-            if (response.success && response.data) {
-              results = this._convertAPIMDCData(response.data);
-            } else {
-              throw new Error('API MDC generation failed');
-            }
-          } else {
-            throw new Error('API unavailable');
+      if (results.length === 0) {
+        this._panel.webview.postMessage({
+          type: 'progress',
+          message: 'Trying API…',
+          progress: 50,
+        });
+        const isConnected = await this._apiClient.testConnection();
+        if (isConnected) {
+          const response = await this._apiClient.generateMDC(this._workspacePath, {
+            depth: options.depth,
+            categories: options.categories,
+            includeExamples: options.includeExamples,
+          });
+          if (response.success && response.data) {
+            results = this._convertAPIMDCData(response.data);
           }
-        } catch (apiError) {
-          console.warn('API MDC generation failed, using fallback:', apiError);
-
-          // Final fallback - simulate progress and use mock data
-          const phases = [
-            { message: 'Discovering components...', progress: 50 },
-            { message: 'Analyzing patterns...', progress: 70 },
-            { message: 'Building relationships...', progress: 85 },
-            { message: 'Generating MDC files...', progress: 95 },
-          ];
-
-          for (const phase of phases) {
-            this._panel.webview.postMessage({
-              type: 'progress',
-              message: phase.message,
-              progress: phase.progress
-            });
-            await this._delay(300);
-          }
-
-          results = await this._performGeneration(options);
         }
       }
 
       this._results = results;
 
+      if (this._results.length > 0) {
+        await this._saveResults(this._results);
+      }
+
       this._panel.webview.postMessage({
         type: 'complete',
         results: this._results
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const msg =
+        error instanceof Error ? error.message : 'Failed to generate MDC';
       this._panel.webview.postMessage({
         type: 'error',
-        message: error.message || 'Failed to generate MDC'
+        message: msg
       });
     } finally {
       this._isGenerating = false;
     }
-  }
-
-  private _convertCLIMDCData(cliData: any): MDCResult[] {
-    return (cliData.results || []).map((item: any) => ({
-      fileName: item.fileName || 'untitled.md',
-      title: item.title || 'Untitled Document',
-      category: item.category || 'general',
-      importanceScore: item.importanceScore || 50,
-      confidence: item.confidence || 0.8,
-      riskScore: item.riskScore || 10,
-      components: item.components || [],
-      patterns: item.patterns || []
-    }));
   }
 
   private _convertAPIMDCData(apiData: any): MDCResult[] {
@@ -231,124 +189,6 @@ export class MDCGeneratorPanel {
       components: item.components || [],
       patterns: item.patterns || []
     }));
-  }
-
-  private async _performGeneration(options: any): Promise<MDCResult[]> {
-    const results: MDCResult[] = [];
-
-    // Find TypeScript/JavaScript files
-    const files = await this._findSourceFiles(this._workspacePath);
-
-    // Group by category
-    const categories = new Map<string, any[]>();
-
-    for (const file of files.slice(0, 50)) { // Limit for performance
-      const category = this._categorizeFile(file);
-      if (!categories.has(category)) {
-        categories.set(category, []);
-      }
-      categories.get(category)!.push({
-        name: path.basename(file, path.extname(file)),
-        type: 'file',
-        path: path.relative(this._workspacePath, file),
-        verificationScore: 0.85 + Math.random() * 0.15,
-      });
-    }
-
-    // Create MDC results for each category
-    for (const [category, components] of categories) {
-      if (options.categories.length > 0 && !options.categories.includes(category)) {
-        continue;
-      }
-
-      results.push({
-        fileName: `${category.replace('-', '_')}.mdc`,
-        title: this._getCategoryTitle(category),
-        category,
-        importanceScore: Math.floor(70 + Math.random() * 30),
-        confidence: 0.85 + Math.random() * 0.15,
-        riskScore: Math.floor(Math.random() * 30),
-        components: components.slice(0, 10),
-        patterns: this._detectPatterns(components),
-      });
-    }
-
-    // Save results to .specs directory
-    await this._saveResults(results);
-
-    return results;
-  }
-
-  private async _findSourceFiles(dir: string): Promise<string[]> {
-    const files: string[] = [];
-    const extensions = ['.ts', '.tsx', '.js', '.jsx'];
-    const excludeDirs = ['node_modules', '.git', 'dist', 'build', '.next'];
-
-    try {
-      const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry.name);
-
-        if (entry.isDirectory() && !excludeDirs.includes(entry.name)) {
-          files.push(...await this._findSourceFiles(fullPath));
-        } else if (entry.isFile() && extensions.some(ext => entry.name.endsWith(ext))) {
-          files.push(fullPath);
-        }
-      }
-    } catch (error) {
-      // Ignore unreadable directories
-    }
-
-    return files;
-  }
-
-  private _categorizeFile(filePath: string): string {
-    const lowerPath = filePath.toLowerCase();
-
-    if (lowerPath.includes('/api/') || lowerPath.includes('/routes/')) return 'integration';
-    if (lowerPath.includes('/auth/') || lowerPath.includes('/security/')) return 'security';
-    if (lowerPath.includes('/components/') || lowerPath.includes('/ui/')) return 'design-system';
-    if (lowerPath.includes('/lib/') || lowerPath.includes('/utils/')) return 'utility';
-    if (lowerPath.includes('/services/')) return 'architecture';
-    if (lowerPath.includes('/hooks/')) return 'data-flow';
-
-    return 'architecture';
-  }
-
-  private _getCategoryTitle(category: string): string {
-    const titles: Record<string, string> = {
-      'architecture': 'Architecture Overview',
-      'algorithm': 'Algorithm Specifications',
-      'data-flow': 'Data Flow Architecture',
-      'design-system': 'Design System Enforcement',
-      'integration': 'Integration Specifications',
-      'security': 'Security Architecture',
-      'utility': 'Utility Functions',
-    };
-    return titles[category] || `${category} Specifications`;
-  }
-
-  private _detectPatterns(components: any[]): MDCResult['patterns'] {
-    const patterns: MDCResult['patterns'] = [];
-
-    // Detect common patterns based on naming conventions
-    const names = components.map(c => c.name.toLowerCase());
-
-    if (names.some(n => n.includes('service'))) {
-      patterns.push({ name: 'Service Layer', type: 'architectural', confidence: 0.9 });
-    }
-    if (names.some(n => n.includes('repository') || n.includes('repo'))) {
-      patterns.push({ name: 'Repository Pattern', type: 'architectural', confidence: 0.85 });
-    }
-    if (names.some(n => n.includes('factory'))) {
-      patterns.push({ name: 'Factory Pattern', type: 'creational', confidence: 0.88 });
-    }
-    if (names.some(n => n.includes('hook') || n.startsWith('use'))) {
-      patterns.push({ name: 'React Hooks', type: 'behavioral', confidence: 0.92 });
-    }
-
-    return patterns;
   }
 
   private async _saveResults(results: MDCResult[]): Promise<void> {
@@ -465,8 +305,9 @@ export class MDCGeneratorPanel {
 
     report += `## Summary\n\n`;
     report += `- Total Specifications: ${this._results.length}\n`;
-    report += `- Average Confidence: ${Math.round(this._results.reduce((sum, r) => sum + r.confidence, 0) / this._results.length * 100)}%\n`;
-    report += `- Average Risk Score: ${Math.round(this._results.reduce((sum, r) => sum + r.riskScore, 0) / this._results.length)}%\n\n`;
+    const n = this._results.length;
+    report += `- Average Confidence: ${n > 0 ? Math.round(this._results.reduce((sum, r) => sum + r.confidence, 0) / n * 100) : 0}%\n`;
+    report += `- Average Risk Score: ${n > 0 ? Math.round(this._results.reduce((sum, r) => sum + r.riskScore, 0) / n) : 0}%\n\n`;
 
     report += `## Specifications\n\n`;
     this._results.forEach(r => {
@@ -481,42 +322,39 @@ export class MDCGeneratorPanel {
     return report;
   }
 
-  private _delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   private _update() {
     this._panel.webview.html = this._getHtmlContent();
   }
 
   private _getHtmlContent(): string {
     return `<!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MDC Generator</title>
-  <style>
+  ${getGuardrailPanelHead(`
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 20px;
-      background: var(--vscode-editor-background);
-      color: var(--vscode-editor-foreground);
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
     }
+    .ka-shell { padding: 16px; }
     .header {
       display: flex;
       align-items: center;
       gap: 15px;
       margin-bottom: 30px;
       padding-bottom: 20px;
-      border-bottom: 1px solid var(--vscode-input-border);
+      border-bottom: 1px solid var(--border-subtle);
     }
     .logo { font-size: 32px; }
     .title { font-size: 24px; font-weight: bold; }
-    .subtitle { color: var(--vscode-descriptionForeground); font-size: 14px; }
+    .subtitle { color: var(--on-surface-variant); font-size: 14px; }
     .controls {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       padding: 20px;
       border-radius: 8px;
       margin-bottom: 20px;
@@ -532,12 +370,12 @@ export class MDCGeneratorPanel {
       display: block;
       margin-bottom: 5px;
       font-size: 12px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     select, input[type="checkbox"] {
-      background: var(--vscode-input-background);
-      border: 1px solid var(--vscode-input-border);
-      color: var(--vscode-input-foreground);
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      color: var(--on-surface);
       padding: 8px;
       border-radius: 4px;
       width: 100%;
@@ -551,29 +389,32 @@ export class MDCGeneratorPanel {
       display: flex;
       align-items: center;
       gap: 5px;
-      background: var(--vscode-button-secondaryBackground);
+      background: var(--surface-container-high);
       padding: 5px 10px;
       border-radius: 4px;
       cursor: pointer;
     }
     .checkbox-item input { width: auto; }
     .btn {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
       border: none;
       padding: 10px 20px;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .btn:hover { background: var(--vscode-button-hoverBackground); }
+    .btn:hover { filter: brightness(1.08); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-secondary {
-      background: var(--vscode-button-secondaryBackground);
-      color: var(--vscode-button-secondaryForeground);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
     }
     .button-row {
       display: flex;
@@ -584,26 +425,26 @@ export class MDCGeneratorPanel {
       display: none;
       margin: 20px 0;
       padding: 20px;
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       border-radius: 8px;
     }
     .progress-bar {
       height: 8px;
-      background: var(--vscode-input-border);
+      background: var(--surface-container-highest);
       border-radius: 4px;
       overflow: hidden;
       margin-top: 10px;
     }
     .progress-fill {
       height: 100%;
-      background: var(--vscode-progressBar-background);
+      background: linear-gradient(90deg, var(--primary-container), var(--secondary-container));
       transition: width 0.3s ease;
     }
     .results {
       display: none;
     }
     .result-card {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 10px;
@@ -631,7 +472,7 @@ export class MDCGeneratorPanel {
       display: flex;
       gap: 20px;
       font-size: 12px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .patterns-list {
       display: flex;
@@ -640,7 +481,7 @@ export class MDCGeneratorPanel {
       margin-top: 10px;
     }
     .pattern-tag {
-      background: var(--vscode-button-secondaryBackground);
+      background: var(--surface-container-high);
       padding: 2px 8px;
       border-radius: 10px;
       font-size: 11px;
@@ -659,16 +500,18 @@ export class MDCGeneratorPanel {
       text-align: center;
     }
     .summary-value { font-size: 28px; font-weight: bold; color: #6bcb77; }
-    .summary-label { font-size: 12px; color: var(--vscode-descriptionForeground); }
+    .summary-label { font-size: 12px; color: var(--on-surface-variant); }
     .empty-state {
       text-align: center;
       padding: 60px 20px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .empty-icon { font-size: 48px; margin-bottom: 15px; }
-  </style>
+  `)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
   <div class="header">
     <span class="logo">📋</span>
     <div>
@@ -868,6 +711,7 @@ export class MDCGeneratorPanel {
       }
     });
   </script>
+  </div>
 </body>
 </html>`;
   }

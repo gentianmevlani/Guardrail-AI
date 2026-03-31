@@ -14,3 +14,5 @@ export * from "./verified-autofix";
 export * from "./smells";
 export * from "./ci-generator";
 export * from "./cloud/upload-run";
+export * from "./unified-guardrail";
+

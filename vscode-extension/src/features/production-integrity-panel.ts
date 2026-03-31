@@ -10,6 +10,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
+import { getGuardrailPanelHead } from '../webview-shared-styles';
 
 export interface ProductionService {
   id: string;
@@ -314,18 +315,18 @@ export class ProductionIntegrityPanel {
 
   private _getHtmlContent(): string {
     return `<!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Production Integrity Dashboard</title>
-  <style>
+  ${getGuardrailPanelHead(`
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 20px;
-      background: var(--vscode-editor-background);
-      color: var(--vscode-editor-foreground);
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
     }
     .header {
       display: flex;
@@ -333,12 +334,12 @@ export class ProductionIntegrityPanel {
       justify-content: space-between;
       margin-bottom: 30px;
       padding-bottom: 20px;
-      border-bottom: 1px solid var(--vscode-input-border);
+      border-bottom: 1px solid var(--border-subtle);
     }
     .header-left { display: flex; align-items: center; gap: 15px; }
     .logo { font-size: 32px; }
     .title { font-size: 24px; font-weight: bold; }
-    .subtitle { color: var(--vscode-descriptionForeground); font-size: 14px; }
+    .subtitle { color: var(--on-surface-variant); font-size: 14px; }
     .monitoring-status {
       display: flex;
       align-items: center;
@@ -375,18 +376,20 @@ export class ProductionIntegrityPanel {
       margin-bottom: 20px;
     }
     .btn {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
       border: none;
       padding: 8px 16px;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .btn:hover { background: var(--vscode-button-hoverBackground); }
+    .btn:hover { filter: brightness(1.08); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-danger {
       background: #ff6b6b;
@@ -397,8 +400,9 @@ export class ProductionIntegrityPanel {
       color: #000;
     }
     .btn-secondary {
-      background: var(--vscode-button-secondaryBackground);
-      color: var(--vscode-button-secondaryForeground);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
     }
     .health-overview {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -430,7 +434,7 @@ export class ProductionIntegrityPanel {
       border-radius: 8px;
     }
     .metric-value { font-size: 24px; font-weight: bold; }
-    .metric-label { font-size: 12px; color: var(--vscode-descriptionForeground); }
+    .metric-label { font-size: 12px; color: var(--on-surface-variant); }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -438,7 +442,7 @@ export class ProductionIntegrityPanel {
       margin-bottom: 20px;
     }
     .service-card {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       border-radius: 8px;
       padding: 20px;
       border-left: 4px solid;
@@ -473,13 +477,13 @@ export class ProductionIntegrityPanel {
     .service-metric {
       font-size: 12px;
     }
-    .metric-name { color: var(--vscode-descriptionForeground); }
+    .metric-name { color: var(--on-surface-variant); }
     .metric-number { font-weight: bold; }
     .alerts-section {
       margin-top: 15px;
     }
     .alert-item {
-      background: var(--vscode-editor-background);
+      background: var(--surface-container-lowest);
       padding: 8px 12px;
       border-radius: 4px;
       margin-bottom: 5px;
@@ -490,13 +494,13 @@ export class ProductionIntegrityPanel {
     .alert-warning { border-left-color: #ffd93d; }
     .alert-info { border-left-color: #74c0fc; }
     .incidents-section {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       padding: 20px;
       border-radius: 8px;
       margin-bottom: 20px;
     }
     .incident-item {
-      background: var(--vscode-editor-background);
+      background: var(--surface-container-lowest);
       padding: 15px;
       border-radius: 6px;
       margin-bottom: 10px;
@@ -525,17 +529,20 @@ export class ProductionIntegrityPanel {
     .severity-critical { background: #ff6b6b; color: #000; }
     .incident-meta {
       font-size: 12px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .empty-state {
       text-align: center;
       padding: 60px 20px;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
     }
     .empty-icon { font-size: 48px; margin-bottom: 15px; }
-  </style>
+    .integrity-pad { padding: 0 16px 16px; }
+  `)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
   <div class="header">
     <div class="header-left">
       <span class="logo">🖥️</span>
@@ -550,6 +557,7 @@ export class ProductionIntegrityPanel {
     </div>
   </div>
 
+  <div class="integrity-pad">
   <div class="actions">
     <button class="btn btn-success" id="startBtn" onclick="startMonitoring()">
       <span>▶️</span> Start Monitoring
@@ -603,6 +611,7 @@ export class ProductionIntegrityPanel {
       <h3 style="margin-bottom: 15px;">Recent Incidents</h3>
       <div id="incidentsList"></div>
     </div>
+  </div>
   </div>
 
   <script>
@@ -733,7 +742,7 @@ export class ProductionIntegrityPanel {
       // Render incidents
       const incidentsList = document.getElementById('incidentsList');
       if (health.incidents.length === 0) {
-        incidentsList.innerHTML = '<div style="text-align: center; color: var(--vscode-descriptionForeground);">No recent incidents</div>';
+        incidentsList.innerHTML = '<div style="text-align: center; color: var(--on-surface-variant);">No recent incidents</div>';
       } else {
         incidentsList.innerHTML = health.incidents.map(incident => \`
           <div class="incident-item incident-\${incident.severity}">
@@ -794,6 +803,7 @@ export class ProductionIntegrityPanel {
       }
     });
   </script>
+  </div>
 </body>
 </html>`;
   }

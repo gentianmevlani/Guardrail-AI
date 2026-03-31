@@ -5,11 +5,16 @@
  * vault integration and OWASP Top 10 vulnerability detection.
  */
 
-import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
-import { ApiClient } from '../services/api-client';
-import { getGuardrailPanelHead } from '../webview-shared-styles';
+import * as vscode from "vscode";
+import * as path from "path";
+import * as fs from "fs";
+import { ApiClient } from "../services/api-client";
+import { CLIService } from "../services/cli-service";
+import { getGuardrailPanelHead } from "../webview-shared-styles";
+import {
+  mapFindingToSecurityIssue,
+  scanFindingsFromData,
+} from "../scan-cli-map";
 
 export interface SecurityIssue {
   id: string;
@@ -51,11 +56,13 @@ export class SecurityScannerPanel {
   private _report: SecurityReport | null = null;
   private _isScanning: boolean = false;
   private _apiClient: ApiClient;
+  private _cliService: CLIService;
 
   private constructor(panel: vscode.WebviewPanel, workspacePath: string, extensionContext: vscode.ExtensionContext) {
     this._panel = panel;
     this._workspacePath = workspacePath;
     this._apiClient = new ApiClient(extensionContext);
+    this._cliService = new CLIService(workspacePath);
 
     this._update();
 
@@ -119,69 +126,97 @@ export class SecurityScannerPanel {
     if (this._isScanning) return;
 
     this._isScanning = true;
-    this._panel.webview.postMessage({ type: 'scanning', progress: 0 });
+    this._panel.webview.postMessage({ type: "scanning", progress: 0 });
 
     try {
-      // Check API connection first
-      const isConnected = await this._apiClient.testConnection();
-      if (!isConnected) {
-        throw new Error('Unable to connect to guardrail API. Please check your configuration.');
-      }
-
       let issues: SecurityIssue[] = [];
       let secretsFound = 0;
       let vaultConfigured = false;
 
-      // Run real security scan
-      this._panel.webview.postMessage({ type: 'progress', message: 'Running comprehensive security scan...', progress: 20 });
+      this._panel.webview.postMessage({
+        type: "progress",
+        message: "Running guardrail scan --json…",
+        progress: 20,
+      });
 
-      try {
-        const scanResponse = await this._apiClient.runSecurityScan(this._workspacePath);
-        
-        if (scanResponse.success && scanResponse.data) {
-          // Convert API response to SecurityIssue format
-          const apiIssues = scanResponse.data.issues || [];
-          issues = apiIssues.map((issue: any) => ({
-            id: issue.id || `security-${Date.now()}`,
-            severity: issue.severity || 'medium',
-            category: issue.category || 'general',
-            title: issue.title || 'Security Issue',
-            description: issue.description || 'No description available',
-            file: issue.file,
-            line: issue.line,
-            code: issue.code,
-            cwe: issue.cwe,
-            owasp: issue.owasp,
-            fix: issue.fix || issue.remediation,
-            autoFixable: issue.autoFixable || false
-          }));
-
-          secretsFound = scanResponse.data.secretsFound || 0;
-          vaultConfigured = scanResponse.data.vaultConfigured || false;
-        } else {
-          // Fallback to mock data if API fails
-          issues = this._getFallbackSecurityIssues();
-          secretsFound = issues.filter(i => i.category === 'secrets').length;
-        }
-      } catch (error) {
-        console.warn('Failed to run security scan via API:', error);
-        // Use fallback data
-        issues = this._getFallbackSecurityIssues();
-        secretsFound = issues.filter(i => i.category === 'secrets').length;
+      const cliResult = await this._cliService.runScanJson();
+      if (cliResult.data) {
+        const raw = scanFindingsFromData(cliResult.data);
+        issues = raw.map((f, i) => {
+          const m = mapFindingToSecurityIssue(f, i);
+          return {
+            ...m,
+            title: String(f.type ?? m.title),
+            description: m.description,
+            autoFixable: false,
+          };
+        });
+        secretsFound = issues.filter(
+          (i) => i.category.toLowerCase().includes("secret"),
+        ).length;
       }
 
-      // Update progress
-      this._panel.webview.postMessage({ type: 'progress', message: 'Analyzing results...', progress: 80 });
-      await this._delay(300);
+      if (issues.length === 0) {
+        this._panel.webview.postMessage({
+          type: "progress",
+          message: "Trying Guardrail API…",
+          progress: 40,
+        });
+        try {
+          const isConnected = await this._apiClient.testConnection();
+          if (isConnected) {
+            const scanResponse = await this._apiClient.runSecurityScan(
+              this._workspacePath,
+            );
+            if (scanResponse.success && scanResponse.data) {
+              const apiIssues = scanResponse.data.issues || [];
+              issues = apiIssues.map((issue: Record<string, unknown>) => ({
+                id: String(issue.id ?? `api-${Date.now()}`),
+                severity: (issue.severity as SecurityIssue["severity"]) || "medium",
+                category: String(issue.category ?? "general"),
+                title: String(issue.title ?? "Security issue"),
+                description: String(
+                  issue.description ?? "No description available",
+                ),
+                file: issue.file as string | undefined,
+                line: issue.line as number | undefined,
+                code: issue.code as string | undefined,
+                cwe: issue.cwe as string | undefined,
+                owasp: issue.owasp as string | undefined,
+                fix: (issue.fix ?? issue.remediation) as string | undefined,
+                autoFixable: Boolean(issue.autoFixable),
+              }));
+              secretsFound = scanResponse.data.secretsFound || 0;
+              vaultConfigured = scanResponse.data.vaultConfigured || false;
+            }
+          }
+        } catch {
+          /* keep CLI-only issues */
+        }
+      }
 
-      // Calculate score
+      this._panel.webview.postMessage({
+        type: "progress",
+        message: "Analyzing results…",
+        progress: 80,
+      });
+      await this._delay(200);
+
       let score = 100;
       for (const issue of issues) {
         switch (issue.severity) {
-          case 'critical': score -= 15; break;
-          case 'high': score -= 8; break;
-          case 'medium': score -= 4; break;
-          case 'low': score -= 1; break;
+          case "critical":
+            score -= 15;
+            break;
+          case "high":
+            score -= 8;
+            break;
+          case "medium":
+            score -= 4;
+            break;
+          case "low":
+            score -= 1;
+            break;
         }
       }
       score = Math.max(0, score);
@@ -193,10 +228,10 @@ export class SecurityScannerPanel {
         timestamp: new Date().toISOString(),
         score,
         summary: {
-          critical: issues.filter(i => i.severity === 'critical').length,
-          high: issues.filter(i => i.severity === 'high').length,
-          medium: issues.filter(i => i.severity === 'medium').length,
-          low: issues.filter(i => i.severity === 'low').length,
+          critical: issues.filter((i) => i.severity === "critical").length,
+          high: issues.filter((i) => i.severity === "high").length,
+          medium: issues.filter((i) => i.severity === "medium").length,
+          low: issues.filter((i) => i.severity === "low").length,
           total: issues.length,
         },
         issues,
@@ -206,65 +241,18 @@ export class SecurityScannerPanel {
       };
 
       this._panel.webview.postMessage({
-        type: 'complete',
+        type: "complete",
         report: this._report,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : "Scan failed";
       this._panel.webview.postMessage({
-        type: 'error',
-        message: error.message || 'Failed to run security scan',
+        type: "error",
+        message: msg,
       });
     } finally {
       this._isScanning = false;
     }
-  }
-
-  private _getFallbackSecurityIssues(): SecurityIssue[] {
-    // Fallback mock data if API is unavailable
-    return [
-      {
-        id: 'secret-1',
-        severity: 'critical',
-        category: 'secrets',
-        title: 'Hardcoded API Key Detected',
-        description: 'An API key appears to be hardcoded in the source code.',
-        file: 'src/config/api.ts',
-        line: 15,
-        code: 'const API_KEY = "sk-1234567890abcdef";',
-        cwe: 'CWE-798',
-        owasp: 'A2:2021',
-        fix: 'Move the API key to environment variables or a secrets manager.',
-        autoFixable: false,
-      },
-      {
-        id: 'sqli-1',
-        severity: 'high',
-        category: 'injection',
-        title: 'Potential SQL Injection',
-        description: 'SQL query uses string concatenation with user input.',
-        file: 'src/database/query.ts',
-        line: 42,
-        code: 'const query = `SELECT * FROM users WHERE id = ${userId}`;',
-        cwe: 'CWE-89',
-        owasp: 'A03:2021',
-        fix: 'Use parameterized queries or prepared statements.',
-        autoFixable: false,
-      },
-      {
-        id: 'xss-1',
-        severity: 'high',
-        category: 'xss',
-        title: 'Potential XSS: dangerouslySetInnerHTML',
-        description: 'Use of dangerouslySetInnerHTML can lead to XSS vulnerabilities.',
-        file: 'src/components/Renderer.tsx',
-        line: 28,
-        code: 'div.innerHTML = userInput;',
-        cwe: 'CWE-79',
-        owasp: 'A03:2021',
-        fix: 'Sanitize user input before rendering. Use safe React patterns.',
-        autoFixable: false,
-      }
-    ];
   }
 
   private async _openFile(filePath: string, line?: number): Promise<void> {

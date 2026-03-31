@@ -9,6 +9,7 @@ import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
 import { CLIService } from "../services/cli-service";
+import { getGuardrailPanelHead } from "../webview-shared-styles";
 
 export interface TeamMember {
   id: string;
@@ -324,25 +325,25 @@ export class TeamCollaborationPanel {
     const activityDisplay = view === "activity" ? "block" : "none";
 
     return `<!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Team Collaboration</title>
-  <style>
+  ${getGuardrailPanelHead(`
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--vscode-font-family);
-      padding: 20px;
-      background: var(--vscode-editor-background);
-      color: var(--vscode-editor-foreground);
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
     }
     .hint {
       padding: 12px;
       margin-bottom: 16px;
       border-radius: 6px;
-      background: var(--vscode-input-background);
-      color: var(--vscode-descriptionForeground);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
       font-size: 13px;
       line-height: 1.5;
     }
@@ -352,43 +353,45 @@ export class TeamCollaborationPanel {
       justify-content: space-between;
       margin-bottom: 20px;
       padding-bottom: 16px;
-      border-bottom: 1px solid var(--vscode-input-border);
+      border-bottom: 1px solid var(--border-subtle);
     }
     .header-left { display: flex; align-items: center; gap: 12px; }
     .title { font-size: 20px; font-weight: bold; }
-    .subtitle { color: var(--vscode-descriptionForeground); font-size: 13px; }
+    .subtitle { color: var(--on-surface-variant); font-size: 13px; }
     .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
     .tab {
       background: none;
       border: none;
-      color: var(--vscode-descriptionForeground);
+      color: var(--on-surface-variant);
       cursor: pointer;
       padding: 8px 12px;
       border-bottom: 2px solid transparent;
       font-size: 13px;
     }
     .tab.active {
-      color: var(--vscode-editor-foreground);
-      border-bottom-color: var(--vscode-button-background);
+      color: var(--on-surface);
+      border-bottom-color: var(--primary-container);
     }
     .actions { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
     .btn {
-      background: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
       border: none;
       padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
     }
-    .btn.secondary { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+    .btn.secondary { background: var(--surface-container-high); color: var(--on-surface); border: 1px solid var(--border-subtle); }
     .content-grid {
       display: ${dashboardDisplay};
       grid-template-columns: 1fr 2fr;
       gap: 16px;
     }
     .team-sidebar {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       padding: 16px;
       border-radius: 8px;
     }
@@ -399,17 +402,17 @@ export class TeamCollaborationPanel {
       gap: 10px;
       padding: 8px;
       margin-bottom: 6px;
-      background: var(--vscode-editor-background);
+      background: var(--surface-container-lowest);
       border-radius: 6px;
     }
     .member-avatar {
       width: 28px; height: 28px; border-radius: 50%;
-      background: var(--vscode-button-background);
+      background: var(--primary-container);
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: bold;
     }
     .main-content {
-      background: var(--vscode-input-background);
+      background: var(--surface-container-low);
       padding: 16px;
       border-radius: 8px;
     }
@@ -420,18 +423,20 @@ export class TeamCollaborationPanel {
       margin-bottom: 16px;
     }
     .stat-card {
-      background: var(--vscode-editor-background);
+      background: var(--surface-container-lowest);
       padding: 12px;
       border-radius: 6px;
       text-align: center;
     }
     .stat-value { font-size: 20px; font-weight: bold; }
-    .stat-label { font-size: 11px; color: var(--vscode-descriptionForeground); }
-    .empty { padding: 24px; text-align: center; color: var(--vscode-descriptionForeground); font-size: 13px; }
+    .stat-label { font-size: 11px; color: var(--on-surface-variant); }
+    .empty { padding: 24px; text-align: center; color: var(--on-surface-variant); font-size: 13px; }
     .panel-block { display: block; }
-  </style>
+  `)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
   <div class="header">
     <div class="header-left">
       <div>
@@ -474,7 +479,7 @@ export class TeamCollaborationPanel {
           <div class="member-avatar">${initials(m.name)}</div>
           <div>
             <div style="font-weight:600">${escapeHtml(m.name)}</div>
-            <div style="font-size:12px;color:var(--vscode-descriptionForeground)">${escapeHtml(m.lastActive)}</div>
+            <div style="font-size:12px;color:var(--on-surface-variant)">${escapeHtml(m.lastActive)}</div>
             ${m.expertise.length ? `<div style="font-size:11px;margin-top:4px">${escapeHtml(m.expertise.join(", "))}</div>` : ""}
           </div>
         </div>`,
@@ -502,7 +507,7 @@ export class TeamCollaborationPanel {
           <div class="stat-label">Activity feed</div>
         </div>
       </div>
-      <p style="font-size:12px;color:var(--vscode-descriptionForeground)">
+      <p style="font-size:12px;color:var(--on-surface-variant)">
         Reviews, knowledge, and activity feeds are not populated by the open-source CLI — only git-based contributors are shown.
       </p>
     </div>
@@ -541,6 +546,7 @@ export class TeamCollaborationPanel {
     function inviteMember() { vscode.postMessage({ command: 'inviteMember' }); }
     function exportReport() { vscode.postMessage({ command: 'exportReport' }); }
   </script>
+  </div>
 </body>
 </html>`;
   }

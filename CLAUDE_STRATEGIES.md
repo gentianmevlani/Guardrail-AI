@@ -1,36 +1,37 @@
 # CLAUDE_STRATEGIES.md
 # Procedural Memory — Session Briefing
 # Generated: 2026-03-31
-# Sessions analyzed: 16 | Strategies: 2
+# Sessions analyzed: 20 | Strategies: 3
 # Identity: Mastery phase — consistently performing at high efficiency
 
 ## Pre-mortem: Predicted Risks
 
 - **scope-creep** (95% likely, ~15 wasted steps): Touching more than 10 files or exceeding 25 tool calls
   Prevention: Before expanding scope, ask: "Is this necessary for the SPECIFIC task requested?"
-- **overengineering** (89% likely, ~10 wasted steps): Creating 3+ new files for what should be a localized change
+- **overengineering** (59% likely, ~10 wasted steps): Creating 3+ new files for what should be a localized change
   Prevention: Before creating a new file, ask: "Can this be done by modifying an existing file?"
-- **tool-thrashing** (89% likely, ~6 wasted steps): Switching tools on the same file more than twice
-  Prevention: Choose the right tool ONCE: Read for understanding, Grep for searching, Edit for changes
+- **wrong-file-first** (95% likely, ~5 wasted steps): First file opened is not in the resolution path
+  Prevention: Read error messages, stack traces, and test output to identify the RIGHT file before exploring
 
 ## Self-Awareness Profile
 
-> Your cognitive fingerprint across 16 sessions:
+> Your cognitive fingerprint across 20 sessions:
 
   Exploiter (direct path)      ░░░░░░█░░░░ Explorer (wide search)
   Bold (writes early)          ░░░░░░█░░░░ Cautious (reads first)
-  Quick pivoter                ░░░░░░░░█░░ Persistent
-  Deep (few files, many actions) ░░░░░░█░░░░ Broad (many files, few actions)
+  Quick pivoter                ░░░░░░░░░█░ Persistent
+  Deep (few files, many actions) ░░░░░░░█░░░ Broad (many files, few actions)
   Specialist (few tools)       ░░░░░█░░░░░ Generalist (many tools)
   Externally corrected         ░░░░░░░░█░░ Self-correcting
-  Efficient (minimal path)     ░░░░░░█░░░░ Thorough (exhaustive)
+  Efficient (minimal path)     ░░░░░░░█░░░ Thorough (exhaustive)
 
 
 **Signature strengths (keep doing):**
-- Clean execution: 38% of sessions resolve with zero backtracks and ≤10 tool calls
+- Clean execution: 30% of sessions resolve with zero backtracks and ≤10 tool calls
 
 ## Collaborator Awareness
 
+- User prefers **detailed** responses — explain reasoning and alternatives
 - User is **learning** — explain context, link to docs, avoid jargon
 - User has rejected: Using Read on /Users/liquidgroove/Desktop/Vibecheck/packages/shared-types/src/auth.ts; Using Glob on packages/shipgate/shipgate-dashboard/lib/api-auth.ts
 
@@ -38,27 +39,19 @@
 
 > Changes derived from session reflections. Apply these proactively:
 
-- **When:** Working on bug-fix in ui domain
-  **Instead of:** Investigating /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/page.tsx, apps/web-ui/src/components/landing/**/*.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.vibecheck/truthpack/copy.json first
-  **Do:** Check /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/hero-section.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/sections/cta-section.tsx first — these are where resolutions typically occur
+- **When:** Working on multi-task in ui domain
+  **Instead of:** Investigating /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/unified-output.js, runLightweightScan, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/error-handler.js first
+  **Do:** Check /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/runScan.js, /tmp/guardrail-cli-publish/package.json, /tmp/guardrail-cli-publish/README.md first — these are where resolutions typically occur
 
 - **When:** About to interact with a file
   **Instead of:** Try one tool, then switch to another on the same file
   **Do:** Decide the right tool upfront: Read for understanding, Grep for searching, Edit for known changes
 
-- **When:** Working on multi-task in infra domain
-  **Instead of:** Investigating /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/entitlements.js, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/unified-output.js, runLightweightScan first
-  **Do:** Check /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/runScan.js first — these are where resolutions typically occur
-
-- **When:** Working on multi-task in infra domain
-  **Instead of:** Investigating /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/unified-output.js, runLightweightScan, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/lib/error-handler.js first
-  **Do:** Check /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/bin/runners/runScan.js, /tmp/guardrail-cli-publish/package.json, /tmp/guardrail-cli-publish/README.md first — these are where resolutions typically occur
-
 ## Strategies
 
 ### Downloads/Guardrail-Ofiicial-main
 
-**[95% ◆]** (65 sessions) — 61% predicted relevance
+**[95% ◆]** (120 sessions)
 📋 Module checkpoint for Downloads/Guardrail-Ofiicial-main (based on 4 sessions):
 When entering this module, preload context on:
   - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts (touched in 100% of sessions)
@@ -69,7 +62,7 @@ When entering this module, preload context on:
 
 ### packages/cli
 
-**[50% ◆]** (5 sessions)
+**[95% ◆]** (60 sessions)
 📋 Module checkpoint for packages/cli (based on 2 sessions):
 When entering this module, preload context on:
   - Downloads/Guardrail-Ofiicial-main/packages/cli/package.json (touched in 100% of sessions)

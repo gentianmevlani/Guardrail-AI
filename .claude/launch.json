@@ -6,6 +6,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@guardrail/web-ui", "dev"],
       "port": 5001
+    },
+    {
+      "name": "sidebar-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "vscode-extension/.preview", "-l", "3847", "--no-clipboard"],
+      "port": 3847
     }
   ]
 }

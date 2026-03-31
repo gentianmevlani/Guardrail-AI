@@ -5,11 +5,80 @@
  * This provides a unified interface for all dashboard features
  */
 
-import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
-import { spawn, ChildProcess } from 'child_process';
-import { promisify } from 'util';
+import * as path from "path";
+import * as fs from "fs";
+import { spawn } from "child_process";
+import { extractJsonObject } from "../scan-cli-map";
+
+/** Repo root to use as cwd when running `bin/guardrail.js` (expects project at cwd). */
+function resolveGuardrailCli(workspacePath: string): {
+  executable: string;
+  argPrefix: string[];
+  useShell: boolean;
+  displayPath: string;
+  defaultCwd: string;
+} {
+  const normalized = path.resolve(workspacePath);
+  const rootsToTry = [
+    normalized,
+    path.join(normalized, ".."),
+    path.join(normalized, "..", ".."),
+  ];
+
+  for (const root of rootsToTry) {
+    const binJs = path.join(root, "bin", "guardrail.js");
+    if (fs.existsSync(binJs)) {
+      return {
+        executable: process.execPath,
+        argPrefix: [binJs],
+        useShell: false,
+        displayPath: binJs,
+        defaultCwd: path.resolve(root),
+      };
+    }
+  }
+
+  const shimCandidates = [
+    path.join(normalized, "node_modules", ".bin", "guardrail"),
+    path.join(normalized, "..", "node_modules", ".bin", "guardrail"),
+  ];
+  for (const shim of shimCandidates) {
+    if (fs.existsSync(shim)) {
+      return {
+        executable: shim,
+        argPrefix: [],
+        useShell: false,
+        displayPath: shim,
+        defaultCwd: normalized,
+      };
+    }
+  }
+
+  const legacyCli = path.join(
+    normalized,
+    "packages",
+    "cli",
+    "dist",
+    "index.js",
+  );
+  if (fs.existsSync(legacyCli)) {
+    return {
+      executable: process.execPath,
+      argPrefix: [legacyCli],
+      useShell: false,
+      displayPath: legacyCli,
+      defaultCwd: normalized,
+    };
+  }
+
+  return {
+    executable: "guardrail",
+    argPrefix: [],
+    useShell: true,
+    displayPath: "guardrail",
+    defaultCwd: normalized,
+  };
+}
 
 export interface CLICommand {
   command: string;
@@ -30,7 +99,7 @@ export interface CLIResult {
   command: string;
 }
 
-export interface CLICommandResult<T = any> {
+export interface CLICommandResult<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -39,24 +108,20 @@ export interface CLICommandResult<T = any> {
 }
 
 export class CLIService {
-  private readonly _cliPath: string;
-  private readonly _workspacePath: string;
+  private readonly _spawnExecutable: string;
+  private readonly _spawnArgPrefix: string[];
+  private readonly _spawnShell: boolean;
+  private readonly _cliDisplayPath: string;
+  /** Prefer repo root when running `bin/guardrail.js` so scan/ship resolve the project. */
+  private readonly _defaultCliCwd: string;
 
   constructor(workspacePath: string) {
-    this._workspacePath = workspacePath;
-    
-    // Try to find the CLI in common locations
-    const possiblePaths = [
-      path.join(workspacePath, 'node_modules', '.bin', 'guardrail'),
-      path.join(workspacePath, '..', 'node_modules', '.bin', 'guardrail'),
-      path.join(workspacePath, 'packages', 'cli', 'dist', 'index.js'),
-      'guardrail', // Assume it's in PATH
-    ];
-
-    this._cliPath = possiblePaths.find(p => {
-      if (p === 'guardrail') return true; // Assume in PATH
-      return fs.existsSync(p);
-    }) || 'guardrail';
+    const resolved = resolveGuardrailCli(workspacePath);
+    this._spawnExecutable = resolved.executable;
+    this._spawnArgPrefix = resolved.argPrefix;
+    this._spawnShell = resolved.useShell;
+    this._cliDisplayPath = resolved.displayPath;
+    this._defaultCliCwd = resolved.defaultCwd;
   }
 
   /**
@@ -71,26 +136,29 @@ export class CLIService {
           ? [command.command, ...rawArgs]
           : rawArgs;
       const options = command.options || {};
+      const spawnArgs = [...this._spawnArgPrefix, ...args];
+      const cwd = options.cwd || this._defaultCliCwd;
+      const cmdLineForLog = `${this._cliDisplayPath} ${args.join(" ")}`;
 
-      const child = spawn(this._cliPath, args, {
-        cwd: options.cwd || this._workspacePath,
+      const child = spawn(this._spawnExecutable, spawnArgs, {
+        cwd,
         env: { ...process.env, ...options.env },
-        stdio: 'pipe',
-        shell: true
+        stdio: "pipe",
+        shell: this._spawnShell,
       });
 
-      let stdout = '';
-      let stderr = '';
+      let stdout = "";
+      let stderr = "";
 
-      child.stdout?.on('data', (data) => {
+      child.stdout?.on("data", (data) => {
         stdout += data.toString();
       });
 
-      child.stderr?.on('data', (data) => {
+      child.stderr?.on("data", (data) => {
         stderr += data.toString();
       });
 
-      child.on('close', (code) => {
+      child.on("close", (code) => {
         const duration = Date.now() - startTime;
         resolve({
           success: code === 0,
@@ -98,23 +166,22 @@ export class CLIService {
           stderr: stderr.trim(),
           exitCode: code || 0,
           duration,
-          command: `${this._cliPath} ${args.join(' ')}`
+          command: cmdLineForLog,
         });
       });
 
-      child.on('error', (error) => {
+      child.on("error", (error) => {
         const duration = Date.now() - startTime;
         resolve({
           success: false,
-          stdout: '',
+          stdout: "",
           stderr: error.message,
           exitCode: -1,
           duration,
-          command: `${this._cliPath} ${args.join(' ')}`
+          command: cmdLineForLog,
         });
       });
 
-      // Handle timeout
       if (options.timeout) {
         setTimeout(() => {
           child.kill();
@@ -124,276 +191,143 @@ export class CLIService {
             stderr: `Command timed out after ${options.timeout}ms`,
             exitCode: -1,
             duration: Date.now() - startTime,
-            command: `${this._cliPath} ${args.join(' ')}`
+            command: cmdLineForLog,
           });
         }, options.timeout);
       }
     });
   }
 
+  private parseStdoutJson(result: CLIResult): unknown | null {
+    return extractJsonObject(result.stdout);
+  }
+
   /**
-   * Run security scan
+   * `guardrail scan --json` — single source of truth for security, compliance-style, and performance panels.
    */
-  async runSecurityScan(targetPath?: string): Promise<CLICommandResult> {
-    const args = ['scan', '--format', 'json'];
+  async runScanJson(extraArgs?: string[]): Promise<CLICommandResult<Record<string, unknown>>> {
+    const args = ["scan", "--json", ...(extraArgs ?? [])];
+    const result = await this.executeCommand({
+      args,
+      options: { timeout: 300000 },
+    });
+    const data = this.parseStdoutJson(result);
+    if (data && typeof data === "object") {
+      return {
+        success: true,
+        data: data as Record<string, unknown>,
+        duration: result.duration,
+        command: result.command,
+      };
+    }
+    return {
+      success: false,
+      error: result.stderr || "scan produced no JSON",
+      duration: result.duration,
+      command: result.command,
+    };
+  }
+
+  /** @deprecated Use runScanJson — kept for call-site compatibility */
+  async runSecurityScan(targetPath?: string): Promise<CLICommandResult<Record<string, unknown>>> {
     if (targetPath) {
-      args.push(targetPath);
+      return this.runScanJson(["--path", targetPath]);
     }
+    return this.runScanJson();
+  }
 
+  /** Local assessment uses the same scan JSON (no separate `compliance` CLI in OSS). */
+  async runComplianceCheck(_frameworks?: string[]): Promise<CLICommandResult<Record<string, unknown>>> {
+    void _frameworks;
+    return this.runScanJson();
+  }
+
+  /** Performance summary is derived from scan JSON in the panel. */
+  async runPerformanceAnalysis(): Promise<CLICommandResult<Record<string, unknown>>> {
+    return this.runScanJson();
+  }
+
+  /** Impact uses scan JSON (hotspots / findings), not a separate `impact` command. */
+  async runChangeImpactAnalysis(_files?: string[]): Promise<CLICommandResult<Record<string, unknown>>> {
+    void _files;
+    return this.runScanJson();
+  }
+
+  /**
+   * `guardrail explain <finding-id>` — stdout is text, not JSON.
+   */
+  async runExplainFinding(findingId: string): Promise<CLICommandResult<{ text: string }>> {
     const result = await this.executeCommand({
-      command: 'scan',
-      args,
-      options: { timeout: 300000 } // 5 minutes
+      args: ["explain", findingId],
+      options: { timeout: 120000 },
     });
-
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
-        return {
-          success: true,
-          data,
-          duration: result.duration,
-          command: result.command
-        };
-      }
-    } catch (error) {
+    if (result.stdout !== undefined) {
       return {
-        success: false,
-        error: `Failed to parse scan results: ${error}`,
+        success: result.exitCode === 0,
+        data: { text: result.stdout },
         duration: result.duration,
-        command: result.command
+        command: result.command,
       };
     }
-
     return {
       success: false,
-      error: result.stderr || 'Scan failed',
+      error: result.stderr || "explain failed",
       duration: result.duration,
-      command: result.command
+      command: result.command,
     };
   }
 
   /**
-   * Run compliance check
+   * `guardrail context --json --stdout` — structured routes/env/schemas (replaces fictional `mdc` command).
    */
-  async runComplianceCheck(frameworks?: string[]): Promise<CLICommandResult> {
-    const args = ['compliance', '--format', 'json'];
-    if (frameworks && frameworks.length > 0) {
-      args.push('--frameworks', frameworks.join(','));
-    }
-
+  async runContextStdoutJson(): Promise<CLICommandResult<Record<string, unknown>>> {
     const result = await this.executeCommand({
-      command: 'compliance',
-      args,
-      options: { timeout: 180000 } // 3 minutes
+      args: ["context", "--json", "--stdout"],
+      options: { timeout: 120000 },
     });
-
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
-        return {
-          success: true,
-          data,
-          duration: result.duration,
-          command: result.command
-        };
-      }
-    } catch (error) {
+    const data = this.parseStdoutJson(result);
+    if (data && typeof data === "object") {
       return {
-        success: false,
-        error: `Failed to parse compliance results: ${error}`,
+        success: true,
+        data: data as Record<string, unknown>,
         duration: result.duration,
-        command: result.command
+        command: result.command,
       };
     }
-
     return {
       success: false,
-      error: result.stderr || 'Compliance check failed',
+      error: result.stderr || "context produced no JSON",
       duration: result.duration,
-      command: result.command
+      command: result.command,
     };
   }
 
-  /**
-   * Run performance analysis
-   */
-  async runPerformanceAnalysis(): Promise<CLICommandResult> {
-    const result = await this.executeCommand({
-      command: 'performance',
-      args: ['--format', 'json'],
-      options: { timeout: 120000 } // 2 minutes
-    });
-
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
-        return {
-          success: true,
-          data,
-          duration: result.duration,
-          command: result.command
-        };
-      }
-    } catch (error) {
-      return {
-        success: false,
-        error: `Failed to parse performance results: ${error}`,
-        duration: result.duration,
-        command: result.command
-      };
-    }
-
+  /** @deprecated Use runExplainFinding */
+  async runAIExplanation(
+    _code: string,
+    _language: string,
+    _options?: { detailLevel?: string; includeExamples?: boolean },
+  ): Promise<CLICommandResult> {
+    void _code;
+    void _language;
+    void _options;
     return {
       success: false,
-      error: result.stderr || 'Performance analysis failed',
-      duration: result.duration,
-      command: result.command
+      error:
+        "Use runExplainFinding(findingId) after guardrail scan — the CLI does not accept arbitrary code.",
+      duration: 0,
+      command: "",
     };
   }
 
-  /**
-   * Run change impact analysis
-   */
-  async runChangeImpactAnalysis(files?: string[]): Promise<CLICommandResult> {
-    const args = ['impact', '--format', 'json'];
-    if (files && files.length > 0) {
-      args.push('--files', files.join(','));
-    }
-
-    const result = await this.executeCommand({
-      command: 'impact',
-      args,
-      options: { timeout: 180000 } // 3 minutes
-    });
-
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
-        return {
-          success: true,
-          data,
-          duration: result.duration,
-          command: result.command
-        };
-      }
-    } catch (error) {
-      return {
-        success: false,
-        error: `Failed to parse impact analysis results: ${error}`,
-        duration: result.duration,
-        command: result.command
-      };
-    }
-
-    return {
-      success: false,
-      error: result.stderr || 'Change impact analysis failed',
-      duration: result.duration,
-      command: result.command
-    };
-  }
-
-  /**
-   * Run AI code explanation
-   */
-  async runAIExplanation(code: string, language: string, options?: {
-    detailLevel?: 'basic' | 'detailed' | 'comprehensive';
-    includeExamples?: boolean;
-  }): Promise<CLICommandResult> {
-    const args = ['explain', '--code', code, '--language', language, '--format', 'json'];
-    
-    if (options?.detailLevel) {
-      args.push('--detail', options.detailLevel);
-    }
-    if (options?.includeExamples) {
-      args.push('--examples');
-    }
-
-    const result = await this.executeCommand({
-      command: 'explain',
-      args,
-      options: { timeout: 120000 } // 2 minutes
-    });
-
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
-        return {
-          success: true,
-          data,
-          duration: result.duration,
-          command: result.command
-        };
-      }
-    } catch (error) {
-      return {
-        success: false,
-        error: `Failed to parse AI explanation results: ${error}`,
-        duration: result.duration,
-        command: result.command
-      };
-    }
-
-    return {
-      success: false,
-      error: result.stderr || 'AI explanation failed',
-      duration: result.duration,
-      command: result.command
-    };
-  }
-
-  /**
-   * Generate MDC (Model Definition Code)
-   */
-  async generateMDC(options?: {
+  /** @deprecated Use runContextStdoutJson */
+  async generateMDC(_options?: {
     framework?: string;
     output?: string;
     template?: string;
   }): Promise<CLICommandResult> {
-    const args = ['mdc', '--format', 'json'];
-    
-    if (options?.framework) {
-      args.push('--framework', options.framework);
-    }
-    if (options?.output) {
-      args.push('--output', options.output);
-    }
-    if (options?.template) {
-      args.push('--template', options.template);
-    }
-
-    const result = await this.executeCommand({
-      command: 'mdc',
-      args,
-      options: { timeout: 60000 } // 1 minute
-    });
-
-    try {
-      if (result.success && result.stdout) {
-        const data = JSON.parse(result.stdout);
-        return {
-          success: true,
-          data,
-          duration: result.duration,
-          command: result.command
-        };
-      }
-    } catch (error) {
-      return {
-        success: false,
-        error: `Failed to parse MDC generation results: ${error}`,
-        duration: result.duration,
-        command: result.command
-      };
-    }
-
-    return {
-      success: false,
-      error: result.stderr || 'MDC generation failed',
-      duration: result.duration,
-      command: result.command
-    };
+    void _options;
+    return this.runContextStdoutJson() as Promise<CLICommandResult>;
   }
 
   /**

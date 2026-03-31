@@ -35,8 +35,8 @@ export class ScoreBadge {
   }
 
   private setInitialState(): void {
-    this.statusBarItem.text = "$(shield) guardrail";
-    this.statusBarItem.tooltip = "Click to scan workspace";
+    this.statusBarItem.text = "$(shield) Guardrail — Ready";
+    this.statusBarItem.tooltip = "Click to open Guardrail dashboard";
     this.statusBarItem.backgroundColor = undefined;
   }
 
@@ -45,8 +45,8 @@ export class ScoreBadge {
    */
   setScanning(): void {
     this.isScanning = true;
-    this.statusBarItem.text = "$(sync~spin) Scanning...";
-    this.statusBarItem.tooltip = "guardrail is analyzing your workspace";
+    this.statusBarItem.text = "$(sync~spin) Guardrail — Scanning";
+    this.statusBarItem.tooltip = "Guardrail is analyzing your workspace…";
     this.statusBarItem.backgroundColor = undefined;
   }
 
@@ -61,7 +61,10 @@ export class ScoreBadge {
 
     const { icon, color, bgColor } = this.getScoreDisplay(result.score);
 
-    this.statusBarItem.text = `${icon} Score: ${result.score}/100`;
+    const grade = result.grade || '';
+    const gradeLabel = grade ? ` ${grade}` : '';
+    const shipIcon = result.canShip ? '$(check)' : '$(x)';
+    this.statusBarItem.text = `${icon} ${result.score}${gradeLabel} ${shipIcon}`;
     this.statusBarItem.tooltip = this.buildTooltip(result);
     this.statusBarItem.backgroundColor = bgColor;
     this.statusBarItem.color = color;
@@ -72,7 +75,7 @@ export class ScoreBadge {
    */
   setError(message: string): void {
     this.isScanning = false;
-    this.statusBarItem.text = "$(error) guardrail Error";
+    this.statusBarItem.text = "$(error) Guardrail — Error";
     this.statusBarItem.tooltip = message;
     this.statusBarItem.backgroundColor = new vscode.ThemeColor(
       "statusBarItem.errorBackground",
@@ -83,8 +86,8 @@ export class ScoreBadge {
    * Update badge to show no workspace state
    */
   setNoWorkspace(): void {
-    this.statusBarItem.text = "$(shield) guardrail";
-    this.statusBarItem.tooltip = "Open a workspace to scan";
+    this.statusBarItem.text = "$(shield) Guardrail";
+    this.statusBarItem.tooltip = "Open a workspace to begin scanning";
     this.statusBarItem.backgroundColor = undefined;
   }
 

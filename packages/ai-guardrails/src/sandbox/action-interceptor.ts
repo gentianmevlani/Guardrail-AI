@@ -11,18 +11,55 @@ import {
 } from '@guardrail/core';
 import { isPathAllowed, isDomainAllowed } from '@guardrail/core';
 import { permissionManager } from './permission-manager';
+import { circuitBreaker } from './circuit-breaker';
+import { approvalQueue } from './approval-queue';
+import { toolPolicyEnforcer } from './tool-policy';
 
 /**
  * Intercepts and evaluates agent actions before execution
+ *
+ * Pipeline:
+ * 1. Circuit breaker check (kill switch)
+ * 2. Tool policy check (declarative allow/deny)
+ * 3. Permission evaluation (existing logic)
+ * 4. HITL approval queue (if high-risk)
  */
 export class ActionInterceptor {
   /**
-   * Main interception method - evaluates any action attempt
+   * Main interception method - evaluates any action attempt.
+   * Now integrates circuit breaker, tool policies, and HITL approval.
    */
   async intercept(action: ActionAttempt): Promise<ActionDecision> {
+    // ── Stage 0: Circuit Breaker (kill switch) ──────────────
+    const riskGuess = this.estimateRisk(action);
+    const circuitCheck = circuitBreaker.canProceed(riskGuess);
+    if (!circuitCheck.allowed) {
+      circuitBreaker.recordFailure('Action blocked by circuit breaker');
+      return {
+        allowed: false,
+        reason: circuitCheck.reason,
+        riskLevel: 'CRITICAL',
+        requiresApproval: false,
+      };
+    }
+
+    // ── Stage 0.5: Tool Policy Check ────────────────────────
+    const toolCheck = toolPolicyEnforcer.evaluate(action);
+    if (!toolCheck.allowed) {
+      circuitBreaker.recordFailure('Action blocked by tool policy');
+      return {
+        allowed: false,
+        reason: toolCheck.reason,
+        riskLevel: toolCheck.riskLevel ?? 'HIGH',
+        requiresApproval: false,
+      };
+    }
+
+    // ── Stage 1: Agent status ───────────────────────────────
     // Check if agent is active
     const isActive = await permissionManager.isAgentActive(action.agentId);
     if (!isActive) {
+      circuitBreaker.recordFailure('Inactive agent attempted action');
       return {
         allowed: false,
         reason: 'Agent is not active (suspended or revoked)',
@@ -34,6 +71,7 @@ export class ActionInterceptor {
     // Get agent permissions
     const permissions = await permissionManager.getPermissions(action.agentId);
     if (!permissions) {
+      circuitBreaker.recordFailure('Agent permissions not found');
       return {
         allowed: false,
         reason: 'Agent permissions not found',
@@ -42,6 +80,7 @@ export class ActionInterceptor {
       };
     }
 
+    // ── Stage 2: Permission evaluation ──────────────────────
     // Evaluate based on action category
     let evaluation: Evaluation;
     let riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' = 'LOW';

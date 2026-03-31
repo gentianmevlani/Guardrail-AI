@@ -192,12 +192,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <Linkedin className="w-4 h-4" />
                 LinkedIn
               </a>
-              <button
-                onClick={() => navigator.clipboard.writeText(shareUrl)}
+              <a
+                href={shareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-white/10 text-white/70 hover:bg-white/20 rounded-lg transition-colors"
               >
-                Copy Link
-              </button>
+                <Share2 className="w-4 h-4" />
+                Share
+              </a>
             </div>
           </div>
         </div>

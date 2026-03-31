@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guardrail Sidebar Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <style>
+    /* Simulate VS Code sidebar container */
+    html, body { margin: 0; padding: 0; background: #1e1e1e; }
+    .vscode-frame {
+      max-width: 320px;
+      margin: 0 auto;
+      min-height: 100vh;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+    }
+
+    /* ── Kinetic Archive Theme (from kinetic-archive-styles.ts) ── */
+    :root {
+      --background: #111316;
+      --surface: #111316;
+      --surface-dim: #111316;
+      --surface-container: #1e2023;
+      --surface-container-low: #1a1c1f;
+      --surface-container-high: #282a2d;
+      --surface-container-highest: #333538;
+      --surface-container-lowest: #0c0e11;
+      --surface-bright: #37393d;
+      --surface-variant: #333538;
+      --on-surface: #e2e2e6;
+      --on-surface-variant: #bac9cc;
+      --outline: #849396;
+      --outline-variant: #3b494c;
+      --primary: #c3f5ff;
+      --on-primary: #00363d;
+      --primary-container: #00e5ff;
+      --on-primary-container: #00626e;
+      --primary-fixed: #9cf0ff;
+      --primary-fixed-dim: #00daf3;
+      --inverse-primary: #006875;
+      --secondary: #b0c6ff;
+      --secondary-container: #0068ed;
+      --on-secondary-container: #f2f3ff;
+      --tertiary: #ffe7e6;
+      --tertiary-container: #ffc1c0;
+      --error: #ffb4ab;
+      --error-container: #93000a;
+      --border-subtle: rgba(255,255,255,0.05);
+      --border-light: rgba(255,255,255,0.08);
+      --cyan-glow: #00e5ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+      font-size: 20px;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 10px; }
+
+    body.ka-sidebar-body {
+      font-family: 'Inter', sans-serif;
+      background: var(--surface);
+      color: var(--on-surface);
+      min-height: 100vh;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .ka-sidebar-inner {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .ka-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 12px;
+      background: #111316;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+    .ka-sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+    }
+    .ka-sidebar-brand .material-symbols-outlined { color: var(--cyan-glow); font-size: 22px; }
+    .ka-sidebar-brand h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.03em;
+      color: var(--cyan-glow);
+    }
+    .ka-icon-btn {
+      border: none;
+      background: none;
+      padding: 4px;
+      cursor: pointer;
+      color: #94a3b8;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s;
+    }
+    .ka-icon-btn:hover { color: var(--cyan-glow); }
+    .ka-primary-cta {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(to bottom right, var(--primary-container), var(--secondary-container));
+      color: #001f24;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+      transition: all 0.2s;
+    }
+    .ka-primary-cta:hover { box-shadow: 0 0 30px rgba(0, 229, 255, 0.25); }
+    .ka-primary-cta:active { transform: scale(0.98); }
+    .ka-section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--outline);
+      margin-bottom: 10px;
+    }
+    .ka-quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .ka-quick-tile {
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      cursor: pointer;
+      text-align: left;
+      background: rgba(30, 32, 35, 0.35);
+      backdrop-filter: blur(12px);
+      color: inherit;
+      font: inherit;
+      transition: background 0.15s;
+    }
+    .ka-quick-tile:hover { background: var(--surface-container-high); }
+    .ka-quick-tile .material-symbols-outlined { color: var(--primary-fixed-dim); transition: filter 0.15s; }
+    .ka-quick-tile:hover .material-symbols-outlined { filter: drop-shadow(0 0 8px rgba(0, 218, 243, 0.6)); }
+    .ka-quick-tile span:last-child { font-size: 11px; font-weight: 500; color: var(--on-surface-variant); }
+    .ka-quick-tile:hover span:last-child { color: var(--on-surface); }
+    .ka-nav-list { display: flex; flex-direction: column; gap: 2px; }
+    .ka-nav-row {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border-radius: 8px; border: none; width: 100%; text-align: left;
+      cursor: pointer; font: inherit; color: var(--on-surface-variant);
+      background: transparent; transition: all 0.15s; position: relative;
+    }
+    .ka-nav-row:hover { background: var(--surface-container); color: var(--on-surface); }
+    .ka-nav-row.ka-nav-active {
+      background: var(--surface-container-highest);
+      border-left: 2px solid var(--primary-container);
+      color: var(--primary-fixed);
+      padding-left: 10px;
+    }
+    .ka-nav-row .material-symbols-outlined { font-size: 20px; }
+    .ka-nav-row.ka-nav-active .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      color: var(--primary-fixed);
+    }
+    .ka-nav-ping {
+      margin-left: auto; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary-container);
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+      animation: ka-pulse 2s infinite;
+    }
+    @keyframes ka-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .ka-sidebar-footer {
+      padding: 10px 12px;
+      background: var(--surface-container-lowest);
+      border-top: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .ka-footer-ver {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 10px; color: var(--outline); font-weight: 500;
+    }
+    .ka-footer-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+    }
+
+    /* ── Cyber-Circuit Sidebar Enhancements ── */
+    .ka-cyber-posture {
+      position: relative; overflow: hidden;
+      background: var(--surface-container); border-radius: 12px; padding: 20px;
+    }
+    .ka-cyber-posture::before {
+      content: ''; position: absolute; right: -40px; bottom: -40px;
+      width: 140px; height: 140px; border-radius: 50%;
+      background: rgba(0, 229, 255, 0.06); filter: blur(40px);
+      pointer-events: none; transition: background 0.3s;
+    }
+    .ka-cyber-posture:hover::before { background: rgba(0, 229, 255, 0.12); }
+    .ka-posture-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.2em; color: var(--outline); margin-bottom: 12px;
+    }
+    .ka-posture-score { display: flex; align-items: baseline; gap: 4px; }
+    .ka-posture-score .ka-score-num {
+      font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 800;
+      line-height: 1; color: var(--cyan-glow);
+      filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.45));
+    }
+    .ka-posture-score .ka-score-max {
+      font-family: 'Space Grotesk', sans-serif; font-size: 18px; color: var(--on-surface-variant);
+    }
+    .ka-posture-desc { font-size: 12px; color: #94a3b8; margin-top: 12px; line-height: 1.5; }
+    .ka-posture-desc strong { color: var(--cyan-glow); font-weight: 700; }
+    .ka-posture-meta { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+    .ka-posture-meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .ka-posture-meta-label { font-size: 9px; text-transform: uppercase; font-weight: 700; color: #64748b; }
+    .ka-posture-meta-val {
+      font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; gap: 2px;
+    }
+    .ka-posture-divider { width: 1px; height: 28px; background: rgba(255, 255, 255, 0.06); }
+
+    .ka-vuln-card {
+      background: var(--surface-container); border-radius: 12px; padding: 16px;
+      transition: background 0.2s;
+    }
+    .ka-vuln-card:hover { background: var(--surface-container-high); }
+    .ka-vuln-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+    .ka-vuln-header .material-symbols-outlined {
+      color: var(--cyan-glow); background: rgba(0, 229, 255, 0.1);
+      padding: 6px; border-radius: 6px; font-size: 18px;
+    }
+    .ka-vuln-ref { font-size: 9px; font-family: monospace; color: #475569; }
+    .ka-vuln-title {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px;
+      color: var(--on-surface); margin-bottom: 12px;
+    }
+    .ka-vuln-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .ka-vuln-row:last-child { margin-bottom: 0; }
+    .ka-vuln-row-label { font-size: 11px; color: #94a3b8; min-width: 50px; }
+    .ka-vuln-bar-track { flex: 1; height: 4px; background: var(--surface-container-highest); border-radius: 999px; overflow: hidden; }
+    .ka-vuln-bar-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+    .ka-vuln-row-count { font-size: 11px; font-family: monospace; font-weight: 700; min-width: 20px; text-align: right; }
+
+    .ka-checks-card { background: var(--surface-container); border-radius: 12px; padding: 16px; transition: background 0.2s; }
+    .ka-checks-card:hover { background: var(--surface-container-high); }
+    .ka-checks-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+    .ka-checks-header .material-symbols-outlined {
+      color: var(--secondary); background: rgba(176, 198, 255, 0.1);
+      padding: 6px; border-radius: 6px; font-size: 18px;
+    }
+    .ka-checks-badge { font-size: 9px; font-family: monospace; color: #475569; }
+    .ka-checks-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; color: var(--on-surface); margin-bottom: 12px; }
+    .ka-check-item { display: flex; align-items: center; gap: 8px; font-size: 11px; padding: 6px 0; }
+    .ka-check-item .material-symbols-outlined { font-size: 16px; }
+    .ka-check-name { flex: 1; color: #94a3b8; }
+    .ka-check-time { font-size: 9px; font-family: monospace; color: #475569; }
+
+    .ka-scans-card { background: var(--surface-container); border-radius: 12px; padding: 16px; position: relative; overflow: hidden; transition: background 0.2s; }
+    .ka-scans-card:hover { background: var(--surface-container-high); }
+    .ka-scans-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+    .ka-scans-header .material-symbols-outlined {
+      color: var(--primary); background: rgba(195, 245, 255, 0.1);
+      padding: 6px; border-radius: 6px; font-size: 18px;
+    }
+    .ka-scans-running { padding: 2px 8px; border-radius: 999px; background: rgba(0, 229, 255, 0.15); color: var(--cyan-glow); font-size: 9px; font-weight: 800; }
+    .ka-scans-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; color: var(--on-surface); margin-bottom: 12px; }
+    .ka-scan-progress { padding: 10px; background: var(--surface-container-lowest); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 8px; margin-bottom: 6px; }
+    .ka-scan-progress:last-child { margin-bottom: 0; }
+    .ka-scan-progress-head { display: flex; justify-content: space-between; font-size: 9px; text-transform: uppercase; font-weight: 700; color: #64748b; margin-bottom: 6px; }
+    .ka-scan-progress-bar { height: 4px; width: 100%; background: #0f172a; border-radius: 999px; overflow: hidden; }
+    .ka-scan-progress-fill { height: 100%; background: var(--cyan-glow); border-radius: 999px; transition: width 0.6s ease; }
+
+    .ka-feed-card { background: var(--surface-container-lowest); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.04); overflow: hidden; }
+    .ka-feed-header { padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; justify-content: space-between; background: var(--surface-container-low); }
+    .ka-feed-header-left { display: flex; align-items: center; gap: 8px; }
+    .ka-feed-header-left .material-symbols-outlined { font-size: 14px; color: #64748b; }
+    .ka-feed-title { font-family: 'Space Grotesk', sans-serif; font-size: 9px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.15em; color: #94a3b8; }
+    .ka-feed-status { display: flex; align-items: center; gap: 8px; font-size: 9px; font-family: monospace; color: #475569; }
+    .ka-feed-dot-live { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
+    .ka-feed-body { padding: 10px 14px; font-family: monospace; font-size: 10px; line-height: 1.7; max-height: 150px; overflow-y: auto; }
+    .ka-feed-line { display: flex; gap: 8px; transition: color 0.15s; }
+    .ka-feed-line:hover .ka-feed-msg { color: var(--on-surface); }
+    .ka-feed-ts { color: #334155; white-space: nowrap; }
+    .ka-feed-level { font-weight: 700; white-space: nowrap; }
+    .ka-feed-level-info { color: var(--cyan-glow); }
+    .ka-feed-level-warn { color: var(--secondary); }
+    .ka-feed-level-fail { color: var(--error); }
+    .ka-feed-msg { color: #94a3b8; }
+  </style>
+</head>
+<body class="ka-sidebar-body">
+  <div class="vscode-frame" style="display:flex;flex-direction:column;min-height:100vh;">
+  <header class="ka-sidebar-header">
+    <button type="button" class="ka-sidebar-brand" title="Open full dashboard">
+      <span class="material-symbols-outlined">shield_lock</span>
+      <h1>GUARDRAIL</h1>
+    </button>
+    <div style="display:flex;align-items:center;gap:4px;">
+      <button type="button" class="ka-icon-btn" title="Scan workspace" aria-label="Scan">
+        <span class="material-symbols-outlined" style="font-size:18px;">search_check</span>
+      </button>
+      <button type="button" class="ka-icon-btn" title="Extension settings" aria-label="Settings">
+        <span class="material-symbols-outlined" style="font-size:18px;">settings</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="ka-sidebar-inner">
+    <!-- Security Posture Hero -->
+    <div class="ka-cyber-posture">
+      <div class="ka-posture-label">Security Posture</div>
+      <div class="ka-posture-score">
+        <span class="ka-score-num">94</span>
+        <span class="ka-score-max">/100</span>
+      </div>
+      <p class="ka-posture-desc">Infrastructure integrity is within <strong>optimal</strong> parameters. 2 recent mitigations applied.</p>
+      <div class="ka-posture-meta">
+        <div class="ka-posture-meta-item">
+          <span class="ka-posture-meta-label">Trend</span>
+          <span class="ka-posture-meta-val" style="color:var(--cyan-glow);">
+            +2.4%
+            <span class="material-symbols-outlined" style="font-size:14px;">trending_up</span>
+          </span>
+        </div>
+        <div class="ka-posture-divider"></div>
+        <div class="ka-posture-meta-item">
+          <span class="ka-posture-meta-label">Risk Level</span>
+          <span class="ka-posture-meta-val" style="color:var(--secondary);">Minimal</span>
+        </div>
+        <div class="ka-posture-divider"></div>
+        <div class="ka-posture-meta-item">
+          <span class="ka-posture-meta-label">Ship</span>
+          <span class="ka-posture-meta-val" style="color:var(--cyan-glow);">PASSED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vulnerability Summary -->
+    <div class="ka-vuln-card" style="cursor:pointer;">
+      <div class="ka-vuln-header">
+        <span class="material-symbols-outlined">shield</span>
+        <span class="ka-vuln-ref">TOTAL: 43</span>
+      </div>
+      <div class="ka-vuln-title">Vulnerability Summary</div>
+      <div class="ka-vuln-row">
+        <span class="ka-vuln-row-label">Critical</span>
+        <div class="ka-vuln-bar-track"><div class="ka-vuln-bar-fill" style="width:15%;background:var(--error);"></div></div>
+        <span class="ka-vuln-row-count" style="color:var(--error);">03</span>
+      </div>
+      <div class="ka-vuln-row">
+        <span class="ka-vuln-row-label">High</span>
+        <div class="ka-vuln-bar-track"><div class="ka-vuln-bar-fill" style="width:45%;background:var(--secondary);"></div></div>
+        <span class="ka-vuln-row-count" style="color:var(--secondary);">12</span>
+      </div>
+      <div class="ka-vuln-row">
+        <span class="ka-vuln-row-label">Medium</span>
+        <div class="ka-vuln-bar-track"><div class="ka-vuln-bar-fill" style="width:70%;background:#94a3b8;"></div></div>
+        <span class="ka-vuln-row-count" style="color:#94a3b8;">28</span>
+      </div>
+    </div>
+
+    <!-- Recent Ship Checks -->
+    <div class="ka-checks-card">
+      <div class="ka-checks-header">
+        <span class="material-symbols-outlined">package_2</span>
+        <span class="ka-checks-badge">AUTO-RUN: ACTIVE</span>
+      </div>
+      <div class="ka-checks-title">Recent Ship Checks</div>
+      <div class="ka-check-item">
+        <span class="material-symbols-outlined" style="color:#22c55e;font-variation-settings:'FILL' 1;">check_circle</span>
+        <span class="ka-check-name">Workspace Scan</span>
+        <span class="ka-check-time">2m ago</span>
+      </div>
+      <div class="ka-check-item">
+        <span class="material-symbols-outlined" style="color:#22c55e;font-variation-settings:'FILL' 1;">check_circle</span>
+        <span class="ka-check-name">Dependency Audit</span>
+        <span class="ka-check-time">14m ago</span>
+      </div>
+      <div class="ka-check-item">
+        <span class="material-symbols-outlined" style="color:var(--error);font-variation-settings:'FILL' 1;">error</span>
+        <span class="ka-check-name">Pre-commit Gate</span>
+        <span class="ka-check-time">1h ago</span>
+      </div>
+    </div>
+
+    <!-- Active Scans -->
+    <div class="ka-scans-card">
+      <div class="ka-scans-header">
+        <span class="material-symbols-outlined">radar</span>
+        <span class="ka-scans-running">MONITORING</span>
+      </div>
+      <div class="ka-scans-title">Active Scans</div>
+      <div class="ka-scan-progress">
+        <div class="ka-scan-progress-head"><span>Security Sweep</span><span>84%</span></div>
+        <div class="ka-scan-progress-bar"><div class="ka-scan-progress-fill" style="width:84%;"></div></div>
+      </div>
+      <div class="ka-scan-progress" style="opacity:0.55;">
+        <div class="ka-scan-progress-head"><span>Deep Dependency Check</span><span>12%</span></div>
+        <div class="ka-scan-progress-bar"><div class="ka-scan-progress-fill" style="width:12%;"></div></div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <section>
+      <h2 class="ka-section-label">Quick Actions</h2>
+      <div class="ka-quick-grid">
+        <button type="button" class="ka-quick-tile">
+          <span class="material-symbols-outlined">search_check</span>
+          <span>Scan Workspace</span>
+        </button>
+        <button type="button" class="ka-quick-tile">
+          <span class="material-symbols-outlined">rocket_launch</span>
+          <span>Run Ship Check</span>
+        </button>
+        <button type="button" class="ka-quick-tile">
+          <span class="material-symbols-outlined">auto_awesome</span>
+          <span>Verify AI Output</span>
+        </button>
+        <button type="button" class="ka-quick-tile">
+          <span class="material-symbols-outlined">visibility</span>
+          <span>Show Findings</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Enterprise Panels -->
+    <section>
+      <h2 class="ka-section-label">Enterprise Panels</h2>
+      <nav class="ka-nav-list" aria-label="Enterprise panels">
+        <button type="button" class="ka-nav-row ka-nav-active">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">security_update_good</span>
+          <span style="font-size:13px;font-weight:600;">Security Scanner</span>
+          <span class="ka-nav-ping" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="ka-nav-row">
+          <span class="material-symbols-outlined">verified_user</span>
+          <span style="font-size:13px;font-weight:500;">Compliance</span>
+        </button>
+        <button type="button" class="ka-nav-row">
+          <span class="material-symbols-outlined">speed</span>
+          <span style="font-size:13px;font-weight:500;">Performance</span>
+        </button>
+        <button type="button" class="ka-nav-row">
+          <span class="material-symbols-outlined">terminal</span>
+          <span style="font-size:13px;font-weight:500;">MDC Generator</span>
+        </button>
+        <button type="button" class="ka-nav-row">
+          <span class="material-symbols-outlined">dynamic_form</span>
+          <span style="font-size:13px;font-weight:500;">Change Impact</span>
+        </button>
+        <button type="button" class="ka-nav-row">
+          <span class="material-symbols-outlined">psychology</span>
+          <span style="font-size:13px;font-weight:500;">AI Explainer</span>
+        </button>
+        <button type="button" class="ka-nav-row">
+          <span class="material-symbols-outlined">groups</span>
+          <span style="font-size:13px;font-weight:500;">Team Collaboration</span>
+        </button>
+        <button type="button" class="ka-nav-row">
+          <span class="material-symbols-outlined">lan</span>
+          <span style="font-size:13px;font-weight:500;">Production Integrity</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- Live Status Feed -->
+    <section>
+      <div class="ka-feed-card">
+        <div class="ka-feed-header">
+          <div class="ka-feed-header-left">
+            <span class="material-symbols-outlined">list_alt</span>
+            <span class="ka-feed-title">Live Status Feed</span>
+          </div>
+          <div class="ka-feed-status">
+            <span class="ka-feed-dot-live"></span>
+            <span>STREAMING</span>
+          </div>
+        </div>
+        <div class="ka-feed-body">
+          <div class="ka-feed-line">
+            <span class="ka-feed-ts">[14:22:01]</span>
+            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
+            <span class="ka-feed-msg">Heartbeat signal received. Latency 14ms.</span>
+          </div>
+          <div class="ka-feed-line">
+            <span class="ka-feed-ts">[14:22:04]</span>
+            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
+            <span class="ka-feed-msg">Container scan started on Registry.</span>
+          </div>
+          <div class="ka-feed-line">
+            <span class="ka-feed-ts">[14:22:08]</span>
+            <span class="ka-feed-level ka-feed-level-warn">WARN:</span>
+            <span class="ka-feed-msg">Anomalous access pattern detected.</span>
+          </div>
+          <div class="ka-feed-line">
+            <span class="ka-feed-ts">[14:22:12]</span>
+            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
+            <span class="ka-feed-msg">Posture re-calc complete. OPTIMAL.</span>
+          </div>
+          <div class="ka-feed-line">
+            <span class="ka-feed-ts">[14:22:15]</span>
+            <span class="ka-feed-level ka-feed-level-fail">FAIL:</span>
+            <span class="ka-feed-msg">Integrity check failed on backup.</span>
+          </div>
+          <div class="ka-feed-line">
+            <span class="ka-feed-ts">[14:22:20]</span>
+            <span class="ka-feed-level ka-feed-level-info">INFO:</span>
+            <span class="ka-feed-msg">Policy pushed to edge nodes.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deploy Scanner CTA -->
+    <section>
+      <button type="button" class="ka-primary-cta">
+        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 1, 'wght' 400;">radar</span>
+        Deploy Scanner
+      </button>
+    </section>
+  </div>
+
+  <footer class="ka-sidebar-footer">
+    <div class="ka-footer-ver">
+      <span class="ka-footer-dot" aria-hidden="true"></span>
+      <span>V2.0.0-STABLE</span>
+    </div>
+    <button type="button" class="ka-icon-btn" title="Documentation" aria-label="Documentation">
+      <span class="material-symbols-outlined" style="font-size:18px;">info</span>
+    </button>
+  </footer>
+  </div>
+</body>
+</html>

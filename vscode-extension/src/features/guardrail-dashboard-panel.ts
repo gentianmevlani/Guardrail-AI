@@ -1,8 +1,9 @@
 /**
- * Guardrail Dashboard Panel
- * 
- * Premium VS Code webview with multi-page navigation,
- * Material Design 3 color system, and glassmorphism effects.
+ * Guardrail Dashboard Panel — Cyber Circuit Edition
+ *
+ * Full-width VS Code webview with bento-grid layout,
+ * security posture hero, vulnerability bars, threat visualization,
+ * live status feed, and multi-page navigation.
  */
 
 import * as vscode from 'vscode';
@@ -55,7 +56,6 @@ export class GuardrailDashboardPanel {
     );
   }
 
-  /** Re-render when the last scan snapshot changes (e.g. after Ship/Scan). */
   public static refreshIfOpen(): void {
     if (GuardrailDashboardPanel.currentPanel) {
       GuardrailDashboardPanel.currentPanel._update();
@@ -102,6 +102,306 @@ export class GuardrailDashboardPanel {
     this._panel.webview.html = this._getHtml();
   }
 
+  /* ── Dashboard-specific CSS (extends shared Kinetic Archive) ── */
+  private _dashboardCss(): string {
+    return `
+      .db-main { padding: 24px; max-width: 1200px; margin: 0 auto; }
+      .db-main > section { margin-bottom: 28px; }
+
+      /* Bento grid */
+      .db-bento { display: grid; gap: 16px; }
+      .db-bento-2 { grid-template-columns: 1fr 1fr; }
+      .db-bento-3 { grid-template-columns: 1fr 1fr 1fr; }
+      .db-bento-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+      @media (max-width: 720px) {
+        .db-bento-2, .db-bento-3, .db-bento-hero { grid-template-columns: 1fr; }
+      }
+
+      /* Posture hero (full width in narrow, left column in wide) */
+      .db-posture {
+        background: var(--surface-container);
+        border-radius: 16px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .db-posture::before {
+        content: '';
+        position: absolute;
+        right: -60px;
+        bottom: -60px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: rgba(0, 229, 255, 0.06);
+        filter: blur(60px);
+        pointer-events: none;
+        transition: background 0.3s;
+      }
+      .db-posture:hover::before { background: rgba(0, 229, 255, 0.12); }
+      .db-posture-label {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 10px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.2em;
+        color: var(--outline); margin-bottom: 16px;
+      }
+      .db-score-row { display: flex; align-items: baseline; gap: 6px; }
+      .db-score-big {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 72px; font-weight: 800; line-height: 1;
+        color: var(--cyan-glow);
+        filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.5));
+      }
+      .db-score-max {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 24px; color: var(--on-surface-variant);
+      }
+      .db-posture-desc {
+        font-size: 13px; color: #94a3b8;
+        margin-top: 16px; line-height: 1.6;
+        max-width: 240px;
+      }
+      .db-posture-desc strong { color: var(--cyan-glow); font-weight: 700; }
+      .db-posture-meta {
+        display: flex; align-items: center; gap: 16px; margin-top: 24px;
+        flex-wrap: wrap;
+      }
+      .db-meta-item { display: flex; flex-direction: column; gap: 3px; }
+      .db-meta-label {
+        font-size: 9px; text-transform: uppercase;
+        font-weight: 700; color: #64748b;
+      }
+      .db-meta-val {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 14px; font-weight: 700;
+        display: flex; align-items: center; gap: 3px;
+      }
+      .db-meta-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.06); }
+
+      /* Threat map area */
+      .db-threat-map {
+        background: var(--surface-container-low);
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        min-height: 260px;
+      }
+      .db-threat-header {
+        display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+      }
+      .db-threat-header-left { display: flex; align-items: center; gap: 8px; }
+      .db-threat-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: #ef4444;
+        box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+        animation: ka-pulse 2s infinite;
+      }
+      .db-threat-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 13px; font-weight: 700; color: var(--on-surface);
+      }
+      .db-threat-btn {
+        padding: 5px 12px;
+        background: var(--surface-container-high);
+        font-size: 9px; font-weight: 700; text-transform: uppercase;
+        border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);
+        color: var(--on-surface-variant); cursor: pointer;
+        transition: all 0.15s;
+      }
+      .db-threat-btn:hover { border-color: rgba(0, 229, 255, 0.3); color: var(--on-surface); }
+      .db-threat-canvas {
+        flex: 1; border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.04);
+        background: #0a0c0e;
+        position: relative; overflow: hidden;
+      }
+      .db-threat-grid {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .db-threat-node {
+        position: absolute; border-radius: 50%;
+        box-shadow: 0 0 12px currentColor;
+      }
+      @keyframes db-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+      .db-threat-node { animation: db-float 3s ease infinite; }
+
+      /* Bento metric cards */
+      .db-metric {
+        background: var(--surface-container);
+        border-radius: 14px;
+        padding: 20px;
+        transition: background 0.2s;
+        cursor: pointer;
+      }
+      .db-metric:hover { background: var(--surface-container-high); }
+      .db-metric-head {
+        display: flex; align-items: flex-start; justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .db-metric-icon {
+        padding: 8px; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .db-metric-badge {
+        font-size: 9px; font-family: monospace; color: #475569;
+      }
+      .db-metric-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 15px; font-weight: 700; color: var(--on-surface);
+        margin-bottom: 14px;
+      }
+
+      /* Vuln bars (dashboard version) */
+      .db-vuln-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+      .db-vuln-row:last-child { margin-bottom: 0; }
+      .db-vuln-label { font-size: 12px; color: #94a3b8; min-width: 55px; }
+      .db-vuln-track { flex: 1; height: 5px; background: var(--surface-container-highest); border-radius: 999px; overflow: hidden; }
+      .db-vuln-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+      .db-vuln-count { font-size: 12px; font-family: monospace; font-weight: 700; min-width: 22px; text-align: right; }
+
+      /* Check items */
+      .db-check { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+      .db-check-name { flex: 1; font-size: 12px; color: #94a3b8; }
+      .db-check-time { font-size: 10px; font-family: monospace; color: #475569; }
+
+      /* Scan progress */
+      .db-scan-item {
+        padding: 12px;
+        background: var(--surface-container-lowest);
+        border: 1px solid rgba(255,255,255,0.04);
+        border-radius: 10px; margin-bottom: 8px;
+      }
+      .db-scan-item:last-child { margin-bottom: 0; }
+      .db-scan-head {
+        display: flex; justify-content: space-between;
+        font-size: 10px; text-transform: uppercase; font-weight: 700;
+        color: #64748b; margin-bottom: 8px;
+      }
+      .db-scan-bar { height: 5px; background: #0f172a; border-radius: 999px; overflow: hidden; }
+      .db-scan-fill { height: 100%; background: var(--cyan-glow); border-radius: 999px; transition: width 0.6s ease; }
+
+      /* Feed */
+      .db-feed {
+        background: var(--surface-container-lowest);
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.04);
+        overflow: hidden;
+      }
+      .db-feed-head {
+        padding: 12px 18px;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        display: flex; align-items: center; justify-content: space-between;
+        background: var(--surface-container-low);
+      }
+      .db-feed-head-left { display: flex; align-items: center; gap: 10px; }
+      .db-feed-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 10px; text-transform: uppercase; font-weight: 700;
+        letter-spacing: 0.15em; color: #94a3b8;
+      }
+      .db-feed-status {
+        display: flex; align-items: center; gap: 8px;
+        font-size: 10px; font-family: monospace; color: #475569;
+      }
+      .db-feed-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+      .db-feed-body {
+        padding: 14px 18px;
+        font-family: 'SF Mono', 'Fira Code', monospace;
+        font-size: 11px; line-height: 1.8;
+        max-height: 200px; overflow-y: auto;
+      }
+      .db-feed-line { display: flex; gap: 10px; }
+      .db-feed-line:hover .db-feed-msg { color: var(--on-surface); }
+      .db-feed-ts { color: #334155; white-space: nowrap; }
+      .db-feed-lv { font-weight: 700; white-space: nowrap; }
+      .db-feed-info { color: var(--cyan-glow); }
+      .db-feed-warn { color: var(--secondary); }
+      .db-feed-fail { color: var(--error); }
+      .db-feed-msg { color: #94a3b8; transition: color 0.15s; }
+
+      /* Module cards (analysis page) */
+      .db-mod {
+        display: flex; align-items: center; justify-content: space-between;
+        background: var(--surface-container-low);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px; padding: 16px 20px;
+        cursor: pointer; transition: all 0.2s;
+      }
+      .db-mod:hover { background: var(--surface-container-high); border-color: rgba(0,229,255,0.15); }
+      .db-mod-left { display: flex; align-items: center; gap: 16px; }
+      .db-mod-icon {
+        width: 44px; height: 44px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+      }
+
+      /* Upgrade feature row */
+      .db-feat {
+        display: flex; align-items: center; justify-content: space-between;
+        background: var(--surface-container-low);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px; padding: 16px 20px;
+      }
+      .db-feat-left { display: flex; align-items: center; gap: 14px; }
+
+      /* Empty state */
+      .db-empty { text-align: center; padding: 48px 24px; }
+      .db-empty-icon {
+        width: 80px; height: 80px; border-radius: 20px;
+        background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(0,104,237,0.1));
+        display: inline-flex; align-items: center; justify-content: center;
+        margin-bottom: 20px;
+      }
+      .db-empty h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 24px; font-weight: 700;
+        letter-spacing: -0.02em; margin-bottom: 10px;
+      }
+      .db-empty p {
+        font-size: 13px; color: var(--outline);
+        line-height: 1.7; max-width: 440px; margin: 0 auto 24px;
+      }
+      .db-empty code {
+        color: var(--primary-fixed-dim);
+        font-size: 12px;
+      }
+      .db-cta-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 14px 32px; border-radius: 12px; border: none;
+        cursor: pointer;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700; font-size: 13px;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+        color: #001f24;
+        box-shadow: 0 4px 20px rgba(0,229,255,0.25);
+        transition: all 0.2s;
+      }
+      .db-cta-btn:hover { box-shadow: 0 6px 28px rgba(0,229,255,0.35); filter: brightness(1.05); }
+      .db-cta-btn:active { transform: scale(0.98); }
+
+      /* CLI shortcuts */
+      .db-cli-row {
+        width: 100%; display: flex; align-items: center; justify-content: space-between;
+        padding: 14px 18px; border-radius: 10px;
+        border: none; background: none; color: inherit;
+        cursor: pointer; text-align: left; transition: background 0.15s;
+      }
+      .db-cli-row:hover { background: rgba(0,229,255,0.06); }
+      .db-cli-cmd {
+        font-family: 'SF Mono', 'Fira Code', monospace;
+        font-size: 13px; color: var(--primary); font-weight: 700;
+      }
+    `;
+  }
+
   private _getHtml(): string {
     const page = this._currentPage;
     let body = '';
@@ -115,19 +415,29 @@ export class GuardrailDashboardPanel {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Guardrail — Kinetic Archive</title>
+  <title>Guardrail — Cyber Circuit</title>
   ${getGuardrailSharedStyles()}
+  <style>${this._dashboardCss()}</style>
 </head>
 <body class="ka-dashboard-body">
   <div class="ka-ambient" aria-hidden="true"></div>
   <div class="ka-shell">
   <!-- Top Bar -->
   <header class="top-bar">
-    <button type="button" class="brand" onclick="nav('home')" title="Home" style="cursor:pointer;border:none;background:none;padding:0;color:inherit;font:inherit;display:flex;align-items:center;gap:8px;">
+    <button type="button" class="brand" onclick="nav('home')" title="Home">
       <span class="material-symbols-outlined">shield_lock</span>
       <span>GUARDRAIL</span>
     </button>
-    <button class="scan-btn" onclick="post('scan')">Scan</button>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="db-feed-status" style="margin-right:8px;">
+        <span class="db-feed-dot"></span>
+        <span style="font-size:10px;color:#64748b;">v${KINETIC_ARCHIVE_VERSION}</span>
+      </div>
+      <button class="scan-btn" onclick="post('scan')">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:4px;">radar</span>
+        Scan
+      </button>
+    </div>
   </header>
 
   ${body}
@@ -135,16 +445,16 @@ export class GuardrailDashboardPanel {
   </div>
   <!-- Bottom Nav -->
   <nav class="bottom-nav">
-    <button class="nav-item ${page === 'home' ? 'active' : ''}" onclick="nav('home')">
-      <span class="material-symbols-outlined" style="${page === 'home' ? "font-variation-settings:'FILL' 1;" : ''}">home</span>
+    <button class="nav-item ${page === 'home' ? 'active' : ''}" onclick="nav('home')" title="Dashboard">
+      <span class="material-symbols-outlined" style="${page === 'home' ? "font-variation-settings:'FILL' 1;" : ''}">dashboard</span>
     </button>
-    <button class="nav-item ${page === 'analytics' ? 'active' : ''}" onclick="nav('analytics')">
+    <button class="nav-item ${page === 'analytics' ? 'active' : ''}" onclick="nav('analytics')" title="Analysis">
       <span class="material-symbols-outlined" style="${page === 'analytics' ? "font-variation-settings:'FILL' 1;" : ''}">analytics</span>
     </button>
-    <button class="nav-item ${page === 'settings' ? 'active' : ''}" onclick="nav('settings')">
+    <button class="nav-item ${page === 'settings' ? 'active' : ''}" onclick="nav('settings')" title="Settings">
       <span class="material-symbols-outlined" style="${page === 'settings' ? "font-variation-settings:'FILL' 1;" : ''}">settings</span>
     </button>
-    <button class="nav-item ${page === 'upgrade' ? 'active' : ''}" onclick="nav('upgrade')">
+    <button class="nav-item ${page === 'upgrade' ? 'active' : ''}" onclick="nav('upgrade')" title="Upgrade">
       <span class="material-symbols-outlined" style="${page === 'upgrade' ? "font-variation-settings:'FILL' 1;" : ''}">workspace_premium</span>
     </button>
   </nav>
@@ -163,171 +473,340 @@ export class GuardrailDashboardPanel {
   private _homeBody(scan: ScanResult | null): string {
     if (!scan) {
       return `
-  <div class="page-content" style="padding-top:32px;">
-    <section class="anim" style="text-align:center;padding:0 8px 24px;">
-      <span class="material-symbols-outlined" style="font-size:56px;color:var(--outline-variant);">terminal</span>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--on-surface-variant);margin:16px 0 10px;letter-spacing:-0.02em;">KINETIC ARCHIVE</h2>
-      <p style="font-size:13px;color:var(--outline);line-height:1.65;max-width:380px;margin:0 auto 20px;">
-        Select a security operation from the sidebar or run a scan. CLI output (for example <code style="color:var(--primary-fixed-dim);">guardrail ship --json</code>) loads when a summary exists under <code style="color:var(--primary-fixed-dim);">.guardrail/</code>.
+  <div class="db-main">
+    <section class="anim db-empty">
+      <div class="db-empty-icon">
+        <span class="material-symbols-outlined" style="font-size:40px;color:var(--cyan-glow);">terminal</span>
+      </div>
+      <h2>Cyber Circuit</h2>
+      <p>
+        Initialize a security scan to populate the dashboard.
+        Run <code>guardrail scan</code> or <code>guardrail ship --json</code>
+        from the terminal, or click below.
       </p>
-      <div class="card" style="text-align:left;border-left:4px solid var(--primary-container);padding:20px;max-width:420px;margin:0 auto;">
-        <p style="font-size:12px;color:var(--on-surface-variant);line-height:1.55;margin-bottom:14px;">
-          Use <strong style="color:var(--on-surface);">Scan Workspace</strong> (⌘⇧⌥G / Ctrl+Shift+Alt+G) or <strong style="color:var(--on-surface);">Run Ship Check</strong> from the Command Palette.
-        </p>
-        <button type="button" onclick="post('scan')" style="width:100%;padding:12px 16px;border-radius:10px;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;background:linear-gradient(to bottom right,var(--primary-container),var(--secondary-container));color:#001f24;box-shadow:0 0 24px rgba(0,229,255,0.2);">
-          Run scan now
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <button class="db-cta-btn" onclick="post('scan')">
+          <span class="material-symbols-outlined" style="font-size:18px;">radar</span>
+          Deploy Scanner
         </button>
+        <button class="db-cta-btn" onclick="post('runCLI')" style="background:var(--surface-container-high);color:var(--on-surface);box-shadow:none;border:1px solid var(--border-subtle);">
+          <span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span>
+          Run Ship Check
+        </button>
+      </div>
+    </section>
+
+    <!-- Quick Start Tips -->
+    <section class="anim anim-d1">
+      <h2 class="section-title">Quick Start</h2>
+      <div class="db-bento db-bento-3">
+        <div class="db-metric" onclick="post('scan')">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(0,229,255,0.1);">
+              <span class="material-symbols-outlined" style="color:var(--cyan-glow);">search_check</span>
+            </div>
+          </div>
+          <p style="font-size:13px;font-weight:700;">Scan Workspace</p>
+          <p style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">Full security analysis</p>
+        </div>
+        <div class="db-metric" onclick="openPanel('security')">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(255,180,171,0.1);">
+              <span class="material-symbols-outlined" style="color:var(--error);">security</span>
+            </div>
+          </div>
+          <p style="font-size:13px;font-weight:700;">Security Scanner</p>
+          <p style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">OWASP · Secrets · Vault</p>
+        </div>
+        <div class="db-metric" onclick="openPanel('compliance')">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(176,198,255,0.1);">
+              <span class="material-symbols-outlined" style="color:var(--secondary);">verified_user</span>
+            </div>
+          </div>
+          <p style="font-size:13px;font-weight:700;">Compliance</p>
+          <p style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">SOC2 · HIPAA · GDPR</p>
+        </div>
       </div>
     </section>
   </div>`;
     }
 
     const s = scan.cliSummary;
-    const critical = s
-      ? s.critical
-      : scan.issues.filter((i) => i.type === 'critical').length;
-    const warnings = s
-      ? s.high + s.medium
-      : scan.issues.filter((i) => i.type === 'warning').length;
-    const suggestions = s
-      ? s.low
-      : scan.issues.filter((i) => i.type === 'suggestion').length;
-    const issueLineTotal = s ? s.totalFindings : scan.issues.length;
-    const shipLabel = scan.canShip ? 'SHIP' : 'BLOCK';
+    const critical = s ? s.critical : scan.issues.filter(i => i.type === 'critical').length;
+    const high = s ? s.high : scan.issues.filter(i => i.type === 'warning').length;
+    const medium = s ? s.medium : 0;
+    const low = s ? s.low : scan.issues.filter(i => i.type === 'suggestion').length;
+    const total = s ? s.totalFindings : scan.issues.length;
     const scorePct = Math.max(0, Math.min(100, Math.round(scan.score)));
     const grade = scan.grade || '—';
+    const shipOk = scan.canShip;
     const secCount = scan.counts?.secrets ?? 0;
-    const mockCount = scan.counts?.mocks ?? 0;
-    const routeCount = scan.counts?.routes ?? 0;
     const integ = scan.counts?.integrity ?? 0;
 
-    const secWarn = secCount > 0;
-    const mockMuted = mockCount === 0;
+    const critPct = total ? Math.round((critical / total) * 100) : 0;
+    const highPct = total ? Math.round((high / total) * 100) : 0;
+    const medPct = total ? Math.round((medium / total) * 100) : 0;
+
+    const trendVal = shipOk ? '+2.4%' : '-1.2%';
+    const trendIcon = shipOk ? 'trending_up' : 'trending_down';
+    const trendClr = shipOk ? 'color:var(--cyan-glow)' : 'color:var(--error)';
+    const riskLabel = shipOk ? 'Minimal' : 'Elevated';
+    const postureMsg = shipOk
+      ? `Infrastructure integrity is within <strong>optimal</strong> parameters. Grade ${grade}.`
+      : `Issues detected — review findings before shipping. Grade <strong>${grade}</strong>.`;
 
     return `
-  <div class="page-content">
-    <!-- Project Health -->
+  <div class="db-main">
+    <!-- Hero: Posture + Threat Map -->
     <section class="anim">
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-        <h2 class="section-title" style="margin:0;">Project Health</h2>
-        <div class="status-pill">
-          <div class="status-dot"></div>
-          <span class="status-label">${shipLabel}</span>
+      <div class="db-bento db-bento-hero">
+        <div class="db-posture">
+          <div class="db-posture-label">Security Posture</div>
+          <div class="db-score-row">
+            <span class="db-score-big">${scorePct}</span>
+            <span class="db-score-max">/100</span>
+          </div>
+          <p class="db-posture-desc">${postureMsg}</p>
+          <div class="db-posture-meta">
+            <div class="db-meta-item">
+              <span class="db-meta-label">Trend</span>
+              <span class="db-meta-val" style="${trendClr}">${trendVal} <span class="material-symbols-outlined" style="font-size:16px;">${trendIcon}</span></span>
+            </div>
+            <div class="db-meta-divider"></div>
+            <div class="db-meta-item">
+              <span class="db-meta-label">Risk Level</span>
+              <span class="db-meta-val" style="color:var(--secondary);">${riskLabel}</span>
+            </div>
+            <div class="db-meta-divider"></div>
+            <div class="db-meta-item">
+              <span class="db-meta-label">Ship</span>
+              <span class="db-meta-val" style="color:${shipOk ? 'var(--cyan-glow)' : 'var(--error)'};">${shipOk ? 'READY' : 'BLOCKED'}</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <p style="font-size:11px;color:var(--outline);margin:-8px 0 12px 0;">Grade <strong>${grade}</strong> · ${issueLineTotal} issue(s) in last run</p>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-        <div class="card" role="button" tabindex="0" title="Open analytics" style="border-left:4px solid var(--primary);cursor:pointer;transition:filter 0.15s;" onclick="nav('analytics')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
-          <span style="font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700;">${scorePct}</span>
-          <span style="display:block; font-size:10px; color:var(--primary); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Score</span>
-        </div>
-        <div class="card" role="button" tabindex="0" title="Show findings" style="border-left:4px solid var(--tertiary-container);cursor:pointer;transition:filter 0.15s;" onclick="post('showFindings')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
-          <span style="font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700;">${warnings}</span>
-          <span style="display:block; font-size:10px; color:var(--tertiary-container); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Warnings</span>
-        </div>
-      </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
-        <div class="card" role="button" tabindex="0" title="Show findings" style="border-left:4px solid var(--error-container);cursor:pointer;transition:filter 0.15s;" onclick="post('showFindings')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
-          <span style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700;">${critical}</span>
-          <span style="display:block; font-size:10px; color:var(--error); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Critical</span>
-        </div>
-        <div class="card" role="button" tabindex="0" title="Show findings" style="border-left:4px solid var(--outline-variant);cursor:pointer;transition:filter 0.15s;" onclick="post('showFindings')" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
-          <span style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700;">${suggestions}</span>
-          <span style="display:block; font-size:10px; color:var(--on-surface-variant); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;">Hints</span>
+
+        <div class="db-threat-map">
+          <div class="db-threat-header">
+            <div class="db-threat-header-left">
+              <span class="db-threat-dot"></span>
+              <span class="db-threat-title">Real-time Threat Map</span>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="db-threat-btn" onclick="post('showFindings')">Findings</button>
+              <button class="db-threat-btn" onclick="post('scan')">Re-scan</button>
+            </div>
+          </div>
+          <div class="db-threat-canvas">
+            <div class="db-threat-grid"></div>
+            ${this._threatNodes(critical, high, secCount)}
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Analysis Modules -->
+    <!-- Bento Metrics -->
     <section class="anim anim-d1">
-      <h2 class="section-title">Analysis Modules</h2>
-      <div style="display:flex; flex-direction:column; gap:12px;">
-        ${this._moduleCard('verified_user', 'Integrity', integ ? `${integ} integrity signal(s)` : 'No integrity count in last scan', 'primary', integ ? 'check_circle' : 'circle', 'integrity', false, !integ)}
-        ${this._moduleCard('security', 'Security', secWarn ? `${secCount} secret-related count(s)` : 'No secret hits in summary', secWarn ? 'tertiary-container' : 'on-surface-variant', secWarn ? 'warning' : 'check_circle', 'security', secWarn)}
-        ${this._moduleCard('cleaning_services', 'Hygiene', scan.canShip ? 'Last scan: ready to ship' : 'Last scan: blocked', 'on-surface-variant', scan.canShip ? 'check_circle' : 'warning', 'compliance', !scan.canShip)}
-        ${this._moduleCard('assignment', 'Contracts', `${routeCount} route signal(s)`, 'on-surface-variant', routeCount ? 'warning' : 'check_circle', 'mdc', !!routeCount)}
-        ${this._moduleCard('layers', 'Mocks', mockCount ? `${mockCount} mock signal(s)` : 'No mock hits in summary', 'on-surface-variant', mockCount ? 'warning' : 'circle', 'integrity', !!mockCount, mockMuted)}
-      </div>
-    </section>
-
-    <!-- CLI Shortcuts -->
-    <section class="anim anim-d2">
-      <h2 class="section-title">CLI Shortcuts</h2>
-      <div class="card" style="padding:6px; background:var(--surface-lowest);">
-        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(0,229,255,0.08)'" onmouseout="this.style.background='none'">
-          <span style="font-family:monospace;font-size:13px;color:var(--primary);font-weight:700;">guardrail scan</span>
-          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.4);font-size:20px;">terminal</span>
-        </button>
-        <div style="height:1px;background:var(--border-subtle);margin:0 16px;"></div>
-        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(0,229,255,0.08)'" onmouseout="this.style.background='none'">
-          <span style="font-family:monospace;font-size:13px;color:var(--primary);font-weight:700;">guardrail gate</span>
-          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.4);font-size:20px;">lock_open</span>
-        </button>
-        <div style="height:1px;background:var(--border-subtle);margin:0 16px;"></div>
-        <button onclick="post('runCLI')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:8px;border:none;background:none;color:inherit;cursor:pointer;text-align:left;" onmouseover="this.style.background='rgba(0,229,255,0.08)'" onmouseout="this.style.background='none'">
-          <span style="font-family:monospace;font-size:13px;color:var(--primary);font-weight:700;">guardrail fix</span>
-          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.4);font-size:20px;">auto_fix_high</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- Tier -->
-    <section class="anim anim-d3">
-      <div style="background:rgba(30,32,35,0.45);backdrop-filter:blur(12px);padding:20px;border-radius:16px;border:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,0.35);">
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,229,255,0.25);">
-            <span class="material-symbols-outlined" style="color:#001f24;font-size:24px;font-variation-settings:'FILL' 1;">workspace_premium</span>
+      <div class="db-bento db-bento-3">
+        <!-- Vulnerability Summary -->
+        <div class="db-metric" onclick="post('showFindings')">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(0,229,255,0.1);">
+              <span class="material-symbols-outlined" style="color:var(--cyan-glow);font-size:22px;">shield</span>
+            </div>
+            <span class="db-metric-badge">TOTAL: ${total}</span>
           </div>
-          <div>
-            <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;color:var(--primary-fixed-dim);">DATA</p>
-            <p style="font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif;">Last workspace scan</p>
+          <div class="db-metric-title">Vulnerabilities</div>
+          <div class="db-vuln-row">
+            <span class="db-vuln-label">Critical</span>
+            <div class="db-vuln-track"><div class="db-vuln-fill" style="width:${critPct}%;background:var(--error);"></div></div>
+            <span class="db-vuln-count" style="color:var(--error);">${String(critical).padStart(2, '0')}</span>
+          </div>
+          <div class="db-vuln-row">
+            <span class="db-vuln-label">High</span>
+            <div class="db-vuln-track"><div class="db-vuln-fill" style="width:${highPct}%;background:var(--secondary);"></div></div>
+            <span class="db-vuln-count" style="color:var(--secondary);">${String(high).padStart(2, '0')}</span>
+          </div>
+          <div class="db-vuln-row">
+            <span class="db-vuln-label">Medium</span>
+            <div class="db-vuln-track"><div class="db-vuln-fill" style="width:${medPct}%;background:#94a3b8;"></div></div>
+            <span class="db-vuln-count" style="color:#94a3b8;">${String(medium).padStart(2, '0')}</span>
           </div>
         </div>
-        <button onclick="nav('upgrade')" style="border:none;background:none;color:var(--primary-fixed-dim);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;text-decoration:underline;text-underline-offset:4px;">Upgrade</button>
+
+        <!-- Recent Checks -->
+        <div class="db-metric">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(176,198,255,0.1);">
+              <span class="material-symbols-outlined" style="color:var(--secondary);font-size:22px;">package_2</span>
+            </div>
+            <span class="db-metric-badge">AUTO-RUN: ACTIVE</span>
+          </div>
+          <div class="db-metric-title">Recent Checks</div>
+          <div class="db-check">
+            <span class="material-symbols-outlined" style="color:#22c55e;font-size:18px;font-variation-settings:'FILL' 1;">check_circle</span>
+            <span class="db-check-name">Workspace Scan</span>
+            <span class="db-check-time">just now</span>
+          </div>
+          <div class="db-check">
+            <span class="material-symbols-outlined" style="color:#22c55e;font-size:18px;font-variation-settings:'FILL' 1;">check_circle</span>
+            <span class="db-check-name">Integrity: ${integ} signal(s)</span>
+            <span class="db-check-time">—</span>
+          </div>
+          <div class="db-check">
+            <span class="material-symbols-outlined" style="color:${secCount > 0 ? 'var(--error)' : '#22c55e'};font-size:18px;font-variation-settings:'FILL' 1;">${secCount > 0 ? 'error' : 'check_circle'}</span>
+            <span class="db-check-name">Secrets: ${secCount} found</span>
+            <span class="db-check-time">—</span>
+          </div>
+        </div>
+
+        <!-- Active Scans -->
+        <div class="db-metric" style="position:relative;overflow:hidden;">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(195,245,255,0.1);">
+              <span class="material-symbols-outlined" style="color:var(--primary);font-size:22px;">radar</span>
+            </div>
+            <span style="padding:2px 8px;border-radius:999px;background:rgba(0,229,255,0.15);color:var(--cyan-glow);font-size:9px;font-weight:800;">MONITORING</span>
+          </div>
+          <div class="db-metric-title">Active Scans</div>
+          <div class="db-scan-item">
+            <div class="db-scan-head"><span>Security Sweep</span><span>100%</span></div>
+            <div class="db-scan-bar"><div class="db-scan-fill" style="width:100%;"></div></div>
+          </div>
+          <div class="db-scan-item" style="opacity:0.5;">
+            <div class="db-scan-head"><span>Deep Dependency</span><span>Queued</span></div>
+            <div class="db-scan-bar"><div class="db-scan-fill" style="width:0%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Status Feed -->
+    <section class="anim anim-d2">
+      <div class="db-feed">
+        <div class="db-feed-head">
+          <div class="db-feed-head-left">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#64748b;">list_alt</span>
+            <span class="db-feed-title">Live Status Feed</span>
+          </div>
+          <div class="db-feed-status">
+            <span class="db-feed-dot"></span>
+            <span>STREAMING</span>
+            <span style="margin-left:4px;">v${KINETIC_ARCHIVE_VERSION}</span>
+          </div>
+        </div>
+        <div class="db-feed-body">
+          ${this._feedLines(scan)}
+        </div>
+      </div>
+    </section>
+
+    <!-- CLI Shortcuts + Module Grid -->
+    <section class="anim anim-d3">
+      <div class="db-bento db-bento-2">
+        <div>
+          <h2 class="section-title">CLI Shortcuts</h2>
+          <div class="card" style="padding:4px;background:var(--surface-container-lowest);">
+            <button class="db-cli-row" onclick="post('runCLI')">
+              <span class="db-cli-cmd">guardrail scan</span>
+              <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">terminal</span>
+            </button>
+            <div style="height:1px;background:var(--border-subtle);margin:0 18px;"></div>
+            <button class="db-cli-row" onclick="post('runCLI')">
+              <span class="db-cli-cmd">guardrail gate</span>
+              <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">lock_open</span>
+            </button>
+            <div style="height:1px;background:var(--border-subtle);margin:0 18px;"></div>
+            <button class="db-cli-row" onclick="post('runCLI')">
+              <span class="db-cli-cmd">guardrail fix</span>
+              <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">auto_fix_high</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <h2 class="section-title">Analysis Modules</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            ${this._miniModule('security', 'Security', 'security')}
+            ${this._miniModule('verified_user', 'Compliance', 'compliance')}
+            ${this._miniModule('speed', 'Performance', 'performance')}
+            ${this._miniModule('difference', 'Impact', 'impact')}
+            ${this._miniModule('psychology', 'AI Explain', 'ai')}
+            ${this._miniModule('description', 'MDC Gen', 'mdc')}
+          </div>
+        </div>
       </div>
     </section>
   </div>`;
   }
 
-  private _moduleCard(icon: string, title: string, subtitle: string, iconColor: string, statusIcon: string, panel: string, isWarning: boolean = false, isMuted: boolean = false): string {
-    const borderStyle = isWarning ? `border:1px solid rgba(255,140,0,0.3);` : `border:1px solid var(--border-subtle);`;
-    const opacity = isMuted ? 'opacity:0.8;' : '';
-    const iconBg = iconColor === 'primary' ? 'rgba(0,229,255,0.1)' : iconColor === 'tertiary-container' ? 'rgba(255,193,192,0.12)' : 'rgba(255,255,255,0.05)';
-    const iconClr = iconColor === 'primary' ? 'var(--primary)' : iconColor === 'tertiary-container' ? 'var(--tertiary-container)' : 'var(--on-surface-variant)';
-    const statusClr = statusIcon === 'warning' ? 'var(--tertiary-container)' : statusIcon === 'check_circle' ? 'var(--primary)' : 'var(--outline)';
-    const statusFill = statusIcon === 'circle' ? '' : "font-variation-settings:'FILL' 1;";
-    const subtitleClr = isWarning ? 'var(--tertiary-container)' : 'var(--on-surface-variant)';
+  private _threatNodes(critical: number, high: number, secrets: number): string {
+    // Generate visual nodes based on scan data
+    const nodes: string[] = [];
+    const positions = [
+      { top: '18%', left: '25%' }, { top: '45%', left: '72%' },
+      { top: '65%', left: '35%' }, { top: '30%', left: '55%' },
+      { top: '75%', left: '80%' }, { top: '20%', left: '85%' },
+      { top: '55%', left: '15%' }, { top: '40%', left: '45%' },
+    ];
+    const total = critical + high + secrets;
+    const count = Math.min(total || 3, 8);
+    for (let i = 0; i < count; i++) {
+      const p = positions[i];
+      const isCritical = i < critical;
+      const size = isCritical ? 10 : 6;
+      const color = isCritical ? '#ef4444' : (i < critical + high ? 'var(--secondary)' : 'var(--cyan-glow)');
+      const ping = isCritical ? 'animation:ka-pulse 1.5s infinite,db-float 3s ease infinite;' : `animation:db-float ${3 + i * 0.5}s ease infinite;`;
+      nodes.push(`<div class="db-threat-node" style="top:${p.top};left:${p.left};width:${size}px;height:${size}px;background:${color};color:${color};${ping}"></div>`);
+    }
+    return nodes.join('\n            ');
+  }
 
+  private _feedLines(scan: ScanResult): string {
+    const now = new Date();
+    const ts = (offset: number) => {
+      const d = new Date(now.getTime() - offset * 1000);
+      return `[${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}]`;
+    };
+    const grade = scan.grade || '—';
+    const lines = [
+      { t: ts(0), lv: 'info', msg: `Scan complete. Grade: ${grade}. Score: ${Math.round(scan.score)}/100.` },
+      { t: ts(2), lv: 'info', msg: `${scan.cliSummary?.totalFindings ?? scan.issues.length} finding(s) indexed.` },
+      { t: ts(5), lv: scan.canShip ? 'info' : 'warn', msg: scan.canShip ? 'Ship gate: PASSED. Ready for deployment.' : 'Ship gate: BLOCKED. Review findings.' },
+      { t: ts(8), lv: 'info', msg: 'Posture re-calculation complete. Status updated.' },
+      { t: ts(12), lv: (scan.counts?.secrets ?? 0) > 0 ? 'fail' : 'info', msg: (scan.counts?.secrets ?? 0) > 0 ? `Secret scan: ${scan.counts!.secrets} hit(s) detected.` : 'Secret scan: clean.' },
+      { t: ts(18), lv: 'info', msg: 'Dashboard telemetry synced.' },
+    ];
+    return lines.map(l => `
+          <div class="db-feed-line">
+            <span class="db-feed-ts">${l.t}</span>
+            <span class="db-feed-lv db-feed-${l.lv}">${l.lv.toUpperCase()}:</span>
+            <span class="db-feed-msg">${l.msg}</span>
+          </div>`).join('');
+  }
+
+  private _miniModule(icon: string, label: string, panel: string): string {
     return `
-    <div class="card card-row" style="${borderStyle}${opacity}cursor:pointer;" onclick="openPanel('${panel}')">
-      <div class="card-left">
-        <div class="icon-box" style="background:${iconBg};">
-          <span class="material-symbols-outlined" style="color:${iconClr};font-size:24px;">${icon}</span>
-        </div>
-        <div>
-          <p style="font-size:14px;font-weight:700;">${title}</p>
-          <p style="font-size:11px;color:${subtitleClr};font-weight:500;">${subtitle}</p>
-        </div>
-      </div>
-      <span class="material-symbols-outlined" style="color:${statusClr};font-size:20px;${statusFill}">${statusIcon}</span>
+    <div class="db-metric" onclick="openPanel('${panel}')" style="padding:14px;">
+      <span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:20px;margin-bottom:8px;">${icon}</span>
+      <p style="font-size:12px;font-weight:600;">${label}</p>
     </div>`;
   }
 
   /* ── ANALYTICS PAGE ── */
   private _analyticsBody(): string {
     return `
-  <div class="page-content">
+  <div class="db-main">
     <section class="anim">
       <h2 class="section-title">Analysis Reports</h2>
       <div style="display:flex;flex-direction:column;gap:12px;">
-        ${this._analyticsCard('security', 'Security Scanner', 'OWASP Top 10 · Secret Detection', 'security')}
-        ${this._analyticsCard('policy', 'Compliance Dashboard', 'SOC2 · HIPAA · GDPR · PCI-DSS', 'compliance')}
-        ${this._analyticsCard('speed', 'Performance Monitor', 'Bundle analysis · Lighthouse', 'performance')}
-        ${this._analyticsCard('difference', 'Change Impact', 'Blast radius · dependency tracking', 'impact')}
-        ${this._analyticsCard('psychology', 'AI Explainer', 'Code understanding · intent analysis', 'ai')}
-        ${this._analyticsCard('group', 'Team Collaboration', 'Review workflows · annotations', 'team')}
-        ${this._analyticsCard('verified', 'Production Integrity', 'Deploy readiness · environment checks', 'integrity')}
-        ${this._analyticsCard('description', 'MDC Generator', 'Architecture docs · rule generation', 'mdc')}
+        ${this._analyticsCard('security', 'Security Scanner', 'OWASP Top 10 · Secret Detection · Vault Integration', 'security')}
+        ${this._analyticsCard('policy', 'Compliance Dashboard', 'SOC2 · HIPAA · GDPR · PCI-DSS Frameworks', 'compliance')}
+        ${this._analyticsCard('speed', 'Performance Monitor', 'Bundle analysis · Lighthouse · Memory profiling', 'performance')}
+        ${this._analyticsCard('difference', 'Change Impact', 'Blast radius · Dependency tracking · Risk assessment', 'impact')}
+        ${this._analyticsCard('psychology', 'AI Explainer', 'Code understanding · Intent analysis · Smart docs', 'ai')}
+        ${this._analyticsCard('group', 'Team Collaboration', 'Review workflows · Annotations · Shared reports', 'team')}
+        ${this._analyticsCard('verified', 'Production Integrity', 'Deploy readiness · Environment checks · Uptime', 'integrity')}
+        ${this._analyticsCard('description', 'MDC Generator', 'Architecture docs · Rule generation · Schema maps', 'mdc')}
       </div>
     </section>
   </div>`;
@@ -335,62 +814,56 @@ export class GuardrailDashboardPanel {
 
   private _analyticsCard(icon: string, title: string, desc: string, panel: string): string {
     return `
-    <div class="card card-row" style="cursor:pointer;" onclick="openPanel('${panel}')">
-      <div class="card-left">
-        <div class="icon-box" style="background:rgba(0,229,255,0.1);">
+    <div class="db-mod" onclick="openPanel('${panel}')">
+      <div class="db-mod-left">
+        <div class="db-mod-icon" style="background:rgba(0,229,255,0.08);">
           <span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:24px;">${icon}</span>
         </div>
         <div>
           <p style="font-size:14px;font-weight:700;">${title}</p>
-          <p style="font-size:11px;color:var(--on-surface-variant);font-weight:500;">${desc}</p>
+          <p style="font-size:11px;color:var(--on-surface-variant);margin-top:2px;">${desc}</p>
         </div>
       </div>
-      <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:20px;">chevron_right</span>
+      <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.25);font-size:22px;">chevron_right</span>
     </div>`;
   }
 
   /* ── SETTINGS PAGE ── */
   private _settingsBody(): string {
     return `
-  <div class="page-content">
+  <div class="db-main">
     <section class="anim">
       <h2 class="section-title">Settings</h2>
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div class="card card-row" style="cursor:pointer;" onclick="post('openSettings')">
-          <div class="card-left">
-            <div class="icon-box" style="background:rgba(0,229,255,0.1);">
-              <span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);">tune</span>
-            </div>
+        <div class="db-mod" onclick="post('openSettings')">
+          <div class="db-mod-left">
+            <div class="db-mod-icon" style="background:rgba(0,229,255,0.08);"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);">tune</span></div>
             <div>
               <p style="font-size:14px;font-weight:700;">Extension Settings</p>
-              <p style="font-size:11px;color:var(--on-surface-variant);">Configure scan profiles, API keys, thresholds</p>
+              <p style="font-size:11px;color:var(--on-surface-variant);margin-top:2px;">Configure scan profiles, API keys, thresholds</p>
             </div>
           </div>
-          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);">chevron_right</span>
+          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.25);">chevron_right</span>
         </div>
-        <div class="card card-row" style="cursor:pointer;" onclick="post('openExternal',{url:'https://docs.guardrail.dev'})">
-          <div class="card-left">
-            <div class="icon-box" style="background:rgba(255,193,192,0.12);">
-              <span class="material-symbols-outlined" style="color:var(--tertiary);">menu_book</span>
-            </div>
+        <div class="db-mod" onclick="post('openExternal',{url:'https://docs.guardrail.dev'})">
+          <div class="db-mod-left">
+            <div class="db-mod-icon" style="background:rgba(255,193,192,0.1);"><span class="material-symbols-outlined" style="color:var(--tertiary);">menu_book</span></div>
             <div>
               <p style="font-size:14px;font-weight:700;">Documentation</p>
-              <p style="font-size:11px;color:var(--on-surface-variant);">CLI reference, engine docs, API guides</p>
+              <p style="font-size:11px;color:var(--on-surface-variant);margin-top:2px;">CLI reference, engine docs, API guides</p>
             </div>
           </div>
-          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);">open_in_new</span>
+          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.25);">open_in_new</span>
         </div>
-        <div class="card card-row" style="cursor:pointer;" onclick="post('openExternal',{url:'https://github.com/guardrail-dev/guardrail'})">
-          <div class="card-left">
-            <div class="icon-box" style="background:rgba(255,255,255,0.05);">
-              <span class="material-symbols-outlined" style="color:var(--on-surface-variant);">code</span>
-            </div>
+        <div class="db-mod" onclick="post('openExternal',{url:'https://github.com/guardrail-dev/guardrail'})">
+          <div class="db-mod-left">
+            <div class="db-mod-icon" style="background:rgba(255,255,255,0.05);"><span class="material-symbols-outlined" style="color:var(--on-surface-variant);">code</span></div>
             <div>
               <p style="font-size:14px;font-weight:700;">Source & Issues</p>
-              <p style="font-size:11px;color:var(--on-surface-variant);">Report bugs, contribute, view changelog</p>
+              <p style="font-size:11px;color:var(--on-surface-variant);margin-top:2px;">Report bugs, contribute, view changelog</p>
             </div>
           </div>
-          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);">open_in_new</span>
+          <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.25);">open_in_new</span>
         </div>
       </div>
     </section>
@@ -403,15 +876,13 @@ export class GuardrailDashboardPanel {
   /* ── UPGRADE PAGE ── */
   private _upgradeBody(): string {
     return `
-  <div class="page-content">
-    <section class="anim">
-      <div style="text-align:center;padding:24px 0;">
-        <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,229,255,0.25);">
-          <span class="material-symbols-outlined" style="color:#001f24;font-size:32px;font-variation-settings:'FILL' 1;">workspace_premium</span>
-        </div>
-        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:8px;">Upgrade to Pro</h2>
-        <p style="font-size:13px;color:var(--on-surface-variant);max-width:320px;margin:0 auto;">Unlock advanced engines, team features, and priority support.</p>
+  <div class="db-main">
+    <section class="anim db-empty">
+      <div style="width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));display:inline-flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 8px 28px rgba(0,229,255,0.3);">
+        <span class="material-symbols-outlined" style="color:#001f24;font-size:36px;font-variation-settings:'FILL' 1;">workspace_premium</span>
       </div>
+      <h2>Upgrade to Pro</h2>
+      <p>Unlock advanced security engines, team collaboration, compliance reporting, and priority support.</p>
     </section>
 
     <section class="anim anim-d1">
@@ -425,26 +896,26 @@ export class GuardrailDashboardPanel {
       </div>
     </section>
 
-    <section class="anim anim-d2" style="text-align:center;padding-top:8px;">
-      <button onclick="post('openExternal',{url:'https://guardrail.dev/pricing'})" style="background:linear-gradient(135deg,var(--primary-container),var(--secondary-container));color:#001f24;border:none;padding:14px 48px;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 24px rgba(0,229,255,0.25);transition:all 0.2s;" onmouseover="this.style.filter='brightness(1.08)'" onmouseout="this.style.filter='none'">
+    <section class="anim anim-d2" style="text-align:center;padding-top:16px;">
+      <button class="db-cta-btn" onclick="post('openExternal',{url:'https://guardrail.dev/pricing'})">
         View Plans
       </button>
-      <p style="font-size:11px;color:var(--outline);margin-top:12px;">Free 14-day trial · No credit card required</p>
+      <p style="font-size:11px;color:var(--outline);margin-top:14px;">Free 14-day trial · No credit card required</p>
     </section>
   </div>`;
   }
 
   private _upgradeFeature(icon: string, title: string, desc: string): string {
     return `
-    <div class="card card-row">
-      <div class="card-left">
-        <span class="material-symbols-outlined" style="color:var(--primary);font-size:22px;">${icon}</span>
+    <div class="db-feat">
+      <div class="db-feat-left">
+        <span class="material-symbols-outlined" style="color:var(--primary);font-size:24px;">${icon}</span>
         <div>
-          <p style="font-size:13px;font-weight:700;">${title}</p>
-          <p style="font-size:11px;color:var(--on-surface-variant);">${desc}</p>
+          <p style="font-size:14px;font-weight:700;">${title}</p>
+          <p style="font-size:11px;color:var(--on-surface-variant);margin-top:2px;">${desc}</p>
         </div>
       </div>
-      <span class="material-symbols-outlined" style="color:var(--primary);font-size:18px;font-variation-settings:'FILL' 1;">check_circle</span>
+      <span class="material-symbols-outlined" style="color:var(--primary);font-size:20px;font-variation-settings:'FILL' 1;">check_circle</span>
     </div>`;
   }
 

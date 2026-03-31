@@ -30,6 +30,7 @@ import {
   moveSecretToEnv,
   showContractDiff,
 } from "./quick-fix-commands";
+import { getGuardrailPanelHead } from "./webview-shared-styles";
 
 let diagnosticsProvider: RealityCheckDiagnosticsProvider;
 let codeLensProvider: RealityCheckCodeLensProvider;
@@ -259,6 +260,73 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("guardrail.validateCode", () =>
       validateSelectedCode(),
     ),
+    // ── Device Code Login ──
+    vscode.commands.registerCommand("guardrail.login", async () => {
+      const { ApiClient } = await import("./services/api-client");
+      const client = new ApiClient(extensionContext);
+
+      const signal = { cancelled: false };
+
+      await vscode.window.withProgress(
+        {
+          location: vscode.ProgressLocation.Notification,
+          title: "Guardrail — Logging in",
+          cancellable: true,
+        },
+        async (progress, token) => {
+          token.onCancellationRequested(() => { signal.cancelled = true; });
+
+          try {
+            progress.report({ message: "Requesting device code…" });
+
+            const result = await client.deviceCodeLogin(
+              (userCode, verificationUrl) => {
+                progress.report({
+                  message: `Code: ${userCode} — Opening browser…`,
+                });
+                void vscode.env.openExternal(vscode.Uri.parse(verificationUrl));
+                void vscode.window.showInformationMessage(
+                  `Enter code ${userCode} in your browser to authorize this device.`,
+                  "Copy Code",
+                ).then((action) => {
+                  if (action === "Copy Code") {
+                    void vscode.env.clipboard.writeText(userCode);
+                  }
+                });
+              },
+              signal,
+            );
+
+            // Store user info
+            await client.setUserInfo({
+              id: result.user.id,
+              email: result.user.email,
+              name: result.user.name,
+              plan: result.plan,
+            });
+
+            // Refresh sidebar to show logged-in state
+            GuardrailSidebarViewProvider.refreshIfOpen();
+
+            void vscode.window.showInformationMessage(
+              `Logged in as ${result.user.email || result.user.name} (${result.plan})`,
+            );
+          } catch (error: unknown) {
+            const msg = error instanceof Error ? error.message : "Login failed";
+            if (msg !== "Login cancelled") {
+              void vscode.window.showErrorMessage(`Login failed: ${msg}`);
+            }
+          }
+        },
+      );
+    }),
+    vscode.commands.registerCommand("guardrail.logout", async () => {
+      const { ApiClient } = await import("./services/api-client");
+      const client = new ApiClient(extensionContext);
+      await client.logout();
+      GuardrailSidebarViewProvider.refreshIfOpen();
+      void vscode.window.showInformationMessage("Logged out of Guardrail");
+    }),
     // Enterprise commands
     vscode.commands.registerCommand("guardrail.openMDCGenerator", () =>
       openMDCGenerator(),
@@ -770,24 +838,29 @@ function getFindingDetailHtml(finding: any): string {
         ? "⚠️"
         : "💡";
 
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body { font-family: var(--vscode-font-family); padding: 20px; background: var(--vscode-editor-background); color: var(--vscode-editor-foreground); }
+  const findingCss = `
+    .finding-pad { padding: 16px; }
     .header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-    .badge { background: ${typeColor}; color: #000; padding: 4px 12px; border-radius: 4px; font-weight: bold; }
-    .section { margin: 20px 0; padding: 15px; background: var(--vscode-input-background); border-radius: 8px; }
-    .section-title { font-size: 12px; text-transform: uppercase; color: var(--vscode-descriptionForeground); margin-bottom: 8px; }
-    .code { background: var(--vscode-textCodeBlock-background); padding: 10px; border-radius: 4px; font-family: monospace; overflow-x: auto; }
-    .intent { color: #6bcb77; }
+    .badge { background: ${typeColor}; color: #001f24; padding: 4px 12px; border-radius: 8px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; font-size: 11px; }
+    .section { margin: 16px 0; padding: 15px; background: var(--surface-container-low); border: 1px solid var(--border-subtle); border-radius: 12px; }
+    .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--outline); margin-bottom: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .code { background: var(--surface-container-lowest); padding: 10px; border-radius: 8px; font-family: monospace; overflow-x: auto; border: 1px solid var(--border-subtle); }
+    .intent { color: #6ee7b7; }
     .reality { color: #ff6b6b; }
     .confidence { margin-top: 20px; }
-    .confidence-bar { height: 8px; background: var(--vscode-input-background); border-radius: 4px; overflow: hidden; }
+    .confidence-bar { height: 8px; background: var(--surface-container-highest); border-radius: 4px; overflow: hidden; }
     .confidence-fill { height: 100%; background: ${typeColor}; }
-  </style>
+  `;
+  return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  ${getGuardrailPanelHead(findingCss)}
 </head>
-<body>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell finding-pad">
   <div class="header">
     <span style="font-size: 24px">${typeIcon}</span>
     <h2 style="margin: 0">${finding.category.replace(/-/g, " ").toUpperCase()}</h2>
@@ -819,6 +892,7 @@ function getFindingDetailHtml(finding: any): string {
     <div class="confidence-bar">
       <div class="confidence-fill" style="width: ${finding.confidence * 100}%"></div>
     </div>
+  </div>
   </div>
 </body>
 </html>`;
