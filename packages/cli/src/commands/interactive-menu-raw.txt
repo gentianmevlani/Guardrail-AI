@@ -234,7 +234,7 @@ async function runInteractiveMenu(): Promise<void> {
       console.log(`  ${c.cyan('•')} Premium HTML reports`);
       console.log(`  ${c.cyan('•')} Proof artifacts\n`);
       console.log(`  ${c.bold('Price:')} $29/month\n`);
-      console.log(`  ${c.info('Upgrade now:')} ${c.bold('https://guardrail.dev/upgrade')}\n`);
+      console.log(`  ${c.info('Upgrade now:')} ${c.bold('https://guardrailai.dev/upgrade')}\n`);
       continue;
     }
 

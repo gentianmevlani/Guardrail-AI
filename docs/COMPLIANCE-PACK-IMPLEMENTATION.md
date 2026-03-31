@@ -356,9 +356,9 @@ SELECT * FROM gdpr_audit_log WHERE user_id = 'user-id' ORDER BY timestamp DESC;
 ```
 
 ### Support Contacts
-- **Technical Issues**: engineering@guardrail.dev
-- **Privacy Questions**: privacy@guardrail.dev
-- **Legal Compliance**: legal@guardrail.dev
+- **Technical Issues**: engineering@guardrailai.dev
+- **Privacy Questions**: privacy@guardrailai.dev
+- **Legal Compliance**: legal@guardrailai.dev
 
 ## Future Enhancements
 

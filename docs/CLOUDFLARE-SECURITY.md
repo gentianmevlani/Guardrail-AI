@@ -74,7 +74,7 @@ Action: Challenge
 ### 1. Cache Static Assets
 
 ```
-URL: *guardrail.dev/_next/static/*
+URL: *guardrailai.dev/_next/static/*
 Settings:
   - Cache Level: Cache Everything
   - Edge Cache TTL: 1 month
@@ -84,7 +84,7 @@ Settings:
 ### 2. No Cache for API
 
 ```
-URL: *guardrail.dev/api/*
+URL: *guardrailai.dev/api/*
 Settings:
   - Cache Level: Bypass
   - Disable Apps: On
@@ -94,7 +94,7 @@ Settings:
 ### 3. Security Headers for Dashboard
 
 ```
-URL: *guardrail.dev/dashboard/*
+URL: *guardrailai.dev/dashboard/*
 Settings:
   - SSL: Full (Strict)
   - Always Use HTTPS: On

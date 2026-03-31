@@ -228,7 +228,7 @@ export class SSOService {
 
     if (config.protocol === 'saml' && config.saml) {
       // Build SAML AuthnRequest URL
-      const acsUrl = `${process.env['GUARDRAIL_BASE_URL'] || 'https://api.guardrail.dev'}/auth/sso/saml/callback`;
+      const acsUrl = `${process.env['GUARDRAIL_BASE_URL'] || 'https://api.guardrailai.dev'}/auth/sso/saml/callback`;
       const params = new URLSearchParams({
         SAMLRequest: Buffer.from(`<AuthnRequest xmlns="urn:oasis:names:tc:SAML:2.0:protocol" ID="_${randomUUID()}" Version="2.0" IssueInstant="${new Date().toISOString()}" AssertionConsumerServiceURL="${acsUrl}"><Issuer xmlns="urn:oasis:names:tc:SAML:2.0:assertion">${config.saml.entityId || acsUrl}</Issuer></AuthnRequest>`).toString('base64'),
         RelayState: JSON.stringify({ state, returnUrl, orgId: organizationId }),
@@ -241,7 +241,7 @@ export class SSOService {
     }
 
     if (config.protocol === 'oidc' && config.oidc) {
-      const redirectUri = `${process.env['GUARDRAIL_BASE_URL'] || 'https://api.guardrail.dev'}/auth/sso/oidc/callback`;
+      const redirectUri = `${process.env['GUARDRAIL_BASE_URL'] || 'https://api.guardrailai.dev'}/auth/sso/oidc/callback`;
       const params = new URLSearchParams({
         client_id: config.oidc.clientId,
         response_type: 'code',

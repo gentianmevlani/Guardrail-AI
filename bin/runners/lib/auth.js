@@ -118,7 +118,7 @@ async function getEntitlements(apiKey) {
   try {
     // Try production API first, then fallback to localhost for development
     const apiUrl =
-      process.env.GUARDRAIL_API_URL || "https://api.guardrail.dev";
+      process.env.GUARDRAIL_API_URL || "https://api.guardrailai.dev";
     const urls = [apiUrl, "http://localhost:3000"];
 
     for (const url of urls) {

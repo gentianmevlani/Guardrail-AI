@@ -5,10 +5,10 @@
 # and publish the trust score.
 #
 # Required secrets:
-#   GUARDRAIL_API_KEY — Your Guardrail API key (get one at guardrail.dev)
+#   GUARDRAIL_API_KEY — Your Guardrail API key (get one at guardrailai.dev)
 #
 # Optional:
-#   GUARDRAIL_API_URL — Custom API URL (default: https://guardrail.dev)
+#   GUARDRAIL_API_URL — Custom API URL (default: https://api.guardrailai.dev)
 ###############################################################################
 
 name: Guardrail Scan
@@ -48,7 +48,7 @@ jobs:
         id: scan
         env:
           GUARDRAIL_API_KEY: ${{ secrets.GUARDRAIL_API_KEY }}
-          GUARDRAIL_API_URL: ${{ vars.GUARDRAIL_API_URL || 'https://guardrail.dev' }}
+          GUARDRAIL_API_URL: ${{ vars.GUARDRAIL_API_URL || 'https://api.guardrailai.dev' }}
         run: |
           # Run scan and capture JSON output
           guardrail scan --json --ci > scan-result.json 2>&1 || true
@@ -70,7 +70,7 @@ jobs:
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         env:
           GUARDRAIL_API_KEY: ${{ secrets.GUARDRAIL_API_KEY }}
-          GUARDRAIL_API_URL: ${{ vars.GUARDRAIL_API_URL || 'https://guardrail.dev' }}
+          GUARDRAIL_API_URL: ${{ vars.GUARDRAIL_API_URL || 'https://api.guardrailai.dev' }}
         run: |
           # Publish score to Guardrail API for badge + leaderboard
           ORG="${{ github.repository_owner }}"
@@ -115,7 +115,7 @@ jobs:
               `> Run \`guardrail scan\` locally for full details.`,
               '',
               '---',
-              '*Powered by [Guardrail](https://guardrail.dev) — Ship Real Code. Prove It.*',
+              '*Powered by [Guardrail](https://guardrailai.dev) — Ship Real Code. Prove It.*',
               '',
               '<!-- guardrail-action-comment -->',
             ].join('\n');

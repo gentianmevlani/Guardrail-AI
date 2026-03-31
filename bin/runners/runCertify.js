@@ -81,7 +81,7 @@ async function runCertify(args, projectPath) {
     const expiresAt = new Date(
       Date.now() + 30 * 24 * 60 * 60 * 1000,
     ).toISOString();
-    const verifyUrl = `https://guardrail.dev/verify/${projectId}`;
+    const verifyUrl = `https://guardrailai.dev/verify/${projectId}`;
 
     // Step 4: Generate badges
     const badges = generateBadges(score, projectId, verifyUrl, style);
@@ -95,7 +95,7 @@ async function runCertify(args, projectPath) {
 
     // Save certification JSON
     const certData = {
-      $schema: "https://guardrail.dev/schemas/certification.json",
+      $schema: "https://guardrailai.dev/schemas/certification.json",
       version: "1.0.0",
       certified,
       score,
@@ -161,7 +161,7 @@ async function runCertify(args, projectPath) {
 
     // Success message
     console.log(
-      `${COLORS.green}✨ Add the badge to your README for a backlink to guardrail.dev${COLORS.reset}`,
+      `${COLORS.green}✨ Add the badge to your README for a backlink to guardrailai.dev${COLORS.reset}`,
     );
     console.log("");
 
@@ -280,7 +280,7 @@ async function embedBadgeInReadme(projectPath, badgeMarkdown) {
       let content = await fs.readFile(readmePath, "utf-8");
 
       // Check if badge already exists
-      if (content.includes("guardrail.dev/verify")) {
+      if (content.includes("guardrailai.dev/verify")) {
         console.log(
           `${COLORS.dim}Badge already in ${readmeName}${COLORS.reset}`,
         );

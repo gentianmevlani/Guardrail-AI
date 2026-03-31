@@ -147,7 +147,7 @@
           {
             "id": "guardrail.fixIssue",
             "title": "Fix an Issue",
-            "description": "Click the lightbulb 💡 on any highlighted code to see quick fixes.\n\n[Learn about Quick Fixes](https://guardrail.dev/docs/quick-fixes)",
+            "description": "Click the lightbulb 💡 on any highlighted code to see quick fixes.\n\n[Learn about Quick Fixes](https://guardrailai.dev/docs/quick-fixes)",
             "media": {
               "markdown": "media/walkthrough/quickfix.md"
             },
@@ -451,7 +451,7 @@
         },
         "guardrail.apiEndpoint": {
           "type": "string",
-          "default": "https://api.guardrail.dev",
+          "default": "https://api.guardrailai.dev",
           "description": "guardrail API endpoint (for team/enterprise features)"
         },
         "guardrail.uploadRunsToCloud": {
@@ -466,7 +466,7 @@
         },
         "guardrail.webAppUrl": {
           "type": "string",
-          "default": "https://app.guardrail.dev",
+          "default": "https://guardrailai.dev",
           "description": "Guardrail web app URL (opened by “Open Web App” and linked from the dashboard)"
         },
         "guardrail.openLocalWebAppFirst": {

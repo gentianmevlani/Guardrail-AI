@@ -504,7 +504,7 @@ export function generatePRCommentSummary(
   lines.push(`[View Full Report](${runUrl}) | Run \`${runId.slice(0, 8)}\``);
   lines.push('');
   lines.push('---');
-  lines.push('*Powered by [Guardrail](https://guardrail.dev) — Ship Real Code. Prove It.*');
+  lines.push('*Powered by [Guardrail](https://guardrailai.dev) — Ship Real Code. Prove It.*');
 
   return lines.join('\n');
 }

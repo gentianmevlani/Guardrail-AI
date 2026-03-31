@@ -148,7 +148,7 @@ export function exportToSarif(results: LocalScanResult[], summary: ScanSummary):
         driver: {
           name: 'guardrail Local Scanner',
           version: '1.0.0',
-          informationUri: 'https://guardrail.dev',
+          informationUri: 'https://guardrailai.dev',
           rules
         }
       },

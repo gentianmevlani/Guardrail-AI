@@ -105,4 +105,4 @@ npx guardrail doctor
 # New: npx guardrail gate
 ```
 
-See the [Migration Guide](https://guardrail.dev/docs/migration) for detailed instructions.
+See the [Migration Guide](https://guardrailai.dev/docs/migration) for detailed instructions.

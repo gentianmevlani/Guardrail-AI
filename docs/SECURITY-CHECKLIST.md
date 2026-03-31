@@ -7,7 +7,7 @@ This document outlines the security measures implemented and verification steps.
 ### In `next.config.mjs`
 | Header | Value | Purpose |
 |--------|-------|---------|
-| `Access-Control-Allow-Origin` | `$ALLOWED_ORIGIN` or `https://guardrail.dev` | Restrict CORS to trusted origins |
+| `Access-Control-Allow-Origin` | `$ALLOWED_ORIGIN` or `https://guardrailai.dev` | Restrict CORS to trusted origins |
 | `X-Frame-Options` | `DENY` | Prevent clickjacking |
 | `X-Content-Type-Options` | `nosniff` | Prevent MIME sniffing |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | Limit referrer information |
@@ -27,8 +27,8 @@ This document outlines the security measures implemented and verification steps.
 Remote images are restricted to trusted domains only:
 - `avatars.githubusercontent.com`
 - `github.com`
-- `guardrail.dev`
-- `guardrail.dev`
+- `guardrailai.dev`
+- `guardrailai.dev`
 
 ## Authentication Security
 

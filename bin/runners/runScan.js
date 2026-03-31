@@ -401,7 +401,7 @@ function printFreeOutput(findings) {
   console.log(`  ${c.cyan}${c.bold}Starter${c.reset}  ${c.dim}$9.99/mo${c.reset}  — See every finding, file, and line number`);
   console.log(`  ${c.magenta}${c.bold}Pro${c.reset}      ${c.dim}$29.99/mo${c.reset} — + One-click auto-fix, AI Agent, Autopilot`);
   console.log();
-  console.log(`  ${c.cyan}→${c.reset} ${c.bold}guardrail upgrade starter${c.reset}   ${c.dim}or visit${c.reset} ${c.cyan}${c.underline}https://guardrail.dev/pricing${c.reset}`);
+  console.log(`  ${c.cyan}→${c.reset} ${c.bold}guardrail upgrade starter${c.reset}   ${c.dim}or visit${c.reset} ${c.cyan}${c.underline}https://guardrailai.dev/pricing${c.reset}`);
   console.log();
 }
 
@@ -445,7 +445,7 @@ function printStarterOutput(findings) {
   console.log();
   console.log(`  ${c.magenta}${c.bold}Pro${c.reset}  ${c.dim}$29.99/mo${c.reset}  — One-click auto-fix, AI Agent, Autopilot, MCP`);
   console.log();
-  console.log(`  ${c.magenta}→${c.reset} ${c.bold}guardrail upgrade pro${c.reset}   ${c.dim}or visit${c.reset} ${c.cyan}${c.underline}https://guardrail.dev/pricing${c.reset}`);
+  console.log(`  ${c.magenta}→${c.reset} ${c.bold}guardrail upgrade pro${c.reset}   ${c.dim}or visit${c.reset} ${c.cyan}${c.underline}https://guardrailai.dev/pricing${c.reset}`);
   console.log();
 }
 

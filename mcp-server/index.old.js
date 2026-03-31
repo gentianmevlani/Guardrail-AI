@@ -2554,7 +2554,7 @@ export function registerAllEndpoints() {
 
       if (allowed) {
         response += `✅ **Ready to deploy!** All checks passed.\n\n`;
-        response += `Add to README:\n\`\`\`markdown\n[![Ship Status](https://img.shields.io/badge/guardrail-ship-green)](https://guardrail.dev)\n\`\`\`\n`;
+        response += `Add to README:\n\`\`\`markdown\n[![Ship Status](https://img.shields.io/badge/guardrail-ship-green)](https://guardrailai.dev)\n\`\`\`\n`;
       } else {
         response += `⚠️ **Fix blockers before deploying.**\n\n`;
         response += `Run \`guardrail ship\` locally for detailed fix suggestions.\n`;

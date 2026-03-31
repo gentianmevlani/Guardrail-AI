@@ -34,7 +34,7 @@ async function runLogin(args) {
   }
 
   console.log(
-    "  Paste your API key from https://guardrail.dev/settings/keys",
+    "  Paste your API key from https://guardrailai.dev/settings/keys",
   );
   const key = await prompt("  API Key: ");
 

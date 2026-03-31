@@ -503,10 +503,10 @@ export function GdprDataManagement() {
             For questions about your privacy rights or to make a request,
             contact our privacy team at{" "}
             <a
-              href="mailto:privacy@guardrail.dev"
+              href="mailto:privacy@guardrailai.dev"
               className="text-blue-600 hover:underline"
             >
-              privacy@guardrail.dev
+              privacy@guardrailai.dev
             </a>
           </p>
         </div>

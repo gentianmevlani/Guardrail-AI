@@ -139,7 +139,7 @@ Create `Formula/guardrail.rb`:
 ```ruby
 class guardrail < Formula
   desc "AI code security scanner"
-  homepage "https://guardrail.dev"
+  homepage "https://guardrailai.dev"
   url "https://registry.npmjs.org/guardrail-cli-tool/-/guardrail-cli-tool-2.4.13.tgz"
   sha256 "..."
   depends_on "node"

@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
             publisher: {
               "@type": "Organization",
               name: "guardrail, Inc.",
-              url: "https://guardrail.dev",
+              url: "https://guardrailai.dev",
             },
             dateModified: "2026-01-06",
             inLanguage: "en-US",
@@ -322,10 +322,10 @@ export default function PrivacyPolicyPage() {
         <p className="mt-4">
           You may request earlier deletion of your data by contacting{" "}
           <a
-            href="mailto:privacy@guardrail.dev"
+            href="mailto:privacy@guardrailai.dev"
             className="text-primary hover:underline"
           >
-            privacy@guardrail.dev
+            privacy@guardrailai.dev
           </a>
           . Certain data may be retained longer if required by law.
         </p>
@@ -367,10 +367,10 @@ export default function PrivacyPolicyPage() {
         <p className="mt-4">
           To exercise your GDPR rights, contact our Data Protection Officer at{" "}
           <a
-            href="mailto:dpo@guardrail.dev"
+            href="mailto:dpo@guardrailai.dev"
             className="text-primary hover:underline"
           >
-            dpo@guardrail.dev
+            dpo@guardrailai.dev
           </a>
           . We will respond within 30 days.
         </p>
@@ -413,10 +413,10 @@ export default function PrivacyPolicyPage() {
         <p className="mt-4">
           To exercise your CCPA rights, email{" "}
           <a
-            href="mailto:privacy@guardrail.dev"
+            href="mailto:privacy@guardrailai.dev"
             className="text-primary hover:underline"
           >
-            privacy@guardrail.dev
+            privacy@guardrailai.dev
           </a>{" "}
           or use our{" "}
           <a href="/account/privacy" className="text-primary hover:underline">
@@ -522,10 +522,10 @@ export default function PrivacyPolicyPage() {
           If you believe we have inadvertently collected information from a
           child, please contact us immediately at{" "}
           <a
-            href="mailto:privacy@guardrail.dev"
+            href="mailto:privacy@guardrailai.dev"
             className="text-primary hover:underline"
           >
-            privacy@guardrail.dev
+            privacy@guardrailai.dev
           </a>
           , and we will promptly delete the information.
         </p>
@@ -570,19 +570,19 @@ export default function PrivacyPolicyPage() {
           <p className="text-muted-foreground">
             Email:{" "}
             <a
-              href="mailto:privacy@guardrail.dev"
+              href="mailto:privacy@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              privacy@guardrail.dev
+              privacy@guardrailai.dev
             </a>
           </p>
           <p className="text-muted-foreground">
             Data Protection Officer:{" "}
             <a
-              href="mailto:dpo@guardrail.dev"
+              href="mailto:dpo@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              dpo@guardrail.dev
+              dpo@guardrailai.dev
             </a>
           </p>
           <p className="text-muted-foreground mt-2">
@@ -597,10 +597,10 @@ export default function PrivacyPolicyPage() {
           For users in the European Union, our EU representative can be
           contacted at{" "}
           <a
-            href="mailto:eu-rep@guardrail.dev"
+            href="mailto:eu-rep@guardrailai.dev"
             className="text-primary hover:underline"
           >
-            eu-rep@guardrail.dev
+            eu-rep@guardrailai.dev
           </a>
         </p>
       </LegalSection>
@@ -630,10 +630,10 @@ export default function PrivacyPolicyPage() {
             <strong>Policy History:</strong> Previous versions of this Privacy
             Policy are available upon request by emailing{" "}
             <a
-              href="mailto:legal@guardrail.dev"
+              href="mailto:legal@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              legal@guardrail.dev
+              legal@guardrailai.dev
             </a>
             .
           </p>

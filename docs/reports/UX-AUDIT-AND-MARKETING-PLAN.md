@@ -533,10 +533,10 @@ After a thorough audit of the guardrail platform, I've identified **23 enhanceme
 ## Appendix: Quick Reference
 
 ### Key URLs
-- Website: https://guardrail.dev
+- Website: https://guardrailai.dev
 - GitHub: https://github.com/guardrail-Official/guardrail
-- Docs: https://guardrail.dev/docs
-- Blog: https://guardrail.dev/blog
+- Docs: https://guardrailai.dev/docs
+- Blog: https://guardrailai.dev/blog
 - Discord: (to be created)
 
 ### Brand Voice

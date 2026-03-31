@@ -69,7 +69,7 @@ interface UserProfile {
 let userProfile: UserProfile = {
   id: "user_default",
   name: "guardrail User",
-  email: "user@guardrail.dev",
+  email: "user@guardrailai.dev",
   role: "admin",
   emailVerified: true,
   createdAt: new Date("2024-01-01"),
@@ -232,7 +232,7 @@ export async function profileRoutes(fastify: FastifyInstance) {
               elements: [
                 {
                   type: "mrkdwn",
-                  text: `Connected at ${new Date().toLocaleString()} | <https://guardrail.dev|guardrail Dashboard>`,
+                  text: `Connected at ${new Date().toLocaleString()} | <https://guardrailai.dev|guardrail Dashboard>`,
                 },
               ],
             },

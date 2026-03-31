@@ -148,7 +148,7 @@ function addDeprecationHeaders(
   // Add Link header pointing to current version docs
   reply.header(
     "Link",
-    `<https://docs.guardrail.dev/api/${VERSION_CONFIG.current}>; rel="successor-version"`,
+    `<https://guardrailai.dev/docs/api/${VERSION_CONFIG.current}>; rel="successor-version"`,
   );
 
   // Add warning header

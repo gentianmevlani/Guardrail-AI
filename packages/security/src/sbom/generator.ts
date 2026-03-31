@@ -359,7 +359,7 @@ export class SBOMGenerator {
       dataLicense: 'CC0-1.0',
       SPDXID: 'SPDXRef-DOCUMENT',
       name: sbom.metadata.component.name,
-      documentNamespace: `https://guardrail.dev/sbom/${sbom.serialNumber}`,
+      documentNamespace: `https://guardrailai.dev/sbom/${sbom.serialNumber}`,
       creationInfo: {
         created: sbom.metadata.timestamp,
         creators: [`Tool: ${sbom.metadata.tools[0]?.name}-${sbom.metadata.tools[0]?.version}`],

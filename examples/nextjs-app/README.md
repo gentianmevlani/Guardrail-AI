@@ -61,5 +61,5 @@ The `.github/workflows/guardrail.yml` file shows how to:
 
 ## Learn More
 
-- [guardrail Documentation](https://guardrail.dev/docs)
+- [guardrail Documentation](https://guardrailai.dev/docs)
 - [Next.js Documentation](https://nextjs.org/docs)

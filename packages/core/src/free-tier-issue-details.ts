@@ -4,7 +4,7 @@
  */
 
 export const FREE_TIER_ISSUE_DETAILS_UPGRADE_HINT =
-  "Upgrade to a paid plan for full finding details (paths, rules, evidence). https://guardrail.dev/billing";
+  "Upgrade to a paid plan for full finding details (paths, rules, evidence). https://guardrailai.dev/billing";
 
 export function shouldRedactIssueDetails(tier: string | undefined | null): boolean {
   const t = (tier ?? "free").toLowerCase();

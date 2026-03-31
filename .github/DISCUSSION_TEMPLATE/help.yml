@@ -58,5 +58,5 @@ body:
     attributes:
       label: Before asking
       options:
-        - label: I've checked the [documentation](https://getguardrail.io/docs)
+        - label: I've checked the [documentation](https://guardrailai.dev/docs)
         - label: I've searched existing [issues](https://github.com/guardiavault-oss/codeguard/issues) and [discussions](https://github.com/guardiavault-oss/codeguard/discussions)

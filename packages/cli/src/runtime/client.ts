@@ -44,7 +44,7 @@ export interface ClientOptions {
   maxRetries?: number;
 }
 
-const DEFAULT_API_BASE = process.env.GUARDRAIL_API_BASE_URL || 'https://api.guardrail.dev';
+const DEFAULT_API_BASE = process.env.GUARDRAIL_API_BASE_URL || 'https://api.guardrailai.dev';
 const DEFAULT_TIMEOUT = 10000;
 const DEFAULT_MAX_RETRIES = 3;
 const RETRY_DELAYS = [1000, 2000, 4000]; // Exponential backoff

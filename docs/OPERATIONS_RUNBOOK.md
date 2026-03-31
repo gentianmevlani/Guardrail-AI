@@ -68,7 +68,7 @@ SMTP_HOST="smtp.sendgrid.net"
 SMTP_PORT="587"
 SMTP_USER="apikey"
 SMTP_PASSWORD="SG..."
-EMAIL_FROM="noreply@guardrail.dev"
+EMAIL_FROM="noreply@guardrailai.dev"
 
 # GitHub Integration (optional)
 GITHUB_APP_ID="..."
@@ -167,15 +167,15 @@ docker-compose -f docker-compose.yml up -d
 
 ```bash
 # Trigger token cleanup
-curl -X POST https://api.guardrail.dev/admin/cleanup/tokens \
+curl -X POST https://api.guardrailai.dev/admin/cleanup/tokens \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 
 # Trigger daily cleanup
-curl -X POST https://api.guardrail.dev/admin/cleanup/daily \
+curl -X POST https://api.guardrailai.dev/admin/cleanup/daily \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 
 # Trigger weekly cleanup
-curl -X POST https://api.guardrail.dev/admin/cleanup/weekly \
+curl -X POST https://api.guardrailai.dev/admin/cleanup/weekly \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 
@@ -183,12 +183,12 @@ curl -X POST https://api.guardrail.dev/admin/cleanup/weekly \
 
 ```bash
 # Export runs as CSV
-curl "https://api.guardrail.dev/api/exports/runs?format=csv" \
+curl "https://api.guardrailai.dev/api/exports/runs?format=csv" \
   -H "Authorization: Bearer $TOKEN" \
   -o runs-export.csv
 
 # Export audit logs as JSON
-curl "https://api.guardrail.dev/api/exports/audit-logs?format=json" \
+curl "https://api.guardrailai.dev/api/exports/audit-logs?format=json" \
   -H "Authorization: Bearer $TOKEN" \
   -o audit-logs.json
 ```
@@ -197,11 +197,11 @@ curl "https://api.guardrail.dev/api/exports/audit-logs?format=json" \
 
 ```bash
 # List all webhook subscriptions
-curl https://api.guardrail.dev/api/v1/webhooks/subscriptions \
+curl https://api.guardrailai.dev/api/v1/webhooks/subscriptions \
   -H "Authorization: Bearer $TOKEN"
 
 # Test a webhook endpoint
-curl -X POST https://api.guardrail.dev/api/v1/webhooks/test \
+curl -X POST https://api.guardrailai.dev/api/v1/webhooks/test \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"url": "https://your-endpoint.com/webhook"}'
@@ -211,11 +211,11 @@ curl -X POST https://api.guardrail.dev/api/v1/webhooks/test \
 
 ```bash
 # Search users (admin only)
-curl "https://api.guardrail.dev/api/v1/admin/users?query=email@example.com" \
+curl "https://api.guardrailai.dev/api/v1/admin/users?query=email@example.com" \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 
 # View user details
-curl "https://api.guardrail.dev/api/v1/admin/users/USER_ID" \
+curl "https://api.guardrailai.dev/api/v1/admin/users/USER_ID" \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 
@@ -262,7 +262,7 @@ psql $DATABASE_URL -c "SELECT 1"
 
 ```bash
 # Check recent billing events
-curl "https://api.guardrail.dev/api/billing/events?limit=10" \
+curl "https://api.guardrailai.dev/api/billing/events?limit=10" \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 
@@ -354,8 +354,8 @@ ORDER BY timestamp DESC;
 ### Emergency Contacts
 
 - On-call Engineer: [PagerDuty/OpsGenie integration]
-- Security Team: security@guardrail.dev
-- Platform Lead: platform@guardrail.dev
+- Security Team: security@guardrailai.dev
+- Platform Lead: platform@guardrailai.dev
 
 ---
 
@@ -387,6 +387,6 @@ psql $DATABASE_URL < backup-20240115.sql
 
 ### Support Resources
 
-- Documentation: https://docs.guardrail.dev
-- Status Page: https://status.guardrail.dev
+- Documentation: https://guardrailai.dev/docs
+- Status Page: https://status.guardrailai.dev
 - GitHub Issues: https://github.com/guardrail/guardrail/issues

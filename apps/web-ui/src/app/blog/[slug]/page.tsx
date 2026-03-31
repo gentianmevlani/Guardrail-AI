@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const shareUrl = `https://getguardrail.io/blog/${post.slug}`;
+  const shareUrl = `https://guardrailai.dev/blog/${post.slug}`;
   const shareText = `${post.title} - ${post.excerpt}`;
 
   return (

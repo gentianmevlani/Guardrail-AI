@@ -82,7 +82,7 @@ describe("ShipBadgeGenerator", () => {
         },
         timestamp: new Date().toISOString(),
         expiresAt: new Date().toISOString(),
-        permalink: "https://guardrail.dev/badge/test123",
+        permalink: "https://guardrailai.dev/badge/test123",
         embedCode: "[![Badge](url)](link)",
       };
 
@@ -135,7 +135,7 @@ describe("ShipBadgeGenerator", () => {
         },
         timestamp: new Date().toISOString(),
         expiresAt: new Date().toISOString(),
-        permalink: "https://guardrail.dev/badge/test123",
+        permalink: "https://guardrailai.dev/badge/test123",
         embedCode: "[![Badge](url)](link)",
       };
 

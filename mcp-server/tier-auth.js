@@ -72,7 +72,7 @@ export async function checkFeatureAccess(featureName, providedApiKey = null) {
       hasAccess: false,
       tier: 'free',
       reason: 'No API key provided. Run: guardrail auth --key YOUR_API_KEY',
-      upgradeUrl: 'https://guardrail.dev/pricing'
+      upgradeUrl: 'https://guardrailai.dev/pricing'
     };
   }
   
@@ -88,7 +88,7 @@ export async function checkFeatureAccess(featureName, providedApiKey = null) {
       hasAccess: false,
       tier,
       reason: `${featureName} requires ${requiredTier} tier or higher`,
-      upgradeUrl: 'https://guardrail.dev/pricing'
+      upgradeUrl: 'https://guardrailai.dev/pricing'
     };
   }
   

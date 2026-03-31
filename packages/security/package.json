@@ -7,7 +7,7 @@
     "dist/**/*"
   ],
   "license": "MIT",
-  "author": "Guardrail Team <support@guardrail.dev>",
+  "author": "Guardrail Team <support@guardrailai.dev>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guardiavault-oss/codeguard.git"

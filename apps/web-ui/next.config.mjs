@@ -221,8 +221,9 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "github.com" },
-      { protocol: "https", hostname: "getguardrail.io" },
-      { protocol: "https", hostname: "guardrail.dev" },
+      { protocol: "https", hostname: "guardrailai.dev" },
+      { protocol: "https", hostname: "www.guardrailai.dev" },
+      { protocol: "https", hostname: "api.guardrailai.dev" },
     ],
   },
   async headers() {
@@ -263,7 +264,7 @@ const nextConfig = {
         headers: [
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.ALLOWED_ORIGIN || "https://getguardrail.io",
+            value: process.env.ALLOWED_ORIGIN || "https://guardrailai.dev",
           },
           {
             key: "X-Frame-Options",

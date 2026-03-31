@@ -9,7 +9,7 @@ test('Reality Mode - Quick Test', async ({ page }) => {
   
   for (const route of routes) {
     try {
-      const response = await page.goto(`https://guardrail.dev${route}`, { waitUntil: 'networkidle' });
+      const response = await page.goto(`https://guardrailai.dev${route}`, { waitUntil: 'networkidle' });
       const status = response.status();
       results.push({ route, status, success: status >= 200 && status < 400 });
       console.log(`${route}: ${status} ${status >= 200 && status < 400 ? '✅' : '❌'}`);
@@ -20,7 +20,7 @@ test('Reality Mode - Quick Test', async ({ page }) => {
   }
   
   // Test 2: Check interactive elements
-  await page.goto('https://guardrail.dev');
+  await page.goto('https://guardrailai.dev');
   await page.waitForLoadState('networkidle');
   
   const buttons = await page.$$('button, [role="button"]');

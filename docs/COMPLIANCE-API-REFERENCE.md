@@ -7,7 +7,7 @@ The guardrail Compliance API provides GDPR-compliant data management, consent ha
 ## Base URL
 
 ```
-https://api.guardrail.dev/api/v1/legal
+https://api.guardrailai.dev/api/v1/legal
 ```
 
 ## Authentication
@@ -467,7 +467,7 @@ do {
 import requests
 import time
 
-base_url = "https://api.guardrail.dev/api/v1/legal"
+base_url = "https://api.guardrailai.dev/api/v1/legal"
 headers = {
     "Authorization": f"Bearer {token}",
     "Content-Type": "application/json"
@@ -508,9 +508,9 @@ while True:
 ## Support
 
 For API support and questions:
-- **Technical Issues**: api-support@guardrail.dev
-- **Privacy Questions**: privacy@guardrail.dev
-- **Documentation**: docs.guardrail.dev/compliance-api
+- **Technical Issues**: api-support@guardrailai.dev
+- **Privacy Questions**: privacy@guardrailai.dev
+- **Documentation**: guardrailai.dev/docs/compliance-api
 
 ## Changelog
 

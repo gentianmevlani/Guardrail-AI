@@ -28,6 +28,6 @@ export function registerUpgradeCommand(program: Command): void {
       console.log(`  ${styles.bold}Price:${styles.reset} $29/month`);
       console.log('');
 
-      console.log(`  ${styles.brightCyan}Upgrade now:${styles.reset} ${styles.bold}https://guardrail.dev/upgrade${styles.reset}\n`);
+      console.log(`  ${styles.brightCyan}Upgrade now:${styles.reset} ${styles.bold}https://guardrailai.dev/upgrade${styles.reset}\n`);
     });
 }

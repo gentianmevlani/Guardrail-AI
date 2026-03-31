@@ -6,7 +6,7 @@ Complete list of all available CLI commands in guardrail CLI v2.5.0.
 
 ### Authentication
 1. **`auth`** - Authenticate with your guardrail API key
-   - `--key <apiKey>` - Your API key from guardrail.dev
+   - `--key <apiKey>` - Your API key from guardrailai.dev
    - `--status` - Check authentication status
    - `--refresh` - Force revalidation of cached entitlements
    - `--logout` - Remove stored credentials

@@ -22,7 +22,7 @@ describe("generatePRCommentSummary", () => {
     const comment = generatePRCommentSummary(
       baseFindings,
       "run-abc123",
-      "https://guardrail.dev/runs/run-abc123"
+      "https://guardrailai.dev/runs/run-abc123"
     );
 
     expect(comment).toContain("Guardrail Scan");
@@ -35,7 +35,7 @@ describe("generatePRCommentSummary", () => {
     const comment = generatePRCommentSummary(
       baseFindings,
       "run-abc123",
-      "https://guardrail.dev/runs/run-abc123",
+      "https://guardrailai.dev/runs/run-abc123",
       {
         score: 72,
         verdict: "REVIEW",
@@ -52,7 +52,7 @@ describe("generatePRCommentSummary", () => {
     const comment = generatePRCommentSummary(
       baseFindings,
       "run-abc123",
-      "https://guardrail.dev/runs/run-abc123",
+      "https://guardrailai.dev/runs/run-abc123",
       {
         score: 85,
         verdict: "SHIP",
@@ -69,7 +69,7 @@ describe("generatePRCommentSummary", () => {
     const comment = generatePRCommentSummary(
       baseFindings,
       "run-abc123",
-      "https://guardrail.dev/runs/run-abc123",
+      "https://guardrailai.dev/runs/run-abc123",
       {
         score: 90,
         verdict: "SHIP",
@@ -86,7 +86,7 @@ describe("generatePRCommentSummary", () => {
     const comment = generatePRCommentSummary(
       baseFindings,
       "run-abc123",
-      "https://guardrail.dev/runs/run-abc123",
+      "https://guardrailai.dev/runs/run-abc123",
       {
         score: 80,
         verdict: "REVIEW",
@@ -107,7 +107,7 @@ describe("generatePRCommentSummary", () => {
     const comment = generatePRCommentSummary(
       baseFindings,
       "run-abc123",
-      "https://guardrail.dev/runs/run-abc123"
+      "https://guardrailai.dev/runs/run-abc123"
     );
 
     expect(comment).toContain("Top Findings");
@@ -120,7 +120,7 @@ describe("generatePRCommentSummary", () => {
     const comment = generatePRCommentSummary(
       [],
       "run-clean",
-      "https://guardrail.dev/runs/run-clean",
+      "https://guardrailai.dev/runs/run-clean",
       { score: 100, verdict: "SHIP", grade: "A" }
     );
 

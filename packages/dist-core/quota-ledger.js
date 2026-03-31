@@ -60,7 +60,7 @@ class QuotaLedger {
         this.configDir = path.join(os.homedir(), '.guardrail');
         this.ledgerFile = path.join(this.configDir, 'usage-ledger.json');
         this.cacheFile = path.join(this.configDir, 'quota-cache.json');
-        this.apiUrl = process.env['GUARDRAIL_API_URL'] || 'https://api.getguardrail.io';
+        this.apiUrl = process.env['GUARDRAIL_API_URL'] || 'https://api.guardrailai.dev';
         this.apiKey = process.env['GUARDRAIL_API_KEY'] || null;
     }
     /**

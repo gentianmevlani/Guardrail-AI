@@ -417,7 +417,7 @@ ${statusBadge}
 
     comment += `---\n`;
     comment += `*Commit: ${context.sha.substring(0, 7)} | Branch: ${context.branch}*\n`;
-    comment += `*Powered by [guardrail](https://guardrail.dev) - CI Truth for AI-Generated Code*`;
+    comment += `*Powered by [guardrail](https://guardrailai.dev) - CI Truth for AI-Generated Code*`;
 
     return comment;
   }
@@ -435,7 +435,7 @@ ${statusBadge}
 ${finding.message}
 
 ---
-*This issue was detected by [guardrail](https://guardrail.dev)*`;
+*This issue was detected by [guardrail](https://guardrailai.dev)*`;
   }
 
   private getStatusDescription(result: ScanResult): string {

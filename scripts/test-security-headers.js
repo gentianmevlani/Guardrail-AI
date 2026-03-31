@@ -187,7 +187,7 @@ async function main() {
   
   if (!url) {
     console.error('Usage: node test-security-headers.js <url> [--verbose] [--json]');
-    console.error('Example: node test-security-headers.js https://guardrail.dev');
+    console.error('Example: node test-security-headers.js https://guardrailai.dev');
     process.exit(1);
   }
   

@@ -63,7 +63,7 @@ export function Footer({
       { label: "CLI Guide", href: "/cli" },
       { label: "Help Center", href: "/help" },
       { label: "Community", href: "/community" },
-      { label: "Status", href: "https://status.guardrail.dev" },
+      { label: "Status", href: "https://status.guardrailai.dev" },
     ],
     legal: [
       { label: "Terms of Service", href: "/terms" },
@@ -348,7 +348,7 @@ export function CompactFooter({ className }: { className?: string }) {
               Privacy
             </Link>
             <Link
-              href="https://status.guardrail.dev"
+              href="https://status.guardrailai.dev"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-400 transition-colors"

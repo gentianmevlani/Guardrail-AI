@@ -130,7 +130,7 @@ export async function showContractDiff(
     "Documentation",
   );
   if (pick === "Documentation") {
-    await vscode.env.openExternal(vscode.Uri.parse("https://docs.guardrail.dev"));
+    await vscode.env.openExternal(vscode.Uri.parse("https://guardrailai.dev/docs"));
   }
 }
 

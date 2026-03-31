@@ -516,5 +516,5 @@ await scanner.scan(projectPath, 'soc2', { detectDrift: true });
 
 For issues or questions:
 - GitHub Issues: https://github.com/guardrail/compliance/issues
-- Documentation: https://docs.guardrail.dev/compliance
-- Email: support@guardrail.dev
+- Documentation: https://guardrailai.dev/docs/compliance
+- Email: support@guardrailai.dev

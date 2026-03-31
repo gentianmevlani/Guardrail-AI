@@ -110,7 +110,7 @@ STRIPE_CUSTOMER_PORTAL_CONFIG=bpc_xxx
 
 Navigate to **Stripe Dashboard → Developers → Webhooks → Add Endpoint**
 
-**Endpoint URL:** `https://api.guardrail.dev/api/billing/webhook`
+**Endpoint URL:** `https://api.guardrailai.dev/api/billing/webhook`
 
 **Events to subscribe:**
 

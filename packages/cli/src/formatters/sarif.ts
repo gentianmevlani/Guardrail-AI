@@ -96,7 +96,7 @@ export function toSarif(results: any): SarifResult {
         name: finding.type.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
         shortDescription: { text: `Detected ${finding.type.replace(/_/g, ' ')}` },
         fullDescription: { text: finding.recommendation?.reason || `Potential ${finding.type} detected in source code` },
-        helpUri: 'https://guardrail.dev/docs/secrets',
+        helpUri: 'https://guardrailai.dev/docs/secrets',
         defaultConfiguration: { level: riskToLevel(finding.risk) },
       });
     }
@@ -139,7 +139,7 @@ export function toSarif(results: any): SarifResult {
         driver: {
           name: 'guardrail-cli-tool',
           version,
-          informationUri: 'https://guardrail.dev',
+          informationUri: 'https://guardrailai.dev',
           rules: Array.from(ruleMap.values()),
         },
       },
@@ -160,7 +160,7 @@ export function toSarifVulnerabilities(results: any): SarifResult {
     id: 'vulnerable-dependency',
     name: 'Vulnerable Dependency',
     shortDescription: { text: 'Known vulnerability in dependency' },
-    helpUri: 'https://guardrail.dev/docs/vulnerabilities',
+    helpUri: 'https://guardrailai.dev/docs/vulnerabilities',
     defaultConfiguration: { level: 'error' },
   }];
   
@@ -198,7 +198,7 @@ export function toSarifVulnerabilities(results: any): SarifResult {
         driver: {
           name: 'guardrail-cli-tool',
           version,
-          informationUri: 'https://guardrail.dev',
+          informationUri: 'https://guardrailai.dev',
           rules,
         },
       },

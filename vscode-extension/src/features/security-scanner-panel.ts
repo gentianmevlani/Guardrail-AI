@@ -90,7 +90,7 @@ export class SecurityScannerPanel {
             await this._exportReport();
             break;
           case 'openBilling':
-            await vscode.env.openExternal(vscode.Uri.parse('https://guardrail.dev/billing'));
+            await vscode.env.openExternal(vscode.Uri.parse('https://guardrailai.dev/billing'));
             break;
         }
       },
@@ -306,7 +306,7 @@ export class SecurityScannerPanel {
               ...this._report,
               issues: [],
               issueDetailsRedacted: true,
-              upgradeHint: 'Upgrade for full issue list: https://guardrail.dev/billing',
+              upgradeHint: 'Upgrade for full issue list: https://guardrailai.dev/billing',
             }
           : this._report;
       fs.writeFileSync(uri.fsPath, JSON.stringify(payload, null, 2));

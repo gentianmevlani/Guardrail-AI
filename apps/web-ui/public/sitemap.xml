@@ -2,73 +2,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://getguardrail.io/</loc>
+    <loc>https://guardrailai.dev/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Guides -->
   <url>
-    <loc>https://getguardrail.io/guides/stop-mock-data-production</loc>
+    <loc>https://guardrailai.dev/guides/stop-mock-data-production</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/guides/ci-passed-production-bug</loc>
+    <loc>https://guardrailai.dev/guides/ci-passed-production-bug</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/guides/ai-hallucinated-code-detection</loc>
+    <loc>https://guardrailai.dev/guides/ai-hallucinated-code-detection</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Comparison Pages -->
   <url>
-    <loc>https://getguardrail.io/compare/ci-tools-miss-mock-data</loc>
+    <loc>https://guardrailai.dev/compare/ci-tools-miss-mock-data</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/compare/sonarqube-mock-data-production</loc>
+    <loc>https://guardrailai.dev/compare/sonarqube-mock-data-production</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/compare/snyk-vs-reality-gates</loc>
+    <loc>https://guardrailai.dev/compare/snyk-vs-reality-gates</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/compare/eslint-ci-passed-prod-failed</loc>
+    <loc>https://guardrailai.dev/compare/eslint-ci-passed-prod-failed</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/compare/jest-tests-mock-data-production</loc>
+    <loc>https://guardrailai.dev/compare/jest-tests-mock-data-production</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/compare/owasp-dependency-check-runtime-truth</loc>
+    <loc>https://guardrailai.dev/compare/owasp-dependency-check-runtime-truth</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/compare/github-actions-prod-readiness-gate</loc>
+    <loc>https://guardrailai.dev/compare/github-actions-prod-readiness-gate</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Glossary -->
   <url>
-    <loc>https://getguardrail.io/glossary/mock-data-production</loc>
+    <loc>https://guardrailai.dev/glossary/mock-data-production</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://getguardrail.io/glossary/ai-code-hallucination</loc>
+    <loc>https://guardrailai.dev/glossary/ai-code-hallucination</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

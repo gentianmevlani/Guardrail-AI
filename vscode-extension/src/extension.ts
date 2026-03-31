@@ -1158,7 +1158,7 @@ function getDashboardHtml(score: number): string {
   </div>
 
   <div class="footer">
-    guardrail v${KINETIC_ARCHIVE_VERSION} · guardrail.dev
+    guardrail v${KINETIC_ARCHIVE_VERSION} · guardrailai.dev
   </div>
 
   <script>
@@ -1679,7 +1679,7 @@ async function runSmells(): Promise<void> {
 async function openWebDashboard(): Promise<void> {
   const config = vscode.workspace.getConfiguration("guardrail");
   const configured = config
-    .get<string>("webAppUrl", "https://app.guardrail.dev")
+    .get<string>("webAppUrl", "https://guardrailai.dev")
     .replace(/\/$/, "");
   const preferLocal = config.get<boolean>("openLocalWebAppFirst", false);
 

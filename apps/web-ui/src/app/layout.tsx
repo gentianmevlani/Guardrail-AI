@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "vibe coding",
     "AI guardrails",
   ],
-  authors: [{ name: "guardrail Team", url: "https://guardrail.dev" }],
+  authors: [{ name: "guardrail Team", url: "https://guardrailai.dev" }],
   creator: "guardrail",
   publisher: "guardrail",
   icons: {
@@ -45,12 +45,12 @@ export const metadata: Metadata = {
     ],
     apple: "/guardrail-logo.png",
   },
-  metadataBase: new URL("https://guardrail.dev"),
+  metadataBase: new URL("https://guardrailai.dev"),
   openGraph: {
     title: "guardrail - CI Truth for AI-Generated Code",
     description:
       "Prove your app is real before you ship. Catch fake features, broken auth, exposed secrets, and mock data in AI-generated code.",
-    url: "https://guardrail.dev",
+    url: "https://guardrailai.dev",
     siteName: "guardrail",
     type: "website",
     locale: "en_US",
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://guardrail.dev",
+    canonical: "https://guardrailai.dev",
   },
   other: {
     "github:repo": "https://github.com/guardrail-Official/guardrail",

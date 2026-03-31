@@ -1,7 +1,7 @@
 /**
  * guardrail Certified Badge Generator
  *
- * Creates verifiable badges that link back to guardrail.dev
+ * Creates verifiable badges that link back to guardrailai.dev
  * Each badge creates a backlink = SEO fuel
  */
 
@@ -43,7 +43,7 @@ export function generateCertificationBadge(
   const expiresAt = new Date(
     Date.now() + 30 * 24 * 60 * 60 * 1000,
   ).toISOString(); // 30 days
-  const verifyUrl = `https://guardrail.dev/verify/${projectId}`;
+  const verifyUrl = `https://guardrailai.dev/verify/${projectId}`;
 
   // Color based on score
   const color =
@@ -128,7 +128,7 @@ function generateSVGBadge(
     <text aria-hidden="true" x="${labelWidth + statusWidth / 2}" y="15" fill="#010101" fill-opacity=".3">${status}</text>
     <text x="${labelWidth + statusWidth / 2}" y="14">${status}</text>
   </g>
-  <!-- Verify at ${`https://guardrail.dev/verify`} -->
+  <!-- Verify at ${`https://guardrailai.dev/verify`} -->
 </svg>`;
 }
 
@@ -200,7 +200,7 @@ export async function validateCertification(projectId: string): Promise<{
 export function generateCertificationFile(result: CertificationResult): string {
   return JSON.stringify(
     {
-      $schema: "https://guardrail.dev/schemas/certification.json",
+      $schema: "https://guardrailai.dev/schemas/certification.json",
       version: "1.0.0",
       certified: result.certified,
       score: result.score,

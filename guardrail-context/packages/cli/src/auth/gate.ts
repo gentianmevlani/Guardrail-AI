@@ -147,7 +147,7 @@ ${ANSI.bold}What you get with Pro ($29/mo):${ANSI.reset}
   ${ANSI.green}✓${ANSI.reset} HTML/PDF shareable reports
   ${ANSI.green}✓${ANSI.reset} CI/CD integration
 
-${ANSI.cyan}Upgrade: https://guardrail.dev/upgrade${ANSI.reset}
+${ANSI.cyan}Upgrade: https://guardrailai.dev/upgrade${ANSI.reset}
 
 ${ANSI.dim}Or run: guardrail login${ANSI.reset}
 `);

@@ -49,7 +49,7 @@ We've completely overhauled how guardrail makes ship/no-ship decisions:
 
 Next steps:
   • Run "guardrail login" to authenticate
-  • Get your API key at https://guardrail.dev/settings/keys
+  • Get your API key at https://guardrailai.dev/settings/keys
 ```
 
 ### Performance
@@ -188,6 +188,6 @@ See [GUARDRAIL_V1_DOD.md](./GUARDRAIL_V1_DOD.md) for the complete list of change
 
 ## 📞 Support
 
-- Documentation: https://docs.guardrail.dev
+- Documentation: https://guardrailai.dev/docs
 - Issues: https://github.com/guardrail/guardrail/issues
-- Email: support@guardrail.dev
+- Email: support@guardrailai.dev

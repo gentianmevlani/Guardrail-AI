@@ -85,7 +85,7 @@ async function detectProjectType(page: Page): Promise<string> {
 
 test.describe('Enhanced Reality Mode', () => {
   test('Project Detection - guardrail Website', async ({ page }) => {
-    await page.goto('https://guardrail.dev');
+    await page.goto('https://guardrailai.dev');
     await page.waitForLoadState('networkidle');
 
     const projectType = await detectProjectType(page);
@@ -107,7 +107,7 @@ test.describe('Enhanced Reality Mode', () => {
   });
 
   test('Authentication Flow Detection', async ({ page }) => {
-    await page.goto('https://guardrail.dev');
+    await page.goto('https://guardrailai.dev');
     await page.waitForLoadState('networkidle');
 
     // Look for login/signup buttons
@@ -138,7 +138,7 @@ test.describe('Enhanced Reality Mode', () => {
   });
 
   test('Interactive Elements Testing', async ({ page }) => {
-    await page.goto('https://guardrail.dev');
+    await page.goto('https://guardrailai.dev');
     await page.waitForLoadState('networkidle');
 
     const buttons = await page.$$('button:visible');
@@ -182,7 +182,7 @@ test.describe('Enhanced Reality Mode', () => {
   });
 
   test('Navigation Flow Testing', async ({ page }) => {
-    await page.goto('https://guardrail.dev');
+    await page.goto('https://guardrailai.dev');
     await page.waitForLoadState('networkidle');
 
     const navLinks = ['CLI', 'MCP', 'Pricing'];
@@ -217,7 +217,7 @@ test.describe('Enhanced Reality Mode', () => {
   });
 
   test('Form Detection and Smart Filling', async ({ page }) => {
-    await page.goto('https://guardrail.dev');
+    await page.goto('https://guardrailai.dev');
     await page.waitForLoadState('networkidle');
 
     // Click signup to get to a form
@@ -240,7 +240,7 @@ test.describe('Enhanced Reality Mode', () => {
 
     let fieldsFilled = 0;
     const testData = {
-      email: 'test-reality@guardrail.dev',
+      email: 'test-reality@guardrailai.dev',
       password: 'TestPass123!',
       name: 'Reality Test User',
       phone: '+1 555 123 4567',
@@ -272,7 +272,7 @@ test.describe('Enhanced Reality Mode', () => {
     });
     const page = await context.newPage();
 
-    await page.goto('https://guardrail.dev');
+    await page.goto('https://guardrailai.dev');
     await page.waitForLoadState('networkidle');
 
     console.log('\n📱 MOBILE RESPONSIVENESS');
@@ -307,7 +307,7 @@ test.describe('Enhanced Reality Mode', () => {
   });
 
   test('Accessibility Quick Check', async ({ page }) => {
-    await page.goto('https://guardrail.dev');
+    await page.goto('https://guardrailai.dev');
     await page.waitForLoadState('networkidle');
 
     console.log('\n♿ ACCESSIBILITY CHECK');

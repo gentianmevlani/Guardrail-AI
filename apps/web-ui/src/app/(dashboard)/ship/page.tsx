@@ -283,7 +283,7 @@ export default function ShipCheckPage() {
   };
 
   const copyEmbedCode = () => {
-    const embedCode = `[![guardrail](https://guardrail.dev/badge/${currentRun?.repo || "project"})](https://guardrail.dev)`;
+    const embedCode = `[![guardrail](https://guardrailai.dev/badge/${currentRun?.repo || "project"})](https://guardrailai.dev)`;
     navigator.clipboard.writeText(embedCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -1429,7 +1429,7 @@ export default function ShipCheckPage() {
                       </label>
                       <div className="relative group">
                         <pre className="p-4 rounded-lg bg-slate-900/80 border border-slate-700/50 text-xs text-slate-400 overflow-x-auto font-mono">
-                          {`[![guardrail](https://guardrail.dev/badge/${currentRun.repo})](https://guardrail.dev)`}
+                          {`[![guardrail](https://guardrailai.dev/badge/${currentRun.repo})](https://guardrailai.dev)`}
                         </pre>
                         <Button
                           size="sm"

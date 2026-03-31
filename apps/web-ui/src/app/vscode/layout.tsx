@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "guardrail for VS Code",
     description:
       "Stop AI-generated code from lying to you. Inline diagnostics and score badge inside VS Code.",
-    url: "https://guardrail.dev/vscode",
+    url: "https://guardrailai.dev/vscode",
     siteName: "guardrail",
     type: "website",
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: "Stop AI-generated code from lying to you.",
   },
   alternates: {
-    canonical: "https://guardrail.dev/vscode",
+    canonical: "https://guardrailai.dev/vscode",
   },
 };
 

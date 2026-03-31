@@ -3,7 +3,7 @@ import { readJsonSync, truthPackExists, scanVulnerabilities, checkPackageVulnera
 import type { VulnerabilityReport } from "@guardrail-context/engine";
 
 const UPGRADE_HINT =
-  "Upgrade for full CVE titles, package versions, and fix guidance: https://guardrail.dev/billing";
+  "Upgrade for full CVE titles, package versions, and fix guidance: https://guardrailai.dev/billing";
 
 function mcpShouldRedactIssueDetails(): boolean {
   const t = (process.env.GUARDRAIL_TIER || process.env.GUARDRAIL_PLAN || "free").trim().toLowerCase();

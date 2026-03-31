@@ -270,8 +270,8 @@
       },
       "timestamp": "2026-01-01T09:47:00.028Z",
       "expiresAt": "2026-01-08T09:47:00.028Z",
-      "permalink": "https://guardrail.dev/badge/1e9ae96f73af",
-      "embedCode": "<!-- guardrail Ship Badge -->\n[![guardrail Ship Status](https://guardrail.dev/api/badge/1e9ae96f73af/main.svg)](https://guardrail.dev/badge/1e9ae96f73af)\n[![Mock Data](https://guardrail.dev/api/badge/1e9ae96f73af/mock-data.svg)](https://guardrail.dev/badge/1e9ae96f73af)\n[![Real APIs](https://guardrail.dev/api/badge/1e9ae96f73af/real-api.svg)](https://guardrail.dev/badge/1e9ae96f73af)\n<!-- End guardrail Ship Badge -->\n\n---\n\n**guardrail** verified by [guardrail](https://guardrail.dev) - Stop shipping pretend features."
+      "permalink": "https://guardrailai.dev/badge/1e9ae96f73af",
+      "embedCode": "<!-- guardrail Ship Badge -->\n[![guardrail Ship Status](https://guardrailai.dev/api/badge/1e9ae96f73af/main.svg)](https://guardrailai.dev/badge/1e9ae96f73af)\n[![Mock Data](https://guardrailai.dev/api/badge/1e9ae96f73af/mock-data.svg)](https://guardrailai.dev/badge/1e9ae96f73af)\n[![Real APIs](https://guardrailai.dev/api/badge/1e9ae96f73af/real-api.svg)](https://guardrailai.dev/badge/1e9ae96f73af)\n<!-- End guardrail Ship Badge -->\n\n---\n\n**guardrail** verified by [guardrail](https://guardrailai.dev) - Stop shipping pretend features."
     },
     "reality": {
       "testPath": "C:\\Users\\mevla\\OneDrive\\Desktop\\guardrail\\.guardrail-demo\\reality-mode\\reality-mode.spec.ts"

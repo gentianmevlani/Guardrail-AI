@@ -108,10 +108,10 @@ export const footerModalContent: Record<string, { title: string; content: React.
         <div className="rounded-lg border border-white/10 bg-white/[0.03] p-6 text-center">
           <div className="text-white/60 text-sm mb-2">Email</div>
           <a
-            href="mailto:support@guardrail.dev"
+            href="mailto:support@guardrailai.dev"
             className="text-2xl font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
           >
-            support@guardrail.dev
+            support@guardrailai.dev
           </a>
         </div>
         <div className="text-sm text-white/60 text-center">
@@ -408,7 +408,7 @@ export const footerModalContent: Record<string, { title: string; content: React.
         </div>
 
         <Button
-          onClick={() => window.open("https://docs.guardrail.dev/api", "_blank")}
+          onClick={() => window.open("https://guardrailai.dev/docs/api", "_blank")}
           className="bg-white text-black hover:bg-white/90 w-full"
         >
           View Full API Docs →
@@ -511,7 +511,7 @@ export const footerModalContent: Record<string, { title: string; content: React.
           <a href="#" className="flex items-center justify-between p-3 rounded-lg border border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition-all group">
             <div>
               <div className="text-white font-medium">📧 Email Support</div>
-              <div className="text-sm text-white/60">support@guardrail.dev</div>
+              <div className="text-sm text-white/60">support@guardrailai.dev</div>
             </div>
             <ExternalLink className="h-4 w-4 text-white/40 group-hover:text-emerald-400 transition-colors" />
           </a>
@@ -605,7 +605,7 @@ export const footerModalContent: Record<string, { title: string; content: React.
           <section>
             <h3 className="font-semibold text-white mb-2">5. Data Retention</h3>
             <p className="text-white/70 leading-relaxed">
-              We retain your information for as long as your account is active or as needed to provide services. You may request deletion of your data at any time by contacting privacy@guardrail.dev. We will delete your data within 30 days, except where required by law.
+              We retain your information for as long as your account is active or as needed to provide services. You may request deletion of your data at any time by contacting privacy@guardrailai.dev. We will delete your data within 30 days, except where required by law.
             </p>
           </section>
 
@@ -667,7 +667,7 @@ export const footerModalContent: Record<string, { title: string; content: React.
               If you have questions about this Privacy Policy, please contact us at:
             </p>
             <div className="mt-2 text-white/60">
-              <div>Email: privacy@guardrail.dev</div>
+              <div>Email: privacy@guardrailai.dev</div>
               <div>Address: guardrail, Inc., 123 Developer St, San Francisco, CA 94105</div>
             </div>
           </section>
@@ -798,7 +798,7 @@ export const footerModalContent: Record<string, { title: string; content: React.
           <section>
             <h3 className="font-semibold text-white mb-2">15. Contact</h3>
             <p className="text-white/70 leading-relaxed">
-              Questions about these terms? Contact us at legal@guardrail.dev or guardrail, Inc., 123 Developer St, San Francisco, CA 94105.
+              Questions about these terms? Contact us at legal@guardrailai.dev or guardrail, Inc., 123 Developer St, San Francisco, CA 94105.
             </p>
           </section>
         </div>
@@ -968,7 +968,7 @@ export const footerModalContent: Record<string, { title: string; content: React.
               If you have questions about our use of cookies, please contact us at:
             </p>
             <div className="mt-2 text-white/60">
-              <div>Email: privacy@guardrail.dev</div>
+              <div>Email: privacy@guardrailai.dev</div>
               <div>Address: guardrail, Inc., 123 Developer St, San Francisco, CA 94105</div>
             </div>
           </section>

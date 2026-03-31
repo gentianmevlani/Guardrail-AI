@@ -7,7 +7,7 @@ program
 program
   .command('login')
   .description('Login with your guardrail API key')
-  .option('-k, --key <apiKey>', 'Your API key from guardrail.dev')
+  .option('-k, --key <apiKey>', 'Your API key from guardrailai.dev')
   .action(async (options) => {
     printLogo();
     // Use existing auth logic
@@ -55,7 +55,7 @@ program
 program
   .command('auth')
   .description('Authenticate with your guardrail API key')
-  .option('-k, --key <apiKey>', 'Your API key from guardrail.dev')
+  .option('-k, --key <apiKey>', 'Your API key from guardrailai.dev')
   .option('--logout', 'Remove stored credentials')
   .option('--status', 'Check authentication status')
   .option('--refresh', 'Force revalidation of cached entitlements')
@@ -140,7 +140,7 @@ program
           `${styles.brightCyan}guardrail auth --key YOUR_API_KEY${styles.reset}`,
           '',
           `${styles.dim}Get your API key from:${styles.reset}`,
-          `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+          `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
         ];
         
         const framed = frameLines(statusLines, { padding: 2 });
@@ -228,7 +228,7 @@ program
         `${styles.bold}guardrail auth --key YOUR_API_KEY${styles.reset}`,
         '',
         `${styles.dim}Get your API key from:${styles.reset}`,
-        `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+        `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
         '',
         `${styles.dim}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${styles.reset}`,
         '',
@@ -285,7 +285,7 @@ program
         `  ${styles.dim}${icons.bullet}${styles.reset} Network connectivity issues`,
         '',
         `${styles.dim}Get a new API key from:${styles.reset}`,
-        `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+        `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
       ];
       console.log(frameLines(errorLines, { padding: 2 }).join('\n'));
       console.log('');

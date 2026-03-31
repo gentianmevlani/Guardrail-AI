@@ -113,7 +113,7 @@ ${colors.bold}EXAMPLES${colors.reset}
 
 ${colors.bold}TIER REQUIREMENT${colors.reset}
   This command requires PRO tier or higher.
-  Upgrade: ${colors.cyan}guardrail upgrade${colors.reset} or https://guardrail.dev/pricing
+  Upgrade: ${colors.cyan}guardrail upgrade${colors.reset} or https://guardrailai.dev/pricing
 `);
 }
 
@@ -155,7 +155,7 @@ function printUpgradeRequired(currentTier, requiredTier) {
   ${colors.dim}─────────────────────────────────────────────────────────────────────${colors.reset}
 
   ${colors.cyan}→ guardrail upgrade${colors.reset}
-  ${colors.cyan}→ https://guardrail.dev/pricing${colors.reset}
+  ${colors.cyan}→ https://guardrailai.dev/pricing${colors.reset}
 `);
 }
 
@@ -174,7 +174,7 @@ function printQuotaExceeded(usage, limit) {
   • Upgrade to a higher tier for more runs
 
   ${colors.cyan}→ guardrail upgrade${colors.reset}
-  ${colors.cyan}→ https://guardrail.dev/pricing${colors.reset}
+  ${colors.cyan}→ https://guardrailai.dev/pricing${colors.reset}
 `);
 }
 
@@ -261,7 +261,7 @@ async function runFix(args) {
         error: "TIER_REQUIRED",
         currentTier: tier,
         requiredTier: fixPack.requiredTier,
-        upgradeUrl: "https://guardrail.dev/pricing",
+        upgradeUrl: "https://guardrailai.dev/pricing",
       }, null, 2));
     }
     

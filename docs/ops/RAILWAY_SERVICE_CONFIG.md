@@ -47,7 +47,7 @@ If you want to keep both but only deploy API:
    - **Build command:** `npm install && npm run build`
    - **Publish directory:** `apps/web-ui/dist`
 4. **Environment variables:** Copy from `NETLIFY_ENV_VARS_FINAL.txt`
-5. **Custom domain:** `app.guardrail.network`
+5. **Custom domain:** `guardrailai.dev`
 
 ---
 
@@ -55,8 +55,8 @@ If you want to keep both but only deploy API:
 
 | Service | Platform | Domain | Status |
 |---------|----------|--------|--------|
-| **API** | Railway | `api.guardrail.network` | ✅ Keep |
-| **Web-UI** | Netlify | `app.guardrail.network` | ⚠️ Move from Railway |
+| **API** | Railway | `api.guardrailai.dev` | ✅ Keep |
+| **Web-UI** | Netlify | `guardrailai.dev` | ⚠️ Move from Railway |
 | **Database** | Railway PostgreSQL | - | ✅ Keep |
 | **Redis** | Railway Redis (optional) | - | ✅ Optional |
 

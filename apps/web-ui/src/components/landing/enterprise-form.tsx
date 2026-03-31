@@ -61,7 +61,7 @@ export function EnterpriseForm({ onSuccess }: EnterpriseFormProps) {
       setIsSubmitted(true);
       onSuccess?.();
     } catch (err) {
-      const mailtoLink = `mailto:support@guardrail.dev?subject=Enterprise%20Inquiry%20-%20${encodeURIComponent(formData.companyName)}&body=${encodeURIComponent(
+      const mailtoLink = `mailto:support@guardrailai.dev?subject=Enterprise%20Inquiry%20-%20${encodeURIComponent(formData.companyName)}&body=${encodeURIComponent(
         `Company: ${formData.companyName}\nCompany Size: ${formData.companySize}\nName: ${formData.name}\nEmail: ${formData.email}\nRole: ${formData.role}\nUse Case: ${formData.useCase}\n\nMessage:\n${formData.message}`
       )}`;
       window.location.href = mailtoLink;
@@ -84,10 +84,10 @@ export function EnterpriseForm({ onSuccess }: EnterpriseFormProps) {
         <p className="text-sm text-white/50">
           For urgent matters, reach us at{" "}
           <a
-            href="mailto:support@guardrail.dev"
+            href="mailto:support@guardrailai.dev"
             className="text-emerald-400 hover:text-emerald-300"
           >
-            support@guardrail.dev
+            support@guardrailai.dev
           </a>
         </p>
       </div>

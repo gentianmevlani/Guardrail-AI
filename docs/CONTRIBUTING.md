@@ -16,7 +16,7 @@ First off, thank you for considering contributing to guardrail! It's people like
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [guardrail Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [conduct@guardrail.dev](mailto:conduct@guardrail.dev).
+This project and everyone participating in it is governed by the [guardrail Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [conduct@guardrailai.dev](mailto:conduct@guardrailai.dev).
 
 ---
 
@@ -341,7 +341,7 @@ export async function scan(
 ### Getting Help
 
 - 💬 **Discord:** [discord.gg/guardrail](https://discord.gg/guardrail)
-- 📧 **Email:** [support@guardrail.dev](mailto:support@guardrail.dev)
+- 📧 **Email:** [support@guardrailai.dev](mailto:support@guardrailai.dev)
 - 🐛 **Issues:** [GitHub Issues](https://github.com/guardiavault-oss/codeguard/issues)
 
 ### Recognition
@@ -350,7 +350,7 @@ Contributors are recognized in:
 
 - [README.md](README.md) contributors section
 - [CHANGELOG.md](CHANGELOG.md) for specific changes
-- Our [Contributors page](https://guardrail.dev/contributors)
+- Our [Contributors page](https://guardrailai.dev/contributors)
 
 ### Contributor License Agreement
 

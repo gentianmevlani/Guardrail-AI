@@ -53,9 +53,9 @@ export function getInstallCommand(os: "macos" | "linux" | "windows"): string {
     case "macos":
       return "brew install guardrail/tap/guardrail";
     case "linux":
-      return "curl -sSL https://install.guardrail.dev | bash";
+      return "curl -sSL https://install.guardrailai.dev | bash";
     case "windows":
-      return "iwr -useb https://install.guardrail.dev | iex";
+      return "iwr -useb https://install.guardrailai.dev | iex";
     default:
       return "npm install -g @guardrail/cli";
   }

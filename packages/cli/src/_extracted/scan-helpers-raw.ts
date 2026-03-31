@@ -940,7 +940,7 @@ async function initProject(projectPath: string, options: any): Promise<void> {
   
   successLines.push(...recommendedCmds);
   successLines.push('');
-  successLines.push(`${styles.dim}Documentation:${styles.reset} ${styles.brightBlue}https://guardrail.dev/docs${styles.reset}`);
+  successLines.push(`${styles.dim}Documentation:${styles.reset} ${styles.brightBlue}https://guardrailai.dev/docs${styles.reset}`);
   
   const framedSuccess = frameLines(successLines, { padding: 2 });
   console.log(framedSuccess.join('\n'));

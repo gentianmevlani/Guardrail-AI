@@ -191,13 +191,13 @@
     "ai-agents",
     "code-review"
   ],
-  "author": "Guardrail Team <support@guardrail.dev> (https://guardrail.dev)",
+  "author": "Guardrail Team <support@guardrailai.dev> (https://guardrailai.dev)",
   "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/guardiavault-oss/codeguard/issues"
   },
-  "homepage": "https://guardrail.dev",
+  "homepage": "https://guardrailai.dev",
   "pnpm": {
     "overrides": {
       "qs": ">=6.14.1",

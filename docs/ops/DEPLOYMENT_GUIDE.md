@@ -12,8 +12,8 @@ This guide will help you deploy the guardrail application to production using:
 2. **Netlify Account** - Sign up at [netlify.com](https://netlify.com)
 3. **Railway Account** - Sign up at [railway.app](https://railway.app)
 4. **Domain Names** (optional but recommended):
-   - `app.guardrail.network` (or your domain) for frontend
-   - `api.guardrail.network` (or your domain) for backend
+   - `guardrailai.dev` (or your domain) for frontend
+   - `api.guardrailai.dev` (or your domain) for backend
 
 ---
 
@@ -77,7 +77,7 @@ NEXT_TELEMETRY_DISABLED=1
 ### Step 5: Set Custom Domain (Optional)
 
 1. Go to **Domain settings** → **Add custom domain**
-2. Enter your domain: `app.guardrail.network`
+2. Enter your domain: `guardrailai.dev`
 3. Follow DNS instructions to add CNAME record
 4. Wait for SSL certificate (usually 1-2 minutes)
 
@@ -156,7 +156,7 @@ HOST=0.0.0.0
 
 # CORS & URLs (update with your Netlify URL)
 CORS_ORIGIN=https://your-netlify-site.netlify.app
-ALLOWED_ORIGINS=https://your-netlify-site.netlify.app,https://app.guardrail.network
+ALLOWED_ORIGINS=https://your-netlify-site.netlify.app,https://guardrailai.dev
 API_BASE_URL=https://your-railway-app.up.railway.app
 APP_BASE_URL=https://your-netlify-site.netlify.app
 ```
@@ -186,7 +186,7 @@ STRIPE_PRICE_ID_ENTERPRISE=price_xxx
 
 # Email (Resend)
 RESEND_API_KEY=re_your_key
-EMAIL_FROM=noreply@guardrail.network
+EMAIL_FROM=noreply@guardrailai.dev
 SMTP_HOST=smtp.resend.com
 SMTP_PORT=587
 SMTP_USER=resend
@@ -220,7 +220,7 @@ REDIS_URL=redis://... (auto-set if you add Redis)
 
 1. Go to **Railway Dashboard → Your Service → Settings → Networking**
 2. Click **"Custom Domain"**
-3. Enter your domain: `api.guardrail.network`
+3. Enter your domain: `api.guardrailai.dev`
 4. Add the CNAME record shown to your DNS provider
 5. Wait for SSL certificate (usually 1-2 minutes)
 

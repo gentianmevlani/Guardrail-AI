@@ -139,8 +139,8 @@ export async function buildServer() {
         version: "1.0.0",
         contact: {
           name: "guardrail Support",
-          url: "https://guardrail.dev",
-          email: "support@guardrail.dev",
+          url: "https://guardrailai.dev",
+          email: "support@guardrailai.dev",
         },
         license: {
           name: "MIT",
@@ -347,7 +347,7 @@ export async function buildServer() {
       plan?: string;
       priceId?: string;
     };
-    const frontendUrl = process.env.FRONTEND_URL || "https://guardrail.dev";
+    const frontendUrl = process.env.FRONTEND_URL || "https://guardrailai.dev";
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
     // If no Stripe key, return helpful error (not mock success)

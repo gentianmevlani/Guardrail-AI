@@ -223,7 +223,7 @@ function generateMockCertification(projectId: string) {
               ? "B"
               : "B-";
 
-  const verifyUrl = `https://getguardrail.io/verify/${projectId}`;
+  const verifyUrl = `https://guardrailai.dev/verify/${projectId}`;
 
   return {
     certified: score >= 70,

@@ -229,18 +229,18 @@ Yes, based on your plan's project limit. Enterprise has unlimited projects.
 No, all validation runs locally. Only usage statistics are sent (anonymized).
 
 ### Do you offer discounts?
-Yes! See Special Offers above. Contact sales@guardrail.dev for custom pricing.
+Yes! See Special Offers above. Contact sales@guardrailai.dev for custom pricing.
 
 ---
 
 ## 📞 Contact Sales
 
 For Enterprise plans or custom pricing:
-- Email: sales@guardrail.dev
-- Schedule a call: https://guardrail.dev/demo
+- Email: sales@guardrailai.dev
+- Schedule a call: https://guardrailai.dev/demo
 - Phone: +1 (555) 123-4567
 
 ---
 
-**Ready to upgrade?** Visit https://guardrail.dev/pricing
+**Ready to upgrade?** Visit https://guardrailai.dev/pricing
 

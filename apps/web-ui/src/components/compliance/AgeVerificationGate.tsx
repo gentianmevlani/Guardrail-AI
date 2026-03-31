@@ -234,10 +234,10 @@ export function AgeVerificationGate({
           <p className="text-xs text-gray-500">
             Questions? Contact{" "}
             <a
-              href="mailto:privacy@guardrail.dev"
+              href="mailto:privacy@guardrailai.dev"
               className="text-blue-600 hover:underline"
             >
-              privacy@guardrail.dev
+              privacy@guardrailai.dev
             </a>
           </p>
         </div>

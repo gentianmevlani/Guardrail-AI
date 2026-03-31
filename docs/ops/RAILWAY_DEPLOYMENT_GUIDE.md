@@ -22,20 +22,20 @@ Make sure these are set in Railway Dashboard → Your Service → Variables:
 - `JWT_REFRESH_EXPIRES_IN=7d`
 
 ### CORS & URLs
-- `CORS_ORIGIN=https://app.guardrail.network`
-- `ALLOWED_ORIGINS=https://app.guardrail.network,https://www.guardrail.network,https://guardrail.network`
-- `API_BASE_URL=https://api.guardrail.network`
-- `APP_BASE_URL=https://app.guardrail.network`
+- `CORS_ORIGIN=https://guardrailai.dev`
+- `ALLOWED_ORIGINS=https://guardrailai.dev,https://www.guardrailai.dev,https://guardrailai.dev`
+- `API_BASE_URL=https://api.guardrailai.dev`
+- `APP_BASE_URL=https://guardrailai.dev`
 
 ### OAuth (Google)
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
-- `GOOGLE_CALLBACK_URL=https://api.guardrail.network/api/auth/google/callback`
+- `GOOGLE_CALLBACK_URL=https://api.guardrailai.dev/api/auth/google/callback`
 
 ### OAuth (GitHub)
 - `GITHUB_CLIENT_ID`
 - `GITHUB_CLIENT_SECRET`
-- `GITHUB_CALLBACK_URL=https://api.guardrail.network/api/auth/github/callback`
+- `GITHUB_CALLBACK_URL=https://api.guardrailai.dev/api/auth/github/callback`
 - `GITHUB_WEBHOOK_SECRET`
 - `GITHUB_APP_ID`
 
@@ -57,7 +57,7 @@ Make sure these are set in Railway Dashboard → Your Service → Variables:
 
 ### Email (Resend)
 - `RESEND_API_KEY`
-- `EMAIL_FROM=noreply@guardrail.network`
+- `EMAIL_FROM=noreply@guardrailai.dev`
 - `SMTP_HOST=smtp.resend.com`
 - `SMTP_PORT=587`
 - `SMTP_USER=resend`
@@ -90,7 +90,7 @@ Make sure these are set in Railway Dashboard → Your Service → Variables:
 
 4. **Set Custom Domain**
    - Railway Dashboard → Your Service → Settings → Networking
-   - Add custom domain: `api.guardrail.network`
+   - Add custom domain: `api.guardrailai.dev`
    - Update DNS records as shown
 
 ## 🚀 Deploy Commands

@@ -168,7 +168,7 @@ export const Guardrail_RULES: SemgrepRule[] = [
     pattern: 'MockProvider',
     metadata: {
       category: 'production-readiness',
-      references: ['https://guardrail.dev/rules/no-mock-in-prod']
+      references: ['https://guardrailai.dev/rules/no-mock-in-prod']
     }
   },
   {

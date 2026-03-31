@@ -49,7 +49,7 @@ export const PolicyRuleSchema = z.object({
 export type PolicyRule = z.infer<typeof PolicyRuleSchema>;
 
 export const PolicyFileSchema = z.object({
-  apiVersion: z.literal('guardrail.dev/v1'),
+  apiVersion: z.literal('guardrailai.dev/v1'),
   kind: z.literal('Policy'),
   metadata: z.object({
     name: z.string(),
@@ -182,7 +182,7 @@ export class PolicyManager {
     }
 
     const defaultPolicy: PolicyFile = {
-      apiVersion: 'guardrail.dev/v1',
+      apiVersion: 'guardrailai.dev/v1',
       kind: 'Policy',
       metadata: {
         name: 'default',

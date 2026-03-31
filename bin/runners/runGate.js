@@ -39,7 +39,7 @@ async function uploadSarifReport(sarifPath, apiKey) {
     return { success: false, error: `Failed to read results: ${err.message}` };
   }
 
-  const apiUrl = process.env.GUARDRAIL_API_URL || "https://api.guardrail.dev";
+  const apiUrl = process.env.GUARDRAIL_API_URL || "https://api.guardrailai.dev";
   
   try {
     const res = await fetch(`${apiUrl}/v1/scans/sarif`, {
@@ -84,7 +84,7 @@ function convertToSarif(scanResults) {
         driver: {
           name: "guardrail",
           version: scanResults.version || "1.0.0",
-          informationUri: "https://guardrail.dev",
+          informationUri: "https://guardrailai.dev",
           rules: [],
         },
       },
@@ -156,7 +156,7 @@ async function runGate(args) {
           exitCode: EXIT_CODES.AUTH_REQUIRED,
           nextSteps: [
             'Run "guardrail login" to authenticate',
-            "Get your API key at https://guardrail.dev/settings/keys",
+            "Get your API key at https://guardrailai.dev/settings/keys",
           ],
         }));
       } else {
@@ -177,13 +177,13 @@ async function runGate(args) {
           exitCode: EXIT_CODES.AUTH_REQUIRED,
           nextSteps: [
             'Run "guardrail login" to authenticate',
-            "Get your API key at https://guardrail.dev/settings/keys",
-            "Upgrade at https://guardrail.dev/pricing",
+            "Get your API key at https://guardrailai.dev/settings/keys",
+            "Upgrade at https://guardrailai.dev/pricing",
           ],
         }));
       } else {
         printError("Upload Skipped", ent.reason);
-        console.error(`  ${c.dim}SARIF upload is a premium feature. Upgrade at https://guardrail.dev/pricing${c.reset}\n`);
+        console.error(`  ${c.dim}SARIF upload is a premium feature. Upgrade at https://guardrailai.dev/pricing${c.reset}\n`);
       }
       process.exit(EXIT_CODES.AUTH_FAILURE);
     }

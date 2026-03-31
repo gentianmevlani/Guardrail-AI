@@ -216,7 +216,7 @@ Releases are managed by maintainers:
 
 - **Discord**: [Join our community](https://discord.gg/guardrail)
 - **GitHub Discussions**: Ask questions
-- **Documentation**: https://guardrail.dev/docs
+- **Documentation**: https://guardrailai.dev/docs
 
 ## License
 

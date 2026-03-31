@@ -93,7 +93,7 @@ All examples use a similar configuration structure:
 }
 ```
 
-See the [Configuration Documentation](https://guardrail.dev/docs/config) for all options.
+See the [Configuration Documentation](https://guardrailai.dev/docs/config) for all options.
 
 ## Contributing Examples
 

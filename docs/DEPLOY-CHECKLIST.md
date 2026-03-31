@@ -92,7 +92,7 @@ docker push guardrail:latest
 
 ### 1. API Health Check
 ```bash
-curl https://api.guardrail.dev/health
+curl https://api.guardrailai.dev/health
 # Expected: {"status":"ok","version":"1.0.0"}
 ```
 
@@ -104,7 +104,7 @@ guardrail ship check --ci
 
 ### 3. Dashboard Accessibility
 ```bash
-curl -I https://app.guardrail.dev
+curl -I https://guardrailai.dev
 # Expected: HTTP 200
 ```
 
@@ -176,9 +176,9 @@ docker push guardrail:latest
 
 | Role | Contact |
 |------|---------|
-| Release Captain | release@guardrail.dev |
-| On-Call Engineer | oncall@guardrail.dev |
-| Security Team | security@guardrail.dev |
+| Release Captain | release@guardrailai.dev |
+| On-Call Engineer | oncall@guardrailai.dev |
+| Security Team | security@guardrailai.dev |
 
 ---
 

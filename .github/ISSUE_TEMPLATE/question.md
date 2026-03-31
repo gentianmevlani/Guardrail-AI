@@ -35,7 +35,7 @@ assignees: ""
 
 <!-- Have you checked the docs? Link any relevant pages you've read -->
 
-- [ ] I've checked the [documentation](https://getguardrail.io/docs)
+- [ ] I've checked the [documentation](https://guardrailai.dev/docs)
 - [ ] I've searched [existing issues](https://github.com/guardiavault-oss/codeguard/issues)
 - [ ] I've looked at [discussions](https://github.com/guardiavault-oss/codeguard/discussions)
 

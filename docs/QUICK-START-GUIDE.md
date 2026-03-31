@@ -6,7 +6,7 @@ Welcome to guardrail! This guide will get you up and running in minutes.
 
 - Node.js 18+ 
 - Your project codebase
-- API key from [guardrail.dev](https://guardrail.dev)
+- API key from [guardrailai.dev](https://guardrailai.dev)
 
 ## ⚡ 5-Minute Setup
 
@@ -21,7 +21,7 @@ npx guardrail --help
 
 ### 2. Authenticate
 ```bash
-# Get your API key from https://guardrail.dev
+# Get your API key from https://guardrailai.dev
 guardrail auth --key gr_starter_your_api_key_here
 ```
 
@@ -194,9 +194,9 @@ GUARDRAIL_DEBUG=true guardrail scan --path ./project
 ```
 
 ### Support
-- 📖 [Documentation](https://guardrail.dev/docs)
+- 📖 [Documentation](https://guardrailai.dev/docs)
 - 💬 [Discord Community](https://discord.gg/guardrail)
-- 📧 [Support](mailto:support@guardrail.dev)
+- 📧 [Support](mailto:support@guardrailai.dev)
 
 ## 🎉 You're Ready!
 

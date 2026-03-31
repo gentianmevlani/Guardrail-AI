@@ -108,7 +108,7 @@ ENABLE_SCAN_AUTO_RETRY=true  # Default: true
 
 # Alerts
 ENABLE_CRITICAL_ALERTS=true  # Default: true
-FRONTEND_URL=https://guardrail.dev
+FRONTEND_URL=https://guardrailai.dev
 ```
 
 ## 🧪 Testing Checklist

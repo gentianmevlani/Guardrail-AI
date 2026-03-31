@@ -107,7 +107,7 @@ const supportChannels = [
   {
     title: "Email Support",
     description: "Direct support from our team",
-    href: "mailto:support@guardrail.dev",
+    href: "mailto:support@guardrailai.dev",
     icon: <Mail className="w-6 h-6" />,
     color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
     availability: "24-48 hour response",
@@ -115,7 +115,7 @@ const supportChannels = [
   {
     title: "Priority Support",
     description: "Dedicated support for paid plans",
-    href: "mailto:priority@guardrail.dev",
+    href: "mailto:priority@guardrailai.dev",
     icon: <Zap className="w-6 h-6" />,
     color: "bg-amber-500/20 text-amber-400 border-amber-500/30",
     availability: "Same-day response",
@@ -198,7 +198,7 @@ export default function SupportPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Would integrate with backend
-    window.location.href = `mailto:support@guardrail.dev?subject=${encodeURIComponent(contactForm.subject)}&body=${encodeURIComponent(`Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\n${contactForm.message}`)}`;
+    window.location.href = `mailto:support@guardrailai.dev?subject=${encodeURIComponent(contactForm.subject)}&body=${encodeURIComponent(`Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\n${contactForm.message}`)}`;
   };
 
   return (

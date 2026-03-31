@@ -147,9 +147,9 @@ After running `npm run ship:badge`, add this to your README:
 
 ```markdown
 <!-- guardrail Ship Badge -->
-[![guardrail Ship Status](https://guardrail.dev/api/badge/YOUR_ID/main.svg)](https://guardrail.dev/badge/YOUR_ID)
-[![Mock Data](https://guardrail.dev/api/badge/YOUR_ID/mock-data.svg)](https://guardrail.dev/badge/YOUR_ID)
-[![Real APIs](https://guardrail.dev/api/badge/YOUR_ID/real-api.svg)](https://guardrail.dev/badge/YOUR_ID)
+[![guardrail Ship Status](https://guardrailai.dev/api/badge/YOUR_ID/main.svg)](https://guardrailai.dev/badge/YOUR_ID)
+[![Mock Data](https://guardrailai.dev/api/badge/YOUR_ID/mock-data.svg)](https://guardrailai.dev/badge/YOUR_ID)
+[![Real APIs](https://guardrailai.dev/api/badge/YOUR_ID/real-api.svg)](https://guardrailai.dev/badge/YOUR_ID)
 <!-- End guardrail Ship Badge -->
 ```
 

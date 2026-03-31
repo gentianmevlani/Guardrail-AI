@@ -123,7 +123,7 @@ try {
 Uses environment variables in priority order:
 1. `FRONTEND_URL`
 2. `NEXT_PUBLIC_API_URL`
-3. Fallback: `https://guardrail.dev`
+3. Fallback: `https://guardrailai.dev`
 
 ---
 
@@ -205,7 +205,7 @@ Uses environment variables in priority order:
 
 ### Environment Variables
 ```bash
-FRONTEND_URL=https://guardrail.dev  # Or NEXT_PUBLIC_API_URL
+FRONTEND_URL=https://guardrailai.dev  # Or NEXT_PUBLIC_API_URL
 ```
 
 ### Post-Deployment

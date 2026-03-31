@@ -79,7 +79,7 @@ You can:
 
 ## Contact
 
-For privacy questions: privacy@guardrail.dev
+For privacy questions: privacy@guardrailai.dev
 
 ## Changes
 

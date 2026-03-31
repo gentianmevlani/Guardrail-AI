@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "AI Guardrails for Code Safety",
     description:
       "Stop AI-generated code from lying to you. Catch hallucinated imports, mock data, and fake success patterns.",
-    url: "https://guardrail.dev/ai-guardrails",
+    url: "https://guardrailai.dev/ai-guardrails",
     siteName: "guardrail",
     type: "website",
   },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description: "Stop AI-generated code from lying to you.",
   },
   alternates: {
-    canonical: "https://guardrail.dev/ai-guardrails",
+    canonical: "https://guardrailai.dev/ai-guardrails",
   },
 };
 

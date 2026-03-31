@@ -24,7 +24,7 @@ const CONFIG_DIR = path.join(os.homedir(), '.guardrail');
 const CACHE_FILE = path.join(CONFIG_DIR, 'usage-cache.json');
 const OFFLINE_FILE = path.join(CONFIG_DIR, 'offline-queue.json');
 
-const API_BASE_URL = process.env.GUARDRAIL_API_URL || 'https://api.guardrail.dev';
+const API_BASE_URL = process.env.GUARDRAIL_API_URL || 'https://api.guardrailai.dev';
 const USAGE_API_PATH = '/api/usage/v2';
 
 const OFFLINE_ALLOWANCE = 1; // Max offline actions before sync required
@@ -487,7 +487,7 @@ class ServerUsageEnforcement {
       `\x1b[31m│\x1b[0m  ${actionType}: \x1b[33m${check.current}/${check.limit}\x1b[0m used this month`.padEnd(72) + '\x1b[31m│\x1b[0m',
       '\x1b[31m├─────────────────────────────────────────────────────────────┤\x1b[0m',
       '\x1b[31m│\x1b[0m  \x1b[36m→ guardrail upgrade\x1b[0m                                        \x1b[31m│\x1b[0m',
-      '\x1b[31m│\x1b[0m  \x1b[36m→ https://guardrail.dev/pricing\x1b[0m                          \x1b[31m│\x1b[0m',
+      '\x1b[31m│\x1b[0m  \x1b[36m→ https://guardrailai.dev/pricing\x1b[0m                          \x1b[31m│\x1b[0m',
       '\x1b[31m╰─────────────────────────────────────────────────────────────╯\x1b[0m',
       '',
     ];

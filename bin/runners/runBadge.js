@@ -99,7 +99,7 @@ function generateMarkdownBadge(score, label) {
 function generateHTMLBadge(score, label) {
   const color = score >= 80 ? "#22c55e" : score >= 50 ? "#eab308" : "#ef4444";
   const status = score >= 80 ? "passing" : score >= 50 ? "warning" : "failing";
-  return `<a href="https://guardrail.dev"><img src="https://img.shields.io/badge/${encodeURIComponent(label)}-${status}-${color.replace("#", "")}" alt="${label}"></a>`;
+  return `<a href="https://guardrailai.dev"><img src="https://img.shields.io/badge/${encodeURIComponent(label)}-${status}-${color.replace("#", "")}" alt="${label}"></a>`;
 }
 
 async function runBadge(args) {

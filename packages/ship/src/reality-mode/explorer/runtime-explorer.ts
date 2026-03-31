@@ -25,7 +25,7 @@ import { SurfaceDiscovery } from "./surface-discovery";
 
 // Test data generators for form filling
 const TEST_DATA = {
-  email: "test-reality@guardrail.dev",
+  email: "test-reality@guardrailai.dev",
   password: "TestPass123!",
   name: "Reality Test User",
   phone: "+1234567890",

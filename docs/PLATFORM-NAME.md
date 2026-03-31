@@ -11,7 +11,7 @@
 - Memorable
 - Professional
 
-**Domain:** guardrail.dev
+**Domain:** guardrailai.dev
 
 ### Option 2: **CodeMind** 🧠
 **Tagline:** "The AI that understands your codebase"

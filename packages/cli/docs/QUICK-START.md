@@ -22,7 +22,7 @@ Use arrow keys (↑↓) to navigate, Enter to select, Escape to exit.
 ```bash
 guardrail auth --key YOUR_API_KEY
 ```
-Get your API key from [guardrail.dev](https://guardrail.dev)
+Get your API key from [guardrailai.dev](https://guardrailai.dev)
 
 ### 3. **Scan Your Project**
 ```bash
@@ -222,7 +222,7 @@ guardrail menu
 ### **Community**
 - GitHub: [guardiavault-oss/codeguard](https://github.com/guardiavault-oss/codeguard)
 - Discord: [guardrail Community](https://discord.gg/guardrail)
-- Email: team@guardrail.dev
+- Email: team@guardrailai.dev
 
 ---
 

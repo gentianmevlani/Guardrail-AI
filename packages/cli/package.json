@@ -48,8 +48,8 @@
     "supply-chain"
   ],
   "license": "MIT",
-  "author": "Guardrail Team <support@guardrail.dev>",
-  "homepage": "https://guardrail.dev",
+  "author": "Guardrail Team <support@guardrailai.dev>",
+  "homepage": "https://guardrailai.dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guardiavault-oss/codeguard.git"

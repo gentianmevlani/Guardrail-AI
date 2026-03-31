@@ -34,7 +34,7 @@ const ALLOWED_COMMANDS = new Set<string>([
   "guardrail.logout",
 ]);
 
-const DOCS_URL = "https://docs.guardrail.dev";
+const DOCS_URL = "https://guardrailai.dev/docs";
 
 function escapeHtml(s: string): string {
   return s

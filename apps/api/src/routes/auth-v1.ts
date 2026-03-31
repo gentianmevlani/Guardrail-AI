@@ -82,7 +82,7 @@ async function whoami(request: ApiKeyRequest, reply: FastifyReply) {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email || `${user.id.toLowerCase()}@guardrail.dev`,
+        email: user.email || `${user.id.toLowerCase()}@guardrailai.dev`,
       },
       plan,
       scopes,

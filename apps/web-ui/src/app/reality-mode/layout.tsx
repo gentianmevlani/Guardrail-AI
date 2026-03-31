@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Reality Mode - Browser Testing That Proves Your App Works",
     description:
       "Uses Playwright to actually click your UI and catch buttons that do nothing.",
-    url: "https://guardrail.dev/reality-mode",
+    url: "https://guardrailai.dev/reality-mode",
     siteName: "guardrail",
     type: "website",
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Uses Playwright to actually click your UI and catch buttons that do nothing.",
   },
   alternates: {
-    canonical: "https://guardrail.dev/reality-mode",
+    canonical: "https://guardrailai.dev/reality-mode",
   },
 };
 

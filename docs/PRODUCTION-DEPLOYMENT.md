@@ -55,8 +55,8 @@ SENTRY_DSN=https://your-sentry-dsn
 
 # Application
 NODE_ENV=production
-API_BASE_URL=https://api.guardrail.dev
-WEB_URL=https://guardrail.dev
+API_BASE_URL=https://api.guardrailai.dev
+WEB_URL=https://guardrailai.dev
 ```
 
 ### Docker Configuration
@@ -133,7 +133,7 @@ volumes:
 
 [[redirects]]
   from = "/api/*"
-  to = "https://api.guardrail.dev/:splat"
+  to = "https://api.guardrailai.dev/:splat"
   status = 200
 
 [[headers]]
@@ -149,10 +149,10 @@ volumes:
 ### SSL/TLS Setup
 ```bash
 # Using Let's Encrypt
-certbot --nginx -d guardrail.dev -d api.guardrail.dev
+certbot --nginx -d guardrailai.dev -d api.guardrailai.dev
 
 # Or AWS Certificate Manager
-aws acm request-certificate --domain-name guardrail.dev
+aws acm request-certificate --domain-name guardrailai.dev
 ```
 
 ### Firewall Rules
@@ -280,13 +280,13 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ### 3. Configure Web Server
 ```nginx
-# /etc/nginx/sites-available/guardrail.dev
+# /etc/nginx/sites-available/guardrailai.dev
 server {
     listen 443 ssl http2;
-    server_name api.guardrail.dev;
+    server_name api.guardrailai.dev;
 
-    ssl_certificate /etc/letsencrypt/live/guardrail.dev/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/guardrail.dev/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/guardrailai.dev/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/guardrailai.dev/privkey.pem;
 
     location / {
         proxy_pass http://localhost:3001;

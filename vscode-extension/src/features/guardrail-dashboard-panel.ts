@@ -911,7 +911,7 @@ export class GuardrailDashboardPanel {
           </div>
           <span class="material-symbols-outlined" style="color:rgba(255,255,255,0.25);">chevron_right</span>
         </div>
-        <div class="db-mod" onclick="post('openExternal',{url:'https://docs.guardrail.dev'})">
+        <div class="db-mod" onclick="post('openExternal',{url:'https://guardrailai.dev/docs'})">
           <div class="db-mod-left">
             <div class="db-mod-icon" style="background:rgba(255,193,192,0.1);"><span class="material-symbols-outlined" style="color:var(--tertiary);">menu_book</span></div>
             <div>
@@ -934,7 +934,7 @@ export class GuardrailDashboardPanel {
       </div>
     </section>
     <section class="anim anim-d1">
-      <p style="text-align:center;font-size:11px;color:var(--outline);margin-top:24px;">Guardrail v${KINETIC_ARCHIVE_VERSION} · guardrail.dev</p>
+      <p style="text-align:center;font-size:11px;color:var(--outline);margin-top:24px;">Guardrail v${KINETIC_ARCHIVE_VERSION} · guardrailai.dev</p>
     </section>
   </div>`;
   }
@@ -963,7 +963,7 @@ export class GuardrailDashboardPanel {
     </section>
 
     <section class="anim anim-d2" style="text-align:center;padding-top:16px;">
-      <button class="db-cta-btn" onclick="post('openExternal',{url:'https://guardrail.dev/pricing'})">
+      <button class="db-cta-btn" onclick="post('openExternal',{url:'https://guardrailai.dev/pricing'})">
         View Plans
       </button>
       <p style="font-size:11px;color:var(--outline);margin-top:14px;">Free 14-day trial · No credit card required</p>

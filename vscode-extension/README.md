@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://guardrail.dev">Website</a> •
+  <a href="https://guardrailai.dev">Website</a> •
   <a href="https://github.com/guardrail-ai/guardrail-vscode">GitHub</a> •
-  <a href="https://guardrail.dev/docs">Documentation</a>
+  <a href="https://guardrailai.dev/docs">Documentation</a>
 </p>
 
 ---
@@ -135,7 +135,7 @@ With a guardrail API key:
 - **Compliance** — SOC2/HIPAA/GDPR checks
 - **Team Dashboard** — Org-wide visibility
 
-Get your API key at [guardrail.dev](https://guardrail.dev)
+Get your API key at [guardrailai.dev](https://guardrailai.dev)
 
 ## Privacy & Security
 
@@ -151,7 +151,7 @@ Get your API key at [guardrail.dev](https://guardrail.dev)
 
 ## Support
 
-- 📖 [Documentation](https://guardrail.dev/docs)
+- 📖 [Documentation](https://guardrailai.dev/docs)
 - 🐛 [Report Issues](https://github.com/guardrail-ai/guardrail-vscode/issues)
 - 💬 [Discord Community](https://discord.gg/guardrail)
 

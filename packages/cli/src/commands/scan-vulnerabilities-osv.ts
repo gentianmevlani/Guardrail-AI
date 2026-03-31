@@ -668,7 +668,7 @@ export function toSarifVulnerabilitiesOSV(results: OSVVulnResult): object {
         driver: {
           name: 'guardrail-cli-tool',
           version,
-          informationUri: 'https://guardrail.dev',
+          informationUri: 'https://guardrailai.dev',
           rules: Array.from(ruleMap.values()),
         },
       },

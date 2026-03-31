@@ -5,9 +5,9 @@ Complete guide for deploying guardrail API to Railway with database migrations.
 ## Overview
 
 This guide covers deploying the guardrail API to Railway with:
-- **API Domain**: `api.guardrail.network`
-- **App Domain**: `app.guardrail.network` (deployed separately)
-- **Landing**: `guardrail.network` (already deployed)
+- **API Domain**: `api.guardrailai.dev`
+- **App Domain**: `guardrailai.dev` (deployed separately)
+- **Landing**: `guardrailai.dev` (already deployed)
 
 ## Prerequisites
 
@@ -51,15 +51,15 @@ CSRF_SECRET=XYNzfonMqIwwbEqg7oU+1FkxwHL9Mz7mdO7Q1d9nqSo=
 MFA_ENCRYPTION_KEY=1a68a13c61b7a5bf524eceec91b08a5d13ea0c8d56f855341b0b3c6da50a8a48
 
 # URLs
-NEXT_PUBLIC_API_URL=https://api.guardrail.network
-API_BASE_URL=https://api.guardrail.network
-NEXT_PUBLIC_APP_URL=https://app.guardrail.network
-APP_BASE_URL=https://app.guardrail.network
-NEXT_PUBLIC_WS_URL=wss://api.guardrail.network/ws
+NEXT_PUBLIC_API_URL=https://api.guardrailai.dev
+API_BASE_URL=https://api.guardrailai.dev
+NEXT_PUBLIC_APP_URL=https://guardrailai.dev
+APP_BASE_URL=https://guardrailai.dev
+NEXT_PUBLIC_WS_URL=wss://api.guardrailai.dev/ws
 
 # CORS
-CORS_ORIGIN=https://guardrail.network,https://app.guardrail.network,https://api.guardrail.network
-ALLOWED_ORIGIN=https://app.guardrail.network
+CORS_ORIGIN=https://guardrailai.dev,https://guardrailai.dev,https://api.guardrailai.dev
+ALLOWED_ORIGIN=https://guardrailai.dev
 ```
 
 ### Optional Variables (Add API Keys)
@@ -68,12 +68,12 @@ ALLOWED_ORIGIN=https://app.guardrail.network
 # GitHub OAuth (Get from https://github.com/settings/developers)
 GITHUB_CLIENT_ID=<your-github-client-id>
 GITHUB_CLIENT_SECRET=<your-github-client-secret>
-GITHUB_CALLBACK_URL=https://app.guardrail.network/api/auth/github/callback
+GITHUB_CALLBACK_URL=https://guardrailai.dev/api/auth/github/callback
 
 # Google OAuth (Get from https://console.cloud.google.com/apis/credentials)
 GOOGLE_CLIENT_ID=<your-google-client-id>
 GOOGLE_CLIENT_SECRET=<your-google-client-secret>
-GOOGLE_CALLBACK_URL=https://app.guardrail.network/api/auth/google/callback
+GOOGLE_CALLBACK_URL=https://guardrailai.dev/api/auth/google/callback
 
 # Stripe (Get from https://dashboard.stripe.com/apikeys)
 STRIPE_SECRET_KEY=<your-stripe-secret-key>
@@ -88,7 +88,7 @@ ANTHROPIC_API_KEY=<your-anthropic-key>
 
 # SendGrid (Optional - Get from https://app.sendgrid.com/settings/api_keys)
 SENDGRID_API_KEY=<your-sendgrid-key>
-SENDGRID_FROM_EMAIL=noreply@guardrail.network
+SENDGRID_FROM_EMAIL=noreply@guardrailai.dev
 ```
 
 ## Step 4: Configure GitHub OAuth App
@@ -97,8 +97,8 @@ SENDGRID_FROM_EMAIL=noreply@guardrail.network
 2. Click "New OAuth App"
 3. Fill in:
    - **Application name**: guardrail
-   - **Homepage URL**: `https://app.guardrail.network`
-   - **Authorization callback URL**: `https://app.guardrail.network/api/auth/github/callback`
+   - **Homepage URL**: `https://guardrailai.dev`
+   - **Authorization callback URL**: `https://guardrailai.dev/api/auth/github/callback`
 4. Copy the Client ID and Client Secret to Railway environment variables
 
 ## Step 5: Configure Google OAuth
@@ -106,16 +106,16 @@ SENDGRID_FROM_EMAIL=noreply@guardrail.network
 1. Go to https://console.cloud.google.com/apis/credentials
 2. Create OAuth 2.0 Client ID
 3. Add authorized origins:
-   - `https://app.guardrail.network`
+   - `https://guardrailai.dev`
 4. Add authorized redirect URIs:
-   - `https://app.guardrail.network/api/auth/google/callback`
+   - `https://guardrailai.dev/api/auth/google/callback`
 5. Copy the Client ID and Client Secret to Railway environment variables
 
 ## Step 6: Configure Custom Domain
 
 1. In Railway project → Settings → Networking
 2. Click "Generate Domain" to get a Railway domain (e.g., `xxx.up.railway.app`)
-3. Click "Custom Domain" and add: `api.guardrail.network`
+3. Click "Custom Domain" and add: `api.guardrailai.dev`
 4. Railway will provide DNS records to add to your domain registrar
 5. Add the CNAME record in your DNS provider pointing to the Railway domain
 
@@ -145,7 +145,7 @@ The deployment process:
 ## Step 8: Verify Deployment
 
 1. Check Railway deployment logs for success
-2. Visit `https://api.guardrail.network/health` - should return `{"status":"ok"}`
+2. Visit `https://api.guardrailai.dev/health` - should return `{"status":"ok"}`
 3. Check Railway metrics for CPU, memory, and request logs
 
 ## Troubleshooting
@@ -182,25 +182,25 @@ Before going live:
 
 - [ ] All environment variables configured
 - [ ] Database migrations run successfully
-- [ ] Custom domain configured (`api.guardrail.network`)
+- [ ] Custom domain configured (`api.guardrailai.dev`)
 - [ ] SSL certificate active (automatic with Railway)
 - [ ] GitHub OAuth app configured
 - [ ] Google OAuth app configured
 - [ ] Stripe keys configured (if using billing)
 - [ ] Health endpoint responding
 - [ ] CORS configured correctly
-- [ ] WebSocket URL configured (`wss://api.guardrail.network/ws`)
+- [ ] WebSocket URL configured (`wss://api.guardrailai.dev/ws`)
 
 ## Monitoring
 
 1. **Railway Dashboard**: View logs, metrics, and deployment status
-2. **Health Endpoint**: `https://api.guardrail.network/health`
+2. **Health Endpoint**: `https://api.guardrailai.dev/health`
 3. **Database**: Railway provides database connection monitoring
 
 ## Next Steps
 
-1. Configure `app.guardrail.network` to point to your frontend (Netlify/Vercel)
-2. Update frontend environment variables to use `https://api.guardrail.network`
+1. Configure `guardrailai.dev` to point to your frontend (Netlify/Vercel)
+2. Update frontend environment variables to use `https://api.guardrailai.dev`
 3. Test OAuth flows end-to-end
 4. Set up monitoring and alerting
 

@@ -112,7 +112,7 @@ guardrail guard
 
 ## Support
 
-- Documentation: [docs.guardrail.dev](https://docs.guardrail.dev)
+- Documentation: [guardrailai.dev/docs](https://guardrailai.dev/docs)
 - Issues: [GitHub Issues](https://github.com/guardrail/issues)
 - Discord: [discord.gg/guardrail](https://discord.gg/guardrail)
 

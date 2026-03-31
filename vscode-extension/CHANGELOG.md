@@ -40,4 +40,4 @@ All notable changes to the guardrail VS Code extension.
 
 ---
 
-For more information, visit [guardrail.dev](https://guardrail.dev)
+For more information, visit [guardrailai.dev](https://guardrailai.dev)

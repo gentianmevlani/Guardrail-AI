@@ -122,7 +122,7 @@ fastify.post('/admin-action', {
 ### Create Enhanced API Key
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -142,7 +142,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys \
 ### Use Enhanced API Key
 
 ```bash
-curl -X GET https://api.guardrail.dev/projects \
+curl -X GET https://api.guardrailai.dev/projects \
   -H "X-API-Key: grl_your_enhanced_api_key_here" \
   -H "User-Agent: MyApp/1.0"
 ```
@@ -150,7 +150,7 @@ curl -X GET https://api.guardrail.dev/projects \
 ### Rotate API Key
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/key-id/rotate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/key-id/rotate \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{

@@ -329,8 +329,8 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ## Contact Information
 
-- **Primary**: DevOps Team (devops@guardrail.dev)
-- **Escalation**: CTO (cto@guardrail.dev)
+- **Primary**: DevOps Team (devops@guardrailai.dev)
+- **Escalation**: CTO (cto@guardrailai.dev)
 - **Emergency**: +1-555-EMERGENCY
 
 ---

@@ -379,7 +379,7 @@ export async function teamRoutes(fastify: FastifyInstance) {
             select: { name: true, email: true },
           });
 
-          const frontendUrl = process.env.FRONTEND_URL || process.env.NEXT_PUBLIC_API_URL || "https://guardrail.dev";
+          const frontendUrl = process.env.FRONTEND_URL || process.env.NEXT_PUBLIC_API_URL || "https://guardrailai.dev";
           const acceptUrl = `${frontendUrl}/team/invite/${token}`;
 
           await emailNotificationService.sendEmail({
@@ -913,7 +913,7 @@ export async function teamRoutes(fastify: FastifyInstance) {
         // Resend invitation email
         try {
           const { emailNotificationService } = await import("../services/email-notification-service");
-          const frontendUrl = process.env.FRONTEND_URL || process.env.NEXT_PUBLIC_API_URL || "https://guardrail.dev";
+          const frontendUrl = process.env.FRONTEND_URL || process.env.NEXT_PUBLIC_API_URL || "https://guardrailai.dev";
           const acceptUrl = `${frontendUrl}/team/invite/${invitation.token}`;
 
           await emailNotificationService.sendEmail({

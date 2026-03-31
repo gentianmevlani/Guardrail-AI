@@ -233,7 +233,7 @@ export function formatSPDX(doc: SBOMDocument): string {
     dataLicense: 'CC0-1.0',
     SPDXID: 'SPDXRef-DOCUMENT',
     name: rootName,
-    documentNamespace: `https://guardrail.dev/spdx/${doc.serialNumber}`,
+    documentNamespace: `https://guardrailai.dev/spdx/${doc.serialNumber}`,
     creationInfo: {
       created: doc.metadata.timestamp,
       creators: doc.metadata.tools.map(t => `Tool: ${t.name}-${t.version}`),

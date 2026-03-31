@@ -193,7 +193,7 @@ const TOOLS = [
 
   // 4. AI-TEST - AI Agent testing
   {
-    name: "guardrail.dev-test",
+    name: "guardrailai.dev-test",
     description:
       "🤖 AI Agent — autonomous testing that explores your app and generates fix prompts",
     inputSchema: {
@@ -604,7 +604,7 @@ class GuardrailMCP {
             return await this.handleScan(projectPath, args);
           case "guardrail.reality":
             return await this.handleReality(projectPath, args);
-          case "guardrail.dev-test":
+          case "guardrailai.dev-test":
             return await this.handleAITest(projectPath, args);
           case "guardrail.gate":
             return await this.handleGate(projectPath, args);
@@ -1407,7 +1407,7 @@ class GuardrailMCP {
       output += `| \`${tool.name}\` | ${tool.description.split("—")[0].trim()} |\n`;
     }
 
-    output += "\n---\n_Guardrail v" + VERSION + " — https://guardrail.dev_\n";
+    output += "\n---\n_Guardrail v" + VERSION + " — https://guardrailai.dev_\n";
 
     return this.success(output);
   }

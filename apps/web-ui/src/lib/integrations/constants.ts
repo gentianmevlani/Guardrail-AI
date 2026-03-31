@@ -1,5 +1,5 @@
 /** Public defaults — no secrets. Used by Integrations UI and docs. */
-export const GUARDRAIL_DEFAULT_API_URL = "https://api.guardrail.dev";
+export const GUARDRAIL_DEFAULT_API_URL = "https://api.guardrailai.dev";
 
 export const INTEGRATION_ENV = {
   API_URL: "GUARDRAIL_API_URL",

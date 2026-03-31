@@ -198,7 +198,7 @@ export const UTM_CAMPAIGNS = {
  * Generate tracking URLs for marketing campaigns
  */
 export function generateCampaignUrls(
-  baseUrl: string = "https://guardrail.dev",
+  baseUrl: string = "https://guardrailai.dev",
 ) {
   return {
     // Google Ads URLs

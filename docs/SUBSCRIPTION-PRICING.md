@@ -384,15 +384,15 @@ NODE_ENV=production
 PORT=3000
 JWT_SECRET=...
 SESSION_SECRET=...
-FRONTEND_URL=https://app.guardrail.dev
-API_URL=https://api.guardrail.dev
+FRONTEND_URL=https://guardrailai.dev
+API_URL=https://api.guardrailai.dev
 
 # Email
 SMTP_HOST=smtp.sendgrid.net
 SMTP_PORT=587
 SMTP_USER=apikey
 SMTP_PASS=...
-EMAIL_FROM=noreply@guardrail.dev
+EMAIL_FROM=noreply@guardrailai.dev
 ```
 
 ---

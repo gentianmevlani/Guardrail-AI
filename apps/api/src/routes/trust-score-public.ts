@@ -112,7 +112,7 @@ export async function trustScorePublicRoutes(fastify: FastifyInstance) {
           });
         }
 
-        const baseUrl = process.env.API_BASE_URL || "https://guardrail.dev";
+        const baseUrl = process.env.API_BASE_URL || "https://guardrailai.dev";
 
         reply.header("Cache-Control", "public, max-age=300, s-maxage=300");
         return reply.send({
@@ -266,7 +266,7 @@ export async function trustScorePublicRoutes(fastify: FastifyInstance) {
           data: { isLatest: true },
         });
 
-        const baseUrl = process.env.API_BASE_URL || "https://guardrail.dev";
+        const baseUrl = process.env.API_BASE_URL || "https://guardrailai.dev";
 
         return reply.status(201).send({
           success: true,
@@ -354,7 +354,7 @@ export async function trustScorePublicRoutes(fastify: FastifyInstance) {
           prisma.publicTrustScore.count({ where }),
         ]);
 
-        const baseUrl = process.env.API_BASE_URL || "https://guardrail.dev";
+        const baseUrl = process.env.API_BASE_URL || "https://guardrailai.dev";
 
         reply.header("Cache-Control", "public, max-age=120, s-maxage=120");
         return reply.send({
@@ -428,7 +428,7 @@ export async function trustScorePublicRoutes(fastify: FastifyInstance) {
           prisma.publicTrustScore.count({ where }),
         ]);
 
-        const baseUrl = process.env.API_BASE_URL || "https://guardrail.dev";
+        const baseUrl = process.env.API_BASE_URL || "https://guardrailai.dev";
 
         reply.header("Cache-Control", "public, max-age=300, s-maxage=300");
         return reply.send({

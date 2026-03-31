@@ -571,7 +571,7 @@ export class SecurityOrchestrator {
           driver: {
             name: 'guardrail',
             version: '1.0.0',
-            informationUri: 'https://guardrail.dev',
+            informationUri: 'https://guardrailai.dev',
             rules: [...new Set(result.findings.map(f => f.ruleId))].map(ruleId => ({
               id: ruleId,
               name: ruleId,

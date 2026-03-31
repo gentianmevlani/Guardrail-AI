@@ -61,7 +61,7 @@ export default function TermsOfServicePage() {
             publisher: {
               "@type": "Organization",
               name: "guardrail, Inc.",
-              url: "https://guardrail.dev",
+              url: "https://guardrailai.dev",
             },
             dateModified: "2026-01-06",
             inLanguage: "en-US",
@@ -258,10 +258,10 @@ export default function TermsOfServicePage() {
             may request a full refund within 30 days of their initial purchase.
             Contact{" "}
             <a
-              href="mailto:billing@guardrail.dev"
+              href="mailto:billing@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              billing@guardrail.dev
+              billing@guardrailai.dev
             </a>{" "}
             for refund requests.
           </p>
@@ -487,10 +487,10 @@ export default function TermsOfServicePage() {
           You may terminate your account at any time through your account
           settings or by contacting{" "}
           <a
-            href="mailto:support@guardrail.dev"
+            href="mailto:support@guardrailai.dev"
             className="text-primary hover:underline"
           >
-            support@guardrail.dev
+            support@guardrailai.dev
           </a>
           .
         </p>
@@ -535,10 +535,10 @@ export default function TermsOfServicePage() {
         <p>
           Before filing a formal dispute, you agree to first contact us at{" "}
           <a
-            href="mailto:legal@guardrail.dev"
+            href="mailto:legal@guardrailai.dev"
             className="text-primary hover:underline"
           >
-            legal@guardrail.dev
+            legal@guardrailai.dev
           </a>{" "}
           to attempt informal resolution for at least 30 days.
         </p>
@@ -589,10 +589,10 @@ export default function TermsOfServicePage() {
             <strong>Version History:</strong> Previous versions of these Terms
             are available upon request by emailing{" "}
             <a
-              href="mailto:legal@guardrail.dev"
+              href="mailto:legal@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              legal@guardrail.dev
+              legal@guardrailai.dev
             </a>
             .
           </p>
@@ -609,28 +609,28 @@ export default function TermsOfServicePage() {
           <p className="text-muted-foreground">
             Legal Inquiries:{" "}
             <a
-              href="mailto:legal@guardrail.dev"
+              href="mailto:legal@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              legal@guardrail.dev
+              legal@guardrailai.dev
             </a>
           </p>
           <p className="text-muted-foreground">
             General Support:{" "}
             <a
-              href="mailto:support@guardrail.dev"
+              href="mailto:support@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              support@guardrail.dev
+              support@guardrailai.dev
             </a>
           </p>
           <p className="text-muted-foreground">
             Billing:{" "}
             <a
-              href="mailto:billing@guardrail.dev"
+              href="mailto:billing@guardrailai.dev"
               className="text-primary hover:underline"
             >
-              billing@guardrail.dev
+              billing@guardrailai.dev
             </a>
           </p>
         </div>

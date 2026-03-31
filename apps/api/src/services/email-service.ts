@@ -8,8 +8,8 @@
 import { logger } from "../logger";
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const FROM_EMAIL = process.env.FROM_EMAIL || "noreply@guardrail.dev";
-const APP_URL = process.env.FRONTEND_URL || "https://guardrail.dev";
+const FROM_EMAIL = process.env.FROM_EMAIL || "noreply@guardrailai.dev";
+const APP_URL = process.env.FRONTEND_URL || "https://guardrailai.dev";
 
 interface EmailOptions {
   to: string;

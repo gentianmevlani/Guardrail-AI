@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://guardrail.dev";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://guardrailai.dev";
 
 export default function robots(): MetadataRoute.Robots {
   return {

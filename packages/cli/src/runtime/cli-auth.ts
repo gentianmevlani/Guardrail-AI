@@ -19,7 +19,7 @@ export async function requireAuthAsync(requiredTier?: Tier): Promise<AuthState> 
   if (!state.apiKey && !state.accessToken) {
     console.error(`\n${c.critical('ERROR')} Authentication required\n`);
     console.log(`  ${c.dim('Run')} ${c.bold('guardrail auth --key YOUR_API_KEY')} ${c.dim('to authenticate')}`);
-    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrail.dev/api-key')}\n`);
+    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrailai.dev/api-key')}\n`);
     exitWith(ExitCode.AUTH_FAILURE);
   }
 
@@ -67,7 +67,7 @@ export function checkTierAccess(state: AuthState, requiredTier?: Tier): AuthStat
       `\n${c.critical('UPGRADE REQUIRED')} This feature requires ${c.bold(requiredTier.toUpperCase())} tier\n`
     );
     console.log(`  ${c.dim('Current tier:')} ${c.info(state.tier || 'free')}`);
-    console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrail.dev/pricing')}\n`);
+    console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrailai.dev/pricing')}\n`);
     exitWith(ExitCode.AUTH_FAILURE);
   }
 
@@ -79,7 +79,7 @@ export function requireAuth(tier?: 'starter' | 'pro' | 'enterprise'): CliConfig 
   if (!config.apiKey) {
     console.error(`\n${c.critical('ERROR')} Authentication required\n`);
     console.log(`  ${c.dim('Run')} ${c.bold('guardrail auth --key YOUR_API_KEY')} ${c.dim('to authenticate')}`);
-    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrail.dev/api-key')}\n`);
+    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrailai.dev/api-key')}\n`);
     exitWith(ExitCode.AUTH_FAILURE);
   }
 
@@ -91,7 +91,7 @@ export function requireAuth(tier?: 'starter' | 'pro' | 'enterprise'): CliConfig 
     if (currentLevel < requiredLevel) {
       console.error(`\n${c.critical('UPGRADE REQUIRED')} This feature requires ${c.bold(tier.toUpperCase())} tier\n`);
       console.log(`  ${c.dim('Current tier:')} ${c.info(config.tier || 'free')}`);
-      console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrail.dev/pricing')}\n`);
+      console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrailai.dev/pricing')}\n`);
       exitWith(ExitCode.AUTH_FAILURE);
     }
   }

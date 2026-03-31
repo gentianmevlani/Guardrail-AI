@@ -77,7 +77,7 @@ If consensus cannot be reached:
 
 All participants must follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
-Violations can be reported to: conduct@guardrail.dev
+Violations can be reported to: conduct@guardrailai.dev
 
 ## Becoming a Maintainer
 
@@ -117,7 +117,7 @@ We follow [Semantic Versioning](https://semver.org/):
 
 Security issues are handled privately:
 
-1. Report to security@guardrail.dev
+1. Report to security@guardrailai.dev
 2. Core team assesses impact
 3. Fix developed privately
 4. Coordinated disclosure
@@ -136,6 +136,6 @@ This governance model can be changed through:
 
 ## Contact
 
-- **General:** team@guardrail.dev
-- **Security:** security@guardrail.dev
-- **Conduct:** conduct@guardrail.dev
+- **General:** team@guardrailai.dev
+- **Security:** security@guardrailai.dev
+- **Conduct:** conduct@guardrailai.dev

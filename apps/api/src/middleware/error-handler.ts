@@ -104,7 +104,7 @@ export async function errorHandler(
         "Check that your authentication token is valid",
         "Re-authenticate by logging in again",
         "Verify token hasn't been revoked or expired",
-        "Get a new token at https://guardrail.dev/settings/keys",
+        "Get a new token at https://guardrailai.dev/settings/keys",
       ],
     });
     return;
@@ -119,7 +119,7 @@ export async function errorHandler(
       nextSteps: [
         "Your authentication token has expired",
         "Re-authenticate by logging in again",
-        "Get a new token at https://guardrail.dev/settings/keys",
+        "Get a new token at https://guardrailai.dev/settings/keys",
         "For CI/CD, use a long-lived API key instead of JWT tokens",
       ],
     });
@@ -243,7 +243,7 @@ function getDefaultNextSteps(code: string, statusCode: number): string[] {
     return [
       "Check your authentication credentials",
       "Re-authenticate if your session expired",
-      "Get a new API key at https://guardrail.dev/settings/keys",
+      "Get a new API key at https://guardrailai.dev/settings/keys",
     ];
   }
   
@@ -251,7 +251,7 @@ function getDefaultNextSteps(code: string, statusCode: number): string[] {
     return [
       "Verify you have permission to access this resource",
       "Check your subscription tier includes this feature",
-      "Upgrade at https://guardrail.dev/pricing if needed",
+      "Upgrade at https://guardrailai.dev/pricing if needed",
     ];
   }
   

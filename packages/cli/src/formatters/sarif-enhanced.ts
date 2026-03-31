@@ -183,7 +183,7 @@ export function toSarifVulnerabilitiesEnhanced(results: EnhancedVulnResult): Sar
         driver: {
           name: 'guardrail-cli-tool',
           version,
-          informationUri: 'https://guardrail.dev',
+          informationUri: 'https://guardrailai.dev',
           rules: Array.from(ruleMap.values()),
         },
       },

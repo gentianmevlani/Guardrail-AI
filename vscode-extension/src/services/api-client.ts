@@ -42,7 +42,7 @@ export class ApiClient {
     if (configured && configured.trim().length > 0) {
       return configured.replace(/\/$/, '');
     }
-    return 'https://api.guardrail.dev';
+    return 'https://api.guardrailai.dev';
   }
 
   async ensureAuthLoaded(): Promise<void> {

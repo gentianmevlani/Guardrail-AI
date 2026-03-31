@@ -17,7 +17,7 @@ The enhanced API key system provides:
 First, authenticate to get a JWT token:
 
 ```bash
-curl -X POST https://api.guardrail.dev/auth/login \
+curl -X POST https://api.guardrailai.dev/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -37,7 +37,7 @@ TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ### Create a Production API Key with Strict Security
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -94,7 +94,7 @@ API_KEY="grl_1a2b3c4d5e6f7890abcdef1234567890abcdef12"
 ### ✅ Allowed IP Address
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -128,7 +128,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 ### ❌ Disallowed IP Address
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -161,7 +161,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 ### ✅ Allowed Country
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -194,7 +194,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 ### ❌ Disallowed Country
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -228,7 +228,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 
 ```bash
 # Assuming current time is 2 PM UTC
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -262,7 +262,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 
 ```bash
 # Assuming current time is 2 AM UTC
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -295,7 +295,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 ### ✅ Within Quota Limits
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -329,7 +329,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 
 ```bash
 # After 10,000 requests have been made today
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -363,7 +363,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 
 ```bash
 # After 1000 expensive operations have been made today
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -400,7 +400,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 ### ✅ First Request with Sensitive Scope
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -434,7 +434,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 
 ```bash
 # Same IP but different User-Agent (suspicious)
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "'$API_KEY'",
@@ -472,7 +472,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 ### Rotate API Key with Overlap Window
 
 ```bash
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/ck_abc123def456/rotate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/ck_abc123def456/rotate \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -513,7 +513,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/ck_abc123def456/rotate 
 
 ```bash
 # Old key still works during 30-day overlap
-curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
+curl -X POST https://api.guardrailai.dev/enhanced-api-keys/validate \
   -H "Content-Type: application/json" \
   -d '{
     "apiKey": "grl_1a2b3c4d5e6f7890abcdef1234567890abcdef12",
@@ -550,7 +550,7 @@ curl -X POST https://api.guardrail.dev/enhanced-api-keys/validate \
 ### Get Available Templates
 
 ```bash
-curl -X GET https://api.guardrail.dev/enhanced-api-keys/templates/security-policies \
+curl -X GET https://api.guardrailai.dev/enhanced-api-keys/templates/security-policies \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -623,7 +623,7 @@ curl -X GET https://api.guardrail.dev/enhanced-api-keys/templates/security-polic
 
 ```bash
 # Make an API call with the enhanced key
-curl -X GET https://api.guardrail.dev/projects \
+curl -X GET https://api.guardrailai.dev/projects \
   -H "X-API-Key: $API_KEY" \
   -H "X-Forwarded-For: 203.0.113.100" \
   -H "User-Agent: MyApp/1.0" \
@@ -644,7 +644,7 @@ curl -X GET https://api.guardrail.dev/projects \
 
 ```bash
 # Same call but from disallowed IP
-curl -X GET https://api.guardrail.dev/projects \
+curl -X GET https://api.guardrailai.dev/projects \
   -H "X-API-Key: $API_KEY" \
   -H "X-Forwarded-For: 192.168.1.100" \
   -H "User-Agent: MyApp/1.0" \

@@ -14,7 +14,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/guardrail)
 
-[Website](https://guardrail.dev) · [Documentation](https://guardrail.dev/docs) · [Report Bug](https://github.com/guardrail-Official/guardrail/issues/new?template=bug_report.md) · [Request Feature](https://github.com/guardrail-Official/guardrail/issues/new?template=feature_request.md)
+[Website](https://guardrailai.dev) · [Documentation](https://guardrailai.dev/docs) · [Report Bug](https://github.com/guardrail-Official/guardrail/issues/new?template=bug_report.md) · [Request Feature](https://github.com/guardrail-Official/guardrail/issues/new?template=feature_request.md)
 
 </div>
 
@@ -83,7 +83,7 @@ npx guardrail-cli-tool --help
 
 ### Authentication
 ```bash
-# Get your API key from https://guardrail.dev
+# Get your API key from https://guardrailai.dev
 guardrail auth --key vc_starter_your_api_key_here
 ```
 
@@ -116,7 +116,7 @@ guardrail scan:compliance --framework soc2 --path ./my-project
 | **🏢 Compliance** | $199/mo | Enterprise frameworks, audit trails | Companies requiring compliance |
 | **🔒 Enterprise** | $499/mo | Custom policies, SSO, dedicated support | Large organizations |
 
-[View detailed pricing →](https://guardrail.dev/pricing)
+[View detailed pricing →](https://guardrailai.dev/pricing)
 
 ---
 
@@ -417,7 +417,7 @@ guardrail/
 | **Compliance** | $199/mo | + SOC2, HIPAA, GDPR, PCI, NIST, ISO27001           |
 | **Enterprise** | Custom  | + SSO, on-prem, custom policies, dedicated support |
 
-[View Pricing →](https://guardrail.dev/pricing)
+[View Pricing →](https://guardrailai.dev/pricing)
 
 ---
 
@@ -465,13 +465,13 @@ That's it! You're protected.
 
 | Resource                                                        | Description                    |
 | --------------------------------------------------------------- | ------------------------------ |
-| [Getting Started](https://guardrail.dev/docs/getting-started) | Quick setup guide              |
+| [Getting Started](https://guardrailai.dev/docs/getting-started) | Quick setup guide              |
 | [Getting Started for Vibe Coders](docs/GETTING-STARTED-FOR-VIBE-CODERS.md) | Beginner-friendly guide |
 | [Quick Reference Card](docs/QUICK-REFERENCE-CARD.md) | One-page cheat sheet |
-| [CLI Reference](https://guardrail.dev/docs/cli)               | Complete command documentation |
-| [Configuration](https://guardrail.dev/docs/config)            | Config file options            |
-| [API Reference](https://guardrail.dev/docs/api)               | REST API documentation         |
-| [FAQ](https://guardrail.dev/docs/faq)                         | Common questions               |
+| [CLI Reference](https://guardrailai.dev/docs/cli)               | Complete command documentation |
+| [Configuration](https://guardrailai.dev/docs/config)            | Config file options            |
+| [API Reference](https://guardrailai.dev/docs/api)               | REST API documentation         |
+| [FAQ](https://guardrailai.dev/docs/faq)                         | Common questions               |
 
 ---
 
@@ -479,8 +479,8 @@ That's it! You're protected.
 
 - 💬 [Discord](https://discord.gg/guardrail) — Chat with the team
 - 🐦 [Twitter](https://twitter.com/getguardrail) — Updates & tips
-- 📝 [Blog](https://guardrail.dev/blog) — Tutorials & insights
-- 📧 [Newsletter](https://guardrail.dev/newsletter) — Monthly updates
+- 📝 [Blog](https://guardrailai.dev/blog) — Tutorials & insights
+- 📧 [Newsletter](https://guardrailai.dev/newsletter) — Monthly updates
 
 ---
 
@@ -494,7 +494,7 @@ guardrail is [MIT licensed](LICENSE).
 
 **🛡️ guardrail — CI Truth for AI-Generated Code**
 
-[Website](https://guardrail.dev) · [Docs](https://guardrail.dev/docs) · [Discord](https://discord.gg/guardrail) · [Twitter](https://twitter.com/getguardrail)
+[Website](https://guardrailai.dev) · [Docs](https://guardrailai.dev/docs) · [Discord](https://discord.gg/guardrail) · [Twitter](https://twitter.com/getguardrail)
 
 Made with ❤️ by the guardrail team
 

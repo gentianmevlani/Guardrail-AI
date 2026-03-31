@@ -44,4 +44,4 @@ After testing locally:
 1. Commit changes
 2. Push to GitHub
 3. Netlify will auto-deploy
-4. Test on `https://app.guardrail.network`
+4. Test on `https://guardrailai.dev`

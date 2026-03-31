@@ -27,8 +27,8 @@ const c = {
   bgMagenta: "\x1b[45m",
 };
 
-const PRICING_URL = "https://guardrail.dev/pricing";
-const CHECKOUT_URL = "https://guardrail.dev/checkout";
+const PRICING_URL = "https://guardrailai.dev/pricing";
+const CHECKOUT_URL = "https://guardrailai.dev/checkout";
 
 function parseArgs(args) {
   const opts = {

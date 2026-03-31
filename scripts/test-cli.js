@@ -221,7 +221,7 @@ async function runAllTests() {
     }
   }
 
-  log("\n📚 Documentation: https://docs.guardrail.dev");
+  log("\n📚 Documentation: https://guardrailai.dev/docs");
   log("🐛 Issues: https://github.com/guardrail/issues");
 }
 

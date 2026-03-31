@@ -207,7 +207,7 @@ guardrail certify --framework soc2
 │  Pro ($99/mo): 100 Reality runs/month                           │
 ├─────────────────────────────────────────────────────────────────┤
 │  → guardrail upgrade                                            │
-│  → https://guardrail.dev/pricing                              │
+│  → https://guardrailai.dev/pricing                              │
 ╰─────────────────────────────────────────────────────────────────╯
 ```
 

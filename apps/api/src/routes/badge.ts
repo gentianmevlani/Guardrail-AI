@@ -260,7 +260,7 @@ export async function badgeRoutes(fastify: FastifyInstance) {
    * GET /api/badge/:org/:repo.json
    *
    * Returns Shields.io endpoint schema so you can also use:
-   * ![](https://img.shields.io/endpoint?url=https://guardrail.dev/api/badge/org/repo.json)
+   * ![](https://img.shields.io/endpoint?url=https://guardrailai.dev/api/badge/org/repo.json)
    */
   fastify.get(
     "/badge/:org/:repo.json",
@@ -313,7 +313,7 @@ export async function badgeRoutes(fastify: FastifyInstance) {
           });
         }
 
-        const baseUrl = process.env.API_BASE_URL || 'https://guardrail.dev';
+        const baseUrl = process.env.API_BASE_URL || 'https://guardrailai.dev';
 
         // Shields.io-compatible response + extra metadata
         reply.header("Cache-Control", "public, max-age=300, s-maxage=300");
@@ -406,7 +406,7 @@ export async function badgeRoutes(fastify: FastifyInstance) {
           });
         }
 
-        const baseUrl = process.env.API_BASE_URL || 'https://guardrail.dev';
+        const baseUrl = process.env.API_BASE_URL || 'https://guardrailai.dev';
 
         return reply.send({
           org,

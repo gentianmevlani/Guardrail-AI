@@ -74,14 +74,14 @@ const ERROR_GUIDANCE = {
     title: "Invalid API key",
     nextSteps: [
       'Run "guardrail login" to authenticate',
-      "Get a new API key at https://guardrail.dev/settings/keys",
+      "Get a new API key at https://guardrailai.dev/settings/keys",
       "Check GUARDRAIL_API_KEY environment variable",
     ],
   },
   PLAN_REQUIRED: {
     title: "Feature requires a paid plan",
     nextSteps: [
-      "Upgrade at https://guardrail.dev/pricing",
+      "Upgrade at https://guardrailai.dev/pricing",
       'Run "guardrail upgrade" to manage your subscription',
       "Some features have free tier limits",
     ],
@@ -197,7 +197,7 @@ function handleError(error, context = "", metadata = {}) {
       console.error(`  ${message}`);
       console.error(`\n${c.info("Next steps:")}`);
       console.error(`  ${c.dim("•")} Run "guardrail login" to authenticate`);
-      console.error(`  ${c.dim("•")} Get your API key at https://guardrail.dev/settings/keys`);
+      console.error(`  ${c.dim("•")} Get your API key at https://guardrailai.dev/settings/keys`);
     } else if (err.name === "NetworkError" || err.code === "ECONNREFUSED" || err.code === "ETIMEDOUT") {
       console.error(`\n${c.error("✗")} Network error`);
       console.error(`  ${message}`);
@@ -214,7 +214,7 @@ function handleError(error, context = "", metadata = {}) {
       }
       console.error(`\n${c.info("Need help?")}`);
       console.error(`  ${c.dim("•")} Run "guardrail doctor" for diagnostics`);
-      console.error(`  ${c.dim("•")} Visit https://docs.guardrail.dev/troubleshooting`);
+      console.error(`  ${c.dim("•")} Visit https://guardrailai.dev/docs/troubleshooting`);
       if (metadata.verifyCommand) {
         console.error(`\n${c.info("Verify it's fixed:")}`);
         console.error(`  ${c.dim("•")} ${metadata.verifyCommand}`);

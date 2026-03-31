@@ -436,7 +436,7 @@ export class CDNManager {
 
 export function createCDNConfig(config: Partial<CDNConfig>): CDNConfig {
   return {
-    domain: config.domain || 'cdn.guardrail.dev',
+    domain: config.domain || 'cdn.guardrailai.dev',
     origins: config.origins || [{
       domainName: `${process.env.AWS_S3_BUCKET}.s3.amazonaws.com`,
       originId: 'S3-guardrail',

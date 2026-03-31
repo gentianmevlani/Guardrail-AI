@@ -358,7 +358,7 @@ The header respects `NO_COLOR` environment variable and `--no-color` flag for CI
 
 | Variable | Description |
 |----------|-------------|
-| `GUARDRAIL_API_BASE_URL` | Override API endpoint (default: `https://api.guardrail.dev`) |
+| `GUARDRAIL_API_BASE_URL` | Override API endpoint (default: `https://api.guardrailai.dev`) |
 | `GUARDRAIL_NO_INTERACTIVE` | Disable interactive prompts (`1` to disable) |
 | `GUARDRAIL_NO_UNICODE` | Disable Unicode output (`1` for ASCII-only) |
 
@@ -523,9 +523,9 @@ guardrail reality --run --workers 4 --reporter html,json
 
 ## Support
 
-- [Documentation](https://guardrail.dev/docs)
+- [Documentation](https://guardrailai.dev/docs)
 - [Discord](https://discord.gg/guardrail)
-- [Support](mailto:support@guardrail.dev)
+- [Support](mailto:support@guardrailai.dev)
 
 ## License
 

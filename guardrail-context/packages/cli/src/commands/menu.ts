@@ -160,7 +160,7 @@ async function handleAuth(repoPath: string, isPro: boolean): Promise<void> {
     console.log("");
     console.log(`  ${badge("Ship Verdict", "lock")} requires Pro ($29/mo)`);
     console.log("");
-    console.log(`  ${dim("Get your API key at:")} ${link("https://guardrail.dev/dashboard")}`);
+    console.log(`  ${dim("Get your API key at:")} ${link("https://guardrailai.dev/dashboard")}`);
     console.log("");
 
     const res = await prompts({

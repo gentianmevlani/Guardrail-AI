@@ -125,13 +125,13 @@ export async function sendCriticalFindingAlert(
                 ` : ''}
               </div>
 
-              <a href="${process.env.FRONTEND_URL || 'https://guardrail.dev'}/dashboard/findings" class="button">
+              <a href="${process.env.FRONTEND_URL || 'https://guardrailai.dev'}/dashboard/findings" class="button">
                 View Finding
               </a>
 
               <p style="margin-top: 30px; font-size: 12px; color: #6b7280;">
                 You're receiving this because critical finding alerts are enabled in your notification preferences.
-                <a href="${process.env.FRONTEND_URL || 'https://guardrail.dev'}/settings/notifications">Manage preferences</a>
+                <a href="${process.env.FRONTEND_URL || 'https://guardrailai.dev'}/settings/notifications">Manage preferences</a>
               </p>
             </div>
           </div>
@@ -147,7 +147,7 @@ File: ${finding.file}:${finding.line}
 Message: ${finding.message}
 ${scan ? `Project: ${scan.projectPath || 'Unknown'}\nBranch: ${scan.branch}` : ''}
 
-View at: ${process.env.FRONTEND_URL || 'https://guardrail.dev'}/dashboard/findings
+View at: ${process.env.FRONTEND_URL || 'https://guardrailai.dev'}/dashboard/findings
     `.trim();
 
     await emailNotificationService.sendEmail({

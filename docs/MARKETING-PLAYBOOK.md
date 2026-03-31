@@ -21,9 +21,9 @@
 
 ### Day 1: Verify Landing Pages
 
-- [ ] Confirm all 15 SEO pages are live on `guardrail.dev`
+- [ ] Confirm all 15 SEO pages are live on `guardrailai.dev`
 - [ ] Test each page loads without errors
-- [ ] Verify sitemap.xml is accessible at `guardrail.dev/sitemap.xml`
+- [ ] Verify sitemap.xml is accessible at `guardrailai.dev/sitemap.xml`
 - [ ] Submit sitemap to Google Search Console
 
 ### Day 2: Set Up Analytics
@@ -92,7 +92,7 @@
 Headline 1: CI Passed. Production Failed?
 Headline 2: Detect Mock & Fake Code Before Deploy
 Description: Find leftover mocks, fake APIs, and AI hallucinations before they hit production. One command. CI-safe.
-Final URL: https://guardrail.dev/guides/stop-mock-data-production
+Final URL: https://guardrailai.dev/guides/stop-mock-data-production
 ```
 
 #### Ad Group 2: CI Failure
@@ -109,7 +109,7 @@ Final URL: https://guardrail.dev/guides/stop-mock-data-production
 Headline 1: CI Passed. Production Failed?
 Headline 2: Detect Mock & Fake Code Before Deploy
 Description: Find leftover mocks, fake APIs, and AI hallucinations before they hit production. One command. CI-safe.
-Final URL: https://guardrail.dev/guides/ci-passed-production-bug
+Final URL: https://guardrailai.dev/guides/ci-passed-production-bug
 ```
 
 #### Ad Group 3: AI Code
@@ -126,7 +126,7 @@ Final URL: https://guardrail.dev/guides/ci-passed-production-bug
 Headline 1: AI Hallucinations in Production?
 Headline 2: Detect Fake AI-Generated Code
 Description: AI code looks valid but fails at runtime. Detect fabricated APIs and placeholders before deploy.
-Final URL: https://guardrail.dev/guides/ai-hallucinated-code-detection
+Final URL: https://guardrailai.dev/guides/ai-hallucinated-code-detection
 ```
 
 ### Step 4: Negative Keywords (CRITICAL)
@@ -261,9 +261,9 @@ Call to Action: Learn More
 ### Step 1: Submit to Google Search Console
 
 1. Go to search.google.com/search-console
-2. Add property: `https://guardrail.dev`
+2. Add property: `https://guardrailai.dev`
 3. Verify ownership (DNS or HTML tag)
-4. Submit sitemap: `https://guardrail.dev/sitemap.xml`
+4. Submit sitemap: `https://guardrailai.dev/sitemap.xml`
 5. Request indexing for all 15 pages
 
 ### Step 2: Internal Linking

@@ -45,7 +45,7 @@ export function getCloudSyncEnvFromEnv(): {
     process.env["GUARDRAIL_API_URL"]?.trim() ||
     process.env["GUARDRAIL_API_BASE_URL"]?.trim();
   if (!baseUrl && apiKey && process.env["CI"]) {
-    baseUrl = "https://api.guardrail.dev";
+    baseUrl = "https://api.guardrailai.dev";
   }
   if (!apiKey || !baseUrl) {
     return null;

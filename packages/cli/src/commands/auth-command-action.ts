@@ -102,7 +102,7 @@ export async function runAuthOptionsAction(options: {
           `${styles.brightCyan}guardrail auth --key YOUR_API_KEY${styles.reset}`,
           '',
           `${styles.dim}Get your API key from:${styles.reset}`,
-          `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+          `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
         ];
         
         const framed = frameLines(statusLines, { padding: 2 });
@@ -195,7 +195,7 @@ export async function runAuthOptionsAction(options: {
         `${styles.bold}guardrail auth --key YOUR_API_KEY${styles.reset}`,
         '',
         `${styles.dim}Get your API key from:${styles.reset}`,
-        `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+        `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
         '',
         `${styles.dim}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${styles.reset}`,
         '',
@@ -253,7 +253,7 @@ export async function runAuthOptionsAction(options: {
         `  ${styles.dim}${icons.bullet}${styles.reset} Network connectivity issues`,
         '',
         `${styles.dim}Get a new API key from:${styles.reset}`,
-        `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+        `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
       ];
       console.log(frameLines(errorLines, { padding: 2 }).join('\n'));
       console.log('');

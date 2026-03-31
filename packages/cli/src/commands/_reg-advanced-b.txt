@@ -137,7 +137,7 @@ program
         'Autopilot requires Pro tier or higher.',
         '',
         `${styles.dim}Current tier:${styles.reset} ${config.tier || 'free'}`,
-        `${styles.dim}Upgrade at:${styles.reset}   ${styles.brightBlue}https://guardrail.dev/pricing${styles.reset}`,
+        `${styles.dim}Upgrade at:${styles.reset}   ${styles.brightBlue}https://guardrailai.dev/pricing${styles.reset}`,
       ];
       console.log(frameLines(errorLines, { padding: 2 }).join('\n'));
       console.log('');

@@ -70,5 +70,5 @@ app.delete("/api/users/:id", (req, res) => {
 
 ## Learn More
 
-- [guardrail Documentation](https://guardrail.dev/docs)
+- [guardrail Documentation](https://guardrailai.dev/docs)
 - [Express.js Documentation](https://expressjs.com/)

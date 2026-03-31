@@ -897,7 +897,7 @@ All new features include comprehensive telemetry for monitoring and optimization
 
 **Upgrade**: `pnpm install guardrail@latest`  
 **Migration**: Run `pnpm prisma migrate deploy`  
-**Docs**: [Full Documentation](https://guardrail.dev/docs)
+**Docs**: [Full Documentation](https://guardrailai.dev/docs)
 ```
 
 ---

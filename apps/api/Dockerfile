@@ -43,6 +43,12 @@ RUN find /app -name '*.tsbuildinfo' -delete
 # Generate Prisma client
 RUN npx prisma generate --schema=./packages/database/prisma/schema.prisma
 
+# Snapshot generated client for the runner stage (pnpm stores it under .pnpm)
+RUN set -eux; \
+    src="$(ls -d /app/node_modules/.pnpm/@prisma+client@*/node_modules/.prisma 2>/dev/null | head -1)"; \
+    test -n "$src"; \
+    cp -a "$src" /tmp/prisma-generated-dot-prisma
+
 # Build database package first (needed by other packages)
 RUN pnpm turbo run build --filter=@guardrail/database
 
@@ -101,8 +107,15 @@ COPY --from=builder /app/packages/ship/dist ./packages/ship/dist
 # Copy prisma schema and migrations
 COPY --from=builder /app/packages/database/prisma ./packages/database/prisma
 
-# Generate Prisma client in runner stage
-RUN npx prisma generate --schema=./packages/database/prisma/schema.prisma
+# Reuse Prisma client generated in builder (runner uses `pnpm install --prod` — no prisma CLI;
+# `npx prisma generate` here can fail with internal `pnpm add @prisma/client`.)
+COPY --from=builder /tmp/prisma-generated-dot-prisma /tmp/prisma-generated-dot-prisma
+RUN set -eux; \
+    dest="$(ls -d /app/node_modules/.pnpm/@prisma+client@*/node_modules 2>/dev/null | head -1)"; \
+    test -n "$dest"; \
+    rm -rf "$dest/.prisma"; \
+    cp -a /tmp/prisma-generated-dot-prisma "$dest/.prisma"; \
+    rm -rf /tmp/prisma-generated-dot-prisma
 
 # Copy startup script
 COPY scripts/start-api.sh /app/scripts/start-api.sh

@@ -171,7 +171,7 @@ export function CommandPalette() {
       title: "Open Documentation",
       description: "View guardrail docs",
       icon: ExternalLink,
-      action: () => window.open("https://docs.guardrail.dev", "_blank"),
+      action: () => window.open("https://guardrailai.dev/docs", "_blank"),
       category: "actions",
     },
   ];

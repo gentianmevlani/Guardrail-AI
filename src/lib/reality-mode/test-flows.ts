@@ -45,7 +45,7 @@ export interface TestData {
 
 // Default test data with realistic values
 export const DEFAULT_TEST_DATA: TestData = {
-  email: 'test-reality@guardrail.dev',
+  email: 'test-reality@guardrailai.dev',
   password: 'TestPass123!@#',
   name: 'Reality Test User',
   phone: '+1 (555) 123-4567',

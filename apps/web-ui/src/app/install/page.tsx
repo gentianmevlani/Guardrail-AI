@@ -45,7 +45,7 @@ const installMethods: InstallMethod[] = [
     description: "Install via Homebrew (recommended for macOS)",
     commands: [
       "# Install via Homebrew\nbrew tap guardrail/tap\nbrew install guardrail",
-      "# Or download the binary directly\ncurl -fsSL https://get.guardrail.dev | sh",
+      "# Or download the binary directly\ncurl -fsSL https://get.guardrailai.dev | sh",
     ],
   },
   {
@@ -54,9 +54,9 @@ const installMethods: InstallMethod[] = [
     icon: <Terminal className="w-6 h-6" />,
     description: "Install via script or package manager",
     commands: [
-      "# Quick install script\ncurl -fsSL https://get.guardrail.dev | sh",
-      "# Debian/Ubuntu\nwget -qO- https://get.guardrail.dev/deb | sudo bash\nsudo apt install guardrail",
-      "# Fedora/RHEL\nwget -qO- https://get.guardrail.dev/rpm | sudo bash\nsudo dnf install guardrail",
+      "# Quick install script\ncurl -fsSL https://get.guardrailai.dev | sh",
+      "# Debian/Ubuntu\nwget -qO- https://get.guardrailai.dev/deb | sudo bash\nsudo apt install guardrail",
+      "# Fedora/RHEL\nwget -qO- https://get.guardrailai.dev/rpm | sudo bash\nsudo dnf install guardrail",
     ],
   },
   {
@@ -276,7 +276,7 @@ guardrail auth status`}
                 <strong>Note:</strong> Basic scanning works without
                 authentication. Sign up for a free account at{" "}
                 <Link href="/" className="underline hover:text-blue-300">
-                  guardrail.dev
+                  guardrailai.dev
                 </Link>{" "}
                 to unlock team features and cloud dashboards.
               </p>

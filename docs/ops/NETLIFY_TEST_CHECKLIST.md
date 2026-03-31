@@ -13,10 +13,10 @@ Use this checklist to verify your Netlify deployment is working correctly.
 2. Verify these are set:
 
 ```bash
-✅ API_URL=https://api.guardrail.network
-✅ NEXT_PUBLIC_API_URL=https://api.guardrail.network
-✅ NEXT_PUBLIC_APP_URL=https://app.guardrail.network
-✅ APP_BASE_URL=https://app.guardrail.network
+✅ API_URL=https://api.guardrailai.dev
+✅ NEXT_PUBLIC_API_URL=https://api.guardrailai.dev
+✅ NEXT_PUBLIC_APP_URL=https://guardrailai.dev
+✅ APP_BASE_URL=https://guardrailai.dev
 ✅ NODE_ENV=production
 ```
 
@@ -34,7 +34,7 @@ Use this checklist to verify your Netlify deployment is working correctly.
 **In Netlify Dashboard:**
 1. Go to **Domain Settings**
 2. Verify custom domain:
-   - ✅ `app.guardrail.network` is configured
+   - ✅ `guardrailai.dev` is configured
    - ✅ SSL certificate is active (green lock icon)
    - ✅ DNS records are correct
 
@@ -42,7 +42,7 @@ Use this checklist to verify your Netlify deployment is working correctly.
 
 ## 🧪 Test 1: Root URL Redirect
 
-**Test:** Visit `https://app.guardrail.network`
+**Test:** Visit `https://guardrailai.dev`
 
 **Expected Result:**
 - ✅ Page loads (not 404)
@@ -59,7 +59,7 @@ Use this checklist to verify your Netlify deployment is working correctly.
 
 ## 🧪 Test 2: Login Page
 
-**Test:** Visit `https://app.guardrail.network/dashboard/auth`
+**Test:** Visit `https://guardrailai.dev/dashboard/auth`
 
 **Expected Result:**
 - ✅ Login page loads
@@ -81,7 +81,7 @@ Use this checklist to verify your Netlify deployment is working correctly.
 **Test:** Check if images/assets load
 
 **Expected Result:**
-- ✅ Logo loads: `https://app.guardrail.network/logo.png`
+- ✅ Logo loads: `https://guardrailai.dev/logo.png`
 - ✅ Favicon loads
 - ✅ No broken images
 
@@ -100,7 +100,7 @@ Use this checklist to verify your Netlify deployment is working correctly.
 2. Check network requests
 
 **Expected Result:**
-- ✅ API calls go to `https://api.guardrail.network`
+- ✅ API calls go to `https://api.guardrailai.dev`
 - ✅ No CORS errors
 - ✅ Responses received (or proper error messages)
 
@@ -115,9 +115,9 @@ Use this checklist to verify your Netlify deployment is working correctly.
 **Test:** Navigate to different routes
 
 **Test these URLs:**
-- `https://app.guardrail.network/` → Should redirect to `/dashboard/auth`
-- `https://app.guardrail.network/dashboard/auth` → Login page
-- `https://app.guardrail.network/dashboard` → Dashboard (after login)
+- `https://guardrailai.dev/` → Should redirect to `/dashboard/auth`
+- `https://guardrailai.dev/dashboard/auth` → Login page
+- `https://guardrailai.dev/dashboard` → Dashboard (after login)
 
 **Expected Result:**
 - ✅ All routes load (not 404)
@@ -157,7 +157,7 @@ console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
 - Verify they're going to correct URL
 
 **Expected Result:**
-- ✅ API calls use `https://api.guardrail.network`
+- ✅ API calls use `https://api.guardrailai.dev`
 - ✅ No localhost URLs in production
 
 ---
@@ -201,7 +201,7 @@ console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
 
 **Test:** Verify SSL certificate
 
-**Visit:** `https://app.guardrail.network`
+**Visit:** `https://guardrailai.dev`
 
 **Expected Result:**
 - ✅ Green lock icon in browser

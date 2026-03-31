@@ -164,7 +164,7 @@ make -f Makefile.load-test install-k6
 make -f Makefile.load-test load-test BASE_URL=http://localhost:3000
 
 # Run stress test
-make -f Makefile.load-test stress-test BASE_URL=https://api.staging.guardrail.dev
+make -f Makefile.load-test stress-test BASE_URL=https://api.staging.guardrailai.dev
 
 # Quick smoke test
 make -f Makefile.load-test quick-test
@@ -256,7 +256,7 @@ MAINTENANCE_MODE=false  # Set to true to enable maintenance
 # Existing variables (unchanged)
 DATABASE_URL=postgresql://...
 JWT_SECRET=your-secret-key
-FRONTEND_URL=https://guardrail.dev
+FRONTEND_URL=https://guardrailai.dev
 ```
 
 ## 📊 API Endpoints Summary

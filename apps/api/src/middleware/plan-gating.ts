@@ -108,7 +108,7 @@ export function requirePlan(options: PlanGateOptions = {}) {
         requestId: (request as any).requestId || 'unknown',
         nextSteps: [
           "Include a valid authentication token in your request",
-          "Get your API key at https://guardrail.dev/settings/keys",
+          "Get your API key at https://guardrailai.dev/settings/keys",
           "For CLI: Run 'guardrail login' to authenticate",
         ],
       });
@@ -130,7 +130,7 @@ export function requirePlan(options: PlanGateOptions = {}) {
           currentStatus: status,
           upgradeUrl: "/pricing",
           nextSteps: [
-            "Reactivate your subscription at https://guardrail.dev/settings/billing",
+            "Reactivate your subscription at https://guardrailai.dev/settings/billing",
             status === 'past_due' ? "Update your payment method to restore access" : undefined,
             "Contact support if you need assistance",
           ].filter(Boolean),
@@ -181,7 +181,7 @@ export function requirePlan(options: PlanGateOptions = {}) {
         message: "Unable to verify subscription status. Please try again.",
         nextSteps: [
           "Check your internet connection",
-          "Verify your account status at https://guardrail.dev/settings",
+          "Verify your account status at https://guardrailai.dev/settings",
           "Contact support if the issue persists",
         ],
       });

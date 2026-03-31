@@ -4,7 +4,7 @@ import { logger } from "@/lib/logger";
 export const dynamic = "force-dynamic";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://api.guardrail.dev";
+  process.env.NEXT_PUBLIC_API_URL || "https://api.guardrailai.dev";
 
 export async function POST(request: Request) {
   try {

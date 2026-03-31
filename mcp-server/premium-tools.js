@@ -1192,7 +1192,7 @@ async function handleExportSarif(projectPath, args) {
         driver: {
           name: 'guardrail',
           version: '1.0.0',
-          informationUri: 'https://guardrail.dev',
+          informationUri: 'https://guardrailai.dev',
           rules: generateSarifRules(run.findings),
         },
       },

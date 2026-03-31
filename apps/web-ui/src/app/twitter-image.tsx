@@ -141,7 +141,7 @@ export default async function Image() {
           fontSize: 16,
         }}
       >
-        <span>guardrail.dev</span>
+        <span>guardrailai.dev</span>
         <span>•</span>
         <span>Open Source</span>
         <span>•</span>

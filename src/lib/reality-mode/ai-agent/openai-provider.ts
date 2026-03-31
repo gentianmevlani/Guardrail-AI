@@ -153,7 +153,7 @@ export class OpenAIProvider implements AIProvider {
 
   async generateTestData(fieldType: string, context: string): Promise<string> {
     const testDataMap: Record<string, string> = {
-      email: `test-${Date.now()}@guardrail.dev`,
+      email: `test-${Date.now()}@guardrailai.dev`,
       password: 'TestPass123!@#',
       name: 'Reality Test User',
       firstName: 'Reality',

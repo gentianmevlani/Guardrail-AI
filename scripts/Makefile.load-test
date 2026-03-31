@@ -19,8 +19,8 @@ help:
 	@echo "  K6_CLOUD_TOKEN      Optional: k6 Cloud token for cloud testing"
 	@echo ""
 	@echo "Examples:"
-	@echo "  make load-test BASE_URL=https://api.staging.getguardrail.io"
-	@echo "  make stress-test BASE_URL=https://api.getguardrail.io"
+	@echo "  make load-test BASE_URL=https://api.staging.guardrailai.dev"
+	@echo "  make stress-test BASE_URL=https://api.guardrailai.dev"
 
 # Install k6 if not present
 install-k6:

@@ -200,7 +200,7 @@ ${c.dim}To unlock all features, you need a guardrail API key.${c.reset}
   ${c.cyan}STARTER${c.reset}  ship, gate, reality, launch, proof mocks  ${c.dim}($29/mo)${c.reset}
   ${c.magenta}PRO${c.reset}      ai-test, fix, autopilot, proof reality  ${c.dim}($99/mo)${c.reset}
 
-${c.dim}Get your API key at: ${c.cyan}https://guardrail.dev/settings/keys${c.reset}
+${c.dim}Get your API key at: ${c.cyan}https://guardrailai.dev/settings/keys${c.reset}
 `);
 
     const answer = await prompt(
@@ -268,7 +268,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
     if (!entitlements) {
       return {
         allowed: false,
-        reason: `${c.yellow}${cmd}${c.reset} requires a ${c.magenta}PRO${c.reset} plan.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrail.dev/settings/keys${c.reset}`,
+        reason: `${c.yellow}${cmd}${c.reset} requires a ${c.magenta}PRO${c.reset} plan.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrailai.dev/settings/keys${c.reset}`,
       };
     }
     
@@ -281,7 +281,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
     
     return {
       allowed: false,
-      reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include this feature.\n\n  Required: ${config.requiredScope}\n  Upgrade to ${c.magenta}PRO${c.reset} at: ${c.cyan}https://guardrail.dev/pricing${c.reset}`,
+      reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include this feature.\n\n  Required: ${config.requiredScope}\n  Upgrade to ${c.magenta}PRO${c.reset} at: ${c.cyan}https://guardrailai.dev/pricing${c.reset}`,
     };
   }
 
@@ -293,7 +293,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
       if (!entitlements) {
         return {
           allowed: false,
-          reason: `${c.yellow}proof mocks${c.reset} requires a ${c.cyan}STARTER${c.reset} plan or higher.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrail.dev/settings/keys${c.reset}`,
+          reason: `${c.yellow}proof mocks${c.reset} requires a ${c.cyan}STARTER${c.reset} plan or higher.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrailai.dev/settings/keys${c.reset}`,
         };
       }
       if (
@@ -304,14 +304,14 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
       }
       return {
         allowed: false,
-        reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include mock detection.\n\n  Upgrade to ${c.cyan}STARTER${c.reset} at: ${c.cyan}https://guardrail.dev/pricing${c.reset}`,
+        reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include mock detection.\n\n  Upgrade to ${c.cyan}STARTER${c.reset} at: ${c.cyan}https://guardrailai.dev/pricing${c.reset}`,
       };
     } else if (subMode === "reality") {
       // Pro+ required
       if (!entitlements) {
         return {
           allowed: false,
-          reason: `${c.yellow}proof reality${c.reset} requires a ${c.magenta}PRO${c.reset} plan.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrail.dev/settings/keys${c.reset}`,
+          reason: `${c.yellow}proof reality${c.reset} requires a ${c.magenta}PRO${c.reset} plan.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrailai.dev/settings/keys${c.reset}`,
         };
       }
       if (
@@ -322,7 +322,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
       }
       return {
         allowed: false,
-        reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include runtime verification.\n\n  Upgrade to ${c.magenta}PRO${c.reset} at: ${c.cyan}https://guardrail.dev/pricing${c.reset}`,
+        reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include runtime verification.\n\n  Upgrade to ${c.magenta}PRO${c.reset} at: ${c.cyan}https://guardrailai.dev/pricing${c.reset}`,
       };
     }
     // No submode - show help
@@ -336,7 +336,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
     if (!entitlements) {
       return {
         allowed: false,
-        reason: `${c.yellow}${cmd}${c.reset} requires a ${c.cyan}STARTER${c.reset} plan or higher.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrail.dev/settings/keys${c.reset}`,
+        reason: `${c.yellow}${cmd}${c.reset} requires a ${c.cyan}STARTER${c.reset} plan or higher.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrailai.dev/settings/keys${c.reset}`,
       };
     }
 
@@ -349,7 +349,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
 
     return {
       allowed: false,
-      reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include this feature.\n\n  Required: ${requiredScope}\n  Upgrade to ${c.cyan}STARTER${c.reset} at: ${c.cyan}https://guardrail.dev/pricing${c.reset}`,
+      reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include this feature.\n\n  Required: ${requiredScope}\n  Upgrade to ${c.cyan}STARTER${c.reset} at: ${c.cyan}https://guardrailai.dev/pricing${c.reset}`,
     };
   }
 
@@ -360,7 +360,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
     if (!entitlements) {
       return {
         allowed: false,
-        reason: `${c.yellow}${cmd}${c.reset} requires a ${c.magenta}PRO${c.reset} plan.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrail.dev/settings/keys${c.reset}`,
+        reason: `${c.yellow}${cmd}${c.reset} requires a ${c.magenta}PRO${c.reset} plan.\n\n  Run ${c.cyan}guardrail login${c.reset} to authenticate.\n  Get your API key at: ${c.cyan}https://guardrailai.dev/settings/keys${c.reset}`,
       };
     }
 
@@ -373,7 +373,7 @@ async function checkCommandAccess(cmd, entitlements, args = []) {
 
     return {
       allowed: false,
-      reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include this feature.\n\n  Required: ${requiredScope}\n  Upgrade to ${c.magenta}PRO${c.reset} at: ${c.cyan}https://guardrail.dev/pricing${c.reset}`,
+      reason: `Your ${c.yellow}${entitlements.plan?.toUpperCase()}${c.reset} plan doesn't include this feature.\n\n  Required: ${requiredScope}\n  Upgrade to ${c.magenta}PRO${c.reset} at: ${c.cyan}https://guardrailai.dev/pricing${c.reset}`,
     };
   }
 

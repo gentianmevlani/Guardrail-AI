@@ -82,7 +82,7 @@ export default function HomePage() {
 3. **Wait for build** (5-10 minutes)
 
 4. **Test:**
-   - Visit `https://app.guardrail.network`
+   - Visit `https://guardrailai.dev`
    - Should redirect to `/dashboard/auth`
    - Should NOT show 404
 

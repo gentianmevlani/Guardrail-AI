@@ -128,7 +128,7 @@ export function LegalPageLayout({
                   Terms of Service
                 </Link>
                 <Link
-                  href="mailto:legal@guardrail.dev"
+                  href="mailto:legal@guardrailai.dev"
                   className="hover:text-primary transition-colors"
                 >
                   Contact Legal

@@ -6,11 +6,11 @@ Looking for help with guardrail? Here's how to get support.
 
 Before reaching out, check if your question is answered in our docs:
 
-- **[Getting Started](https://guardrail.dev/docs/getting-started)** - Installation and first scan
-- **[CLI Reference](https://guardrail.dev/docs/cli)** - All commands and options
-- **[Configuration](https://guardrail.dev/docs/config)** - Config file reference
-- **[FAQ](https://guardrail.dev/docs/faq)** - Common questions and answers
-- **[Troubleshooting](https://guardrail.dev/docs/troubleshooting)** - Common issues and solutions
+- **[Getting Started](https://guardrailai.dev/docs/getting-started)** - Installation and first scan
+- **[CLI Reference](https://guardrailai.dev/docs/cli)** - All commands and options
+- **[Configuration](https://guardrailai.dev/docs/config)** - Config file reference
+- **[FAQ](https://guardrailai.dev/docs/faq)** - Common questions and answers
+- **[Troubleshooting](https://guardrailai.dev/docs/troubleshooting)** - Common issues and solutions
 
 ## Getting Help
 
@@ -64,13 +64,13 @@ npx guardrail <command> --help
 
 **DO NOT** report security vulnerabilities publicly.
 
-Please email [security@guardrail.dev](mailto:security@guardrail.dev) instead.
+Please email [security@guardrailai.dev](mailto:security@guardrailai.dev) instead.
 
 See our [Security Policy](SECURITY.md) for more details.
 
 ## Contact
 
-- **General:** support@guardrail.dev
-- **Security:** security@guardrail.dev
-- **Sales:** sales@guardrail.dev
+- **General:** support@guardrailai.dev
+- **Security:** security@guardrailai.dev
+- **Sales:** sales@guardrailai.dev
 - **Twitter:** [@getguardrail](https://twitter.com/getguardrail)

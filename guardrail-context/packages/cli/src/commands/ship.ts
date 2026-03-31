@@ -76,7 +76,7 @@ export async function cmdShip(repoPath: string, opts: ShipOptions = {}): Promise
   const access = checkShipAccess();
   if (!access.allowed) {
     console.log(`${ANSI.yellow}${access.reason}${ANSI.reset}`);
-    console.log(`${ANSI.dim}Upgrade at: https://guardrail.dev/upgrade${ANSI.reset}\n`);
+    console.log(`${ANSI.dim}Upgrade at: https://guardrailai.dev/upgrade${ANSI.reset}\n`);
     
     // Return empty report for free tier
     return {

@@ -219,7 +219,7 @@ export class RunManager {
           driver: {
             name: 'guardrail',
             version: this.getCliVersion(),
-            informationUri: 'https://guardrail.dev',
+            informationUri: 'https://guardrailai.dev',
             rules: this.generateSarifRules(violations),
           }
         },

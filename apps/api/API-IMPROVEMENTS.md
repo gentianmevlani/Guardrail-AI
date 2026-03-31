@@ -378,8 +378,8 @@ Monitor these metrics to ensure improvements:
 
 - **Issues**: GitHub repository issues
 - **Discussions**: GitHub repository discussions
-- **Support**: support@guardrail.dev
-- **Status**: status.guardrail.dev
+- **Support**: support@guardrailai.dev
+- **Status**: status.guardrailai.dev
 
 ### Best Practices
 

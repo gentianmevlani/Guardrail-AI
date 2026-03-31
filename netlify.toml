@@ -34,8 +34,8 @@
 # =============================================================================
 # These use Netlify environment variables for the API URL.
 # Set API_URL in Netlify dashboard for each context:
-#   - Production: https://api.guardrail.network
-#   - Deploy Preview/Staging: https://api.guardrail.network
+#   - Production: https://api.guardrailai.dev
+#   - Deploy Preview/Staging: https://api.guardrailai.dev
 # =============================================================================
 
 # Auth routes are handled by Next.js API routes (Netlify Functions)
@@ -153,17 +153,17 @@
 [context.production]
   command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter guardrail-security run build && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
   [context.production.environment]
-    API_URL = "https://api.guardrail.network"
+    API_URL = "https://api.guardrailai.dev"
 
 [context.deploy-preview]
   command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter guardrail-security run build && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
   [context.deploy-preview.environment]
-    API_URL = "https://api.guardrail.network"
+    API_URL = "https://api.guardrailai.dev"
 
 [context.branch-deploy]
   command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter guardrail-security run build && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
   [context.branch-deploy.environment]
-    API_URL = "https://api.guardrail.network"
+    API_URL = "https://api.guardrailai.dev"
 
 [[headers]]
   for = "/*"

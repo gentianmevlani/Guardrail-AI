@@ -56,7 +56,7 @@ All critical tasks completed! Here's your comprehensive launch checklist.
    ```
 
 2. **Launch Landing Page**
-   - Update guardrail.dev with new pricing
+   - Update guardrailai.dev with new pricing
    - Set up payment processing
    - Configure Stripe webhooks
 

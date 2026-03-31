@@ -298,7 +298,7 @@ Run \`guardrail context\` to update these rules when your codebase changes.
 
 ---
 
-For more information, visit: https://guardrail.dev
+For more information, visit: https://guardrailai.dev
 `;
       await fs.promises.writeFile(cursorRulesPath, rulesContent);
     }
@@ -453,7 +453,7 @@ For more information, visit: https://guardrail.dev
     }
     
     steps.push('Try: "guardrail analyze my project" to get started');
-    steps.push('Visit https://guardrail.dev/docs for more help');
+    steps.push('Visit https://guardrailai.dev/docs for more help');
     
     return steps;
   }

@@ -158,7 +158,7 @@ async function main() {
         const apiKey = args[1] || parseFlag("key");
         if (!apiKey) {
           console.log(`Usage: guardrail login <api-key>`);
-          console.log(`Get your key at: https://guardrail.dev/dashboard`);
+          console.log(`Get your key at: https://guardrailai.dev/dashboard`);
           process.exit(1);
         }
         await login(apiKey);

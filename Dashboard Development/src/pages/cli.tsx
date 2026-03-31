@@ -38,7 +38,7 @@ export function CLIPage() {
     {
       id: "curl",
       title: "Direct Install",
-      command: "curl -fsSL https://get.guardrail.dev | sh",
+      command: "curl -fsSL https://get.guardrailai.dev | sh",
       description: "Direct installation script",
     },
   ];

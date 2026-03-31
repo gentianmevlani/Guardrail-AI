@@ -9,7 +9,7 @@
 - ✅ Next.js plugin: `@netlify/plugin-nextjs` configured
 - ✅ Node version: 22.13.0
 - ✅ pnpm version: 9.15.1
-- ✅ API redirects to Railway: Configured for `api.guardrail.network`
+- ✅ API redirects to Railway: Configured for `api.guardrailai.dev`
 - ✅ Security headers: Configured
 - ✅ Context configurations: Production, deploy-preview, branch-deploy
 
@@ -59,9 +59,9 @@ Set these in Netlify Dashboard → Site Settings → Environment Variables:
 
 ```bash
 # Required
-API_URL=https://api.guardrail.network
-NEXT_PUBLIC_API_URL=https://api.guardrail.network
-NEXT_PUBLIC_APP_URL=https://app.guardrail.network
+API_URL=https://api.guardrailai.dev
+NEXT_PUBLIC_API_URL=https://api.guardrailai.dev
+NEXT_PUBLIC_APP_URL=https://guardrailai.dev
 NODE_ENV=production
 
 # Optional (if using OAuth)
@@ -97,19 +97,19 @@ PORT=3001
 HOST=0.0.0.0
 
 # CORS
-CORS_ORIGIN=https://app.guardrail.network
-ALLOWED_ORIGINS=https://app.guardrail.network,https://guardrail.network
-API_BASE_URL=https://api.guardrail.network
-APP_BASE_URL=https://app.guardrail.network
+CORS_ORIGIN=https://guardrailai.dev
+ALLOWED_ORIGINS=https://guardrailai.dev,https://guardrailai.dev
+API_BASE_URL=https://api.guardrailai.dev
+APP_BASE_URL=https://guardrailai.dev
 
 # OAuth (if using)
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
-GITHUB_CALLBACK_URL=https://api.guardrail.network/api/auth/github/callback
+GITHUB_CALLBACK_URL=https://api.guardrailai.dev/api/auth/github/callback
 
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
-GOOGLE_CALLBACK_URL=https://api.guardrail.network/api/auth/google/callback
+GOOGLE_CALLBACK_URL=https://api.guardrailai.dev/api/auth/google/callback
 ```
 
 ---
@@ -141,7 +141,7 @@ git push origin main
 
 ### 4. Test
 
-- Visit `https://app.guardrail.network`
+- Visit `https://guardrailai.dev`
 - Should redirect to `/dashboard/auth`
 - Login page should load
 - No 404 errors

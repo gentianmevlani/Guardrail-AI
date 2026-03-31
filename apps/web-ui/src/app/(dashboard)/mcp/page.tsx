@@ -204,7 +204,7 @@ const MCP_TOOL_CATEGORIES: ToolCategory[] = [
         example: '"Test my app at localhost:3000 with auth flow"',
       },
       {
-        name: "guardrail.dev-test",
+        name: "guardrailai.dev-test",
         description:
           "AI Agent — autonomous testing that explores your app and generates fix prompts",
         tier: "pro",
@@ -873,7 +873,7 @@ export default function MCPPage() {
                       </Button>
                     </Link>
                     <a
-                      href="https://docs.guardrail.dev/mcp"
+                      href="https://guardrailai.dev/docs/mcp"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

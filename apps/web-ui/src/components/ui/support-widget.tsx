@@ -113,7 +113,7 @@ export function SupportWidget({ runId, context }: SupportWidgetProps) {
             </button>
 
             <a
-              href="https://docs.guardrail.dev"
+              href="https://guardrailai.dev/docs"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center gap-3 p-3 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors text-left"

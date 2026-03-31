@@ -1,9 +1,8 @@
 # 🌐 Netlify Environment Variables - Complete Setup
 
 ## Your Domains
-- **Main Site:** `guardrail.network`
-- **API:** `api.guardrail.network`
-- **App (Frontend):** `app.guardrail.network` (or `guardrail.network`)
+- **Main Site / App (Netlify):** `guardrailai.dev`
+- **API (Railway):** `api.guardrailai.dev`
 
 ---
 
@@ -15,16 +14,16 @@ Go to **Netlify Dashboard → Site Settings → Environment Variables** and add 
 
 ```bash
 # API URL - Points to Railway API
-API_URL=https://api.guardrail.network
+API_URL=https://api.guardrailai.dev
 
 # Public API URL (used in frontend code)
-NEXT_PUBLIC_API_URL=https://api.guardrail.network
+NEXT_PUBLIC_API_URL=https://api.guardrailai.dev
 
 # App URL (your Netlify site)
-NEXT_PUBLIC_APP_URL=https://app.guardrail.network
+NEXT_PUBLIC_APP_URL=https://guardrailai.dev
 
 # Base URL for the app
-APP_BASE_URL=https://app.guardrail.network
+APP_BASE_URL=https://guardrailai.dev
 ```
 
 ### ⚙️ Build Configuration
@@ -65,14 +64,14 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_your_stripe_publishable_key
 
 ```bash
 # WebSocket URL for real-time updates
-NEXT_PUBLIC_WS_URL=wss://api.guardrail.network/ws
+NEXT_PUBLIC_WS_URL=wss://api.guardrailai.dev/ws
 ```
 
 ### 🔒 Security Headers (Optional)
 
 ```bash
 # Allowed origin for CORS (set in Railway too)
-ALLOWED_ORIGIN=https://app.guardrail.network
+ALLOWED_ORIGIN=https://guardrailai.dev
 ```
 
 ---
@@ -84,9 +83,9 @@ ALLOWED_ORIGIN=https://app.guardrail.network
 **Minimum required variables:**
 
 ```bash
-API_URL=https://api.guardrail.network
-NEXT_PUBLIC_API_URL=https://api.guardrail.network
-NEXT_PUBLIC_APP_URL=https://app.guardrail.network
+API_URL=https://api.guardrailai.dev
+NEXT_PUBLIC_API_URL=https://api.guardrailai.dev
+NEXT_PUBLIC_APP_URL=https://guardrailai.dev
 NODE_ENV=production
 ```
 
@@ -100,8 +99,8 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
 ```
 
 **Important:** Make sure your OAuth app callback URLs are set to:
-- GitHub: `https://app.guardrail.network/api/auth/github/callback`
-- Google: `https://app.guardrail.network/api/auth/google/callback`
+- GitHub: `https://guardrailai.dev/api/auth/github/callback`
+- Google: `https://guardrailai.dev/api/auth/google/callback`
 
 ### 3. Add Stripe (If Using Billing)
 
@@ -135,9 +134,9 @@ Netlify supports different variables for different contexts. You can set:
 
 After setting variables:
 
-- [ ] `API_URL` = `https://api.guardrail.network`
-- [ ] `NEXT_PUBLIC_API_URL` = `https://api.guardrail.network`
-- [ ] `NEXT_PUBLIC_APP_URL` = `https://app.guardrail.network`
+- [ ] `API_URL` = `https://api.guardrailai.dev`
+- [ ] `NEXT_PUBLIC_API_URL` = `https://api.guardrailai.dev`
+- [ ] `NEXT_PUBLIC_APP_URL` = `https://guardrailai.dev`
 - [ ] `NODE_ENV` = `production`
 - [ ] OAuth IDs set (if using OAuth)
 - [ ] Stripe key set (if using billing)
@@ -152,7 +151,7 @@ After setting variables:
 2. **Wait for Build** (3-5 minutes)
 
 3. **Test:**
-   - Visit `https://app.guardrail.network`
+   - Visit `https://guardrailai.dev`
    - Should redirect to `/dashboard/auth`
    - Check browser console for errors
    - Verify API calls work
@@ -165,10 +164,10 @@ Make sure Railway has matching variables:
 
 ```bash
 # In Railway → Variables
-CORS_ORIGIN=https://app.guardrail.network
-ALLOWED_ORIGINS=https://app.guardrail.network,https://guardrail.network
-API_BASE_URL=https://api.guardrail.network
-APP_BASE_URL=https://app.guardrail.network
+CORS_ORIGIN=https://guardrailai.dev
+ALLOWED_ORIGINS=https://guardrailai.dev,https://guardrailai.dev
+API_BASE_URL=https://api.guardrailai.dev
+APP_BASE_URL=https://guardrailai.dev
 ```
 
 ---
@@ -178,7 +177,7 @@ APP_BASE_URL=https://app.guardrail.network
 **Issue: API calls fail**
 - Check `API_URL` matches Railway domain
 - Check `NEXT_PUBLIC_API_URL` matches Railway domain
-- Verify Railway CORS allows `app.guardrail.network`
+- Verify Railway CORS allows `guardrailai.dev`
 
 **Issue: OAuth redirects fail**
 - Check callback URLs match your OAuth app settings
@@ -193,10 +192,10 @@ APP_BASE_URL=https://app.guardrail.network
 ## 📋 Quick Copy-Paste Template
 
 ```bash
-API_URL=https://api.guardrail.network
-NEXT_PUBLIC_API_URL=https://api.guardrail.network
-NEXT_PUBLIC_APP_URL=https://app.guardrail.network
-APP_BASE_URL=https://app.guardrail.network
+API_URL=https://api.guardrailai.dev
+NEXT_PUBLIC_API_URL=https://api.guardrailai.dev
+NEXT_PUBLIC_APP_URL=https://guardrailai.dev
+APP_BASE_URL=https://guardrailai.dev
 NODE_ENV=production
 NEXT_TELEMETRY_DISABLED=1
 NEXT_FONT_GOOGLE_MOCKED_RESPONSES=1

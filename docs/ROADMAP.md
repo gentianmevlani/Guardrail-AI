@@ -131,11 +131,11 @@ Have an idea? We'd love to hear it!
 
 - **GitHub:** [Feature Request](https://github.com/guardiavault-oss/codeguard/issues/new?template=feature_request.md)
 - **Discord:** [#feature-ideas](https://discord.gg/guardrail)
-- **Email:** feedback@guardrail.dev
+- **Email:** feedback@guardrailai.dev
 
 ## Stay Updated
 
 - **Changelog:** [CHANGELOG.md](CHANGELOG.md)
-- **Blog:** [guardrail.dev/blog](https://guardrail.dev/blog)
+- **Blog:** [guardrailai.dev/blog](https://guardrailai.dev/blog)
 - **Twitter:** [@getguardrail](https://twitter.com/getguardrail)
-- **Newsletter:** [Subscribe](https://guardrail.dev/newsletter)
+- **Newsletter:** [Subscribe](https://guardrailai.dev/newsletter)

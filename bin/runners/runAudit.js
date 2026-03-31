@@ -419,7 +419,7 @@ async function runAudit(args) {
     if (tier !== "pro") {
       console.log(`\n${c.yellow}⚠ Audit Trail requires Compliance+ tier${c.reset}`);
       console.log(`${c.dim}Your current tier: ${tier}${c.reset}`);
-      console.log(`\n${c.dim}Upgrade at: ${c.cyan}https://guardrail.dev/pricing${c.reset}`);
+      console.log(`\n${c.dim}Upgrade at: ${c.cyan}https://guardrailai.dev/pricing${c.reset}`);
       console.log(`${c.dim}Or set GUARDRAIL_TIER=compliance for testing${c.reset}\n`);
       return 1;
     }

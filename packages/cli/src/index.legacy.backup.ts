@@ -623,7 +623,7 @@ async function requireAuthAsync(requiredTier?: Tier): Promise<AuthState> {
   if (!state.apiKey && !state.accessToken) {
     console.error(`\n${c.critical('ERROR')} Authentication required\n`);
     console.log(`  ${c.dim('Run')} ${c.bold('guardrail auth --key YOUR_API_KEY')} ${c.dim('to authenticate')}`);
-    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrail.dev/api-key')}\n`);
+    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrailai.dev/api-key')}\n`);
     exitWith(ExitCode.AUTH_FAILURE);
   }
   
@@ -673,7 +673,7 @@ function checkTierAccess(state: AuthState, requiredTier?: Tier): AuthState {
   if (currentLevel < requiredLevel) {
     console.error(`\n${c.critical('UPGRADE REQUIRED')} This feature requires ${c.bold(requiredTier.toUpperCase())} tier\n`);
     console.log(`  ${c.dim('Current tier:')} ${c.info(state.tier || 'free')}`);
-    console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrail.dev/pricing')}\n`);
+    console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrailai.dev/pricing')}\n`);
     exitWith(ExitCode.AUTH_FAILURE);
   }
   
@@ -686,7 +686,7 @@ function requireAuth(tier?: 'starter' | 'pro' | 'enterprise'): CliConfig {
   if (!config.apiKey) {
     console.error(`\n${c.critical('ERROR')} Authentication required\n`);
     console.log(`  ${c.dim('Run')} ${c.bold('guardrail auth --key YOUR_API_KEY')} ${c.dim('to authenticate')}`);
-    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrail.dev/api-key')}\n`);
+    console.log(`  ${c.dim('Get your API key from')} ${c.info('https://guardrailai.dev/api-key')}\n`);
     exitWith(ExitCode.AUTH_FAILURE);
   }
   
@@ -698,7 +698,7 @@ function requireAuth(tier?: 'starter' | 'pro' | 'enterprise'): CliConfig {
     if (currentLevel < requiredLevel) {
       console.error(`\n${c.critical('UPGRADE REQUIRED')} This feature requires ${c.bold(tier.toUpperCase())} tier\n`);
       console.log(`  ${c.dim('Current tier:')} ${c.info(config.tier || 'free')}`);
-      console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrail.dev/pricing')}\n`);
+      console.log(`  ${c.dim('Upgrade at')} ${c.info('https://guardrailai.dev/pricing')}\n`);
       exitWith(ExitCode.AUTH_FAILURE);
     }
   }
@@ -715,7 +715,7 @@ program
 program
   .command('login')
   .description('Login with your guardrail API key')
-  .option('-k, --key <apiKey>', 'Your API key from guardrail.dev')
+  .option('-k, --key <apiKey>', 'Your API key from guardrailai.dev')
   .action(async (options) => {
     printLogo();
     // Use existing auth logic
@@ -763,7 +763,7 @@ program
 program
   .command('auth')
   .description('Authenticate with your guardrail API key')
-  .option('-k, --key <apiKey>', 'Your API key from guardrail.dev')
+  .option('-k, --key <apiKey>', 'Your API key from guardrailai.dev')
   .option('--logout', 'Remove stored credentials')
   .option('--status', 'Check authentication status')
   .option('--refresh', 'Force revalidation of cached entitlements')
@@ -848,7 +848,7 @@ program
           `${styles.brightCyan}guardrail auth --key YOUR_API_KEY${styles.reset}`,
           '',
           `${styles.dim}Get your API key from:${styles.reset}`,
-          `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+          `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
         ];
         
         const framed = frameLines(statusLines, { padding: 2 });
@@ -936,7 +936,7 @@ program
         `${styles.bold}guardrail auth --key YOUR_API_KEY${styles.reset}`,
         '',
         `${styles.dim}Get your API key from:${styles.reset}`,
-        `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+        `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
         '',
         `${styles.dim}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${styles.reset}`,
         '',
@@ -993,7 +993,7 @@ program
         `  ${styles.dim}${icons.bullet}${styles.reset} Network connectivity issues`,
         '',
         `${styles.dim}Get a new API key from:${styles.reset}`,
-        `${styles.brightBlue}https://guardrail.dev/api-key${styles.reset}`,
+        `${styles.brightBlue}https://guardrailai.dev/api-key${styles.reset}`,
       ];
       console.log(frameLines(errorLines, { padding: 2 }).join('\n'));
       console.log('');
@@ -3113,7 +3113,7 @@ program
         'Autopilot requires Pro tier or higher.',
         '',
         `${styles.dim}Current tier:${styles.reset} ${config.tier || 'free'}`,
-        `${styles.dim}Upgrade at:${styles.reset}   ${styles.brightBlue}https://guardrail.dev/pricing${styles.reset}`,
+        `${styles.dim}Upgrade at:${styles.reset}   ${styles.brightBlue}https://guardrailai.dev/pricing${styles.reset}`,
       ];
       console.log(frameLines(errorLines, { padding: 2 }).join('\n'));
       console.log('');
@@ -4249,7 +4249,7 @@ async function initProject(projectPath: string, options: any): Promise<void> {
   
   successLines.push(...recommendedCmds);
   successLines.push('');
-  successLines.push(`${styles.dim}Documentation:${styles.reset} ${styles.brightBlue}https://guardrail.dev/docs${styles.reset}`);
+  successLines.push(`${styles.dim}Documentation:${styles.reset} ${styles.brightBlue}https://guardrailai.dev/docs${styles.reset}`);
   
   const framedSuccess = frameLines(successLines, { padding: 2 });
   console.log(framedSuccess.join('\n'));
@@ -4717,7 +4717,7 @@ async function runInteractiveMenu(): Promise<void> {
       console.log(`  ${c.cyan('•')} Premium HTML reports`);
       console.log(`  ${c.cyan('•')} Proof artifacts\n`);
       console.log(`  ${c.bold('Price:')} $29/month\n`);
-      console.log(`  ${c.info('Upgrade now:')} ${c.bold('https://guardrail.dev/upgrade')}\n`);
+      console.log(`  ${c.info('Upgrade now:')} ${c.bold('https://guardrailai.dev/upgrade')}\n`);
       continue;
     }
 

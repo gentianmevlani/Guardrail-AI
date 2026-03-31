@@ -61,8 +61,8 @@ Welcome to the guardrail documentation. This directory contains comprehensive gu
 
 ## External Resources
 
-- **Website:** [guardrail.dev](https://guardrail.dev)
-- **API Docs:** [guardrail.dev/docs/api](https://guardrail.dev/docs/api)
+- **Website:** [guardrailai.dev](https://guardrailai.dev)
+- **API Docs:** [guardrailai.dev/docs/api](https://guardrailai.dev/docs/api)
 - **Discord:** [discord.gg/guardrail](https://discord.gg/guardrail)
 - **GitHub:** [github.com/guardiavault-oss/codeguard](https://github.com/guardiavault-oss/codeguard)
 

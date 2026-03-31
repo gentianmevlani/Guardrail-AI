@@ -1,6 +1,6 @@
 /**
  * Device code login — same flow as the VS Code extension (browser + poll).
- * Uses GUARDRAIL_API_BASE_URL or https://api.guardrail.dev
+ * Uses GUARDRAIL_API_BASE_URL or https://api.guardrailai.dev
  */
 
 import { spawn } from 'child_process';
@@ -14,7 +14,7 @@ import { maskApiKey } from '../runtime/auth-utils';
 import { ExitCode, exitWith } from '../runtime/exit-codes';
 
 const DEFAULT_API_BASE =
-  process.env.GUARDRAIL_API_BASE_URL || 'https://api.guardrail.dev';
+  process.env.GUARDRAIL_API_BASE_URL || 'https://api.guardrailai.dev';
 
 function apiBase(): string {
   return DEFAULT_API_BASE.replace(/\/$/, '');

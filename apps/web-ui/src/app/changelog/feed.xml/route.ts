@@ -109,8 +109,8 @@ function generateRSSXML(entries: ChangelogEntry[]): string {
       <item>
         <title>guardrail ${entry.version}</title>
         <description><![CDATA[${description}]]></description>
-        <link>https://guardrail.dev/changelog#${entry.version}</link>
-        <guid>https://guardrail.dev/changelog#${entry.version}</guid>
+        <link>https://guardrailai.dev/changelog#${entry.version}</link>
+        <guid>https://guardrailai.dev/changelog#${entry.version}</guid>
         <pubDate>${new Date(entry.date).toUTCString()}</pubDate>
         ${categories.map(cat => `<category>${cat}</category>`).join('')}
       </item>
@@ -122,8 +122,8 @@ function generateRSSXML(entries: ChangelogEntry[]): string {
   <channel>
     <title>guardrail Changelog</title>
     <description>Stay up to date with the latest features, improvements, and fixes in guardrail</description>
-    <link>https://guardrail.dev/changelog</link>
-    <atom:link href="https://guardrail.dev/changelog/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://guardrailai.dev/changelog</link>
+    <atom:link href="https://guardrailai.dev/changelog/feed.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <lastBuildDate>${new Date(changelogData[0].date).toUTCString()}</lastBuildDate>
     ${items}

@@ -216,7 +216,7 @@ export async function inviteMember(
       currentMembers,
       canPurchaseMore: seatPricing.supportsAdditionalSeats,
       seatPrice: seatPricing.monthlyPricePerSeat,
-      upgradeUrl: "https://guardrail.dev/pricing",
+      upgradeUrl: "https://guardrailai.dev/pricing",
     });
   }
 
@@ -240,7 +240,7 @@ export async function inviteMember(
     [orgId, body.email, body.role, token, uid, expiresAt],
   );
 
-  const inviteUrl = `https://guardrail.dev/invite/${token}`;
+  const inviteUrl = `https://guardrailai.dev/invite/${token}`;
 
   return {
     status: 201 as const,
@@ -463,7 +463,7 @@ export async function purchaseSeats(
       : seatPricing.monthlyPricePerSeat;
   const totalPrice = pricePerSeat * body.additionalSeats;
 
-  const checkoutUrl = `https://guardrail.dev/checkout/seats?org=${orgId}&seats=${body.additionalSeats}&billing=${body.billingCycle}`;
+  const checkoutUrl = `https://guardrailai.dev/checkout/seats?org=${orgId}&seats=${body.additionalSeats}&billing=${body.billingCycle}`;
 
   return {
     purchase: {
@@ -595,7 +595,7 @@ export async function upgradeOrganization(
   const seatsTotal = seatPrice * additionalSeats;
   const totalPrice = baseTierPrice + seatsTotal;
 
-  const checkoutUrl = `https://guardrail.dev/checkout?org=${orgId}&tier=${body.tier}&seats=${additionalSeats}&billing=${body.billingCycle}`;
+  const checkoutUrl = `https://guardrailai.dev/checkout?org=${orgId}&tier=${body.tier}&seats=${additionalSeats}&billing=${body.billingCycle}`;
 
   return {
     pricing: {

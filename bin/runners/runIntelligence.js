@@ -2848,7 +2848,7 @@ ${colors.bold}${colors.white}EXAMPLES${colors.reset}
   ${colors.green}$${colors.reset} guardrail intelligence ai --file src/app.ts
 
 ${colors.dim}─────────────────────────────────────────────────────────────────────────${colors.reset}
-${colors.dim}Learn more: ${colors.reset}${colors.cyan}https://guardrail.dev/docs/intelligence${colors.reset}
+${colors.dim}Learn more: ${colors.reset}${colors.cyan}https://guardrailai.dev/docs/intelligence${colors.reset}
 `);
 }
 

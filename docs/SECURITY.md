@@ -20,7 +20,7 @@ We take security seriously at guardrail. If you discover a security vulnerabilit
 
 Instead, please report security vulnerabilities via email:
 
-**Email:** [security@guardrail.dev](mailto:security@guardrail.dev)
+**Email:** [security@guardrailai.dev](mailto:security@guardrailai.dev)
 
 ### What to Include
 
@@ -86,6 +86,6 @@ We thank the following security researchers for responsibly disclosing vulnerabi
 
 ## Contact
 
-- **Security Team:** security@guardrail.dev
-- **General Support:** support@guardrail.dev
+- **Security Team:** security@guardrailai.dev
+- **General Support:** support@guardrailai.dev
 - **Discord:** https://discord.gg/guardrail

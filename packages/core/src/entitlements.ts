@@ -157,7 +157,7 @@ export class EntitlementsManager {
    * The API key string contains NO tier information.
    */
   private async validateApiKeyWithServer(apiKey: string): Promise<Tier | null> {
-    const apiUrl = process.env['GUARDRAIL_API_URL'] || 'https://api.guardrail.dev';
+    const apiUrl = process.env['GUARDRAIL_API_URL'] || 'https://api.guardrailai.dev';
     
     try {
       const response = await fetch(`${apiUrl}/api/api-keys/validate`, {
@@ -452,7 +452,7 @@ export class EntitlementsManager {
     
     prompt += '├─────────────────────────────────────────────────────────────┤\n';
     prompt += '│  → guardrail upgrade                                        │\n';
-    prompt += '│  → https://guardrail.dev/pricing                          │\n';
+    prompt += '│  → https://guardrailai.dev/pricing                          │\n';
     prompt += '╰─────────────────────────────────────────────────────────────╯\n';
     
     return prompt;
@@ -487,7 +487,7 @@ export class EntitlementsManager {
     
     prompt += '├─────────────────────────────────────────────────────────────┤\n';
     prompt += '│  → guardrail upgrade                                        │\n';
-    prompt += '│  → https://guardrail.dev/pricing                          │\n';
+    prompt += '│  → https://guardrailai.dev/pricing                          │\n';
     prompt += '╰─────────────────────────────────────────────────────────────╯\n';
     
     return prompt;

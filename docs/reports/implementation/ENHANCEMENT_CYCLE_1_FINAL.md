@@ -175,7 +175,7 @@ ENABLE_SCAN_AUTO_RETRY=true
 
 # Alerts
 ENABLE_CRITICAL_ALERTS=true
-FRONTEND_URL=https://guardrail.dev
+FRONTEND_URL=https://guardrailai.dev
 ```
 
 ### Step 3: Build & Deploy

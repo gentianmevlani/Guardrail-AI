@@ -153,7 +153,7 @@ This audit evaluates the current guardrail codebase against the product vision d
 | guardrail.ship | Quick health check | ✅ Implemented | Tool exposed |
 | guardrail.scan | Deep technical analysis | ✅ Implemented | Multiple profiles |
 | guardrail.reality | Browser testing | ✅ Implemented | Playwright integration |
-| guardrail.dev-test | AI Agent testing | ✅ Implemented | Goal-based testing |
+| guardrailai.dev-test | AI Agent testing | ✅ Implemented | Goal-based testing |
 | Intelligence Tools | Codebase analysis | ✅ Implemented | `intelligence-tools.js` |
 | guardrail Tools | Security/quality | ✅ Implemented | `guardrail-tools.js` |
 | Agent Checkpoint | Progress tracking | ✅ Implemented | `agent-checkpoint.js` |

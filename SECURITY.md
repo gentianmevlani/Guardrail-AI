@@ -15,7 +15,7 @@ We actively support the following versions with security updates:
 
 Instead, please report security vulnerabilities by emailing us at:
 
-**security@guardrail.dev**
+**security@guardrailai.dev**
 
 You should receive a response within 48 hours. If for some reason you do not, please follow up via email to ensure we received your original message.
 
@@ -81,6 +81,6 @@ Security researchers who report valid vulnerabilities will be:
 
 ## Contact
 
-For security concerns, contact: **security@guardrail.dev**
+For security concerns, contact: **security@guardrailai.dev**
 
-For general questions: **support@guardrail.dev**
+For general questions: **support@guardrailai.dev**

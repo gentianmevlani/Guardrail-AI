@@ -145,5 +145,5 @@ For real-time GitHub events:
 ## Support
 
 - GitHub OAuth Documentation: https://docs.github.com/en/developers/apps/building-oauth-apps
-- guardrail Documentation: https://docs.guardrail.dev
+- guardrail Documentation: https://guardrailai.dev/docs
 - Issues: https://github.com/guardrail/issues

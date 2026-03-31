@@ -75,7 +75,7 @@ class ShipBadgeGenerator {
         // Generate badges
         const badges = this.generateAllBadges(checks, verdict, score);
         // Generate permalink (would be hosted on guardrail servers in production)
-        const permalink = `https://guardrail.dev/badge/${projectId}`;
+        const permalink = `https://guardrailai.dev/badge/${projectId}`;
         const embedCode = this.generateEmbedCode(projectId, verdict, projectName);
         // Save badges if output dir specified
         if (config.outputDir) {
@@ -537,14 +537,14 @@ class ShipBadgeGenerator {
      */
     generateEmbedCode(projectId, verdict, projectName) {
         return `<!-- guardrail Ship Badge -->
-[![guardrail Ship Status](https://guardrail.dev/api/badge/${projectId}/main.svg)](https://guardrail.dev/badge/${projectId})
-[![Mock Data](https://guardrail.dev/api/badge/${projectId}/mock-data.svg)](https://guardrail.dev/badge/${projectId})
-[![Real APIs](https://guardrail.dev/api/badge/${projectId}/real-api.svg)](https://guardrail.dev/badge/${projectId})
+[![guardrail Ship Status](https://guardrailai.dev/api/badge/${projectId}/main.svg)](https://guardrailai.dev/badge/${projectId})
+[![Mock Data](https://guardrailai.dev/api/badge/${projectId}/mock-data.svg)](https://guardrailai.dev/badge/${projectId})
+[![Real APIs](https://guardrailai.dev/api/badge/${projectId}/real-api.svg)](https://guardrailai.dev/badge/${projectId})
 <!-- End guardrail Ship Badge -->
 
 ---
 
-**${projectName}** verified by [guardrail](https://guardrail.dev) - Stop shipping pretend features.`;
+**${projectName}** verified by [guardrail](https://guardrailai.dev) - Stop shipping pretend features.`;
     }
     /**
      * Save badges to directory
