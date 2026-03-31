@@ -12,7 +12,6 @@ import {
 import { isPathAllowed, isDomainAllowed } from '@guardrail/core';
 import { permissionManager } from './permission-manager';
 import { circuitBreaker } from './circuit-breaker';
-import { approvalQueue } from './approval-queue';
 import { toolPolicyEnforcer } from './tool-policy';
 
 /**
@@ -44,7 +43,7 @@ export class ActionInterceptor {
     }
 
     // ── Stage 0.5: Tool Policy Check ────────────────────────
-    const toolCheck = toolPolicyEnforcer.evaluate(action);
+    const toolCheck = await toolPolicyEnforcer.evaluate(action);
     if (!toolCheck.allowed) {
       circuitBreaker.recordFailure('Action blocked by tool policy');
       return {
@@ -141,6 +140,26 @@ export class ActionInterceptor {
       riskLevel,
       requiresApproval,
     };
+  }
+
+  /**
+   * Coarse risk estimate for circuit breaker (before full permission evaluation).
+   */
+  private estimateRisk(
+    action: ActionAttempt
+  ): 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' {
+    switch (action.category) {
+      case 'file':
+        return this.calculateFilesystemRisk(action.details as FilesystemDetails);
+      case 'network':
+        return this.calculateNetworkRisk(action.details as NetworkDetails);
+      case 'shell':
+        return this.calculateShellRisk(action.details as ShellDetails);
+      case 'code':
+        return 'LOW';
+      default:
+        return 'MEDIUM';
+    }
   }
 
   /**
