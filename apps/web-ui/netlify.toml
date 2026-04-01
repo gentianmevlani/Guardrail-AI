@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm run build:netlify"
   publish = "dist"
 
 # Single-page app: serve index.html for any path (e.g. direct links, refresh)
