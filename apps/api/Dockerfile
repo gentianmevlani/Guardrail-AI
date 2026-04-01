@@ -30,6 +30,11 @@ COPY packages/ai-guardrails/package.json ./packages/ai-guardrails/
 COPY packages/compliance/package.json ./packages/compliance/
 COPY packages/ship/package.json ./packages/ship/
 COPY packages/cli/package.json ./packages/cli/
+COPY packages/engines/package.json ./packages/engines/
+COPY packages/llm-safety/package.json ./packages/llm-safety/
+COPY packages/procedural-memory/package.json ./packages/procedural-memory/
+COPY mcp-server/package.json ./mcp-server/
+COPY vscode-extension/package.json ./vscode-extension/
 
 # Install dependencies - skip optional native modules that cause issues
 RUN pnpm install --frozen-lockfile --ignore-scripts || pnpm install --no-frozen-lockfile --ignore-scripts
@@ -54,6 +59,7 @@ RUN pnpm turbo run build --filter=@guardrail/database
 
 # Build only API and its dependencies
 RUN pnpm turbo run build --filter=@guardrail/api
+
 # Production image
 FROM base AS runner
 WORKDIR /app
@@ -88,6 +94,11 @@ COPY packages/ai-guardrails/package.json ./packages/ai-guardrails/
 COPY packages/compliance/package.json ./packages/compliance/
 COPY packages/ship/package.json ./packages/ship/
 COPY packages/cli/package.json ./packages/cli/
+COPY packages/engines/package.json ./packages/engines/
+COPY packages/llm-safety/package.json ./packages/llm-safety/
+COPY packages/procedural-memory/package.json ./packages/procedural-memory/
+COPY mcp-server/package.json ./mcp-server/
+COPY vscode-extension/package.json ./vscode-extension/
 
 # Install production dependencies only
 # Python is now available if native modules need to build
