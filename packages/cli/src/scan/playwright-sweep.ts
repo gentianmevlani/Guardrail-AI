@@ -82,21 +82,13 @@ export class PlaywrightSweep {
       const consoleErrors: string[] = [];
       const networkErrors: Array<{ url: string; status: number }> = [];
 
-<<<<<<< HEAD
       context.on('console', (msg: import('playwright').ConsoleMessage) => {
-=======
-      context.on('console', (msg) => {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         if (msg.type() === 'error') {
           consoleErrors.push(msg.text());
         }
       });
 
-<<<<<<< HEAD
       context.on('response', (response: import('playwright').Response) => {
-=======
-      context.on('response', (response) => {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         const status = response.status();
         if (status >= 400) {
           networkErrors.push({

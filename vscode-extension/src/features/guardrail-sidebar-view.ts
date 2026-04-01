@@ -5,7 +5,6 @@
 
 import * as vscode from "vscode";
 import {
-<<<<<<< HEAD
   GUARDRAIL_VERSION,
   getGuardrailCssBlock,
   getGuardrailFontLinks,
@@ -15,21 +14,11 @@ import { getLastScanResult } from "../scan-state";
 import { getLastVibeCheckSnapshot } from "../vibe-check-state";
 import { getGuardrailWebUrl } from "../guardrail-web-urls";
 import { getTierDisplayCached } from "../tier-ui-cache";
-=======
-  KINETIC_ARCHIVE_VERSION,
-  getKineticArchiveCssBlock,
-  getKineticArchiveFontLinks,
-} from "../kinetic-archive-styles";
-import { getLastScanResult } from "../scan-state";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export const GUARDRAIL_SIDEBAR_VIEW_ID = "guardrail.sidebar";
 
 const ALLOWED_COMMANDS = new Set<string>([
-<<<<<<< HEAD
   "guardrail.openHub",
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   "guardrail.showDashboard",
   "guardrail.scanWorkspace",
   "guardrail.runShip",
@@ -46,7 +35,6 @@ const ALLOWED_COMMANDS = new Set<string>([
   "guardrail.openAIExplainer",
   "guardrail.openTeamCollaboration",
   "guardrail.openProductionIntegrity",
-<<<<<<< HEAD
   "guardrail.openPromptFirewall",
   "guardrail.login",
   "guardrail.logout",
@@ -56,22 +44,11 @@ const ALLOWED_COMMANDS = new Set<string>([
   "guardrail.applyTemplate",
 ]);
 
-=======
-  "guardrail.login",
-  "guardrail.logout",
-]);
-
-const DOCS_URL = "https://guardrailai.dev/docs";
-
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 function escapeHtml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-<<<<<<< HEAD
     .replace(/>/g, "&gt;")
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     .replace(/"/g, "&quot;");
 }
 
@@ -101,7 +78,6 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
     GuardrailSidebarViewProvider._instance?._refreshHtml();
   }
 
-<<<<<<< HEAD
   /** Send a live update to the sidebar without full HTML rebuild. */
   public static postLiveUpdate(data: {
     type: string;
@@ -113,8 +89,6 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
     }
   }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   private _buildCsp(webview: vscode.Webview, nonce: string): string {
     const cspSource = webview.cspSource;
     return [
@@ -186,14 +160,6 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
     const scan = getLastScanResult();
     const hasScan = Boolean(scan);
 
-<<<<<<< HEAD
-    const scorePct =
-      hasScan && scan!.score != null
-        ? Math.max(0, Math.min(100, Math.round(scan!.score)))
-        : null;
-
-    const cliSummary = scan?.cliSummary;
-=======
     const scorePct = hasScan
       ? Math.max(0, Math.min(100, Math.round(scan!.score)))
       : null;
@@ -225,56 +191,12 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
       : hasScan
         ? scan!.issues.filter((i) => i.type === "suggestion").length
         : 0;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const totalFindings = cliSummary
       ? cliSummary.totalFindings
       : hasScan
         ? scan!.issues.length
         : 0;
 
-<<<<<<< HEAD
-    const tokensDisplay =
-      hasScan && totalFindings >= 0
-        ? totalFindings.toLocaleString("en-US")
-        : "—";
-    const vibe = getLastVibeCheckSnapshot();
-    const vibeScore = vibe ? String(vibe.score ?? "—") : "—";
-    const vibeBar = vibe && vibe.score != null ? Math.max(0, Math.min(100, vibe.score)) : 0;
-    const vibeEmoji = vibe
-      ? vibe.canShip
-        ? "🟢"
-        : (vibe.score ?? 0) >= 60
-          ? "🟡"
-          : "🔴"
-      : "○";
-    const vibeReady = vibe
-      ? vibe.canShip
-        ? "Ready"
-        : "Not ready"
-      : "Not run";
-    const vibeCrit = vibe ? String(vibe.missingCritical) : "—";
-    const vibeEss = vibe ? String(vibe.missingEssential) : "—";
-    const vibeImp = vibe ? String(vibe.missingImportant) : "—";
-    const vibeGapsList =
-      vibe && vibe.topGaps.length > 0
-        ? `<ul class="ka-sb2-vibe-gaps">${vibe.topGaps
-            .slice(0, 4)
-            .map((g) => `<li>${escapeHtml(g)}</li>`)
-            .join("")}</ul>`
-        : "";
-    const vibeHint = vibe
-      ? `ETA ship-ready: ${escapeHtml(vibe.estimatedTimeToShip)} · Updated ${new Date(vibe.updatedAt).toLocaleString()}`
-      : "Run <strong>Vibe Check</strong> to score gaps (auth, env, UX). Results stay in this panel.";
-    const statusBarPct = hasScan ? scorePct ?? 0 : 65;
-    const riskLabel = hasScan
-      ? scan!.canShip
-        ? "NOMINAL"
-        : "ELEVATED"
-      : "—";
-
-    const fonts = getGuardrailFontLinks();
-    const theme = `${getGuardrailCssBlock()}${getGuardrailSidebarCss()}`;
-=======
     const hasSeverityData =
       hasScan && (totalFindings > 0 || Boolean(cliSummary?.totalFindings));
 
@@ -333,7 +255,6 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
   <span style="font-size:13px;font-weight:500;">${label}</span>
   ${showPing ? '<span class="ka-nav-ping" aria-hidden="true"></span>' : ""}
 </button>`;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     return `<!DOCTYPE html>
 <html class="dark ka-sidebar-root" lang="en">
@@ -341,119 +262,12 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Security-Policy" content="${csp}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<<<<<<< HEAD
-  <title>Guardrail - Dashboard</title>
-=======
   <title>Guardrail — Cyber Circuit</title>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   ${fonts}
   <style>
   ${theme}
   </style>
 </head>
-<<<<<<< HEAD
-<body class="ka-sidebar-body ka-sidebar-v2">
-  <div class="ka-sb2-ambient" id="sidebarAmbient"></div>
-  <header class="ka-sb2-header">
-    <button type="button" class="ka-sb2-brand" data-command="guardrail.showDashboard" title="Open dashboard">
-      <span class="material-symbols-outlined">shield_lock</span>
-      <h1>GUARDRAIL</h1>
-    </button>
-    <button type="button" class="ka-sb2-settings" data-command="openSettings" title="Extension settings" aria-label="Settings">
-      <span class="material-symbols-outlined">settings</span>
-    </button>
-  </header>
-  <div class="ka-sb2-scanning-bar" id="scanBar">
-    <div class="ka-sb2-scanning-fill"></div>
-  </div>
-  <div class="ka-sb2-plan-wrap" title="Resolved from API, login, or CLI state (same as dashboard Settings)">
-    <span class="ka-sb2-plan">Plan: ${getTierDisplayCached()}</span>
-  </div>
-
-  <div class="ka-sb2-scroll">
-    <div class="ka-sb2-cta-wrap" style="display:flex;gap:8px;">
-      <button type="button" class="ka-sb2-cta-primary" data-command="guardrail.openHub" title="Open Guardrail Hub" style="flex:1;">
-        <span class="material-symbols-outlined ka-sb2-icon-fill">hub</span>
-        Open Hub
-      </button>
-      <button type="button" class="ka-sb2-cta-primary" data-command="guardrail.showDashboard" title="Open dashboard" style="flex:1;background:linear-gradient(to bottom right,var(--surface-container-high),var(--surface-container-highest));color:var(--on-surface);box-shadow:none;">
-        <span class="material-symbols-outlined ka-sb2-icon-fill">dashboard_customize</span>
-        Dashboard
-      </button>
-    </div>
-
-    <!-- Live Stats -->
-    <section>
-      <h2 class="ka-sb2-h2">Live Status</h2>
-      <div class="ka-sb2-live-stats">
-        <div class="ka-sb2-live-stat">
-          <span class="ka-sb2-live-stat-val" id="liveScore">${scorePct ?? "—"}</span>
-          <span class="ka-sb2-live-stat-lbl">Score</span>
-        </div>
-        <div class="ka-sb2-live-stat">
-          <span class="ka-sb2-live-stat-val" id="liveFindings">${tokensDisplay}</span>
-          <span class="ka-sb2-live-stat-lbl">Findings</span>
-        </div>
-        <div class="ka-sb2-live-stat">
-          <span class="ka-sb2-live-stat-val" id="liveVibe">${vibeScore}</span>
-          <span class="ka-sb2-live-stat-lbl">Vibe</span>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="ka-sb2-h2">Quick Actions</h2>
-      <div class="ka-sb2-quick-grid">
-        <button type="button" class="ka-sb2-glass-tile" data-command="guardrail.scanWorkspace">
-          <span class="material-symbols-outlined">search_check</span>
-          <span class="ka-sb2-tile-lbl">Scan Workspace</span>
-        </button>
-        <button type="button" class="ka-sb2-glass-tile" data-command="guardrail.runShip">
-          <span class="material-symbols-outlined">rocket_launch</span>
-          <span class="ka-sb2-tile-lbl">Run Ship Check</span>
-        </button>
-        <button type="button" class="ka-sb2-glass-tile" data-command="guardrail.verifyLastOutput">
-          <span class="material-symbols-outlined">auto_awesome</span>
-          <span class="ka-sb2-tile-lbl">Verify AI Output</span>
-        </button>
-        <button type="button" class="ka-sb2-glass-tile" data-command="guardrail.showFindings">
-          <span class="material-symbols-outlined">visibility</span>
-          <span class="ka-sb2-tile-lbl">Show Findings</span>
-        </button>
-      </div>
-    </section>
-
-    <section class="ka-sb2-vibe-section" aria-label="Ship readiness">
-      <h2 class="ka-sb2-h2">Ship readiness</h2>
-      <p class="ka-sb2-vibe-lead">Vibe Check scores what AI-built apps often skip — auth, env, error handling, UX polish.</p>
-      <div class="ka-sb2-vibe-card">
-        <div class="ka-sb2-vibe-head">
-          <span class="ka-sb2-vibe-emoji" aria-hidden="true">${vibeEmoji}</span>
-          <div class="ka-sb2-vibe-scoreblock">
-            <span class="ka-sb2-vibe-score">${vibeScore}</span>
-            <span class="ka-sb2-vibe-sub">/100 · ${escapeHtml(vibeReady)}</span>
-          </div>
-        </div>
-        <div class="ka-sb2-vibe-bar-track" aria-hidden="true">
-          <div class="ka-sb2-vibe-bar-fill" style="width:${vibeBar}%"></div>
-        </div>
-        <div class="ka-sb2-vibe-meta">
-          <span><abbr title="Blocking issues">Crit</abbr> ${vibeCrit}</span>
-          <span><abbr title="UX gaps">Ess</abbr> ${vibeEss}</span>
-          <span><abbr title="Scale / security">Imp</abbr> ${vibeImp}</span>
-        </div>
-        ${vibeGapsList}
-        <p class="ka-sb2-vibe-hint">${vibeHint}</p>
-      </div>
-      <div class="ka-sb2-quick-grid ka-sb2-vibe-actions">
-        <button type="button" class="ka-sb2-glass-tile" data-command="guardrail.runVibeCheck">
-          <span class="material-symbols-outlined">rocket_launch</span>
-          <span class="ka-sb2-tile-lbl">Run Vibe Check</span>
-        </button>
-        <button type="button" class="ka-sb2-glass-tile" data-command="guardrail.applyTemplate">
-          <span class="material-symbols-outlined">file_copy</span>
-          <span class="ka-sb2-tile-lbl">Apply Template</span>
-=======
 <body class="ka-sidebar-body">
   <header class="ka-sidebar-header">
     <button type="button" class="ka-sidebar-brand" data-command="guardrail.showDashboard" title="Open full dashboard">
@@ -570,12 +384,10 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
         <button type="button" class="ka-quick-tile" data-command="guardrail.runWhoami">
           <span class="material-symbols-outlined">badge</span>
           <span>CLI Whoami</span>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         </button>
       </div>
     </section>
 
-<<<<<<< HEAD
     <!-- Service Heartbeats -->
     <section>
       <h2 class="ka-sb2-h2">Services</h2>
@@ -706,82 +518,6 @@ export class GuardrailSidebarViewProvider implements vscode.WebviewViewProvider 
         <span class="material-symbols-outlined" style="font-size:18px;">sync</span>
       </button>
       <button type="button" class="ka-sb2-footer-icon" data-command="openExternal" data-url="${getGuardrailWebUrl("/docs")}" title="Documentation" aria-label="Documentation">
-=======
-    <section>
-      <button type="button" class="ka-primary-cta" data-command="guardrail.login" title="Link your CLI and extension to your Guardrail account">
-        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 1, 'wght' 400;">link</span>
-        Login &amp; Link Device
-      </button>
-    </section>
-    </div>
-
-    <!-- Enterprise -->
-    <div class="ka-tab-panel" data-tab-panel="enterprise" role="tabpanel" hidden>
-    <section>
-      <h2 class="ka-section-label">Enterprise panels</h2>
-      <p style="font-size:11px;color:var(--on-surface-variant);margin:-4px 0 12px;line-height:1.45;">
-        Opens the same panels as the full dashboard. Data comes from the CLI (<code style="font-size:10px;">guardrail scan</code>, etc.) or your API when configured.
-      </p>
-      <nav class="ka-nav-list" aria-label="Enterprise panels">
-        ${navRow("guardrail.openSecurityScanner", "Security Scanner", "security_update_good", true)}
-        ${navRow("guardrail.openComplianceDashboard", "Compliance", "verified_user", false)}
-        ${navRow("guardrail.openPerformanceMonitor", "Performance", "speed", false)}
-        ${navRow("guardrail.openMDCGenerator", "MDC Generator", "terminal", false)}
-        ${navRow("guardrail.openChangeImpactAnalyzer", "Change Impact", "dynamic_form", false)}
-        ${navRow("guardrail.openAIExplainer", "AI Explainer", "psychology", false)}
-        ${navRow("guardrail.openTeamCollaboration", "Team Collaboration", "groups", false)}
-        ${navRow("guardrail.openProductionIntegrity", "Production Integrity", "lan", false)}
-      </nav>
-    </section>
-    </div>
-
-    <!-- Activity -->
-    <div class="ka-tab-panel" data-tab-panel="activity" role="tabpanel" hidden>
-    <section>
-      <h2 class="ka-section-label">Findings from last scan</h2>
-      <div class="ka-feed-card">
-        <div class="ka-feed-header">
-          <div class="ka-feed-header-left">
-            <span class="material-symbols-outlined">list_alt</span>
-            <span class="ka-feed-title">Issues</span>
-          </div>
-        </div>
-        <div class="ka-feed-body">
-          ${activityLines.length > 0
-            ? activityLines.join("")
-            : hasScan &&
-                cliSummary &&
-                cliSummary.totalFindings > 0 &&
-                scan!.issues.length === 0
-              ? `<p style="font-size:12px;color:var(--outline);margin:12px 0 0;padding:0 4px;line-height:1.5;">
-Scan reported <strong>${cliSummary.totalFindings}</strong> finding(s), but issue rows are not in session state (common on free tier or when details are redacted). Use a <strong>Finding ID</strong> with <code style="font-size:10px;">guardrail explain</code> or upgrade for full lists.
-                </p>`
-              : `<p style="font-size:12px;color:var(--outline);margin:12px 0 0;padding:0 4px;line-height:1.5;">
-No issue rows in session state yet. Run <strong>Scan workspace</strong> (CLI) — on some tiers finding details require an API key.
-              </p>`}
-        </div>
-      </div>
-    </section>
-    <section>
-      <h2 class="ka-section-label">Ship &amp; production</h2>
-      <p style="font-size:12px;color:var(--on-surface-variant);margin:0;line-height:1.5;">
-        Full <strong>ship</strong> gate output is not shown here. Use <strong>Run Ship Check</strong> or open <strong>Production Integrity</strong> for the workspace ship JSON.
-      </p>
-    </section>
-    </div>
-  </div>
-
-  <footer class="ka-sidebar-footer">
-    <div class="ka-footer-ver">
-      <span class="ka-footer-dot" aria-hidden="true"></span>
-      <span>V${KINETIC_ARCHIVE_VERSION}-STABLE</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:4px;">
-      <button type="button" class="ka-icon-btn" data-command="guardrail.logout" title="Logout" aria-label="Logout">
-        <span class="material-symbols-outlined" style="font-size:16px;">logout</span>
-      </button>
-      <button type="button" class="ka-icon-btn" data-command="openExternal" data-url="${DOCS_URL}" title="Documentation" aria-label="Documentation">
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         <span class="material-symbols-outlined" style="font-size:18px;">info</span>
       </button>
     </div>
@@ -790,11 +526,8 @@ No issue rows in session state yet. Run <strong>Scan workspace</strong> (CLI) �
   <script nonce="${nonce}">
     (function () {
       const vscode = acquireVsCodeApi();
-<<<<<<< HEAD
 
       // ── Command routing ──
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       document.querySelectorAll("[data-command]").forEach(function (el) {
         el.addEventListener("click", function () {
           var cmd = el.getAttribute("data-command");
@@ -810,7 +543,6 @@ No issue rows in session state yet. Run <strong>Scan workspace</strong> (CLI) �
           if (cmd) { vscode.postMessage({ command: cmd }); }
         });
       });
-<<<<<<< HEAD
 
       // ── Live update handlers ──
       var feed = document.getElementById("activityFeed");
@@ -886,21 +618,6 @@ No issue rows in session state yet. Run <strong>Scan workspace</strong> (CLI) �
         if (msg.type === "scoreUpdate") {
           animateVal("liveScore", msg.score);
         }
-=======
-      document.querySelectorAll(".ka-sidebar-tab").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var tab = btn.getAttribute("data-tab");
-          if (!tab) return;
-          document.querySelectorAll(".ka-sidebar-tab").forEach(function (b) {
-            var on = b === btn;
-            b.classList.toggle("ka-tab-active", on);
-            b.setAttribute("aria-selected", on ? "true" : "false");
-          });
-          document.querySelectorAll("[data-tab-panel]").forEach(function (p) {
-            p.hidden = p.getAttribute("data-tab-panel") !== tab;
-          });
-        });
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       });
     })();
   </script>

@@ -104,12 +104,8 @@ function detectEcosystems(projectPath: string): Ecosystem[] {
 function findPackageJsonLine(content: string, packageName: string): number | undefined {
   const lines = content.split('\n');
   for (let i = 0; i < lines.length; i++) {
-<<<<<<< HEAD
     const line = lines[i];
     if (line?.includes(`"${packageName}"`)) {
-=======
-    if (lines[i].includes(`"${packageName}"`)) {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       return i + 1;
     }
   }
@@ -211,13 +207,9 @@ function parseNpmDependencies(projectPath: string): { packages: PackageInfo[]; l
           const match = line.match(/^\s{2}'?\/([^@]+)@([^':]+)/);
           if (match) {
             const name = match[1];
-<<<<<<< HEAD
             const rawVer = match[2];
             if (name === undefined || rawVer === undefined) continue;
             const version = rawVer.replace(/['"]/g, '');
-=======
-            const version = match[2].replace(/['"]/g, '');
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             if (!packages.find(p => p.name === name && p.version === version)) {
               packages.push({ 
                 name, 
@@ -248,13 +240,9 @@ function parseNpmDependencies(projectPath: string): { packages: PackageInfo[]; l
         // Match package header: "package@version:" or package@version:
         const headerMatch = line.match(/^"?([^@]+)@[^"]+:?\s*$/);
         if (headerMatch) {
-<<<<<<< HEAD
           const pkgName = headerMatch[1];
           if (pkgName === undefined) continue;
           currentPackage = pkgName;
-=======
-          currentPackage = headerMatch[1];
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           continue;
         }
         
@@ -263,10 +251,7 @@ function parseNpmDependencies(projectPath: string): { packages: PackageInfo[]; l
           const versionMatch = line.match(/^\s+version\s+"?([^"]+)"?/);
           if (versionMatch) {
             const version = versionMatch[1];
-<<<<<<< HEAD
             if (version === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             if (!packages.find(p => p.name === currentPackage && p.version === version)) {
               packages.push({ 
                 name: currentPackage, 
@@ -303,22 +288,15 @@ function parsePythonDependencies(projectPath: string): { packages: PackageInfo[]
       const lines = content.split('\n');
       
       for (let i = 0; i < lines.length; i++) {
-<<<<<<< HEAD
         const rawLine = lines[i];
         if (rawLine === undefined) continue;
         const line = rawLine.trim();
-=======
-        const line = lines[i].trim();
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         if (!line || line.startsWith('#')) continue;
         
         const match = line.match(/^([a-zA-Z0-9_-]+)(?:==|>=|<=|~=|>|<)?([\d.]+)?/);
         if (match) {
           const name = match[1];
-<<<<<<< HEAD
           if (name === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           const version = match[2] || 'latest';
           packages.push({ 
             name, 
@@ -393,18 +371,12 @@ function parseRubyDependencies(projectPath: string): { packages: PackageInfo[]; 
         if (inSpecs && line.match(/^\s{4}(\S+)\s+\(([^)]+)\)/)) {
           const match = line.match(/^\s{4}(\S+)\s+\(([^)]+)\)/);
           if (match) {
-<<<<<<< HEAD
             const gemName = match[1];
             const gemVer = match[2];
             if (gemName === undefined || gemVer === undefined) continue;
             packages.push({
               name: gemName,
               version: gemVer,
-=======
-            packages.push({
-              name: match[1],
-              version: match[2],
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               ecosystem: 'RubyGems',
               isDirect: true,
               location: { file: 'Gemfile.lock' }
@@ -444,13 +416,9 @@ function parseGoDependencies(projectPath: string): { packages: PackageInfo[]; lo
         const match = line.match(/^(\S+)\s+v?([^\s/]+)/);
         if (match) {
           const name = match[1];
-<<<<<<< HEAD
           const verRaw = match[2];
           if (name === undefined || verRaw === undefined) continue;
           const version = verRaw.replace('/go.mod', '');
-=======
-          const version = match[2].replace('/go.mod', '');
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           const key = `${name}@${version}`;
           
           if (!seen.has(key)) {
@@ -588,11 +556,7 @@ export async function scanVulnerabilitiesOSV(
   return {
     projectPath,
     scanType: 'vulnerabilities',
-<<<<<<< HEAD
     ecosystem: ecosystems[0] ?? 'npm',
-=======
-    ecosystem: ecosystems[0],
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     packagesScanned: allPackages.length,
     findings: resultsWithLocation.filter(r => r.isVulnerable),
     summary,

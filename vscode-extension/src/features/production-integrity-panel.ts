@@ -11,10 +11,7 @@ import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
 import { getGuardrailPanelHead } from '../webview-shared-styles';
-<<<<<<< HEAD
 import { productionIntegrityStitchCss } from './production-integrity-stitch-css';
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface ProductionService {
   id: string;
@@ -323,10 +320,6 @@ export class ProductionIntegrityPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-  <title>Production Integrity</title>
-  ${getGuardrailPanelHead(productionIntegrityStitchCss)}
-=======
   <title>Production Integrity Dashboard</title>
   ${getGuardrailPanelHead(`
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -547,12 +540,10 @@ export class ProductionIntegrityPanel {
     .empty-icon { font-size: 48px; margin-bottom: 15px; }
     .integrity-pad { padding: 0 16px 16px; }
   `)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
   <div class="ka-shell">
-<<<<<<< HEAD
   <header class="pi-head">
     <div class="pi-head-left">
       <span class="logo" aria-hidden="true">🖥️</span>
@@ -560,21 +551,12 @@ export class ProductionIntegrityPanel {
         <div class="pi-kicker">Fleet integrity</div>
         <div class="title">Production</div>
         <div class="subtitle">Real-time monitoring · deployment integrity</div>
-=======
-  <div class="header">
-    <div class="header-left">
-      <span class="logo">🖥️</span>
-      <div>
-        <div class="title">Production Integrity Dashboard</div>
-        <div class="subtitle">Real-time monitoring and deployment integrity</div>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       </div>
     </div>
     <div class="monitoring-status monitoring-inactive" id="monitoringStatus">
       <div class="status-indicator"></div>
       <span id="monitoringText">Monitoring Off</span>
     </div>
-<<<<<<< HEAD
   </header>
 
   <div class="pi-strip" aria-hidden="true">
@@ -584,8 +566,6 @@ export class ProductionIntegrityPanel {
       <circle cx="400" cy="28" r="5" fill="#00e5ff" />
       <circle cx="640" cy="28" r="4" fill="#00e5ff" opacity="0.85" />
     </svg>
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   </div>
 
   <div class="integrity-pad">

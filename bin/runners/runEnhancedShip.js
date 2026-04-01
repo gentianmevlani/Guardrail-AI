@@ -9,11 +9,7 @@
  */
 
 const path = require("path");
-<<<<<<< HEAD
-const { withErrorHandling } = require("./lib/error-handler");
-=======
 const { withErrorHandling, EXIT_CODES } = require("./lib/error-handler");
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 // ANSI colors
 const c = {
@@ -31,7 +27,6 @@ const c = {
   bgYellow: "\x1b[43m",
 };
 
-<<<<<<< HEAD
 function parseEnhancedShipArgv(argv) {
   const out = {
     projectPath: process.cwd(),
@@ -88,16 +83,6 @@ ${c.dim}Options:${c.reset}
     const includeSecurity = opts.includeSecurity;
     const includePerformance = opts.includePerformance;
     const includeReality = opts.includeReality;
-=======
-async function runEnhancedShip(args) {
-  return withErrorHandling(async () => {
-    const projectPath = args.path || process.cwd();
-    const json = args.json || false;
-    const checkDrift = args["check-drift"] !== false;
-    const includeSecurity = args.security !== false;
-    const includePerformance = args.performance !== false;
-    const includeReality = args.reality !== false;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     // Try to load enhanced ship decision engine
     let enhancedShipDecisionEngine;
@@ -160,11 +145,7 @@ async function runEnhancedShip(args) {
 
     // Exit code based on verdict
     return decision.verdict === "SHIP" ? 0 : decision.verdict === "REVIEW" ? 2 : 1;
-<<<<<<< HEAD
   })();
-=======
-  });
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 function printDecisionReport(decision) {

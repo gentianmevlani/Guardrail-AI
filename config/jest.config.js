@@ -16,15 +16,12 @@ module.exports = {
     "**/__tests__/**/*.+(ts|tsx|js)",
     "**/*.(test|spec).+(ts|tsx|js)",
   ],
-<<<<<<< HEAD
   /**
    * Ignored paths are run elsewhere — do not delete without wiring CI:
    * - Vitest-only tests → run in the owning package with Vitest.
    * - `packages/cli/tests/integration/*.test.ts` → Playwright (`pnpm --filter guardrail-cli-tool run test:integration`).
    * - `reality-integration.test.ts` → optional Jest with GUARDRAIL_REALITY_INTEGRATION=1.
    */
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   testPathIgnorePatterns: [
     "/node_modules/",
     "/dist/",
@@ -67,13 +64,10 @@ module.exports = {
     // Empty test files
     "src/services/__tests__/auth-service.test.ts",
     "tests/integration/ship-api.integration.test.ts",
-<<<<<<< HEAD
     // Playwright-heavy; opt in with GUARDRAIL_REALITY_INTEGRATION=1 if needed
     "packages/cli/src/reality/__tests__/reality-integration.test.ts",
     // Playwright Test runner — run with `pnpm exec playwright test` separately
     "packages/cli/tests/integration/cli-features.test.ts",
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   ],
   preset: "ts-jest",
   extensionsToTreatAsEsm: [".ts", ".tsx"],

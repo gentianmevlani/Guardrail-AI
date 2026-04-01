@@ -9,10 +9,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import { spawn } from 'child_process';
 import { getGuardrailPanelHead } from './webview-shared-styles';
-<<<<<<< HEAD
 import { getVerificationReportStitchCss } from './verification-report-stitch-css';
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export type VerificationStatus = 'idle' | 'verifying' | 'pass' | 'fail';
 
@@ -713,8 +710,6 @@ export class AgentVerifier {
       </div>
     ` : '';
 
-<<<<<<< HEAD
-=======
     const reportCss = `
     .verify-pad { padding: 16px; max-width: 720px; margin: 0 auto; }
     .header {
@@ -762,7 +757,6 @@ export class AgentVerifier {
     .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
     `;
 
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const csp = [
       `default-src 'none'`,
       `style-src ${cspSource} 'unsafe-inline' https://fonts.googleapis.com`,
@@ -776,11 +770,7 @@ export class AgentVerifier {
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Security-Policy" content="${csp}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<<<<<<< HEAD
   ${getGuardrailPanelHead(getVerificationReportStitchCss(statusColor))}
-=======
-  ${getGuardrailPanelHead(reportCss)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>

@@ -13,10 +13,7 @@ import {
 } from '@guardrail/core';
 import { resolve, join, basename } from 'path';
 import { existsSync, writeFileSync, mkdirSync } from 'fs';
-<<<<<<< HEAD
 import { execFileSync } from 'child_process';
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { ScanResult } from './scan-consolidated';
 import { DeadUIDetector } from '../scan/dead-ui-detector';
 import { PlaywrightSweep } from '../scan/playwright-sweep';
@@ -120,11 +117,6 @@ export function registerShipCommand(program: Command): void {
 
       // Step 1: Run scan (with runtime enabled by default)
       if (!silent) steps.start('Reality Scan');
-<<<<<<< HEAD
-      const scanResult = runConsolidatedScanForShip(projectPath, {
-        runtime: options.runtime !== false,
-      });
-=======
       const scanOptions = {
         path: projectPath,
         json: true,
@@ -157,7 +149,6 @@ export function registerShipCommand(program: Command): void {
         hotspots: [],
         nextActions: [],
       };
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
       if (!silent) steps.complete(`Scan complete — verdict: ${scanResult.verdict}`);
 
@@ -397,7 +388,6 @@ export function registerShipCommand(program: Command): void {
     });
 }
 
-<<<<<<< HEAD
 /**
  * Run the consolidated `guardrail scan` pipeline (subprocess) so ship matches CLI scan output.
  */
@@ -450,8 +440,6 @@ function runConsolidatedScanForShip(
   }
 }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 // Functions removed - now using DeadUIDetector and PlaywrightSweep classes directly
 
 function getShipNextActions(

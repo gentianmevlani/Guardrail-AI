@@ -2,7 +2,6 @@
 
 The official command-line interface for guardrail - AI-native code security and guardrail platform.
 
-<<<<<<< HEAD
 ## CLI entry (canonical)
 
 | What | Path |
@@ -23,8 +22,6 @@ pnpm run test:integration
 
 **Reality integration** (heavy Playwright): opt-in with `GUARDRAIL_REALITY_INTEGRATION=1` if you remove `reality-integration.test.ts` from Jest ignore patterns.
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 ## ✨ What's New in v2.5.0
 
 - 🎮 **Interactive Menu** - Arrow key navigation, visual selection indicators

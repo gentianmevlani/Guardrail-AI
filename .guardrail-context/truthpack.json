@@ -1,19 +1,5 @@
 {
   "version": "1.0.0",
-<<<<<<< HEAD
-  "generatedAt": "2026-03-31T16:35:01.046Z",
-  "projectPath": "/Users/liquidgroove/Downloads/Guardrail-Ofiicial-main",
-  "stack": {
-    "framework": "react",
-    "language": "typescript",
-    "packageManager": "pnpm",
-    "runtime": "node >=20.11"
-  },
-  "metadata": {
-    "fileCount": 6748,
-    "lineCount": 643213,
-    "totalSize": 246583801
-=======
   "generatedAt": "2026-03-30T23:28:02.067Z",
   "project": {
     "path": "/Users/liquidgroove/Downloads/Guardrail-Ofiicial-main",
@@ -41,6 +27,5 @@
     "hasTests": false,
     "hasCI": false,
     "hasDocs": false
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 }

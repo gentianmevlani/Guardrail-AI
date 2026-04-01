@@ -349,7 +349,6 @@ class WorkflowSandbox {
   }
 
   private async polishGrammar(output: unknown): Promise<unknown> {
-<<<<<<< HEAD
     if (typeof output !== "string") return output;
     return output
       .replace(/\s{2,}/g, " ")
@@ -393,25 +392,6 @@ class WorkflowSandbox {
       deduped.push(line);
     }
     return deduped.join("\n");
-=======
-    // Grammar polishing logic
-    return output;
-  }
-
-  private async polishLogic(output: unknown): Promise<unknown> {
-    // Logic polishing logic
-    return output;
-  }
-
-  private async polishStyle(output: unknown): Promise<unknown> {
-    // Style polishing logic
-    return output;
-  }
-
-  private async polishEfficiency(output: unknown): Promise<unknown> {
-    // Efficiency polishing logic
-    return output;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 }
 

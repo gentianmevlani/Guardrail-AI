@@ -76,7 +76,6 @@ pnpm build
 pnpm test
 ```
 
-<<<<<<< HEAD
 ### Testing matrix (where tests run)
 
 | Suite | Command | Notes |
@@ -88,8 +87,6 @@ pnpm test
 
 CI runs Jest with coverage and a dedicated **CLI Playwright** job; see `.github/workflows/ci-cd.yml`.
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 ### Project Structure
 
 ```

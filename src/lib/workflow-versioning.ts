@@ -1,6 +1,5 @@
 /**
  * Workflow Versioning & Iteration History
-<<<<<<< HEAD
  *
  * Track, rollback, fork, and evolve AI workflows.
  * Persists to `.guardrail/workflow-versions.json` when a project root is set.
@@ -9,13 +8,6 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 import { Workflow } from "./llm-orchestrator";
-=======
- * 
- * Track, rollback, fork, and evolve AI workflows
- */
-
-import { Workflow } from './llm-orchestrator';
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface WorkflowVersion {
   id: string;
@@ -54,7 +46,6 @@ export interface Branch {
 class WorkflowVersioning {
   private versions: Map<string, WorkflowVersion[]> = new Map();
   private histories: Map<string, IterationHistory> = new Map();
-<<<<<<< HEAD
   /** When set, versions are flushed to disk after each mutation. */
   private persistenceRoot: string | null = null;
 
@@ -100,8 +91,6 @@ class WorkflowVersioning {
       /* disk errors ignored — in-memory still works */
     }
   }
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   /**
    * Save workflow version
@@ -142,11 +131,8 @@ class WorkflowVersioning {
     this.versions.set(workflow.id, versions);
     this.histories.set(workflow.id, history);
 
-<<<<<<< HEAD
     await this.flushToDisk();
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return version;
   }
 
@@ -202,11 +188,8 @@ class WorkflowVersioning {
     history.branches.push(branch);
     this.histories.set(workflowId, history);
 
-<<<<<<< HEAD
     void this.flushToDisk();
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return branch;
   }
 
@@ -256,10 +239,7 @@ class WorkflowVersioning {
 
     Object.assign(versionData.metrics, metrics);
     this.histories.set(workflowId, history);
-<<<<<<< HEAD
     void this.flushToDisk();
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   // Private methods

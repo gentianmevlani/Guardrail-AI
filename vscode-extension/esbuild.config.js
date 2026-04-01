@@ -10,7 +10,7 @@ const extensionConfig = {
   entryPoints: ['./src/extension.ts'],
   bundle: true,
   outfile: './dist/extension.js',
-  external: ['vscode'], // VS Code API is provided at runtime
+  external: ['vscode', 'redis'], // VS Code API + optional runtime deps
   format: 'cjs',
   platform: 'node',
   target: 'node18',

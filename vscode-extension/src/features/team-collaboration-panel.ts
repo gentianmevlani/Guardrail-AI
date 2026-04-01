@@ -10,10 +10,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
-<<<<<<< HEAD
 import { teamCollaborationStitchCss } from "./team-collaboration-stitch-css";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface TeamMember {
   id: string;
@@ -323,7 +320,6 @@ export class TeamCollaborationPanel {
     const tabClass = (v: string) =>
       v === view ? "tab active" : "tab";
 
-<<<<<<< HEAD
     const spotlightAvatars =
       teamMembers.length === 0
         ? '<span style="font-size:12px;color:var(--on-surface-variant)">No contributors loaded yet.</span>'
@@ -335,8 +331,6 @@ export class TeamCollaborationPanel {
             )
             .join("");
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const dashboardDisplay = view === "dashboard" ? "grid" : "none";
     const reviewsDisplay = view === "reviews" ? "block" : "none";
     const knowledgeDisplay = view === "knowledge" ? "block" : "none";
@@ -347,31 +341,6 @@ export class TeamCollaborationPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-  <title>Pulse Collaboration</title>
-  ${getGuardrailPanelHead(teamCollaborationStitchCss)}
-</head>
-<body class="ka-dashboard-body ka-panel-page tc-page">
-  <div class="ka-ambient" aria-hidden="true"></div>
-  <div class="ka-shell">
-  <header class="tc-head">
-    <div class="tc-head-left">
-      <span class="material-symbols-outlined" style="font-size:28px;color:var(--cyan-glow);" aria-hidden="true">groups</span>
-      <div>
-        <h1 class="tc-head-title">Pulse Collaboration</h1>
-        <div style="font-size:11px;color:var(--on-surface-variant);letter-spacing:0.06em;text-transform:uppercase;">Git signal · guardrail team / context</div>
-      </div>
-    </div>
-    <div class="tc-head-actions">
-      <button type="button" class="btn secondary" onclick="refresh()">Refresh</button>
-      <button type="button" class="btn secondary" onclick="exportReport()">Export</button>
-    </div>
-  </header>
-
-  <div class="hint">${escapeHtml(hint)}</div>
-
-  <div class="tabs" style="margin:16px 20px 0;">
-=======
   <title>Team Collaboration</title>
   ${getGuardrailPanelHead(`
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -496,25 +465,19 @@ export class TeamCollaborationPanel {
   <div class="hint">${escapeHtml(hint)}</div>
 
   <div class="tabs">
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     <button class="${tabClass("dashboard")}" onclick="switchView('dashboard')">Dashboard</button>
     <button class="${tabClass("reviews")}" onclick="switchView('reviews')">Code Reviews</button>
     <button class="${tabClass("knowledge")}" onclick="switchView('knowledge')">Knowledge</button>
     <button class="${tabClass("activity")}" onclick="switchView('activity')">Activity</button>
   </div>
 
-<<<<<<< HEAD
   <div class="actions" style="margin:12px 20px 0;">
-=======
-  <div class="actions">
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     <button class="btn" onclick="createReview()">Create review</button>
     <button class="btn" onclick="shareKnowledge()">Share knowledge</button>
     <button class="btn secondary" onclick="startMeeting()">Meeting</button>
     <button class="btn secondary" onclick="inviteMember()">Invite</button>
   </div>
 
-<<<<<<< HEAD
   <div class="tc-bento">
     <div class="tc-spotlight">
       <div class="tc-spot-inner">
@@ -544,8 +507,6 @@ export class TeamCollaborationPanel {
   </div>
 
   <div class="tc-main-pad">
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   <div id="dashboardView" class="content-grid" style="display:${dashboardDisplay};">
     <div class="team-sidebar">
       <div class="section-title">Contributors (${teamMembers.length})</div>
@@ -613,10 +574,7 @@ export class TeamCollaborationPanel {
       <div class="empty">No data — use git log in the terminal for history.</div>
     </div>
   </div>
-<<<<<<< HEAD
   </div>
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   <script>
     const vscode = acquireVsCodeApi();

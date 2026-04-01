@@ -10,14 +10,10 @@ export function getCriticalPathsForFlow(
 }> {
   const timestamp = new Date().toISOString();
 
-<<<<<<< HEAD
   const flowPaths: Record<
     'auth' | 'checkout' | 'dashboard',
     Array<{ path: string; description: string }>
   > = {
-=======
-  const flowPaths: Record<string, Array<{ path: string; description: string }>> = {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     auth: [
       { path: '/api/auth/login', description: 'User authentication endpoint' },
       { path: '/api/auth/session', description: 'Session validation' },
@@ -40,14 +36,10 @@ export function getCriticalPathsForFlow(
     ],
   };
 
-<<<<<<< HEAD
   const paths: Array<{ path: string; description: string }> =
     flow === 'auth' || flow === 'checkout' || flow === 'dashboard'
       ? (flowPaths[flow] ?? flowPaths.auth)
       : flowPaths.auth;
-=======
-  const paths = flowPaths[flow] || flowPaths.auth;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   return paths.map((p) => ({
     path: p.path,

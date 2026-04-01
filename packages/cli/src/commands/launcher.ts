@@ -45,12 +45,8 @@ export async function runInteractiveLauncher(): Promise<void> {
   
   console.log(`\n${statusBar}\n`);
 
-<<<<<<< HEAD
-  const { promptSelect } = await import('../ui/cli-prompts');
-=======
   // Import promptSelect dynamically
   const { promptSelect } = await import('../index');
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   
   // Main menu
   const action = await promptSelect<'init' | 'on' | 'stats' | 'checkpoint' | 'ship' | 'doctor' | 'login' | 'exit'>(

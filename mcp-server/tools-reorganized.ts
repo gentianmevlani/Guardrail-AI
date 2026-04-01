@@ -217,7 +217,6 @@ export const WORKFLOW_TOOLS = [
   },
 ];
 
-<<<<<<< HEAD
 export const PROMPT_TOOLS = [
   {
     name: 'prompt_firewall_analyze',
@@ -256,8 +255,6 @@ export const PROMPT_TOOLS = [
   },
 ];
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 /**
  * All tools grouped
  */
@@ -266,10 +263,7 @@ export const ALL_MCP_TOOLS = [
   ...IMPACT_TOOLS,
   ...STANDARDS_TOOLS,
   ...SECURITY_TOOLS,
-<<<<<<< HEAD
   ...PROMPT_TOOLS,
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   ...WORKFLOW_TOOLS,
 ];
 

@@ -59,7 +59,6 @@ export async function initProject(projectPath: string, options: any): Promise<vo
     }
   } else if (isTTY) {
     const templateChoices = getTemplateChoices();
-<<<<<<< HEAD
     const [a, b, c] = templateChoices;
     if (!a || !b || !c) {
       throw new Error('getTemplateChoices: expected 3 templates');
@@ -67,29 +66,16 @@ export async function initProject(projectPath: string, options: any): Promise<vo
     templateType = await promptSelect<TemplateType>('Select a configuration template', [
       { 
         name: `${styles.brightGreen}Startup${styles.reset} - ${a.description}`, 
-=======
-    templateType = await promptSelect<TemplateType>('Select a configuration template', [
-      { 
-        name: `${styles.brightGreen}Startup${styles.reset} - ${templateChoices[0].description}`, 
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         value: 'startup',
         badge: `${styles.dim}(fast, minimal)${styles.reset}`,
       },
       { 
-<<<<<<< HEAD
-        name: `${styles.brightBlue}Enterprise${styles.reset} - ${b.description}`, 
-=======
         name: `${styles.brightBlue}Enterprise${styles.reset} - ${templateChoices[1].description}`, 
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         value: 'enterprise',
         badge: `${styles.dim}(strict, compliant)${styles.reset}`,
       },
       { 
-<<<<<<< HEAD
-        name: `${styles.brightMagenta}OSS${styles.reset} - ${c.description}`, 
-=======
         name: `${styles.brightMagenta}OSS${styles.reset} - ${templateChoices[2].description}`, 
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         value: 'oss',
         badge: `${styles.dim}(supply chain focus)${styles.reset}`,
       },

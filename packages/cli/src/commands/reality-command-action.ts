@@ -238,11 +238,7 @@ export async function runRealityCommand(options: Record<string, unknown>): Promi
             console.log(`  ${styles.brightRed}${icons.error} Auto-installation failed: ${installResult.error}${styles.reset}`);
             console.log('');
             console.log(`  ${styles.bold}Manual install commands:${styles.reset}`);
-<<<<<<< HEAD
             depCheck.installCommands.forEach((cmd: string) => {
-=======
-            depCheck.installCommands.forEach(cmd => {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               console.log(`    ${styles.brightCyan}${cmd}${styles.reset}`);
             });
             console.log('');
@@ -274,11 +270,7 @@ export async function runRealityCommand(options: Record<string, unknown>): Promi
                 stdio: 'pipe'
               });
               
-<<<<<<< HEAD
               browserInstall.on('close', (code: number | null) => {
-=======
-              browserInstall.on('close', (code) => {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
                 if (code === 0) {
                   console.log(`  ${styles.brightGreen}${icons.success} Browsers installed successfully${styles.reset}`);
                   resolve();

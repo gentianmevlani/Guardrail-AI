@@ -427,7 +427,6 @@ export function combinedToSarif(results: any): SarifLog {
   if (results.secrets) {
     const secretsSarif = secretsToSarif(results.secrets);
     const secretsRun = secretsSarif.runs[0];
-<<<<<<< HEAD
     if (secretsRun) {
       for (const rule of secretsRun.tool.driver.rules || []) {
         ruleIndexMap.set(rule.id, allRules.length);
@@ -440,19 +439,6 @@ export function combinedToSarif(results: any): SarifLog {
           ruleIndex: ruleIndexMap.get(result.ruleId),
         });
       }
-=======
-    
-    for (const rule of secretsRun.tool.driver.rules || []) {
-      ruleIndexMap.set(rule.id, allRules.length);
-      allRules.push(rule);
-    }
-    
-    for (const result of secretsRun.results) {
-      allResults.push({
-        ...result,
-        ruleIndex: ruleIndexMap.get(result.ruleId),
-      });
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   }
 
@@ -460,7 +446,6 @@ export function combinedToSarif(results: any): SarifLog {
   if (results.vulnerabilities) {
     const vulnSarif = vulnerabilitiesToSarif(results.vulnerabilities);
     const vulnRun = vulnSarif.runs[0];
-<<<<<<< HEAD
     if (vulnRun) {
       for (const rule of vulnRun.tool.driver.rules || []) {
         if (!ruleIndexMap.has(rule.id)) {
@@ -476,22 +461,6 @@ export function combinedToSarif(results: any): SarifLog {
         });
       }
     }
-=======
-    
-    for (const rule of vulnRun.tool.driver.rules || []) {
-      if (!ruleIndexMap.has(rule.id)) {
-        ruleIndexMap.set(rule.id, allRules.length);
-        allRules.push(rule);
-      }
-    }
-    
-    for (const result of vulnRun.results) {
-      allResults.push({
-        ...result,
-        ruleIndex: ruleIndexMap.get(result.ruleId),
-      });
-    }
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   return {

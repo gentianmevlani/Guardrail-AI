@@ -46,14 +46,11 @@ function parseArgs(args) {
     help: false,
   };
 
-<<<<<<< HEAD
   if (args[0] === "--help" || args[0] === "-h") {
     parsed.help = true;
     parsed.command = "tail";
   }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   for (let i = 1; i < args.length; i++) {
     const arg = args[i];
     

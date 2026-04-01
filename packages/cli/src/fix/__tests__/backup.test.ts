@@ -44,13 +44,9 @@ describe('BackupManager', () => {
       
       for (const file of files) {
         const filePath = join(testDir, file);
-<<<<<<< HEAD
         const firstSeg = file.split('/')[0];
         if (firstSeg === undefined) throw new Error('invalid test path');
         const dir = join(testDir, firstSeg);
-=======
-        const dir = join(testDir, file.split('/')[0]);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         if (file.includes('/')) {
           mkdirSync(dir, { recursive: true });
         }
@@ -105,13 +101,9 @@ describe('BackupManager', () => {
       const contents = ['content1', 'content2'];
       
       files.forEach((file, i) => {
-<<<<<<< HEAD
         const c = contents[i];
         if (c === undefined) throw new Error('contents mismatch');
         writeFileSync(join(testDir, file), c);
-=======
-        writeFileSync(join(testDir, file), contents[i]);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       });
 
       const runId = 'test-run-004';
@@ -146,13 +138,8 @@ describe('BackupManager', () => {
       const backups = backupManager.listBackups();
 
       expect(backups.length).toBe(3);
-<<<<<<< HEAD
       expect(backups[0]!.runId).toBe('run-003'); // Most recent first
       expect(backups[2]!.runId).toBe('run-001');
-=======
-      expect(backups[0].runId).toBe('run-003'); // Most recent first
-      expect(backups[2].runId).toBe('run-001');
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should return empty array when no backups exist', () => {

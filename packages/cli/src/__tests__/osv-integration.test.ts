@@ -167,16 +167,10 @@ describe('Caching Behavior', () => {
     
     global.fetch = originalFetch;
     
-<<<<<<< HEAD
-    // Cache persistence is implementation-dependent; ensure scan completed without throw
-    db.clearCache();
-    expect(CACHE_DIR).toBeTruthy();
-=======
     const cachePath = join(CACHE_DIR, 'osv.json');
     // Cache is saved periodically, force save
     db.clearCache();
     expect(existsSync(cachePath)).toBe(true);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   });
 
   it('should bypass cache when noCache option is set', async () => {
@@ -248,11 +242,7 @@ describe('Caching Behavior', () => {
 
 describe('SARIF Output', () => {
   it('should generate valid SARIF v2.1.0 structure', async () => {
-<<<<<<< HEAD
-    const { toSarifVulnerabilitiesOSV } = await import('../commands/scan-vulnerabilities-osv');
-=======
     const { toSarifVulnerabilitiesOSV, OSVVulnResult } = await import('../commands/scan-vulnerabilities-osv');
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     
     const mockResults: any = {
       projectPath: '/test/project',

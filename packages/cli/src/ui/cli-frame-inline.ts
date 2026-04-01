@@ -90,13 +90,8 @@ export function truncatePath(path: string, maxLength = 60): string {
     return path.substring(0, maxLength - 3) + '...';
   }
 
-<<<<<<< HEAD
   const first = parts[0] ?? '';
   const last = parts[parts.length - 1] ?? '';
-=======
-  const first = parts[0];
-  const last = parts[parts.length - 1];
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   const mid = '...';
 
   const available = maxLength - first.length - last.length - 2;

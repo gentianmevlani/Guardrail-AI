@@ -13,11 +13,7 @@ describe('Button Sweep Generator', () => {
     });
 
     expect(testCode).toContain('Button Sweep - No Dead Buttons');
-<<<<<<< HEAD
-    expect(testCode).toContain('baseUrl');
-=======
     expect(testCode).toContain('http://localhost:3000');
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     expect(testCode).toContain("test.describe('Button Sweep");
   });
 

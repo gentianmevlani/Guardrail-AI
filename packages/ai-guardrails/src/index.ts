@@ -4,7 +4,6 @@
  * World-class guardrails for AI agent behavior across four strategies:
  *
  * INPUT GUARDRAILS — filter & validate what goes into a model
-<<<<<<< HEAD
  * - Sanitization (invisible Unicode, HTML/script stripping, whitespace, length cap)
  * - Prompt injection detection (direct + indirect patterns)
  * - Content policy filtering (jailbreaks, malicious queries)
@@ -12,27 +11,16 @@
  * - PII detection and redaction
  * - Input schema validation
  * - Optional authorization callback (integrate with your authz layer)
-=======
- * - Content policy filtering (prompt injections, jailbreaks, malicious queries)
- * - PII detection and redaction
- * - Input schema validation
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
  *
  * OUTPUT GUARDRAILS — check what comes out of a model
  * - Toxicity scanning (hate speech, harassment, violence, misinformation)
  * - PII leakage prevention
  * - Policy compliance checking
-<<<<<<< HEAD
  * - Structured output validation (JSON + required keys for agents)
  * - Factual grounding verification (hallucination / grounding detection)
  *
  * BEHAVIORAL GUARDRAILS — constrain how the model acts
  * - Resource limits (max input/output tokens, context character ceiling)
-=======
- * - Factual grounding verification (hallucination detection)
- *
- * BEHAVIORAL GUARDRAILS — constrain how the model acts
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
  * - Rate limiting (sliding window, burst, token, cost caps)
  * - Tool use policies (allow/deny lists, chain depth, approval gates)
  * - Conversation boundaries (topic adherence, turn limits)

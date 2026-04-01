@@ -2,11 +2,8 @@ import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs/promises";
 import { getGuardrailPanelHead } from "./webview-shared-styles";
-<<<<<<< HEAD
 import { explainFindingStitchCss } from "./explain-finding-stitch-css";
 import { getGuardrailWebUrl } from "./guardrail-web-urls";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export function coerceUri(input: unknown): vscode.Uri | undefined {
   if (input instanceof vscode.Uri) return input;
@@ -135,13 +132,7 @@ export async function showContractDiff(
     "Documentation",
   );
   if (pick === "Documentation") {
-<<<<<<< HEAD
-    await vscode.env.openExternal(
-      vscode.Uri.parse(getGuardrailWebUrl("/docs")),
-    );
-=======
     await vscode.env.openExternal(vscode.Uri.parse("https://guardrailai.dev/docs"));
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 }
 
@@ -168,22 +159,18 @@ export async function explainFinding(
     { enableScripts: false },
   );
 
-<<<<<<< HEAD
-=======
   const explainCss = `
     .explain-pad { padding: 16px; max-width: 640px; }
     h1 { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin: 0 0 12px 0; color: var(--on-surface); }
     pre { white-space: pre-wrap; font-size: 12px; line-height: 1.55; color: var(--on-surface); background: var(--surface-container-lowest); padding: 12px; border-radius: 8px; border: 1px solid var(--border-subtle); }
     .meta { color: var(--on-surface-variant); font-size: 11px; margin-bottom: 12px; }
   `;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   panel.webview.html = `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
   ${getGuardrailPanelHead(explainFindingStitchCss)}
 </head>
 <body class="ka-dashboard-body ka-panel-page">
@@ -197,17 +184,6 @@ export async function explainFinding(
   <pre>${escapeHtml(message)}</pre>
   </div>
   </div>
-=======
-  ${getGuardrailPanelHead(explainCss)}
-</head>
-<body class="ka-dashboard-body ka-panel-page">
-  <div class="ka-ambient" aria-hidden="true"></div>
-  <div class="ka-shell explain-pad">
-  <h1>Explain this finding</h1>
-  ${code ? `<p class="meta">Category: ${escapeHtml(String(code))}</p>` : ""}
-  <pre>${escapeHtml(message)}</pre>
-  </div>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </body>
 </html>`;
 }

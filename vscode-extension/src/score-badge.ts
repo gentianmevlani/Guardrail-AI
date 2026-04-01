@@ -8,10 +8,7 @@
  */
 
 import * as vscode from "vscode";
-<<<<<<< HEAD
 import { GUARDRAIL_SHIP_SCORE_THRESHOLD } from "@guardrail/core";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { GuardrailMCPClient, ScanResult } from "./mcp-client";
 import { GuardrailSidebarViewProvider } from "./features/guardrail-sidebar-view";
 import { setLastScanResult } from "./scan-state";
@@ -19,17 +16,12 @@ import { setLastScanResult } from "./scan-state";
 export class ScoreBadge {
   private statusBarItem: vscode.StatusBarItem;
   private mcpClient: GuardrailMCPClient;
-<<<<<<< HEAD
   /** Last scan score; `null` until a run completes or when CLI omitted a score. */
   private currentScore: number | null = null;
   private isScanning: boolean = false;
   /** Short label, e.g. "Free", "Pro" — from {@link setTierLabel}. */
   private tierShort = "";
   private lastResult: ScanResult | null = null;
-=======
-  private currentScore: number = -1;
-  private isScanning: boolean = false;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   constructor(mcpClient: GuardrailMCPClient) {
     this.mcpClient = mcpClient;
@@ -47,7 +39,6 @@ export class ScoreBadge {
     this.statusBarItem.show();
   }
 
-<<<<<<< HEAD
   /**
    * Updates plan suffix on the status bar (e.g. after login or profile poll).
    * Re-applies the last score row if a scan result is cached.
@@ -84,24 +75,12 @@ export class ScoreBadge {
     return md;
   }
 
-=======
-  private setInitialState(): void {
-    this.statusBarItem.text = "$(shield) Guardrail — Ready";
-    this.statusBarItem.tooltip = "Click to open Guardrail dashboard";
-    this.statusBarItem.backgroundColor = undefined;
-  }
-
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   /**
    * Update badge to show scanning state
    */
   setScanning(): void {
     this.isScanning = true;
-<<<<<<< HEAD
     this.statusBarItem.text = `$(sync~spin) Guardrail — Scanning${this.tierSuffix()}`;
-=======
-    this.statusBarItem.text = "$(sync~spin) Guardrail — Scanning";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this.statusBarItem.tooltip = "Guardrail is analyzing your workspace…";
     this.statusBarItem.backgroundColor = undefined;
   }
@@ -112,27 +91,17 @@ export class ScoreBadge {
   updateScore(result: ScanResult): void {
     this.isScanning = false;
     this.currentScore = result.score;
-<<<<<<< HEAD
     this.lastResult = result;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     setLastScanResult(result);
     GuardrailSidebarViewProvider.refreshIfOpen();
 
     const { icon, color, bgColor } = this.getScoreDisplay(result.score);
 
-<<<<<<< HEAD
     const grade = result.grade && result.grade !== "?" ? result.grade : "";
     const gradeLabel = grade ? ` ${grade}` : "";
     const shipIcon = result.canShip ? "$(check)" : "$(x)";
     const scoreLabel = result.score === null ? "—" : String(result.score);
     this.statusBarItem.text = `${icon} ${scoreLabel}${gradeLabel} ${shipIcon}${this.tierSuffix()}`;
-=======
-    const grade = result.grade || '';
-    const gradeLabel = grade ? ` ${grade}` : '';
-    const shipIcon = result.canShip ? '$(check)' : '$(x)';
-    this.statusBarItem.text = `${icon} ${result.score}${gradeLabel} ${shipIcon}`;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this.statusBarItem.tooltip = this.buildTooltip(result);
     this.statusBarItem.backgroundColor = bgColor;
     this.statusBarItem.color = color;
@@ -143,11 +112,7 @@ export class ScoreBadge {
    */
   setError(message: string): void {
     this.isScanning = false;
-<<<<<<< HEAD
     this.statusBarItem.text = `$(error) Guardrail — Error${this.tierSuffix()}`;
-=======
-    this.statusBarItem.text = "$(error) Guardrail — Error";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this.statusBarItem.tooltip = message;
     this.statusBarItem.backgroundColor = new vscode.ThemeColor(
       "statusBarItem.errorBackground",
@@ -158,27 +123,18 @@ export class ScoreBadge {
    * Update badge to show no workspace state
    */
   setNoWorkspace(): void {
-<<<<<<< HEAD
     this.lastResult = null;
     this.currentScore = null;
     this.statusBarItem.text = `$(shield) Guardrail${this.tierSuffix()}`;
-=======
-    this.statusBarItem.text = "$(shield) Guardrail";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this.statusBarItem.tooltip = "Open a workspace to begin scanning";
     this.statusBarItem.backgroundColor = undefined;
   }
 
-<<<<<<< HEAD
   private getScoreDisplay(score: number | null): {
-=======
-  private getScoreDisplay(score: number): {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     icon: string;
     color: string | undefined;
     bgColor: vscode.ThemeColor | undefined;
   } {
-<<<<<<< HEAD
     if (score === null) {
       return {
         icon: "$(question)",
@@ -187,19 +143,12 @@ export class ScoreBadge {
       };
     }
     if (score >= GUARDRAIL_SHIP_SCORE_THRESHOLD) {
-=======
-    if (score >= 80) {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       return {
         icon: "$(pass-filled)",
         color: "#6bcb77",
         bgColor: undefined,
       };
-<<<<<<< HEAD
     } else if (score >= 50 && score < GUARDRAIL_SHIP_SCORE_THRESHOLD) {
-=======
-    } else if (score >= 50) {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       return {
         icon: "$(warning)",
         color: undefined,
@@ -218,7 +167,6 @@ export class ScoreBadge {
     const md = new vscode.MarkdownString();
     md.isTrusted = true;
 
-<<<<<<< HEAD
     const sc = result.score;
     const statusEmoji =
       sc === null
@@ -240,17 +188,6 @@ export class ScoreBadge {
     if (this.tierShort) {
       md.appendMarkdown(`**Plan:** ${this.tierShort}\n\n`);
     }
-=======
-    const statusEmoji =
-      result.score >= 80 ? "🟢" : result.score >= 50 ? "🟡" : "🔴";
-    const verdict = result.canShip ? "✅ Ready to ship" : "🚫 Not ready";
-
-    md.appendMarkdown(
-      `## ${statusEmoji} guardrail Score: ${result.score}/100\n\n`,
-    );
-    md.appendMarkdown(`**Grade:** ${result.grade}\n\n`);
-    md.appendMarkdown(`**Verdict:** ${verdict}\n\n`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     if (result.cliSummary) {
       const c = result.cliSummary;
@@ -280,11 +217,7 @@ export class ScoreBadge {
   /**
    * Get current score
    */
-<<<<<<< HEAD
   getScore(): number | null {
-=======
-  getScore(): number {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return this.currentScore;
   }
 

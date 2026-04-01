@@ -52,13 +52,8 @@ module.exports = {
     ],
     'no-unused-vars': 'off', // Use TypeScript version
 
-<<<<<<< HEAD
     // Prevent console.* usage - use structured logger instead (allow warn/error for tooling)
     'no-console': ['error', { allow: ['warn', 'error'] }],
-=======
-    // Prevent console.* usage - use structured logger instead
-    'no-console': ['error', { allow: [] }],
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     // Enforce proper imports
     'import/order': [
@@ -127,15 +122,12 @@ module.exports = {
         '@typescript-eslint/no-unsafe-call': 'off',
       },
     },
-<<<<<<< HEAD
     {
       files: ['packages/cli/**/*.ts'],
       rules: {
         'no-console': 'off',
       },
     },
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   ],
   ignorePatterns: [
     'node_modules',

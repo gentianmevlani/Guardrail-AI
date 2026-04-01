@@ -14,15 +14,12 @@ import { z } from 'zod';
 
 const router = Router();
 
-<<<<<<< HEAD
 /** Express 5 may type `req.params` values as `string | string[]` */
 function firstPathParam(value: string | string[] | undefined): string | undefined {
   if (value === undefined) return undefined;
   return Array.isArray(value) ? value[0] : value;
 }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 /** Minimal SCIM body validation — compliance package SCIM zod exports vary by build */
 const scimUserBodySchema = z.record(z.string(), z.unknown());
 const scimPatchBodySchema = z.union([
@@ -453,16 +450,12 @@ router.post('/sso/login', requireAuth, async (req: Request, res: Response) => {
 router.get('/sso/config/:organizationId', requireAuth, requireEnterprise, async (req: Request, res: Response) => {
   try {
     const { ssoService } = await import('@guardrail/compliance');
-<<<<<<< HEAD
     const organizationId = firstPathParam(req.params['organizationId']);
     if (!organizationId) {
       res.status(400).json({ success: false, error: 'organizationId is required' });
       return;
     }
     const config = ssoService.getConfig(organizationId);
-=======
-    const config = ssoService.getConfig(req.params['organizationId']!);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     if (!config) {
       res.status(404).json({ success: false, error: 'SSO not configured for this organization' });
@@ -539,7 +532,6 @@ router.get('/scim/v2/Users/:id', requireAuth, requireEnterprise, async (req: Req
   try {
     const { InMemorySCIMStore } = await import('@guardrail/compliance');
     const store = new InMemorySCIMStore();
-<<<<<<< HEAD
     const id = firstPathParam(req.params['id']);
     if (!id) {
       res.status(400).json({
@@ -550,9 +542,6 @@ router.get('/scim/v2/Users/:id', requireAuth, requireEnterprise, async (req: Req
       return;
     }
     const user = await store.get(id);
-=======
-    const user = await store.get(req.params['id']!);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     if (!user) {
       res.status(404).json({
@@ -579,7 +568,6 @@ router.patch('/scim/v2/Users/:id', requireAuth, requireEnterprise, async (req: R
     const store = new InMemorySCIMStore();
 
     const operations = scimPatchBodySchema.parse(req.body);
-<<<<<<< HEAD
     const id = firstPathParam(req.params['id']);
     if (!id) {
       res.status(400).json({
@@ -590,9 +578,6 @@ router.patch('/scim/v2/Users/:id', requireAuth, requireEnterprise, async (req: R
       return;
     }
     const updated = await store.patch(id, operations as never);
-=======
-    const updated = await store.patch(req.params['id']!, operations as never);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     if (!updated) {
       res.status(404).json({
@@ -618,7 +603,6 @@ router.delete('/scim/v2/Users/:id', requireAuth, requireEnterprise, async (req: 
     const { InMemorySCIMStore } = await import('@guardrail/compliance');
     const store = new InMemorySCIMStore();
 
-<<<<<<< HEAD
     const id = firstPathParam(req.params['id']);
     if (!id) {
       res.status(400).json({
@@ -629,9 +613,6 @@ router.delete('/scim/v2/Users/:id', requireAuth, requireEnterprise, async (req: 
       return;
     }
     const deleted = await store.delete(id);
-=======
-    const deleted = await store.delete(req.params['id']!);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     if (!deleted) {
       res.status(404).json({
         schemas: ['urn:ietf:params:scim:api:messages:2.0:Error'],

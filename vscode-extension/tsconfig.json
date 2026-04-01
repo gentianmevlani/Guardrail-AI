@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-<<<<<<< HEAD
-    "module": "ESNext",
-=======
     "module": "CommonJS",
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     "lib": ["ES2022"],
     "outDir": "./dist",
     "rootDir": "./src",
@@ -17,11 +13,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-<<<<<<< HEAD
     "moduleResolution": "bundler",
-=======
-    "moduleResolution": "node",
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

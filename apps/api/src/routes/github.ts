@@ -81,7 +81,6 @@ declare module "fastify" {
   }
 }
 
-<<<<<<< HEAD
 // GitHub App configuration
 const GITHUB_APP_SLUG = process.env.GITHUB_APP_SLUG || "guardrail-app";
 const GITHUB_APP_ID = process.env.GITHUB_APP_ID;
@@ -391,9 +390,6 @@ export async function githubRoutes(fastify: FastifyInstance) {
     },
   );
 
-=======
-export async function githubRoutes(fastify: FastifyInstance) {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   // Initiate GitHub OAuth flow
   fastify.post(
     "/connect",

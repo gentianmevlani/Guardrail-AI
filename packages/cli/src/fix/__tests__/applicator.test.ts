@@ -143,11 +143,7 @@ describe('FixApplicator', () => {
       expect(result.appliedFixes).toBe(0);
       expect(result.failedFixes).toBe(1);
       expect(result.errors.length).toBe(1);
-<<<<<<< HEAD
       expect(result.errors[0]!.fix).toBe(fix);
-=======
-      expect(result.errors[0].fix).toBe(fix);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should apply fixes from multiple packs', async () => {

@@ -11,10 +11,7 @@ import * as fs from "fs";
 import { ApiClient } from "../services/api-client";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
-<<<<<<< HEAD
 import { complianceDashboardStitchCss } from "./compliance-dashboard-stitch-css";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { mapScanToComplianceChecks } from "../scan-cli-map";
 
 export interface ComplianceCheck {
@@ -298,8 +295,6 @@ export class ComplianceDashboard {
   }
 
   private _getHtmlContent(): string {
-<<<<<<< HEAD
-=======
     const panelCss = `
     .section-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-variant); margin-bottom: 12px; }
     .fw-selector { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
@@ -367,18 +362,13 @@ export class ComplianceDashboard {
     @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .anim { animation: fadeUp 0.4s ease forwards; }
     `;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Compliance Dashboard</title>
-<<<<<<< HEAD
   ${getGuardrailPanelHead(complianceDashboardStitchCss)}
-=======
-  ${getGuardrailPanelHead(panelCss)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
@@ -404,7 +394,6 @@ export class ComplianceDashboard {
     </div>
   </header>
 
-<<<<<<< HEAD
   <div class="comp-strip" aria-hidden="true">
     <svg viewBox="0 0 800 44" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -420,8 +409,6 @@ export class ComplianceDashboard {
     </svg>
   </div>
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   <div class="content">
     <div class="fw-selector anim">
       <button class="fw-btn selected" data-framework="SOC2">SOC2</button>

@@ -11,23 +11,17 @@ import * as fs from "fs";
 import { ApiClient } from "../services/api-client";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
-<<<<<<< HEAD
 import { securityScannerStitchCss } from "./security-scanner-stitch-css";
 import { getSecurityScannerStitchHtml } from "./security-scanner-webview-html";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import {
   mapFindingToSecurityIssue,
   scanFindingsFromData,
 } from "../scan-cli-map";
-<<<<<<< HEAD
 import { getGuardrailWebUrl } from "../guardrail-web-urls";
 import {
   resolveExtensionTier,
   shouldHideIssueDetailsForTier,
 } from "../tier-context";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface SecurityIssue {
   id: string;
@@ -70,18 +64,12 @@ export class SecurityScannerPanel {
   private _isScanning: boolean = false;
   private _apiClient: ApiClient;
   private _cliService: CLIService;
-<<<<<<< HEAD
   private readonly _extensionContext: vscode.ExtensionContext;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   private constructor(panel: vscode.WebviewPanel, workspacePath: string, extensionContext: vscode.ExtensionContext) {
     this._panel = panel;
     this._workspacePath = workspacePath;
-<<<<<<< HEAD
     this._extensionContext = extensionContext;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this._apiClient = new ApiClient(extensionContext);
     this._cliService = new CLIService(workspacePath);
 
@@ -111,7 +99,6 @@ export class SecurityScannerPanel {
             await this._exportReport();
             break;
           case 'openBilling':
-<<<<<<< HEAD
             await vscode.env.openExternal(
               vscode.Uri.parse(getGuardrailWebUrl("/billing")),
             );
@@ -120,9 +107,6 @@ export class SecurityScannerPanel {
             if (typeof message.id === 'string') {
               void vscode.commands.executeCommand(message.id);
             }
-=======
-            await vscode.env.openExternal(vscode.Uri.parse('https://guardrailai.dev/billing'));
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             break;
         }
       },
@@ -143,11 +127,7 @@ export class SecurityScannerPanel {
 
     const panel = vscode.window.createWebviewPanel(
       'securityScanner',
-<<<<<<< HEAD
       'Security Archive',
-=======
-      'Security Scanner',
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -342,11 +322,7 @@ export class SecurityScannerPanel {
               ...this._report,
               issues: [],
               issueDetailsRedacted: true,
-<<<<<<< HEAD
               upgradeHint: `Upgrade for full issue list: ${getGuardrailWebUrl("/billing")}`,
-=======
-              upgradeHint: 'Upgrade for full issue list: https://guardrailai.dev/billing',
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             }
           : this._report;
       fs.writeFileSync(uri.fsPath, JSON.stringify(payload, null, 2));
@@ -358,13 +334,6 @@ export class SecurityScannerPanel {
     }
   }
 
-<<<<<<< HEAD
-  /** Free tier: show counts only (same as CLI JSON redaction and web `hideIssueDetailsForTier`). */
-  private async _shouldLockIssueDetails(): Promise<boolean> {
-    try {
-      const tier = await resolveExtensionTier(this._extensionContext);
-      return shouldHideIssueDetailsForTier(tier);
-=======
   /** Free tier or no auth: show counts only in the UI (matches web app). */
   private async _shouldLockIssueDetails(): Promise<boolean> {
     try {
@@ -386,7 +355,6 @@ export class SecurityScannerPanel {
       const plan = sub?.plan ?? (typeof d.tier === 'string' ? d.tier : undefined);
       const tier = typeof plan === 'string' ? plan.toLowerCase() : 'free';
       return tier === 'free';
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     } catch {
       return true;
     }
@@ -401,11 +369,6 @@ export class SecurityScannerPanel {
   }
 
   private _getHtmlContent(): string {
-<<<<<<< HEAD
-    return getSecurityScannerStitchHtml(
-      getGuardrailPanelHead(securityScannerStitchCss),
-    );
-=======
     const panelCss = `
     .section-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-variant); margin-bottom: 12px; }
     .action-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
@@ -673,7 +636,6 @@ export class SecurityScannerPanel {
   </div>
 </body>
 </html>`;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   public dispose() {

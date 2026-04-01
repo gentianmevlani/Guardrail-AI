@@ -1,19 +1,5 @@
 /**
  * Shared HTML/CSS for Guardrail webviews (dashboard + sidebar).
-<<<<<<< HEAD
- * Guardrail theme — see guardrail-styles.ts.
- */
-import {
-  getGuardrailCssBlock,
-  getGuardrailFontLinks,
-} from "./guardrail-styles";
-
-export function getGuardrailSharedStyles(): string {
-  return `
-    ${getGuardrailFontLinks()}
-    <style>
-    ${getGuardrailCssBlock()}
-=======
  * Kinetic Archive theme — see kinetic-archive-styles.ts.
  */
 import {
@@ -26,7 +12,6 @@ export function getGuardrailSharedStyles(): string {
     ${getKineticArchiveFontLinks()}
     <style>
     ${getKineticArchiveCssBlock()}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     /* Legacy dashboard class names (alias) */
     .top-bar {
       background: #111316;
@@ -229,11 +214,7 @@ export function getEnterprisePanelShellStyles(): string {
   `;
 }
 
-<<<<<<< HEAD
-/** Shared Guardrail head + enterprise shell + optional panel-specific CSS. */
-=======
 /** Shared Kinetic Archive head + enterprise shell + optional panel-specific CSS. */
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 export function getGuardrailPanelHead(panelSpecificCss: string): string {
   return `
     ${getGuardrailSharedStyles()}

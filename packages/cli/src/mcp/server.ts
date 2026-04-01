@@ -4,12 +4,8 @@
  * Starts MCP server that AI tools can connect to
  */
 
-<<<<<<< HEAD
-import { Server } from '@modelcontextprotocol/sdk/server';
-=======
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface MCPServerOptions {
   port?: number;

@@ -1,6 +1,5 @@
 /**
  * Template Generator
-<<<<<<< HEAD
  *
  * Generates project files based on user selections and templates.
  * Copies real template files from the templates/ directory and generates
@@ -9,13 +8,6 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-=======
- * 
- * Generates project files based on user selections and templates
- */
-
-import { PROJECT_TYPES } from '../cli-wizard';
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface ProjectConfig {
   projectName: string;
@@ -31,7 +23,6 @@ export interface TemplateContext {
   projectType: string;
 }
 
-<<<<<<< HEAD
 export interface GenerateResult {
   filesCreated: string[];
   dirsCreated: string[];
@@ -102,25 +93,6 @@ class TemplateGenerator {
     await this.generateGuardrails(context, projectPath);
 
     return this.result;
-=======
-class TemplateGenerator {
-  /**
-   * Generate all files for a project
-   */
-  async generateProject(context: TemplateContext): Promise<void> {
-    const projectType = PROJECT_TYPES[context.projectType];
-    if (!projectType) {
-      throw new Error(`Unknown project type: ${context.projectType}`);
-    }
-
-    // Generate files based on selected templates
-    for (const templateNum of projectType.templates) {
-      await this.generateTemplate(templateNum, context);
-    }
-
-    // Always generate guardrails
-    await this.generateGuardrails(context);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
@@ -128,7 +100,6 @@ class TemplateGenerator {
    */
   private async generateTemplate(
     templateNum: string,
-<<<<<<< HEAD
     context: TemplateContext,
     projectPath: string,
   ): Promise<void> {
@@ -165,43 +136,6 @@ class TemplateGenerator {
         break;
       case '10':
         await this.generateAuth(context, projectPath);
-=======
-    context: TemplateContext
-  ): Promise<void> {
-    switch (templateNum) {
-      case '00':
-        await this.generateQuickStart(context);
-        break;
-      case '01':
-        await this.generateUIUX(context);
-        break;
-      case '02':
-        await this.generateDesignSystem(context);
-        break;
-      case '03':
-        await this.generateArchitecture(context);
-        break;
-      case '04':
-        await this.generateAPI(context);
-        break;
-      case '05':
-        await this.generateFileRules(context);
-        break;
-      case '06':
-        await this.generateTesting(context);
-        break;
-      case '07':
-        await this.generateStateManagement(context);
-        break;
-      case '08':
-        await this.generateEnvironment(context);
-        break;
-      case '09':
-        await this.generateDatabase(context);
-        break;
-      case '10':
-        await this.generateAuth(context);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         break;
     }
   }
@@ -209,7 +143,6 @@ class TemplateGenerator {
   /**
    * Generate Quick Start files
    */
-<<<<<<< HEAD
   private async generateQuickStart(context: TemplateContext, projectPath: string): Promise<void> {
     const docsDir = path.join(projectPath, 'docs');
     await this.ensureDir(docsDir);
@@ -265,17 +198,11 @@ npm run dev
 `, context);
 
     await this.writeFile(path.join(docsDir, 'QUICK-START.md'), quickStartContent);
-=======
-  private async generateQuickStart(context: TemplateContext): Promise<void> {
-    // Create docs directory
-    // Add quick start guide
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
    * Generate UI/UX System
    */
-<<<<<<< HEAD
   private async generateUIUX(context: TemplateContext, projectPath: string): Promise<void> {
     const componentsDir = path.join(projectPath, 'src', 'components');
     await this.ensureDir(componentsDir);
@@ -324,30 +251,11 @@ export { AnimatedCard } from './AnimatedCard';
 export { Breadcrumbs } from './Breadcrumbs';
 `;
     await this.writeFile(path.join(componentsDir, 'index.ts'), indexContent);
-=======
-  private async generateUIUX(context: TemplateContext): Promise<void> {
-    const { config } = context;
-
-    // Create component structure
-    const components = [
-      'src/components/ui/Button.tsx',
-      'src/components/ui/Card.tsx',
-      'src/components/ui/Input.tsx',
-    ];
-
-    // Generate based on framework
-    if (config.framework === 'nextjs') {
-      // Next.js specific components
-    } else if (config.framework === 'react') {
-      // React specific components
-    }
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
    * Generate Design System
    */
-<<<<<<< HEAD
   private async generateDesignSystem(context: TemplateContext, projectPath: string): Promise<void> {
     const { config } = context;
     const stylesDir = path.join(projectPath, 'src', 'styles');
@@ -409,22 +317,12 @@ export default config;
 };
 `;
       await this.writeFile(path.join(projectPath, 'postcss.config.js'), postcssConfig);
-=======
-  private async generateDesignSystem(context: TemplateContext): Promise<void> {
-    const { config } = context;
-
-    // Generate design tokens
-    if (config.styling === 'tailwind') {
-      // Tailwind config
-      // Design tokens
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   }
 
   /**
    * Generate Project Architecture
    */
-<<<<<<< HEAD
   private async generateArchitecture(context: TemplateContext, projectPath: string): Promise<void> {
     const dirs = [
       'src/components',
@@ -511,18 +409,11 @@ export function truncate(str: string, length: number): string {
 }
 `;
     await this.writeFile(path.join(projectPath, 'src', 'lib', 'utils.ts'), utilsContent);
-=======
-  private async generateArchitecture(context: TemplateContext): Promise<void> {
-    // Create feature-based structure
-    // Generate index files
-    // Create barrel exports
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
    * Generate API Architecture
    */
-<<<<<<< HEAD
   private async generateAPI(context: TemplateContext, projectPath: string): Promise<void> {
     const { config } = context;
     const apiStyle = (config.apiStyle as string) || 'rest';
@@ -630,24 +521,12 @@ export const appRouter = t.router({
 export type AppRouter = typeof appRouter;
 `;
       await this.writeFile(path.join(projectPath, 'src', 'trpc.ts'), trpcContent);
-=======
-  private async generateAPI(context: TemplateContext): Promise<void> {
-    const { config } = context;
-
-    if (config.apiStyle === 'rest') {
-      // REST API structure
-    } else if (config.apiStyle === 'graphql') {
-      // GraphQL structure
-    } else if (config.apiStyle === 'trpc') {
-      // tRPC structure
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   }
 
   /**
    * Generate File Rules
    */
-<<<<<<< HEAD
   private async generateFileRules(context: TemplateContext, projectPath: string): Promise<void> {
     const cursorRules = this.applyVariables(`# {{projectName}} — Cursor Rules
 
@@ -686,17 +565,11 @@ export type AppRouter = typeof appRouter;
 `, context);
 
     await this.writeFile(path.join(projectPath, '.cursorrules'), cursorRules);
-=======
-  private async generateFileRules(context: TemplateContext): Promise<void> {
-    // .cursorrules file
-    // File organization rules
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
    * Generate Testing Setup
    */
-<<<<<<< HEAD
   private async generateTesting(context: TemplateContext, projectPath: string): Promise<void> {
     const testsDir = path.join(projectPath, 'tests');
     await this.ensureDir(testsDir);
@@ -753,17 +626,11 @@ describe('Example Test Suite', () => {
 });
 `;
     await this.writeFile(path.join(testsDir, 'example.test.ts'), exampleTest);
-=======
-  private async generateTesting(context: TemplateContext): Promise<void> {
-    // Test configuration
-    // Example tests
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
    * Generate State Management
    */
-<<<<<<< HEAD
   private async generateStateManagement(context: TemplateContext, projectPath: string): Promise<void> {
     const storeDir = path.join(projectPath, 'src', 'store');
     await this.ensureDir(storeDir);
@@ -869,17 +736,11 @@ export const useAuthStore = create<AuthState>()(
 export { useAuthStore } from './auth-store';
 `;
     await this.writeFile(path.join(storeDir, 'index.ts'), indexContent);
-=======
-  private async generateStateManagement(context: TemplateContext): Promise<void> {
-    // Zustand/Redux setup
-    // React Query setup
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
    * Generate Environment Config
    */
-<<<<<<< HEAD
   private async generateEnvironment(context: TemplateContext, projectPath: string): Promise<void> {
     // Copy env config validator from templates
     const configDir = path.join(projectPath, 'src', 'config');
@@ -923,18 +784,11 @@ yarn-debug.log*
 yarn-error.log*
 `;
     await this.writeFile(path.join(projectPath, '.gitignore'), gitignoreContent);
-=======
-  private async generateEnvironment(context: TemplateContext): Promise<void> {
-    // .env.example
-    // Environment validation
-    // Config files
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
    * Generate Database Setup
    */
-<<<<<<< HEAD
   private async generateDatabase(context: TemplateContext, projectPath: string): Promise<void> {
     const { config } = context;
     const orm = (config.orm as string) || 'prisma';
@@ -1012,23 +866,12 @@ export const sessions = pgTable('sessions', {
 });
 `;
       await this.writeFile(path.join(drizzleDir, 'schema.ts'), schemaContent);
-=======
-  private async generateDatabase(context: TemplateContext): Promise<void> {
-    const { config } = context;
-
-    if (config.orm === 'prisma') {
-      // Prisma schema
-      // Prisma client
-    } else if (config.orm === 'drizzle') {
-      // Drizzle setup
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   }
 
   /**
    * Generate Authentication
    */
-<<<<<<< HEAD
   private async generateAuth(context: TemplateContext, projectPath: string): Promise<void> {
     const { config } = context;
     const authType = (config.auth as string) || 'jwt';
@@ -1170,24 +1013,12 @@ export const oauthProviders: Record<string, OAuthProvider> = {
       const configDir = path.join(projectPath, 'src', 'config');
       await this.ensureDir(configDir);
       await this.writeFile(path.join(configDir, 'oauth.config.ts'), oauthContent);
-=======
-  private async generateAuth(context: TemplateContext): Promise<void> {
-    const { config } = context;
-
-    if (config.auth === 'jwt') {
-      // JWT setup
-      // Auth routes
-      // Middleware
-    } else if (config.auth === 'oauth') {
-      // OAuth setup
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   }
 
   /**
    * Generate Guardrails
    */
-<<<<<<< HEAD
   private async generateGuardrails(context: TemplateContext, projectPath: string): Promise<void> {
     // .guardrailrc config
     const guardrailrc = this.applyVariables(`{
@@ -1301,48 +1132,21 @@ Run \`npx guardrail ship\` to check readiness before deploying.
    * Apply template variables to content string
    */
   private applyVariables(template: string, context: TemplateContext): string {
-=======
-  private async generateGuardrails(context: TemplateContext): Promise<void> {
-    // Always include guardrails
-    // ESLint config
-    // TypeScript config
-    // Validation scripts
-    // API validator
-  }
-
-  /**
-   * Generate file content from template
-   */
-  private generateFileContent(
-    template: string,
-    context: TemplateContext
-  ): string {
-    // Replace template variables
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     let content = template;
     content = content.replace(/\{\{projectName\}\}/g, context.config.projectName);
     content = content.replace(/\{\{projectDescription\}\}/g, context.config.projectDescription || '');
     content = content.replace(/\{\{author\}\}/g, context.config.author || '');
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     // Replace answer variables
     Object.entries(context.answers).forEach(([key, value]) => {
       content = content.replace(
         new RegExp(`\\{\\{${key}\\}\\}`, 'g'),
-<<<<<<< HEAD
         value || '',
-=======
-        value || ''
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       );
     });
 
     return content;
   }
-<<<<<<< HEAD
 
   /**
    * Copy a template file from templates/ to the target path
@@ -1399,9 +1203,3 @@ Run \`npx guardrail ship\` to check readiness before deploying.
 }
 
 export const templateGenerator = new TemplateGenerator();
-=======
-}
-
-export const templateGenerator = new TemplateGenerator();
-
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7

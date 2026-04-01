@@ -53,11 +53,7 @@ describe('FixEngine', () => {
       const securityPack = packs.find(p => p.category === 'security');
       expect(securityPack).toBeDefined();
       expect(securityPack?.fixes.length).toBeGreaterThan(0);
-<<<<<<< HEAD
       expect(securityPack?.fixes[0]!.confidence).toBeGreaterThan(0);
-=======
-      expect(securityPack?.fixes[0].confidence).toBeGreaterThan(0);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should generate quality fix pack for code smells', async () => {
@@ -152,13 +148,8 @@ describe('FixEngine', () => {
       const packs = await engine.generateFixPacks(scanResult);
 
       expect(packs.length).toBeGreaterThan(0);
-<<<<<<< HEAD
       expect(packs[0]!.estimatedRisk).toBeDefined();
       expect(['low', 'medium', 'high']).toContain(packs[0]!.estimatedRisk);
-=======
-      expect(packs[0].estimatedRisk).toBeDefined();
-      expect(['low', 'medium', 'high']).toContain(packs[0].estimatedRisk);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should assign confidence scores to fixes', async () => {

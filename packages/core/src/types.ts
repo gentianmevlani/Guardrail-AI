@@ -534,7 +534,6 @@ export interface InputSchemaResult {
   normalizedInput?: string;
 }
 
-<<<<<<< HEAD
 /** Input sanitization — strip smuggling chars, HTML, normalize whitespace, truncate */
 export interface InputSanitizationConfig {
   enabled: boolean;
@@ -605,8 +604,6 @@ export interface ResourceLimitsCheckResult {
   reason?: string;
 }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 // ==========================================
 // OUTPUT GUARDRAIL TYPES
 // ==========================================
@@ -985,32 +982,23 @@ export interface GuardrailPipelineConfig {
     piiDetection: { enabled: boolean; redactByDefault: boolean; allowedTypes?: PIIType[] };
     schemaValidation: { enabled: boolean; rules: InputSchemaRule };
     injectionDetection: { enabled: boolean; strictMode: boolean };
-<<<<<<< HEAD
     sanitization: InputSanitizationConfig;
     topicScope: TopicScopeConfig;
     authorization: { enabled: boolean };
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
   output: {
     toxicityScanning: { enabled: boolean; threshold: number };
     piiLeakagePrevention: { enabled: boolean; scrubByDefault: boolean };
     policyCompliance: { enabled: boolean; rules: PolicyComplianceRule[] };
     factualGrounding: { enabled: boolean; threshold: number; sources: GroundingSource[] };
-<<<<<<< HEAD
     structuredOutput: StructuredOutputConfig;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
   behavioral: {
     rateLimiting: { enabled: boolean; config: AgentRateLimitConfig };
     toolUsePolicy: { enabled: boolean; policy: ToolUsePolicy };
     conversationBoundary: { enabled: boolean; boundary: ConversationBoundary };
     chainOfThoughtMonitoring: { enabled: boolean; haltOnDrift: boolean };
-<<<<<<< HEAD
     resourceLimits: ResourceLimitsConfig;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
   process: {
     humanReview: { enabled: boolean; requiredForRiskLevel: 'HIGH' | 'CRITICAL' };
@@ -1034,7 +1022,6 @@ export interface GuardrailPipelineResult {
 export interface GuardrailExecutionSummary {
   requestId: string;
   agentId: string;
-<<<<<<< HEAD
   inputResults: ContentPolicyResult & {
     pii: PIIScanResult;
     schema: InputSchemaResult;
@@ -1056,11 +1043,6 @@ export interface GuardrailExecutionSummary {
     cot: ChainOfThoughtAnalysis;
     resourceLimits?: ResourceLimitsCheckResult;
   };
-=======
-  inputResults: ContentPolicyResult & { pii: PIIScanResult; schema: InputSchemaResult };
-  outputResults?: ToxicityScanResult & { piiLeakage: PIILeakageResult; compliance: PolicyComplianceResult; grounding: GroundingResult };
-  behavioralResults: { rateLimit: RateLimitState; toolUse?: ToolUseDecision; boundary: BoundaryCheckResult; cot: ChainOfThoughtAnalysis };
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   processResults: { reviewRequired: boolean; killSwitchActive: boolean; escalations: string[] };
   overallDecision: 'allow' | 'block' | 'review' | 'modify';
   totalProcessingTimeMs: number;

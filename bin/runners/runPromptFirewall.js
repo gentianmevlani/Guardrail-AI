@@ -29,7 +29,6 @@ const c = {
 async function runPromptFirewall(args) {
   const wrapped = withErrorHandling(async () => {
     const opts = parseFirewallArgs(args);
-<<<<<<< HEAD
     if (opts.help) {
       console.log(`
 ${c.cyan}guardrail prompt-firewall / firewall${c.reset}
@@ -53,14 +52,6 @@ ${c.dim}Options:${c.reset}
     const autoFix = opts["auto-fix"] === true;
     const includeVersionControl = opts["version-control"] !== false;
     const generatePlan = opts.plan !== false;
-=======
-    const projectPath = opts.path || process.cwd();
-    const json = opts.json || false;
-    const prompt = opts.prompt;
-    const autoFix = args["auto-fix"] === true;
-    const includeVersionControl = args["version-control"] !== false;
-    const generatePlan = args.plan !== false;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     if (!prompt) {
       console.error(`${c.red}Error: Prompt is required${c.reset}`);
@@ -135,7 +126,6 @@ ${c.dim}Options:${c.reset}
 }
 
 function parseFirewallArgs(args) {
-<<<<<<< HEAD
   const opts = {
     path: process.cwd(),
     json: false,
@@ -145,9 +135,6 @@ function parseFirewallArgs(args) {
     "version-control": true,
     plan: true,
   };
-=======
-  const opts = { path: process.cwd(), json: false, prompt: null, "auto-fix": false, "version-control": true, plan: true };
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   for (let i = 0; i < args.length; i++) {
     const a = args[i];
     if (a === "--help" || a === "-h") { opts.help = true; }

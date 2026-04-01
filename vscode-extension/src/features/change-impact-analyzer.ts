@@ -11,10 +11,7 @@ import * as fs from "fs";
 import { ApiClient } from "../services/api-client";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
-<<<<<<< HEAD
 import { changeImpactStitchCss } from "./change-impact-stitch-css";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { buildImpactAnalysisFromScan } from "../scan-cli-map";
 
 export interface ImpactAnalysis {
@@ -772,8 +769,6 @@ export class ChangeImpactPanel {
   }
 
   private _getHtmlContent(): string {
-<<<<<<< HEAD
-=======
     const panelCss = `
     .cim-wrap { padding: 16px; flex: 1; }
     .summary-cards {
@@ -900,24 +895,17 @@ export class ChangeImpactPanel {
       100% { transform: rotate(360deg); }
     }
     `;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
   <title>Impact Topology</title>
   ${getGuardrailPanelHead(changeImpactStitchCss)}
-=======
-  <title>Change Impact Analysis</title>
-  ${getGuardrailPanelHead(panelCss)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
   <div class="ka-shell">
-<<<<<<< HEAD
   <header class="cia-head">
     <div class="cia-head-left">
       <span class="material-symbols-outlined" style="font-size:28px;color:var(--cyan-glow);flex-shrink:0;" aria-hidden="true">hub</span>
@@ -925,14 +913,6 @@ export class ChangeImpactPanel {
         <div class="cia-kicker">Kinetic core · topology</div>
         <h1 class="cia-title">Impact analysis</h1>
         <div class="cia-sub">Blast radius · dependencies · dependents</div>
-=======
-  <header class="header">
-    <div class="header-left">
-      <span class="material-symbols-outlined logo" style="font-size:28px;color:var(--cyan-glow);">hub</span>
-      <div>
-        <div class="title">Change Impact Analysis</div>
-        <div class="subtitle">Blast radius · dependencies · dependents</div>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       </div>
     </div>
     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -945,7 +925,6 @@ export class ChangeImpactPanel {
     </div>
   </header>
 
-<<<<<<< HEAD
   <div class="cia-topology-strip" aria-hidden="true">
     <svg viewBox="0 0 800 56" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -964,8 +943,6 @@ export class ChangeImpactPanel {
     </svg>
   </div>
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   <div class="cim-wrap">
   <div class="empty-state" id="emptyState">
     <div class="empty-icon"><span class="material-symbols-outlined" style="font-size:56px;">analytics</span></div>

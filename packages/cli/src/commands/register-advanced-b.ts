@@ -16,11 +16,7 @@ program
   .option('--profile <profile>', 'Scan profile: quick, full, ship, ci', 'ship')
   .option('--json', 'Output JSON', false)
   .option('--dry-run', 'Preview changes without applying', false)
-<<<<<<< HEAD
-  .option('--pack <id>', 'Apply specific pack(s) only (repeatable)', (val: string, prev: string[]) => [...prev, val], [])
-=======
   .option('--pack <id>', 'Apply specific pack(s) only (repeatable)', (val, prev) => prev ? [...prev, val] : [val], undefined)
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   .option('--run <runId>', 'Run ID for rollback')
   .option('--force', 'Force apply high-risk packs without confirmation', false)
   .option('--interactive', 'Prompt for confirmation on high-risk packs', false)

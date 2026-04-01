@@ -909,7 +909,6 @@ async function runScan(args) {
   }
 }
 
-<<<<<<< HEAD
 /** Skip build output and tooling dirs so lightweight scan stays fast and low-noise. */
 const LITE_SCAN_SKIP_DIRS = new Set([
   'node_modules', 'dist', 'build', 'coverage', 'out', 'tmp',
@@ -917,8 +916,6 @@ const LITE_SCAN_SKIP_DIRS = new Set([
   'vendor', 'Pods', 'target', 'htmlcov',
 ]);
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 // Helper function to find source files for cache hash
 async function findSourceFiles(projectPath) {
   const files = [];
@@ -931,15 +928,9 @@ async function findSourceFiles(projectPath) {
       for (const entry of entries) {
         const fullPath = path.join(dir, entry.name);
         if (entry.isDirectory()) {
-<<<<<<< HEAD
           if (entry.name.startsWith('.')) continue;
           if (LITE_SCAN_SKIP_DIRS.has(entry.name)) continue;
           await walk(fullPath);
-=======
-          if (!entry.name.startsWith('.') && entry.name !== 'node_modules') {
-            await walk(fullPath);
-          }
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         } else if (entry.isFile()) {
           const ext = path.extname(entry.name).toLowerCase();
           if (['.ts', '.tsx', '.js', '.jsx'].includes(ext)) {
@@ -960,7 +951,6 @@ async function findSourceFiles(projectPath) {
 // LIGHTWEIGHT SCANNER (Free Tier - no compiled dist/ needed)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-<<<<<<< HEAD
 function isCommentOnlyLine(line) {
   const t = line.trim();
   if (!t) return true;
@@ -1071,17 +1061,11 @@ const LITE_PATTERNS = [
     severity: 'critical',
     category: 'Hardcoded Secret',
   },
-=======
-const LITE_PATTERNS = [
-  // Security
-  { regex: /(?:password|secret|token|api[_-]?key)\s*[:=]\s*['"][^'"]{3,}/i, severity: 'critical', category: 'Hardcoded Secret' },
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   { regex: /eval\s*\(/, severity: 'high', category: 'Eval Usage' },
   { regex: /dangerouslySetInnerHTML/i, severity: 'high', category: 'XSS Risk' },
   { regex: /innerHTML\s*=/, severity: 'medium', category: 'Potential XSS' },
   { regex: /document\.write\s*\(/, severity: 'medium', category: 'Document Write' },
   // Quality
-<<<<<<< HEAD
   { regex: /\b(TODO|FIXME|HACK|XXX)\b/i, severity: 'low', category: 'Code TODO' },
   { regex: /console\.log\s*\(/, severity: 'info', category: 'Console Log' },
   { regex: /(?:localhost|127\.0\.0\.1):\d+/, severity: 'low', category: 'Hardcoded URL' },
@@ -1091,17 +1075,6 @@ const LITE_PATTERNS = [
   { regex: /new\s+Function\s*\(/, severity: 'high', category: 'Dynamic Function' },
   { regex: /disable.*eslint|eslint-disable/, severity: 'low', category: 'Lint Suppression' },
   { regex: /(?:process\.env\.\w+)\s*\|\|\s*['"]/, severity: 'low', category: 'Env Fallback' },
-=======
-  { regex: /TODO|FIXME|HACK|XXX|TEMP/i, severity: 'low', category: 'Code TODO' },
-  { regex: /console\.log\s*\(/, severity: 'info', category: 'Console Log' },
-  { regex: /(?:localhost|127\.0\.0\.1):\d+/, severity: 'medium', category: 'Hardcoded URL' },
-  { regex: /\.env\.local|\.env\.development/, severity: 'low', category: 'Env Reference' },
-  // Auth & data
-  { regex: /(?:SELECT|INSERT|UPDATE|DELETE)\s+.*\$\{/, severity: 'critical', category: 'SQL Injection Risk' },
-  { regex: /new\s+Function\s*\(/, severity: 'high', category: 'Dynamic Function' },
-  { regex: /disable.*eslint|eslint-disable/, severity: 'low', category: 'Lint Suppression' },
-  { regex: /(?:process\.env\.\w+)\s*\|\|\s*['"]/, severity: 'medium', category: 'Env Fallback' },
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 ];
 
 async function runLightweightScan(projectPath, opts) {
@@ -1119,7 +1092,6 @@ async function runLightweightScan(projectPath, opts) {
       const lines = content.split('\n');
       filesScanned++;
 
-<<<<<<< HEAD
       const relFile = path.relative(projectPath, filePath);
       for (const pattern of LITE_PATTERNS) {
         for (let lineNum = 0; lineNum < lines.length; lineNum++) {
@@ -1132,15 +1104,6 @@ async function runLightweightScan(projectPath, opts) {
               severity: pattern.severity,
               category: pattern.category,
               file: relFile,
-=======
-      for (const pattern of LITE_PATTERNS) {
-        for (let lineNum = 0; lineNum < lines.length; lineNum++) {
-          if (pattern.regex.test(lines[lineNum])) {
-            findings.push({
-              severity: pattern.severity,
-              category: pattern.category,
-              file: path.relative(projectPath, filePath),
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               line: lineNum + 1,
               title: pattern.category,
               description: `Found in ${path.basename(filePath)}:${lineNum + 1}`,

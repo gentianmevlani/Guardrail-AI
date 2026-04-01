@@ -11,13 +11,8 @@ import * as path from "path";
 import * as os from "os";
 import * as crypto from "crypto";
 import { spawn } from "child_process";
-<<<<<<< HEAD
 import type { CliCredentialState, ProductTier } from "@guardrail/core/unified-auth";
 import { normalizeTier } from "@guardrail/core/unified-auth";
-=======
-
-export type CliTier = "free" | "starter" | "pro" | "enterprise";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 function getCliConfigDir(): string {
   if (process.platform === "win32") {
@@ -47,9 +42,6 @@ async function atomicWrite(filePath: string, data: string): Promise<void> {
   await fs.rename(tmp, filePath);
 }
 
-<<<<<<< HEAD
-export type { CliCredentialState, ProductTier as CliTier };
-=======
 function planToTier(plan: string | undefined): CliTier {
   const p = (plan || "free").toLowerCase();
   if (p.includes("enterprise")) return "enterprise";
@@ -57,7 +49,6 @@ function planToTier(plan: string | undefined): CliTier {
   if (p.includes("starter")) return "starter";
   return "free";
 }
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface SyncCliCredentialsInput {
   apiKey: string;
@@ -73,15 +64,9 @@ export async function syncCliCredentialsFromExtension(
 ): Promise<void> {
   const cacheUntil = new Date(Date.now() + 15 * 60 * 1000).toISOString();
   const authenticatedAt = new Date().toISOString();
-<<<<<<< HEAD
   const state: CliCredentialState = {
     apiKey: input.apiKey,
     tier: normalizeTier(input.planLabel),
-=======
-  const state = {
-    apiKey: input.apiKey,
-    tier: planToTier(input.planLabel),
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     email: input.email ?? "",
     authenticatedAt,
     cacheUntil,
@@ -98,7 +83,6 @@ export function getCliStateFilePathForDisplay(): string {
   return CONFIG_FILE;
 }
 
-<<<<<<< HEAD
 /** Same `state.json` the CLI reads after extension sync (`tier`, `email`, `apiKey`). */
 export async function readCliGuardrailState(): Promise<{
   tier?: string;
@@ -113,8 +97,6 @@ export async function readCliGuardrailState(): Promise<{
   }
 }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 /**
  * Run `guardrail logout` if the CLI is on PATH — clears OS keychain entry so file-based
  * credentials from the extension take effect.

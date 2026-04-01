@@ -6,10 +6,7 @@ import { RealityCheckCodeLensProvider } from "./codelens";
 import { RealityCheckHoverProvider } from "./hover";
 import { AIIntentVerifier } from "./ai-intent-verifier";
 import { RealityCheckService } from "./reality-check-service";
-<<<<<<< HEAD
 import { GUARDRAIL_SHIP_SCORE_THRESHOLD } from "@guardrail/core";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { GuardrailMCPClient, ScanResult } from "./mcp-client";
 import { ScoreBadge } from "./score-badge";
 import { AgentVerifier } from "./agent-verifier";
@@ -26,7 +23,6 @@ import {
   GuardrailSidebarViewProvider,
   GUARDRAIL_SIDEBAR_VIEW_ID,
 } from "./features/guardrail-sidebar-view";
-<<<<<<< HEAD
 import { GuardrailHubPanel } from "./features/guardrail-hub-panel";
 import { PromptFirewallPanel } from "./features/prompt-firewall-panel";
 import { HallucinationDecorationManager } from "./features/hallucination-decorations";
@@ -41,8 +37,6 @@ import {
   getScanHistory,
   generateSparklineSvg,
 } from "./services/scan-history";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { GuardrailQuickFixProvider } from "./quick-fixes";
 import {
   coerceRange,
@@ -52,7 +46,6 @@ import {
   showContractDiff,
 } from "./quick-fix-commands";
 import { getGuardrailPanelHead } from "./webview-shared-styles";
-<<<<<<< HEAD
 import {
   aiVerificationStitchCss,
   getFindingDetailStitchCss,
@@ -60,9 +53,6 @@ import {
   getReadinessDashboardStitchCss,
 } from "./extension-webview-stitch-css";
 import { GUARDRAIL_VERSION } from "./guardrail-styles";
-=======
-import { KINETIC_ARCHIVE_VERSION } from "./kinetic-archive-styles";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { CLIService } from "./services/cli-service";
 import type { CLIResult } from "./services/cli-service";
 import {
@@ -72,7 +62,6 @@ import {
   trySpawnGuardrailLogout,
 } from "./services/cli-credentials-sync";
 import { extractJsonObject } from "./scan-cli-map";
-<<<<<<< HEAD
 import {
   buildWebDashboardUrl,
   getGuardrailWebAppDisplayHost,
@@ -94,8 +83,6 @@ import {
   type ProductionAuditPanelResult,
   type RealityCheckFindingItem,
 } from "./guardrail-panel-types";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 let diagnosticsProvider: RealityCheckDiagnosticsProvider;
 let codeLensProvider: RealityCheckCodeLensProvider;
@@ -107,16 +94,12 @@ let scoreBadge: ScoreBadge;
 let statusBarItem: vscode.StatusBarItem;
 let agentVerifier: AgentVerifier;
 let extensionContext: vscode.ExtensionContext;
-<<<<<<< HEAD
 let liveEngine: LiveActivityEngine;
 let platformBridge: PlatformBridge;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 /** Unified output for CLI invocations from the command palette / sidebar. */
 let cliOutputChannel: vscode.OutputChannel;
 
-<<<<<<< HEAD
 const PROFILE_TIER_POLL_MS = 90_000;
 let profileTierPollTimer: ReturnType<typeof setInterval> | undefined;
 
@@ -134,8 +117,6 @@ function stopProfileTierPolling(): void {
   }
 }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 function getCliForWorkspace(): CLIService | null {
   const folders = vscode.workspace.workspaceFolders;
   if (!folders?.length) {
@@ -167,29 +148,21 @@ export function activate(context: vscode.ExtensionContext) {
   // Store extension context for use in enterprise features
   extensionContext = context;
 
-<<<<<<< HEAD
   registerVibeCheckMemento(context.workspaceState);
   registerScanHistoryMemento(context.workspaceState);
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   cliOutputChannel = vscode.window.createOutputChannel("Guardrail CLI");
   context.subscriptions.push(cliOutputChannel);
 
   // Initialize MCP client and score badge
-<<<<<<< HEAD
   mcpClient = new GuardrailMCPClient({
     resolveTier: () => resolveExtensionTier(extensionContext),
   });
   GuardrailDashboardPanel.registerMcpClient(mcpClient);
-=======
-  mcpClient = new GuardrailMCPClient();
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   scoreBadge = new ScoreBadge(mcpClient);
   context.subscriptions.push(mcpClient);
   context.subscriptions.push(scoreBadge);
 
-<<<<<<< HEAD
   void refreshTierAndViews(extensionContext, scoreBadge);
 
   const cliStatePath = getCliStateFilePathForDisplay();
@@ -213,8 +186,6 @@ export function activate(context: vscode.ExtensionContext) {
     }),
   );
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       GUARDRAIL_SIDEBAR_VIEW_ID,
@@ -222,7 +193,6 @@ export function activate(context: vscode.ExtensionContext) {
     ),
   );
 
-<<<<<<< HEAD
   // Initialize Live Activity Engine
   liveEngine = new LiveActivityEngine();
   context.subscriptions.push(liveEngine);
@@ -277,8 +247,6 @@ export function activate(context: vscode.ExtensionContext) {
     );
   }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   // Initialize services
   realityCheckService = new RealityCheckService();
   diagnosticsProvider = new RealityCheckDiagnosticsProvider(
@@ -349,7 +317,6 @@ export function activate(context: vscode.ExtensionContext) {
   // Register verification commands
   context.subscriptions.push(
     vscode.commands.registerCommand("guardrail.verifyLastOutput", async () => {
-<<<<<<< HEAD
       // Open the AI Firewall panel for live visualization
       AIFirewallPanel.createOrShow(context.extensionUri);
 
@@ -417,34 +384,6 @@ export function activate(context: vscode.ExtensionContext) {
           accent: "var(--error)",
           service: "hallucination-guard",
         });
-=======
-      const result = await agentVerifier.verifyFromClipboard();
-      if (result.success) {
-        const action = await vscode.window.showInformationMessage(
-          "✅ Verification PASSED",
-          "Apply Diff",
-          "View Report"
-        );
-        if (action === "Apply Diff") {
-          await agentVerifier.applyVerifiedDiff();
-        } else if (action === "View Report") {
-          agentVerifier.showReport();
-        }
-      } else {
-        const action = await vscode.window.showErrorMessage(
-          `❌ Verification FAILED: ${result.blockers[0] || "Unknown error"}`,
-          "Copy Fix Prompt",
-          "View Report"
-        );
-        if (action === "Copy Fix Prompt") {
-          const copied = await agentVerifier.copyFailureContextToClipboard();
-          if (copied) {
-            vscode.window.showInformationMessage("Fix prompt copied to clipboard");
-          }
-        } else if (action === "View Report") {
-          agentVerifier.showReport();
-        }
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     }),
     vscode.commands.registerCommand("guardrail.verifySelection", async () => {
@@ -518,11 +457,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("guardrail.showFindings", () =>
       showFindingsPanel(),
     ),
-<<<<<<< HEAD
     vscode.commands.registerCommand("guardrail.applyFix", (finding: unknown) =>
-=======
-    vscode.commands.registerCommand("guardrail.applyFix", (finding: any) =>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       applyFix(finding),
     ),
     vscode.commands.registerCommand("guardrail.runShip", () =>
@@ -543,15 +478,12 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("guardrail.runDoctor", () => runDoctorCli()),
     vscode.commands.registerCommand("guardrail.runWhoami", () => runWhoamiCli()),
     vscode.commands.registerCommand("guardrail.runGate", () => runGateCli()),
-<<<<<<< HEAD
     vscode.commands.registerCommand("guardrail.runVibeCheck", () =>
       runVibeCheckCli(),
     ),
     vscode.commands.registerCommand("guardrail.applyTemplate", () =>
       runApplyTemplateCli(),
     ),
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     vscode.commands.registerCommand("guardrail.openWebDashboard", () =>
       openWebDashboard(),
     ),
@@ -560,11 +492,7 @@ export function activate(context: vscode.ExtensionContext) {
     ),
     vscode.commands.registerCommand(
       "guardrail.dismissFinding",
-<<<<<<< HEAD
       (finding: RealityCheckFindingItem) => dismissFinding(finding),
-=======
-      (finding: any) => dismissFinding(finding),
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     ),
     vscode.commands.registerCommand("guardrail.validateCode", () =>
       validateSelectedCode(),
@@ -614,12 +542,9 @@ export function activate(context: vscode.ExtensionContext) {
               plan: result.plan,
             });
 
-<<<<<<< HEAD
-=======
             // Refresh sidebar to show logged-in state
             GuardrailSidebarViewProvider.refreshIfOpen();
 
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             const syncCli = vscode.workspace
               .getConfiguration("guardrail")
               .get<boolean>("syncCredentialsToCli", true);
@@ -647,12 +572,9 @@ export function activate(context: vscode.ExtensionContext) {
                 `Logged in as ${result.user.email || result.user.name} (${result.plan})`,
               );
             }
-<<<<<<< HEAD
 
             void refreshTierAndViews(extensionContext, scoreBadge);
             startProfileTierPolling();
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           } catch (error: unknown) {
             const msg = error instanceof Error ? error.message : "Login failed";
             if (msg !== "Login cancelled") {
@@ -665,10 +587,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("guardrail.logout", async () => {
       const { ApiClient } = await import("./services/api-client");
       const client = new ApiClient(extensionContext);
-<<<<<<< HEAD
       stopProfileTierPolling();
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       await client.logout();
       const syncCli = vscode.workspace
         .getConfiguration("guardrail")
@@ -677,11 +596,7 @@ export function activate(context: vscode.ExtensionContext) {
         await trySpawnGuardrailLogout();
         await clearCliCredentialsFile();
       }
-<<<<<<< HEAD
       void refreshTierAndViews(extensionContext, scoreBadge);
-=======
-      GuardrailSidebarViewProvider.refreshIfOpen();
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       void vscode.window.showInformationMessage("Logged out of Guardrail");
     }),
     vscode.commands.registerCommand("guardrail.syncCliCredentials", async () => {
@@ -704,7 +619,6 @@ export function activate(context: vscode.ExtensionContext) {
       void vscode.window.showInformationMessage(
         `CLI credentials written to ${getCliStateFilePathForDisplay()}. Try \`guardrail whoami\` in a terminal.`,
       );
-<<<<<<< HEAD
       void refreshTierAndViews(extensionContext, scoreBadge);
     }),
     vscode.commands.registerCommand("guardrail.refreshPlan", async () => {
@@ -933,8 +847,6 @@ echo "✅ Guardrail: All clear."
     // Open AI Firewall panel
     vscode.commands.registerCommand("guardrail.openFirewall", () => {
       AIFirewallPanel.createOrShow(context.extensionUri);
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }),
     // Enterprise commands
     vscode.commands.registerCommand("guardrail.openMDCGenerator", () =>
@@ -1012,7 +924,6 @@ echo "✅ Guardrail: All clear."
       vscode.workspace.onDidSaveTextDocument((document) => {
         if (isSupportedLanguage(document.languageId)) {
           analyzeDocument(document);
-<<<<<<< HEAD
           // Emit live activity on save
           const rel = vscode.workspace.asRelativePath(document.uri);
           liveEngine.emit({
@@ -1023,8 +934,6 @@ echo "✅ Guardrail: All clear."
             file: rel,
           });
           liveEngine.pulse("context-engine", "active", `Scanning ${rel}`);
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         }
       }),
     );
@@ -1044,7 +953,6 @@ echo "✅ Guardrail: All clear."
     );
   }
 
-<<<<<<< HEAD
   // Track workspace file events for context engine awareness
   context.subscriptions.push(
     vscode.workspace.onDidCreateFiles((e) => {
@@ -1088,8 +996,6 @@ echo "✅ Guardrail: All clear."
     });
   }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   // Analyze active document on activation
   if (vscode.window.activeTextEditor) {
     const doc = vscode.window.activeTextEditor.document;
@@ -1135,10 +1041,7 @@ async function scanWorkspace(): Promise<void> {
   const projectPath = workspaceFolders[0].uri.fsPath;
 
   scoreBadge.setScanning();
-<<<<<<< HEAD
   liveEngine.scanStarted();
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   await vscode.window.withProgress(
     {
@@ -1154,7 +1057,6 @@ async function scanWorkspace(): Promise<void> {
 
         scoreBadge.updateScore(result);
         GuardrailDashboardPanel.refreshIfOpen();
-<<<<<<< HEAD
         GuardrailHubPanel.refreshIfOpen();
 
         // Send trust score to Hub radar (construct from scan results)
@@ -1289,22 +1191,10 @@ async function scanWorkspace(): Promise<void> {
           action,
           "Open Hub",
           "View on Web",
-=======
-
-        // Show result notification
-        const action = result.canShip ? "View Report" : "View Issues";
-        const icon =
-          result.score >= 80 ? "🟢" : result.score >= 50 ? "🟡" : "🔴";
-
-        const selection = await vscode.window.showInformationMessage(
-          `${icon} guardrail Score: ${result.score}/100 - ${result.canShip ? "Ready to ship!" : "Issues found"}`,
-          action,
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         );
 
         if (selection === action) {
           showDashboard();
-<<<<<<< HEAD
         } else if (selection === "Open Hub") {
           GuardrailHubPanel.createOrShow(context.extensionUri);
         } else if (selection === "View on Web") {
@@ -1324,13 +1214,6 @@ async function scanWorkspace(): Promise<void> {
         });
         vscode.window.showErrorMessage(
           `guardrail scan failed: ${getErrorMessage(error)}`,
-=======
-        }
-      } catch (error: any) {
-        scoreBadge.setError(error.message);
-        vscode.window.showErrorMessage(
-          `guardrail scan failed: ${error.message}`,
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         );
       }
     },
@@ -1390,7 +1273,6 @@ async function validateSelectedCode(): Promise<void> {
 
         const result = await mcpClient.validate(selectedText);
 
-<<<<<<< HEAD
         if (
           result.issueDetailsRedacted &&
           (result.redactedIssueCount ?? 0) > 0
@@ -1408,8 +1290,6 @@ async function validateSelectedCode(): Promise<void> {
           return;
         }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         if (result.status === "passed") {
           vscode.window.showInformationMessage(
             `✅ Code validation passed (${result.score}/100)`,
@@ -1420,13 +1300,8 @@ async function validateSelectedCode(): Promise<void> {
             `⚠️ Code validation found issues (${result.score}/100):\n${issues}`,
           );
         }
-<<<<<<< HEAD
       } catch (error: unknown) {
         vscode.window.showErrorMessage(`Validation failed: ${getErrorMessage(error)}`);
-=======
-      } catch (error: any) {
-        vscode.window.showErrorMessage(`Validation failed: ${error.message}`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     },
   );
@@ -1465,15 +1340,11 @@ async function analyzeDocument(document: vscode.TextDocument): Promise<void> {
     const critical = findings.filter((f) => f.type === "critical").length;
     const warnings = findings.filter((f) => f.type === "warning").length;
     const suggestions = findings.filter((f) => f.type === "suggestion").length;
-<<<<<<< HEAD
     const total = critical + warnings + suggestions;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     updateStatusBar(critical, warnings, suggestions);
     codeLensProvider.updateFindings(document.uri, findings);
     hoverProvider.updateFindings(document.uri, findings);
-<<<<<<< HEAD
 
     // Emit findings to live engine
     const rel = vscode.workspace.asRelativePath(document.uri);
@@ -1482,8 +1353,6 @@ async function analyzeDocument(document: vscode.TextDocument): Promise<void> {
     } else {
       liveEngine.fileScanned(rel, 0);
     }
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   } catch (error) {
     console.error("Reality Check analysis failed:", error);
     statusBarItem.text = "$(error) Reality Check Error";
@@ -1537,15 +1406,9 @@ async function analyzeSelection(): Promise<void> {
       selectedText,
       editor.document.fileName,
     );
-<<<<<<< HEAD
     showFindingsQuickPick(findings as RealityCheckFindingItem[]);
   } catch (error: unknown) {
     vscode.window.showErrorMessage(`Analysis failed: ${getErrorMessage(error)}`);
-=======
-    showFindingsQuickPick(findings);
-  } catch (error: any) {
-    vscode.window.showErrorMessage(`Analysis failed: ${error.message}`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 }
 
@@ -1586,17 +1449,10 @@ async function analyzeWorkspace(): Promise<void> {
         progress.report({ increment: 100, message: "Complete!" });
 
         // Show results in a webview
-<<<<<<< HEAD
         showProductionAuditResults(result as unknown as ProductionAuditPanelResult);
       } catch (error: unknown) {
         vscode.window.showErrorMessage(
           `Production audit failed: ${getErrorMessage(error)}`,
-=======
-        showProductionAuditResults(result);
-      } catch (error: any) {
-        vscode.window.showErrorMessage(
-          `Production audit failed: ${error.message}`,
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         );
       }
     },
@@ -1646,7 +1502,6 @@ async function verifyIntent(): Promise<void> {
         progress.report({ message: "Analyzing with AI..." });
 
         const result = await aiVerifier.verify(selectedText, apiKey);
-<<<<<<< HEAD
         showAIVerificationResults(
           result as unknown as AIVerificationPanelResult,
           editor,
@@ -1654,12 +1509,6 @@ async function verifyIntent(): Promise<void> {
       } catch (error: unknown) {
         vscode.window.showErrorMessage(
           `AI verification failed: ${getErrorMessage(error)}`,
-=======
-        showAIVerificationResults(result, editor);
-      } catch (error: any) {
-        vscode.window.showErrorMessage(
-          `AI verification failed: ${error.message}`,
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         );
       }
     },
@@ -1679,11 +1528,7 @@ function showFindingsPanel(): void {
   vscode.commands.executeCommand("workbench.action.problems.focus");
 }
 
-<<<<<<< HEAD
 function showFindingsQuickPick(findings: RealityCheckFindingItem[]): void {
-=======
-function showFindingsQuickPick(findings: any[]): void {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   if (findings.length === 0) {
     vscode.window.showInformationMessage(
       "✅ No reality gaps detected! Your code does what you think.",
@@ -1692,15 +1537,9 @@ function showFindingsQuickPick(findings: any[]): void {
   }
 
   const items = findings.map((f) => ({
-<<<<<<< HEAD
     label: `${f.type === "critical" ? "❌" : f.type === "warning" ? "⚠️" : "💡"} ${String(f.category ?? "")}`,
     description: String(f.intent ?? ""),
     detail: `Reality: ${String(f.reality ?? "")}`,
-=======
-    label: `${f.type === "critical" ? "❌" : f.type === "warning" ? "⚠️" : "💡"} ${f.category}`,
-    description: f.intent,
-    detail: `Reality: ${f.reality}`,
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     finding: f,
   }));
 
@@ -1717,17 +1556,10 @@ function showFindingsQuickPick(findings: any[]): void {
     });
 }
 
-<<<<<<< HEAD
 function showFindingDetail(finding: RealityCheckFindingItem): void {
   const panel = vscode.window.createWebviewPanel(
     "guardrailFinding",
     `Reality Check: ${String(finding.category ?? "")}`,
-=======
-function showFindingDetail(finding: any): void {
-  const panel = vscode.window.createWebviewPanel(
-    "guardrailFinding",
-    `Reality Check: ${finding.category}`,
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     vscode.ViewColumn.Beside,
     { enableScripts: true },
   );
@@ -1735,11 +1567,7 @@ function showFindingDetail(finding: any): void {
   panel.webview.html = getFindingDetailHtml(finding);
 }
 
-<<<<<<< HEAD
 function getFindingDetailHtml(finding: RealityCheckFindingItem): string {
-=======
-function getFindingDetailHtml(finding: any): string {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   const typeColor =
     finding.type === "critical"
       ? "#ff6b6b"
@@ -1753,8 +1581,6 @@ function getFindingDetailHtml(finding: any): string {
         ? "⚠️"
         : "💡";
 
-<<<<<<< HEAD
-=======
   const findingCss = `
     .finding-pad { padding: 16px; }
     .header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
@@ -1768,64 +1594,39 @@ function getFindingDetailHtml(finding: any): string {
     .confidence-bar { height: 8px; background: var(--surface-container-highest); border-radius: 4px; overflow: hidden; }
     .confidence-fill { height: 100%; background: ${typeColor}; }
   `;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   return `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<<<<<<< HEAD
   ${getGuardrailPanelHead(getFindingDetailStitchCss(typeColor))}
-=======
-  ${getGuardrailPanelHead(findingCss)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
   <div class="ka-shell finding-pad">
-<<<<<<< HEAD
   <div class="fd-head">
     <span style="font-size: 24px">${typeIcon}</span>
     <h2 style="margin: 0">${String(finding.category ?? "").replace(/-/g, " ").toUpperCase()}</h2>
     <span class="badge">${String(finding.type ?? "").toUpperCase()}</span>
-=======
-  <div class="header">
-    <span style="font-size: 24px">${typeIcon}</span>
-    <h2 style="margin: 0">${finding.category.replace(/-/g, " ").toUpperCase()}</h2>
-    <span class="badge">${finding.type.toUpperCase()}</span>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   </div>
 
   <div class="section">
     <div class="section-title">Code</div>
-<<<<<<< HEAD
     <pre class="code">${escapeHtml(String(finding.code ?? ""))}</pre>
-=======
-    <pre class="code">${escapeHtml(finding.code)}</pre>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   </div>
 
   <div class="section">
     <div class="section-title">What You Think</div>
-<<<<<<< HEAD
     <p class="intent">${escapeHtml(String(finding.intent ?? ""))}</p>
-=======
-    <p class="intent">${escapeHtml(finding.intent)}</p>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   </div>
 
   <div class="section">
     <div class="section-title">The Reality</div>
-<<<<<<< HEAD
     <p class="reality">${escapeHtml(String(finding.reality ?? ""))}</p>
-=======
-    <p class="reality">${escapeHtml(finding.reality)}</p>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   </div>
 
   <div class="section">
     <div class="section-title">Why It Matters</div>
-<<<<<<< HEAD
     <p>${escapeHtml(String(finding.explanation ?? ""))}</p>
   </div>
 
@@ -1833,15 +1634,6 @@ function getFindingDetailHtml(finding: any): string {
     <div class="section-title">Confidence: ${Math.round(Number(finding.confidence ?? 0) * 100)}%</div>
     <div class="confidence-bar">
       <div class="confidence-fill" style="width: ${Number(finding.confidence ?? 0) * 100}%"></div>
-=======
-    <p>${escapeHtml(finding.explanation)}</p>
-  </div>
-
-  <div class="confidence">
-    <div class="section-title">Confidence: ${Math.round(finding.confidence * 100)}%</div>
-    <div class="confidence-bar">
-      <div class="confidence-fill" style="width: ${finding.confidence * 100}%"></div>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     </div>
   </div>
   </div>
@@ -1868,9 +1660,6 @@ function getDashboardHtml(score: number): string {
       : score >= 50
         ? "Needs Attention"
         : "Critical Issues";
-<<<<<<< HEAD
-  const webAppHost = getGuardrailWebAppDisplayHost();
-=======
 
   const dashboardCss = `
     .db-pad { padding: 24px 16px 32px; max-width: 720px; margin: 0 auto; }
@@ -1957,18 +1746,13 @@ function getDashboardHtml(score: number): string {
       font-size: 11px;
     }
   `;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   return `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<<<<<<< HEAD
   ${getGuardrailPanelHead(getReadinessDashboardStitchCss(scoreColor))}
-=======
-  ${getGuardrailPanelHead(dashboardCss)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
@@ -2019,11 +1803,7 @@ function getDashboardHtml(score: number): string {
   </div>
 
   <div class="footer">
-<<<<<<< HEAD
-    guardrail v${GUARDRAIL_VERSION} · ${webAppHost}
-=======
     guardrail v${KINETIC_ARCHIVE_VERSION} · guardrailai.dev
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   </div>
 
   <script>
@@ -2038,11 +1818,7 @@ function getDashboardHtml(score: number): string {
 </html>`;
 }
 
-<<<<<<< HEAD
 function showProductionAuditResults(result: ProductionAuditPanelResult): void {
-=======
-function showProductionAuditResults(result: any): void {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   const panel = vscode.window.createWebviewPanel(
     "guardrailAudit",
     "🔮 Production Reality Check",
@@ -2053,16 +1829,6 @@ function showProductionAuditResults(result: any): void {
   panel.webview.html = getProductionAuditHtml(result);
 }
 
-<<<<<<< HEAD
-function getProductionAuditHtml(result: ProductionAuditPanelResult): string {
-  const rawSc = result.integrity?.score;
-  const score =
-    typeof rawSc === "number" ? rawSc : "—";
-  const grade = result.integrity?.grade || "?";
-  const canShip = result.integrity?.canShip || false;
-  const shipColor = canShip ? "#6ee7b7" : "#ff6b6b";
-
-=======
 function getProductionAuditHtml(result: any): string {
   const score = result.integrity?.score || 0;
   const grade = result.integrity?.grade || "F";
@@ -2086,17 +1852,12 @@ function getProductionAuditHtml(result: any): string {
     .audit-foot { text-align: center; color: var(--outline); margin-top: 24px; font-size: 12px; }
   `;
 
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   return `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<<<<<<< HEAD
   ${getGuardrailPanelHead(getProductionAuditStitchCss(shipColor))}
-=======
-  ${getGuardrailPanelHead(auditCss)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
@@ -2111,7 +1872,6 @@ function getProductionAuditHtml(result: any): string {
     <h3>🎭 Reality vs. Expectation</h3>
     <div class="metric">
       <span>API Endpoints Working</span>
-<<<<<<< HEAD
       <span class="metric-value ${(result.counts?.api?.missing ?? 0) > 0 ? "critical" : "ok"}">${result.counts?.api?.connected || 0} / ${(result.counts?.api?.connected || 0) + (result.counts?.api?.missing || 0)}</span>
     </div>
     <div class="metric">
@@ -2125,21 +1885,6 @@ function getProductionAuditHtml(result: any): string {
     <div class="metric">
       <span>Dead Links</span>
       <span class="metric-value ${(result.counts?.routes?.deadLinks ?? 0) > 0 ? "warning" : "ok"}">${result.counts?.routes?.deadLinks || 0}</span>
-=======
-      <span class="metric-value ${result.counts?.api?.missing > 0 ? "critical" : "ok"}">${result.counts?.api?.connected || 0} / ${(result.counts?.api?.connected || 0) + (result.counts?.api?.missing || 0)}</span>
-    </div>
-    <div class="metric">
-      <span>Auth Coverage</span>
-      <span class="metric-value ${result.counts?.auth?.exposed > 0 ? "critical" : "ok"}">${result.counts?.auth?.protected || 0} protected, ${result.counts?.auth?.exposed || 0} exposed</span>
-    </div>
-    <div class="metric">
-      <span>Hardcoded Secrets</span>
-      <span class="metric-value ${result.counts?.secrets?.critical > 0 ? "critical" : "ok"}">${result.counts?.secrets?.critical || 0} critical</span>
-    </div>
-    <div class="metric">
-      <span>Dead Links</span>
-      <span class="metric-value ${result.counts?.routes?.deadLinks > 0 ? "warning" : "ok"}">${result.counts?.routes?.deadLinks || 0}</span>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     </div>
     <div class="metric">
       <span>Mock Code in Production</span>
@@ -2156,11 +1901,7 @@ function getProductionAuditHtml(result: any): string {
 }
 
 function showAIVerificationResults(
-<<<<<<< HEAD
   result: AIVerificationPanelResult,
-=======
-  result: any,
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   editor: vscode.TextEditor,
 ): void {
   const panel = vscode.window.createWebviewPanel(
@@ -2173,9 +1914,6 @@ function showAIVerificationResults(
   panel.webview.html = getAIVerificationHtml(result);
 }
 
-<<<<<<< HEAD
-function getAIVerificationHtml(result: AIVerificationPanelResult): string {
-=======
 function getAIVerificationHtml(result: any): string {
   const aiCss = `
     .ai-pad { padding: 16px; max-width: 720px; margin: 0 auto; }
@@ -2189,26 +1927,17 @@ function getAIVerificationHtml(result: any): string {
     .ai-foot { text-align: center; color: var(--outline); margin-top: 24px; font-size: 12px; }
   `;
 
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   return `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<<<<<<< HEAD
   ${getGuardrailPanelHead(aiVerificationStitchCss)}
-=======
-  ${getGuardrailPanelHead(aiCss)}
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
   <div class="ka-shell ai-pad">
-<<<<<<< HEAD
   <div class="ai-hero">
-=======
-  <div class="header">
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     <h1>🤖 AI Intent Verification</h1>
     <p>Cross-checked your code against AI understanding</p>
   </div>
@@ -2262,7 +1991,6 @@ async function applyFix(_finding: unknown): Promise<void> {
   await vscode.commands.executeCommand("editor.action.quickFix");
 }
 
-<<<<<<< HEAD
 async function dismissFinding(finding: RealityCheckFindingItem): Promise<void> {
   const cat = typeof finding.category === "string" ? finding.category : "finding";
   const id =
@@ -2274,11 +2002,6 @@ async function dismissFinding(finding: RealityCheckFindingItem): Promise<void> {
     await extensionContext.globalState.update(key, prev);
   }
   void vscode.window.showInformationMessage(`Dismissed: ${cat}`);
-=======
-async function dismissFinding(finding: any): Promise<void> {
-  // TODO: Add to dismissed list
-  vscode.window.showInformationMessage(`Dismissed: ${finding.category}`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 /**
@@ -2343,7 +2066,6 @@ async function runShipCheck(): Promise<void> {
           }
         }
 
-<<<<<<< HEAD
         const sc = result.score;
         const scorePart =
           sc === null ? "Score: —" : `Score: ${sc}/100`;
@@ -2354,15 +2076,6 @@ async function runShipCheck(): Promise<void> {
         vscode.window.showInformationMessage(message, "View Report");
       } catch (error: unknown) {
         vscode.window.showErrorMessage(`Ship Check failed: ${getErrorMessage(error)}`);
-=======
-        const message = result.canShip 
-          ? `🟢 Ship Ready! Score: ${result.score}/100`
-          : `🔴 Not Ready. Score: ${result.score}/100`;
-        
-        vscode.window.showInformationMessage(message, "View Report");
-      } catch (error: any) {
-        vscode.window.showErrorMessage(`Ship Check failed: ${error.message}`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     }
   );
@@ -2388,13 +2101,8 @@ async function runRealityMode(): Promise<void> {
       try {
         const result = await mcpClient.execCLI("reality", [], workspaceFolders[0].uri.fsPath);
         vscode.window.showInformationMessage("Reality Mode completed!", "View Report");
-<<<<<<< HEAD
       } catch (error: unknown) {
         vscode.window.showErrorMessage(`Reality Mode failed: ${getErrorMessage(error)}`);
-=======
-      } catch (error: any) {
-        vscode.window.showErrorMessage(`Reality Mode failed: ${error.message}`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     }
   );
@@ -2452,7 +2160,6 @@ async function runWhoamiCli(): Promise<void> {
   );
 }
 
-<<<<<<< HEAD
 async function runVibeCheckCli(): Promise<void> {
   const cli = getCliForWorkspace();
   if (!cli) {
@@ -2602,8 +2309,6 @@ async function runApplyTemplateCli(): Promise<void> {
   );
 }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 async function runGateCli(): Promise<void> {
   const cli = getCliForWorkspace();
   if (!cli) {
@@ -2778,19 +2483,12 @@ async function runSmells(): Promise<void> {
  */
 async function openWebDashboard(): Promise<void> {
   const config = vscode.workspace.getConfiguration("guardrail");
-<<<<<<< HEAD
-  const preferLocal = config.get<boolean>("openLocalWebAppFirst", false);
-  const workspaceName = vscode.workspace.workspaceFolders?.[0]?.name;
-
-  let target = buildWebDashboardUrl({ workspaceName, context: "palette" });
-=======
   const configured = config
     .get<string>("webAppUrl", "https://guardrailai.dev")
     .replace(/\/$/, "");
   const preferLocal = config.get<boolean>("openLocalWebAppFirst", false);
 
   let target = `${configured}/?source=vscode`;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   if (preferLocal) {
     try {
       const ctrl = new AbortController();
@@ -2801,15 +2499,11 @@ async function openWebDashboard(): Promise<void> {
       });
       clearTimeout(t);
       if (r.ok) {
-<<<<<<< HEAD
         target = buildWebDashboardUrl({
           workspaceName,
           context: "palette",
           baseOrigin: "http://localhost:3000",
         });
-=======
-        target = "http://localhost:3000/?source=vscode";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     } catch {
       /* use configured remote */
@@ -2850,13 +2544,8 @@ async function runAutoFix(): Promise<void> {
       try {
         const result = await mcpClient.execCLI("fix", ["--dry-run"], workspaceFolders[0].uri.fsPath);
         vscode.window.showInformationMessage("Auto-Fix analysis completed! Review changes before applying.", "Apply Changes");
-<<<<<<< HEAD
       } catch (error: unknown) {
         vscode.window.showErrorMessage(`Auto-Fix failed: ${getErrorMessage(error)}`);
-=======
-      } catch (error: any) {
-        vscode.window.showErrorMessage(`Auto-Fix failed: ${error.message}`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     }
   );
@@ -2941,11 +2630,6 @@ function openProductionIntegrity() {
   ProductionIntegrityPanel.createOrShow(workspaceFolders[0].uri.fsPath, extensionContext);
 }
 
-<<<<<<< HEAD
-export function deactivate(): void {
-  stopProfileTierPolling();
-=======
 export function deactivate() {
   console.log("guardrail Reality Check deactivated");
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }

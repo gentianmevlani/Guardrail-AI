@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { join, resolve } from 'path';
-=======
-import { join } from 'path';
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { readFileSync, existsSync, writeFileSync } from 'fs';
 import { icons, styles } from '../ui/cli-styles';
 import { c, printLogo } from '../ui/cli-terminal';
@@ -25,16 +21,12 @@ export type MenuAction =
   | 'auth'
   | 'upgrade'
   | 'doctor'
-<<<<<<< HEAD
   | 'exit'
   | 'scan_secrets'
   | 'scan_vulns'
   | 'scan_compliance'
   | 'sbom'
   | 'reality';
-=======
-  | 'exit';
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export async function runInteractiveMenu(): Promise<void> {
   const cfg = loadConfig();
@@ -161,14 +153,10 @@ export async function runInteractiveMenu(): Promise<void> {
       console.log(`  ${c.success('✓')} Truth Pack found`);
       console.log(`  ${c.success('✓')} ${c.bold('Context Mode active')}`);
       console.log(`  ${c.dim('Press Ctrl+C to stop')}\n`);
-<<<<<<< HEAD
       console.log(
         `  ${c.dim('Note:')} MCP server + file watcher are not bundled in this CLI build.\n` +
           `  ${c.dim('Use')} ${c.bold('guardrail ship')} ${c.dim('for full deployment gates, or run the MCP server from the docs.')}\n`
       );
-=======
-      // TODO: Actually start MCP server and watcher
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       continue;
     }
 
@@ -199,7 +187,6 @@ export async function runInteractiveMenu(): Promise<void> {
     if (action === 'checkpoint') {
       const projectPath = cfg.lastProjectPath || '.';
       console.log(`\n${c.bold('🛡️ CHECKPOINT VERIFICATION')}\n`);
-<<<<<<< HEAD
       console.log(
         `  ${c.dim('Checkpoint runs a lightweight Truth Pack freshness check.')}\n` +
           `  ${c.dim('For full verification run')} ${c.bold('guardrail scan')} ${c.dim('then')} ${c.bold('guardrail ship')}${c.dim('.')}\n`
@@ -211,11 +198,6 @@ export async function runInteractiveMenu(): Promise<void> {
       } else {
         console.log(`  ${c.high('✗')} Truth Pack missing or stale — run ${c.bold('guardrail init')}\n`);
       }
-=======
-      // TODO: Implement checkpoint verification
-      console.log(`  ${c.success('✓')} Checkpoint passed`);
-      console.log(`  ${c.dim('No blocking issues found')}\n`);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       continue;
     }
 
@@ -398,11 +380,7 @@ export async function runInteractiveMenu(): Promise<void> {
             console.log(`  ${styles.brightRed}${icons.error} Failed to install: ${installResult.error}${styles.reset}`);
             console.log('');
             console.log(`  ${styles.bold}Manual install commands:${styles.reset}`);
-<<<<<<< HEAD
             depCheck.installCommands.forEach((cmd: string) => {
-=======
-            depCheck.installCommands.forEach(cmd => {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               console.log(`    ${styles.brightCyan}${cmd}${styles.reset}`);
             });
             console.log('');
@@ -427,11 +405,7 @@ export async function runInteractiveMenu(): Promise<void> {
         cwd: projectPath
       });
       
-<<<<<<< HEAD
       realityProc.on('close', (code: number | null) => {
-=======
-      realityProc.on('close', (code) => {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         if (code === 0) {
           console.log(`\n  ${styles.brightGreen}${icons.success} Reality mode completed${styles.reset}`);
         } else {

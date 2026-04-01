@@ -241,13 +241,8 @@ describe('Template Configuration', () => {
     it('should have startup as first option', () => {
       const choices = getTemplateChoices();
 
-<<<<<<< HEAD
       expect(choices[0]!.value).toBe('startup');
       expect(choices[0]!.name).toBe('Startup');
-=======
-      expect(choices[0].value).toBe('startup');
-      expect(choices[0].name).toBe('Startup');
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
   });
 

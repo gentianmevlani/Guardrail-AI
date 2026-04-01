@@ -11,11 +11,8 @@ import * as fs from "fs";
 import { ApiClient } from "../services/api-client";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
-<<<<<<< HEAD
 import { performanceMonitorStitchCss } from "./performance-monitor-stitch-css";
 import { getPerformanceMonitorNexusHtml } from "./performance-monitor-webview-html";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { buildPerformanceMetricsFromScan } from "../scan-cli-map";
 
 export interface PerformanceMetric {
@@ -387,11 +384,7 @@ export class PerformancePanel {
 
     const panel = vscode.window.createWebviewPanel(
       'performanceMonitor',
-<<<<<<< HEAD
-      'Nexus Monitor',
-=======
       'Performance Monitor',
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -523,11 +516,6 @@ export class PerformancePanel {
   }
 
   private _getHtmlContent(): string {
-<<<<<<< HEAD
-    return getPerformanceMonitorNexusHtml(
-      getGuardrailPanelHead(performanceMonitorStitchCss),
-    );
-=======
     const panelCss = `
     .perf-main { padding: 16px; flex: 1; }
     .metrics-grid {
@@ -726,7 +714,6 @@ export class PerformancePanel {
   </div>
 </body>
 </html>`;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   public dispose() {

@@ -12,10 +12,7 @@ import { antipatternsScanTool, antipatternsCheckTool } from "./tools/antipattern
 import { routesListTool, routesExistsTool } from "./tools/routes.js";
 import { autopilotTool, intentTool } from "./tools/autopilot.js";
 import { scopeDeclareTool, scopeCheckTool, scopeClearTool } from "./tools/scope.js";
-<<<<<<< HEAD
 import { promptFirewallAnalyzeTool, promptInjectionDetectTool, promptSafetyCheckTool } from "./tools/prompt.js";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 const MCP_VERSION = "2024-11-05";
 
@@ -204,7 +201,6 @@ const TOOLS = [
       },
       required: ["repoRoot", "files"]
     }
-<<<<<<< HEAD
   },
   {
     name: "prompt_firewall_analyze",
@@ -251,9 +247,6 @@ const TOOLS = [
       required: ["text"]
     }
   },
-=======
-  }
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 ];
 
 export async function handleToolCall(call: ToolCall): Promise<ToolResult> {
@@ -316,7 +309,6 @@ export async function handleToolCall(call: ToolCall): Promise<ToolResult> {
       
       case "scope_check":
         return text(JSON.stringify(await scopeCheckTool(repoRoot, args.files as string[]), null, 2));
-<<<<<<< HEAD
 
       case "prompt_firewall_analyze":
         return text(JSON.stringify(await promptFirewallAnalyzeTool(repoRoot, String(args.prompt), args.options as any), null, 2));
@@ -327,9 +319,6 @@ export async function handleToolCall(call: ToolCall): Promise<ToolResult> {
       case "prompt_safety_check":
         return text(JSON.stringify(await promptSafetyCheckTool(String(args.text)), null, 2));
 
-=======
-      
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       default:
         throw new Error(`Unknown tool: ${call.name}`);
     }

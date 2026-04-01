@@ -11,10 +11,7 @@ import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
 import { getGuardrailPanelHead } from '../webview-shared-styles';
-<<<<<<< HEAD
 import { mdcGeneratorStitchCss } from './mdc-generator-stitch-css';
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { mapContextJsonToMdcResults } from '../scan-cli-map';
 
 export interface MDCResult {
@@ -336,22 +333,6 @@ export class MDCGeneratorPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-  <title>Prism MDC</title>
-  ${getGuardrailPanelHead(mdcGeneratorStitchCss)}
-</head>
-<body class="ka-dashboard-body ka-panel-page mdc-page">
-  <div class="ka-ambient" aria-hidden="true"></div>
-  <div class="mdc-cyber-grid" aria-hidden="true"></div>
-  <div class="mdc-shell">
-  <header class="mdc-head">
-    <div class="mdc-head-icon" aria-hidden="true">📋</div>
-    <div>
-      <h1 class="mdc-title">Prism MDC</h1>
-      <p class="mdc-sub">Generate verified codebase documentation with hallucination detection.</p>
-    </div>
-  </header>
-=======
   <title>MDC Generator</title>
   ${getGuardrailPanelHead(`
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -539,7 +520,6 @@ export class MDCGeneratorPanel {
       <div class="subtitle">Generate verified codebase documentation with hallucination detection</div>
     </div>
   </div>
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   <div class="controls">
     <div class="control-row">

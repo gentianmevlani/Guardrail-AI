@@ -83,11 +83,7 @@ export function registerFixCommand(program: Command): void {
             const lines = content.split('\n');
             const lineIdx = f.line - 1;
             if (lineIdx >= 0 && lineIdx < lines.length) {
-<<<<<<< HEAD
               oldCode = lines[lineIdx] ?? '';
-=======
-              oldCode = lines[lineIdx];
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               // Simulate the fix to get new code
               newCode = simulateFix(f, oldCode);
             }
@@ -232,26 +228,17 @@ async function applyFix(finding: FixableFinding, projectPath: string): Promise<v
 
   // Apply fix based on type
   switch (finding.fixType) {
-<<<<<<< HEAD
     case 'remove_dead_ui': {
       // Remove dead link or noop handler
       const currentLine = lines[lineIndex];
       if (!currentLine) break;
-=======
-    case 'remove_dead_ui':
-      // Remove dead link or noop handler
-      const currentLine = lines[lineIndex];
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (currentLine.includes('href="#"')) {
         lines[lineIndex] = currentLine.replace(/href=["']#["']/g, 'href="#" // TODO: Add actual route');
       } else if (currentLine.includes('onClick={() => {}}')) {
         lines[lineIndex] = currentLine.replace(/onClick\s*=\s*{\s*\(\)\s*=>\s*\{\s*\}\s*}/g, 'onClick={() => { /* TODO: Implement handler */ }}');
       }
       break;
-<<<<<<< HEAD
     }
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     case 'add_loading_state':
       // Add loading state scaffold (UI-only, safe)
@@ -265,16 +252,10 @@ async function applyFix(finding: FixableFinding, projectPath: string): Promise<v
       }
       break;
 
-<<<<<<< HEAD
     case 'replace_empty_catch': {
       // Replace empty catch with logged+rethrow (when safe)
       const catchLine = lines[lineIndex];
       if (!catchLine) break;
-=======
-    case 'replace_empty_catch':
-      // Replace empty catch with logged+rethrow (when safe)
-      const catchLine = lines[lineIndex];
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (catchLine.includes('catch') && catchLine.includes('{}')) {
         lines[lineIndex] = catchLine.replace(
           /catch\s*\(([^)]*)\)\s*\{\s*\}/,
@@ -282,27 +263,17 @@ async function applyFix(finding: FixableFinding, projectPath: string): Promise<v
         );
       }
       break;
-<<<<<<< HEAD
     }
 
     case 'tighten_env_default': {
       // Add warning comment for dangerous defaults
       const envLine = lines[lineIndex];
       if (!envLine) break;
-=======
-
-    case 'tighten_env_default':
-      // Add warning comment for dangerous defaults
-      const envLine = lines[lineIndex];
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (envLine.includes('process.env') && envLine.includes('||')) {
         lines[lineIndex] = `// WARNING: Using default value - ensure this is safe for production\n${envLine}`;
       }
       break;
-<<<<<<< HEAD
     }
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   // Write back
@@ -312,12 +283,8 @@ async function applyFix(finding: FixableFinding, projectPath: string): Promise<v
 function findComponentStart(lines: string[], currentLine: number): number {
   // Find the start of the component/function
   for (let i = currentLine; i >= 0 && i >= currentLine - 50; i--) {
-<<<<<<< HEAD
     const line = lines[i];
     if (line?.match(/^(export\s+)?(function|const|class)\s+\w+/)) {
-=======
-    if (lines[i].match(/^(export\s+)?(function|const|class)\s+\w+/)) {
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       return i;
     }
   }

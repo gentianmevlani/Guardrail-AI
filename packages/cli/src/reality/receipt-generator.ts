@@ -91,12 +91,8 @@ export interface ReceiptBundle {
   attestation: {
     algorithm: 'RS256' | 'ES256' | 'HMAC-SHA256';
     keyId: string;
-<<<<<<< HEAD
     /** Omitted while verifying; always set when persisting a signed receipt */
     signature?: string;
-=======
-    signature: string;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     publicKey?: string; // For RSA/ECDSA
     signedAt: string;
   };
@@ -554,12 +550,9 @@ export async function verifyReceipt(receiptPath: string, orgPublicKey?: string):
     
     // Extract signature
     const storedSignature = receipt.attestation.signature;
-<<<<<<< HEAD
     if (storedSignature === undefined) {
       return false;
     }
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     delete receipt.attestation.signature;
     
     // Recompute signature
@@ -666,11 +659,7 @@ Artifacts:
 Attestation:
   • Algorithm: ${receipt.attestation.algorithm}
   • Key ID: ${receipt.attestation.keyId}
-<<<<<<< HEAD
   • Signature: ${(receipt.attestation.signature ?? '').slice(0, 32)}...
-=======
-  • Signature: ${receipt.attestation.signature.slice(0, 32)}...
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 Receipt Path: ${receiptPath}
 `;

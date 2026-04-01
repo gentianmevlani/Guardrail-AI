@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { describe, it, expect, vi } from "vitest";
 import { actionInterceptor } from "../../sandbox/action-interceptor";
 import { ActionAttempt, type AgentPermissionScope } from "@guardrail/core";
@@ -38,34 +37,6 @@ vi.mock("../../sandbox/permission-manager", () => ({
   permissionManager: {
     isAgentActive: vi.fn().mockResolvedValue(true),
     getPermissions: vi.fn().mockResolvedValue(simulatedAgentScope),
-=======
-import { describe, it, expect, jest } from "@jest/globals";
-import { actionInterceptor } from "../../sandbox/action-interceptor";
-import { ActionAttempt } from "@guardrail/core";
-
-// Mock the permission manager to simulate a standard agent
-jest.mock("../../sandbox/permission-manager", () => ({
-  permissionManager: {
-    isAgentActive: jest.fn<() => Promise<boolean>>().mockResolvedValue(true),
-    getPermissions: jest.fn<() => Promise<any>>().mockResolvedValue({
-      filesystem: {
-        operations: ["read", "write"],
-        allowedPaths: ["/app/workspace/*"],
-        deniedPaths: ["/etc/*", "/var/*", "**/.env"],
-        maxFileSize: 1024 * 1024, // 1MB
-      },
-      network: {
-        maxRequests: 10,
-        allowedDomains: ["api.github.com", "registry.npmjs.org"],
-        deniedDomains: ["malicious.com"],
-        allowedProtocols: ["https"],
-      },
-      shell: {
-        allowedCommands: ["npm install", "git status", "ls"],
-        deniedCommands: ["rm -rf", "curl", "wget", "chmod"],
-      },
-    }),
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   },
 }));
 

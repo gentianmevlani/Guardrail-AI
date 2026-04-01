@@ -1,8 +1,5 @@
 import * as vscode from "vscode";
-<<<<<<< HEAD
 import { CLIService } from "./services/cli-service";
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface Finding {
   type: "critical" | "warning" | "suggestion";
@@ -47,7 +44,6 @@ export class RealityCheckService {
 
   constructor() {
     const config = vscode.workspace.getConfiguration("guardrail");
-<<<<<<< HEAD
     const ep = config.get<string>("apiEndpoint");
     this.apiEndpoint =
       ep && ep.trim().length > 0
@@ -139,9 +135,6 @@ export class RealityCheckService {
         mocks: { critical: mocksNum, high: 0 },
       },
     };
-=======
-    this.apiEndpoint = config.get("apiEndpoint") || "http://localhost:3001";
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   async analyzeCode(code: string, fileName: string): Promise<Finding[]> {
@@ -357,7 +350,6 @@ export class RealityCheckService {
       });
 
       if (response.ok) {
-<<<<<<< HEAD
         const result = (await response.json()) as {
           data?: ProductionIntegrityResult;
         };
@@ -379,18 +371,6 @@ export class RealityCheckService {
 
     return {
       integrity: { score: 0, grade: "—", canShip: false },
-=======
-        const result = await response.json() as { data: ProductionIntegrityResult };
-        return result.data;
-      }
-    } catch (error) {
-      console.log("API not available for production check");
-    }
-
-    // Return mock result if API unavailable
-    return {
-      integrity: { score: 0, grade: "N/A", canShip: false },
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       counts: {
         api: { connected: 0, missing: 0 },
         auth: { protected: 0, exposed: 0 },

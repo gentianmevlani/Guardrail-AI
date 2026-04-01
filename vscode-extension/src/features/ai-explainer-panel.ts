@@ -11,12 +11,9 @@ import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
 import { getGuardrailPanelHead } from '../webview-shared-styles';
-<<<<<<< HEAD
 import { GUARDRAIL_VERSION } from '../guardrail-styles';
 import { getAiExplainerCyberCircuitHtml } from './ai-explainer-webview-html';
 import { cyberCircuitPanelCss } from './ai-explainer-cyber-css';
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface CodeExplanation {
   id: string;
@@ -85,7 +82,6 @@ export class AIExplainerPanel {
           case 'generateDocs':
             await this._generateDocumentation();
             break;
-<<<<<<< HEAD
           case 'vscodeCommand':
             if (typeof message.id === 'string') {
               void vscode.commands.executeCommand(message.id);
@@ -101,8 +97,6 @@ export class AIExplainerPanel {
               'Thanks — we logged your feedback for this session.',
             );
             break;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         }
       },
       null,
@@ -122,11 +116,7 @@ export class AIExplainerPanel {
 
     const panel = vscode.window.createWebviewPanel(
       'aiExplainer',
-<<<<<<< HEAD
       'Cyber-Circuit AI Explainer',
-=======
-      'AI Code Explainer',
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -402,12 +392,6 @@ export class AIExplainerPanel {
   }
 
   private _getHtmlContent(): string {
-<<<<<<< HEAD
-    return getAiExplainerCyberCircuitHtml(
-      GUARDRAIL_VERSION,
-      getGuardrailPanelHead(cyberCircuitPanelCss),
-    );
-=======
     return `<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
@@ -796,7 +780,6 @@ export class AIExplainerPanel {
   </div>
 </body>
 </html>`;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   public dispose() {

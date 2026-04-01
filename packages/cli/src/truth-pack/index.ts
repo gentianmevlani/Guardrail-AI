@@ -241,10 +241,7 @@ export class TruthPackGenerator {
             const match = pattern.exec(line);
             if (match) {
               const name = match[1];
-<<<<<<< HEAD
               if (name === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               let type: Symbol['type'] = 'function';
               if (line.includes('class')) type = 'class';
               else if (line.includes('interface')) type = 'interface';
@@ -282,11 +279,7 @@ export class TruthPackGenerator {
       let i = lineIndex;
       while (i < lines.length - 1 && !signature.includes('{') && !signature.includes('=>')) {
         i++;
-<<<<<<< HEAD
         signature += ' ' + (lines[i]?.trim() ?? '');
-=======
-        signature += ' ' + lines[i].trim();
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         if (signature.length > 200) break; // Limit length
       }
     }
@@ -300,11 +293,7 @@ export class TruthPackGenerator {
     
     // Look backwards for JSDoc comments
     for (let i = lineIndex - 1; i >= 0 && i >= lineIndex - 10; i--) {
-<<<<<<< HEAD
       const line = lines[i]?.trim() ?? '';
-=======
-      const line = lines[i].trim();
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (line.startsWith('*') || line.startsWith('/**') || line.startsWith('//')) {
         docLines.unshift(line.replace(/^\s*[*\/]+\s*/, ''));
       } else if (line.length > 0 && !line.startsWith('*')) {
@@ -408,10 +397,7 @@ export class TruthPackGenerator {
           let match;
           while ((match = pattern.exec(content)) !== null) {
             const importPath = match[1];
-<<<<<<< HEAD
             if (importPath === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             // Only track internal imports (relative paths)
             if (importPath.startsWith('.') || importPath.startsWith('/')) {
               imports.push(importPath);
@@ -444,7 +430,6 @@ export class TruthPackGenerator {
         const expressPattern = /(?:app|router|fastify)\.(get|post|put|delete|patch|options|head)\s*\(\s*['"`]([^'"`]+)['"`]/gi;
         let match;
         while ((match = expressPattern.exec(content)) !== null) {
-<<<<<<< HEAD
           const method = match[1];
           const routePath = match[2];
           if (method === undefined || routePath === undefined) continue;
@@ -452,22 +437,12 @@ export class TruthPackGenerator {
           routes.push({
             path: routePath,
             method: method.toUpperCase(),
-=======
-          const lineNum = content.substring(0, match.index).split('\n').length;
-          routes.push({
-            path: match[2],
-            method: match[1].toUpperCase(),
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             file: relativePath,
             line: lineNum,
             handler: this.extractHandlerName(content, match.index),
             auth: this.hasAuth(content, lineNum),
             middleware: this.extractMiddleware(content, lineNum),
-<<<<<<< HEAD
             params: this.extractParams(routePath),
-=======
-            params: this.extractParams(match[2]),
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           });
         }
 
@@ -475,26 +450,16 @@ export class TruthPackGenerator {
         if (file.includes('/api/') || file.includes('/route.')) {
           const nextPattern = /export\s+(?:async\s+)?function\s+(GET|POST|PUT|DELETE|PATCH|OPTIONS|HEAD)\s*\(/gi;
           while ((match = nextPattern.exec(content)) !== null) {
-<<<<<<< HEAD
             const verb = match[1];
             if (verb === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             const lineNum = content.substring(0, match.index).split('\n').length;
             const routePath = this.extractNextJSRoutePath(file);
             routes.push({
               path: routePath,
-<<<<<<< HEAD
-              method: verb,
-              file: relativePath,
-              line: lineNum,
-              handler: verb,
-=======
               method: match[1],
               file: relativePath,
               line: lineNum,
               handler: match[1],
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               auth: this.hasAuth(content, lineNum),
               middleware: [],
               params: this.extractParams(routePath),
@@ -513,12 +478,8 @@ export class TruthPackGenerator {
     // Extract handler function name from route definition
     const afterMatch = content.substring(index);
     const handlerMatch = afterMatch.match(/,\s*(\w+)\s*\)/);
-<<<<<<< HEAD
     const name = handlerMatch?.[1];
     return name !== undefined ? name : 'anonymous';
-=======
-    return handlerMatch ? handlerMatch[1] : 'anonymous';
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   private hasAuth(content: string, lineNum: number): boolean {
@@ -546,12 +507,8 @@ export class TruthPackGenerator {
     const paramPattern = /[:[](\w+)[\]}]/g;
     let match;
     while ((match = paramPattern.exec(path)) !== null) {
-<<<<<<< HEAD
       const p = match[1];
       if (p !== undefined) params.push(p);
-=======
-      params.push(match[1]);
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
     return params;
   }

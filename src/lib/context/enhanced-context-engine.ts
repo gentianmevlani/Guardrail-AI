@@ -410,10 +410,7 @@ export class EnhancedContextEngine {
     }
 
     // Missing patterns increases risk
-<<<<<<< HEAD
-=======
     const contextAny = context as any;
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     if ((contextAny.patterns || []).length === 0) {
       risk += 0.2;
       evidence.push('No patterns available');

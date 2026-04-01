@@ -279,18 +279,6 @@ export async function handleGuardrailTool(toolName, args) {
   const projectPath = path.resolve(args.projectPath || ".");
 
   // Map tools to required features
-<<<<<<< HEAD
-  /** Canonical `@guardrail/core` Feature ids (tier-config). */
-  const featureMap = {
-    "guardrail.verify": "scan",
-    "guardrail.quality": "scan",
-    "guardrail.smells": "scan:full",
-    "guardrail.hallucination": "scan",
-    "guardrail.breaking": "scan:full",
-    "guardrail.mdc": "mcp",
-    "guardrail.coverage": "scan",
-    "guardrail.autofix": "fix:auto",
-=======
   const featureMap = {
     "guardrail.verify": "verify",
     "guardrail.quality": "quality", 
@@ -300,7 +288,6 @@ export async function handleGuardrailTool(toolName, args) {
     "guardrail.mdc": "mdc",
     "guardrail.coverage": "quality", // map to quality tier
     "guardrail.autofix": "smells" // map to smells tier (fix requires starter+)
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
 
   const requiredFeature = featureMap[toolName];

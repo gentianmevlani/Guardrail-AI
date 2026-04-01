@@ -11,11 +11,6 @@
     }
   },
   "scripts": {
-<<<<<<< HEAD
-    "build": "prisma generate && node -e \"try{require('fs').unlinkSync('tsconfig.tsbuildinfo')}catch{}\" && tsc",
-=======
-    "build": "node -e \"try{require('fs').unlinkSync('tsconfig.tsbuildinfo')}catch{}\" && tsc",
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     "dev": "tsc --watch",
     "db:generate": "prisma generate",
     "db:push": "node -e \"if(process.env.NODE_ENV==='production'){console.error('❌ db:push is blocked in production. Use db:migrate:deploy');process.exit(1)}\" && prisma db push",

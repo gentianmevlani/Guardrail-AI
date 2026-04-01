@@ -53,13 +53,10 @@ const { runAudit } = require("./runners/runAudit");
 const { runMdc } = require("./runners/runMdc");
 const { runEnhancedShip } = require("./runners/runEnhancedShip");
 const { runPromptFirewall } = require("./runners/runPromptFirewall");
-<<<<<<< HEAD
 const { runVibeCheck } = require("./runners/runVibeCheck");
 const { runListTemplates } = require("./runners/runListTemplates");
 const { runApplyTemplate } = require("./runners/runApplyTemplate");
 const { bootstrapWorkflowPersistence } = require("./runners/workflowBootstrap");
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 const VERSION = getVersion();
 
@@ -118,12 +115,9 @@ const FREE_COMMANDS = [
   "mdc", // MDC documentation generator
   "prompt-firewall", // Prompt firewall (free tier with limited features)
   "firewall", // Alias for prompt-firewall
-<<<<<<< HEAD
   "vibe-check", // Shipping readiness analysis for AI-built apps
   "list-templates", // Available feature templates (apply-template)
   "apply-template", // Copy template files into project
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 ];
 
 // STARTER ($19/mo) - Requires API key with starter+ plan
@@ -181,7 +175,6 @@ async function prompt(question) {
 }
 
 async function showWelcomeAndPromptLogin() {
-<<<<<<< HEAD
   const { key } = getApiKey();
 
   // Non-interactive / CI: no banner or prompts — keeps stdout clean for --json tools (MCP, scripts)
@@ -193,8 +186,6 @@ async function showWelcomeAndPromptLogin() {
     return { key, entitlements };
   }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   console.log(`
 ${c.cyan}╔════════════════════════════════════════════════════════════╗
 ║  ${c.reset}🛡️  GUARDRAIL${c.cyan}                                              ║
@@ -204,9 +195,6 @@ ${c.dim}Ship with confidence. Catch fake features before your users do.${c.reset
 
 `);
 
-<<<<<<< HEAD
-  if (!key) {
-=======
   const { key, source } = getApiKey();
 
   if (!key) {
@@ -221,7 +209,6 @@ ${c.dim}Ship with confidence. Catch fake features before your users do.${c.reset
       );
       return { key: null, entitlements: null };
     }
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     console.log(`${c.yellow}⚠ No API key found${c.reset}`);
     console.log(`
@@ -273,14 +260,11 @@ ${c.dim}Run ${c.cyan}guardrail login${c.dim} anytime to upgrade.${c.reset}
 }
 
 async function checkCommandAccess(cmd, entitlements, args = []) {
-<<<<<<< HEAD
   // `command --help` / `-h` must work without login so users can discover flags
   if (args.includes("--help") || args.includes("-h")) {
     return { allowed: true, tier: "free" };
   }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   // Free commands always work (no API key needed)
   if (FREE_COMMANDS.includes(cmd)) {
     return { allowed: true, tier: "free" };
@@ -462,12 +446,9 @@ ${c.dim}📦 EXTRAS${c.reset}
   ${c.cyan}validate${c.reset}          Check AI-generated code for hallucinations
   ${c.cyan}init${c.reset}              Set up guardrail in your project
   ${c.cyan}doctor${c.reset}            Debug environment issues
-<<<<<<< HEAD
   ${c.cyan}vibe-check${c.reset}        Shipping readiness analysis for AI-built apps
   ${c.cyan}list-templates${c.reset}    List templates for apply-template
   ${c.cyan}apply-template${c.reset}    Add missing components/middleware from templates
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   ${c.cyan}mcp${c.reset}               Start MCP server for AI editors
 
 ${c.dim}🔑 ACCOUNT${c.reset}
@@ -501,7 +482,6 @@ ${c.dim}Run 'guardrail <command> --help' for details.${c.reset}
   // Check if the first argument looks like a natural language command
   // Natural language commands are typically quoted strings or multi-word phrases
   const firstArg = rawArgs[0];
-<<<<<<< HEAD
   // Do not treat `launch --help` / `launch --json` as natural language (known CLI subcommands)
   const secondArg = rawArgs[1];
   const looksLikeCliFlags =
@@ -515,10 +495,6 @@ ${c.dim}Run 'guardrail <command> --help' for details.${c.reset}
     isNaturalLanguageCommand(firstArg) &&
     !looksLikeCliFlags
   ) {
-=======
-  if (firstArg && isNaturalLanguageCommand(firstArg)) {
-    // Join all args as the natural language input
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const nlInput = rawArgs.join(" ");
     const exitCode = await runNaturalLanguage(nlInput);
     process.exit(exitCode);
@@ -529,15 +505,12 @@ ${c.dim}Run 'guardrail <command> --help' for details.${c.reset}
   const cmd = routed[0];
   const args = routed.slice(1);
 
-<<<<<<< HEAD
   try {
     await bootstrapWorkflowPersistence();
   } catch {
     /* dist/lib not built or optional */
   }
 
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   // Commands that skip auth check entirely
   const skipAuthCommands = [
     "help",
@@ -720,7 +693,6 @@ ${c.dim}Run 'guardrail <command> --help' for details.${c.reset}
       case "mdc":
         exitCode = await runMdc(args);
         break;
-<<<<<<< HEAD
       case "vibe-check":
       case "vibecheck":
         exitCode = await runVibeCheck(args);
@@ -731,8 +703,6 @@ ${c.dim}Run 'guardrail <command> --help' for details.${c.reset}
       case "apply-template":
         exitCode = await runApplyTemplate(args);
         break;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       case "version":
         console.log(`guardrail v${VERSION}`);
         break;

@@ -346,16 +346,11 @@ export class RealityGraphBuilder {
       let match;
       
       while ((match = routeRegex.exec(content)) !== null) {
-<<<<<<< HEAD
         const m1 = match[1];
         const m2 = match[2];
         if (m1 === undefined || m2 === undefined) continue;
         const method = m1.toUpperCase();
         const routePath = m2;
-=======
-        const method = match[1].toUpperCase();
-        const routePath = match[2];
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         const nodeId = `route:${method}:${routePath}`;
         
         this.addNode({
@@ -393,10 +388,7 @@ export class RealityGraphBuilder {
       
       while ((match = handlerRegex.exec(content)) !== null) {
         const handlerName = match[1];
-<<<<<<< HEAD
         if (handlerName === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         const nodeId = `handler:${handlerName}`;
         
         this.addNode({
@@ -433,10 +425,7 @@ export class RealityGraphBuilder {
 
     while ((match = modelRegex.exec(content)) !== null) {
       const tableName = match[1];
-<<<<<<< HEAD
       if (tableName === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       const nodeId = `db_table:${tableName}`;
       
       this.addNode({
@@ -472,10 +461,7 @@ export class RealityGraphBuilder {
       
       while ((match = apiRegex.exec(content)) !== null) {
         const hostname = match[1];
-<<<<<<< HEAD
         if (hostname === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         if (!hostname.includes('localhost') && !hostname.includes('127.0.0.1')) {
           const nodeId = `external_api:${hostname}`;
           
@@ -514,10 +500,7 @@ export class RealityGraphBuilder {
       
       while ((match = permRegex.exec(content)) !== null) {
         const permission = match[1];
-<<<<<<< HEAD
         if (permission === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         const nodeId = `permission:${permission}`;
         
         this.addNode({
@@ -554,10 +537,7 @@ export class RealityGraphBuilder {
       
       while ((match = secretRegex.exec(content)) !== null) {
         const secret = match[1];
-<<<<<<< HEAD
         if (secret === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         const nodeId = `secret:${secret}`;
         
         this.addNode({
@@ -594,10 +574,7 @@ export class RealityGraphBuilder {
       
       while ((match = flagRegex.exec(content)) !== null) {
         const flag = match[1];
-<<<<<<< HEAD
         if (flag === undefined) continue;
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         const nodeId = `feature_flag:${flag}`;
         
         this.addNode({
@@ -728,7 +705,6 @@ export class RealityGraphBuilder {
   }
 
   /**
-<<<<<<< HEAD
    * Replace graph contents from JSON produced by {@link export} or saved receipts.
    */
   importFromParsedExport(data: {
@@ -744,8 +720,6 @@ export class RealityGraphBuilder {
   }
 
   /**
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    * Export graph to JSON
    */
   export(): string {

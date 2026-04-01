@@ -72,12 +72,6 @@
     "publish": "vsce publish",
     "clean": "rm -rf dist out"
   },
-<<<<<<< HEAD
-  "dependencies": {
-    "@guardrail/core": "workspace:*"
-  },
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   "devDependencies": {
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.10.0",
@@ -182,33 +176,6 @@
     ],
     "commands": [
       {
-<<<<<<< HEAD
-        "command": "guardrail.openHub",
-        "title": "Open Guardrail Hub",
-        "category": "guardrail",
-        "icon": "$(hub)"
-      },
-      {
-        "command": "guardrail.connectGitHub",
-        "title": "Connect GitHub (Install App)",
-        "category": "guardrail",
-        "icon": "$(github)"
-      },
-      {
-        "command": "guardrail.setupCI",
-        "title": "Setup CI/CD Integration",
-        "category": "guardrail",
-        "icon": "$(server-process)"
-      },
-      {
-        "command": "guardrail.openFirewall",
-        "title": "Open AI Output Firewall",
-        "category": "guardrail",
-        "icon": "$(shield)"
-      },
-      {
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         "command": "guardrail.scanWorkspace",
         "title": "Scan Workspace",
         "category": "guardrail",
@@ -297,21 +264,6 @@
         "icon": "$(shield)"
       },
       {
-<<<<<<< HEAD
-        "command": "guardrail.runVibeCheck",
-        "title": "Run Vibe Check (shipping readiness)",
-        "category": "guardrail",
-        "icon": "$(pulse)"
-      },
-      {
-        "command": "guardrail.applyTemplate",
-        "title": "Apply Guardrail Template…",
-        "category": "guardrail",
-        "icon": "$(file-add)"
-      },
-      {
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         "command": "guardrail.openWebDashboard",
         "title": "Open Web App (browser)",
         "category": "guardrail",
@@ -324,59 +276,11 @@
         "icon": "$(terminal)"
       },
       {
-<<<<<<< HEAD
-        "command": "guardrail.refreshPlan",
-        "title": "Refresh Plan (re-sync tier from API / CLI)",
-        "category": "guardrail",
-        "icon": "$(debug)"
-      },
-      {
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         "command": "guardrail.runFix",
         "title": "Run Auto-Fix",
         "category": "guardrail"
       },
       {
-<<<<<<< HEAD
-        "command": "guardrail.analyzeCodeHealth",
-        "title": "Analyze Code Health",
-        "category": "guardrail",
-        "icon": "$(heart)"
-      },
-      {
-        "command": "guardrail.checkAccessibility",
-        "title": "Check Accessibility (WCAG)",
-        "category": "guardrail",
-        "icon": "$(eye)"
-      },
-      {
-        "command": "guardrail.checkDocCoverage",
-        "title": "Check Documentation Coverage",
-        "category": "guardrail",
-        "icon": "$(book)"
-      },
-      {
-        "command": "guardrail.analyzeCodeDNA",
-        "title": "Analyze Code DNA",
-        "category": "guardrail",
-        "icon": "$(symbol-structure)"
-      },
-      {
-        "command": "guardrail.analyzeDependencyImpact",
-        "title": "Analyze Dependency Impact",
-        "category": "guardrail",
-        "icon": "$(package)"
-      },
-      {
-        "command": "guardrail.scanDuplicates",
-        "title": "Scan for Duplicates",
-        "category": "guardrail",
-        "icon": "$(copy)"
-      },
-      {
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         "command": "guardrail.openMDCGenerator",
         "title": "Open MDC Generator",
         "category": "guardrail Enterprise",
@@ -425,15 +329,6 @@
         "icon": "$(server-environment)"
       },
       {
-<<<<<<< HEAD
-        "command": "guardrail.openPromptFirewall",
-        "title": "Open Prompt Firewall",
-        "category": "guardrail Enterprise",
-        "icon": "$(shield)"
-      },
-      {
-=======
->>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         "command": "guardrail.moveSecretToEnv",
         "title": "Move Secret to .env",
         "category": "guardrail"
