@@ -54,11 +54,8 @@ RUN set -eux; \
     test -n "$src"; \
     cp -a "$src" /tmp/prisma-generated-dot-prisma
 
-# Build database package first (needed by other packages)
-RUN pnpm turbo run build --filter=@guardrail/database
-
-# Build only API and its dependencies
-RUN pnpm turbo run build --filter=@guardrail/api
+# Build API and all its dependencies (including database, core, security, ai-guardrails, etc.)
+RUN pnpm turbo run build --filter=@guardrail/api...
 
 # Production image
 FROM base AS runner
