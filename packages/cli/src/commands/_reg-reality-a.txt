@@ -1,0 +1,243 @@
+// Reality command (Starter+ feature)
+program
+  .command('reality')
+  .description('Reality Mode - Browser testing and fake data detection (Starter+)')
+  .option('-p, --path <path>', 'Project path', '.')
+  .option('-u, --url <url>', 'Base URL of running app', 'http://localhost:3000')
+  .option('-f, --flow <flow>', 'Flow to test: auth, checkout, dashboard', 'auth')
+  .option('-t, --timeout <timeout>', 'Timeout in seconds', '30')
+  .option('--headless', 'Run in headless mode', false)
+  .option('--run', 'Execute the test immediately with Playwright', false)
+  .option('--record', 'Record user actions using Playwright codegen', false)
+  .option('--workers <n>', 'Number of parallel workers', '1')
+  .option('--reporter <type>', 'Test reporter: list, dot, html, json', 'list')
+  .option('--trace <mode>', 'Trace mode: on, off, retain-on-failure', 'retain-on-failure')
+  .option('--video <mode>', 'Video mode: on, off, retain-on-failure', 'retain-on-failure')
+  .option('--screenshot <mode>', 'Screenshot mode: on, off, only-on-failure', 'only-on-failure')
+  .option('--receipt', 'Generate Proof-of-Execution Receipt (Enterprise)', false)
+  .option('--org-key-id <id>', 'Organization key ID for receipt signing')
+  .option('--org-private-key <key>', 'Organization private key for receipt signing (PEM format)')
+  .option('--button-sweep', 'Run button sweep test (clicks all buttons and validates)', false)
+  .option('--no-dead-ui', 'Run static scan for dead UI patterns before tests', false)
+  .option('--auth-email <email>', 'Email for button sweep authentication')
+  .option('--auth-password <password>', 'Password for button sweep authentication')
+  .action(async (options) => {
+    requireAuth('starter'); // Require Starter tier
+    printLogo();
+    
+    console.log('');
+    const projectPath = resolve(options.path);
+    const projectName = basename(projectPath);
+    const timeout = parseInt(options.timeout, 10) || 30;
+    const workers = parseInt(options.workers, 10) || 1;
+    
+    // Determine mode
+    const mode = options.record ? 'Record' : options.run ? 'Generate + Run' : 'Generate Only';
+    
+    const headerLines = [
+      `${styles.brightBlue}${styles.bold}${icons.reality} REALITY MODE${styles.reset}`,
+      '',
+      `${styles.dim}Project:${styles.reset}     ${styles.bold}${projectName}${styles.reset}`,
+      `${styles.dim}Path:${styles.reset}        ${truncatePath(projectPath)}`,
+      `${styles.dim}URL:${styles.reset}         ${options.url}`,
+      `${styles.dim}Flow:${styles.reset}        ${options.flow}`,
+      `${styles.dim}Mode:${styles.reset}        ${mode}`,
+      `${styles.dim}Started:${styles.reset}     ${new Date().toLocaleString()}`,
+    ];
+    const framed = frameLines(headerLines, { padding: 2 });
+    console.log(framed.join('\n'));
+    console.log('');
+    
+    try {
+      // Import reality functionality
+      const { realityScanner } = require('guardrail-ship');
+      const { 
+        checkPlaywrightDependencies, 
+        runPlaywrightTests, 
+        runPlaywrightCodegen,
+        createArtifactDirectory,
+        copyTestToArtifacts,
+        formatDuration
+      } = require('./reality/reality-runner');
+      const {
+        runStaticScan,
+        formatStaticScanResults,
+        generateButtonSweepTest,
+      } = require('./reality/no-dead-buttons');
+      const { spawn } = require('child_process');
+      
+      // Check for --record mode first
+      if (options.record) {
+        console.log(`  ${styles.brightCyan}${icons.reality} Starting Playwright Codegen...${styles.reset}`);
+        console.log('');
+        console.log(`  ${styles.dim}Recording user actions for flow: ${options.flow}${styles.reset}`);
+        console.log(`  ${styles.dim}Press Ctrl+C when done recording${styles.reset}`);
+        console.log('');
+        
+        // Check dependencies first
+        const depCheck = checkPlaywrightDependencies(projectPath);
+        if (!depCheck.playwrightInstalled) {
+          console.log(`  ${styles.brightYellow}${icons.warning} Playwright not installed${styles.reset}`);
+          console.log('');
+          
+          // Try to install automatically
+          console.log(`  ${styles.brightCyan}${icons.info} Attempting automatic installation...${styles.reset}`);
+          const installResult = await installPlaywrightDependencies(projectPath);
+          
+          if (!installResult.success) {
+            console.log(`  ${styles.brightRed}${icons.error} Auto-installation failed: ${installResult.error}${styles.reset}`);
+            console.log('');
+            console.log(`  ${styles.bold}Manual install commands:${styles.reset}`);
+            depCheck.installCommands.forEach(cmd => {
+              console.log(`    ${styles.brightCyan}${cmd}${styles.reset}`);
+            });
+            console.log('');
+            exitWith(ExitCode.SYSTEM_ERROR, 'Playwright not installed');
+          }
+          
+          console.log(`  ${styles.brightGreen}${icons.success} Playwright installed successfully${styles.reset}`);
+          console.log('');
+        }
+        
+        if (!depCheck.browsersInstalled) {
+          console.log(`  ${styles.brightYellow}${icons.warning} Playwright browsers not installed${styles.reset}`);
+          console.log('');
+          
+          // Try to install browsers only
+          console.log(`  ${styles.brightCyan}${icons.info} Installing browsers...${styles.reset}`);
+          try {
+            await new Promise<void>((resolve, reject) => {
+              const browserInstall = spawn('npx', ['playwright', 'install'], {
+                cwd: projectPath,
+                stdio: 'pipe'
+              });
+              
+              browserInstall.on('close', (code) => {
+                if (code === 0) {
+                  console.log(`  ${styles.brightGreen}${icons.success} Browsers installed successfully${styles.reset}`);
+                  resolve();
+                } else {
+                  reject(new Error('browser install failed'));
+                }
+              });
+              
+              browserInstall.on('error', reject);
+            });
+          } catch (error: any) {
+            console.log(`  ${styles.brightRed}${icons.error} Browser installation failed: ${error.message}${styles.reset}`);
+            console.log(`  ${styles.brightCyan}npx playwright install${styles.reset}`);
+            console.log('');
+            exitWith(ExitCode.SYSTEM_ERROR, 'Playwright browsers not installed');
+          }
+        }
+        
+        // Create artifact directory for recorded test
+        const artifacts = createArtifactDirectory(projectPath, options.flow);
+        
+        // Launch Playwright codegen
+        const codegenArgs = ['playwright', 'codegen', options.url, '--target', 'playwright-test', '-o', artifacts.testFilePath];
+        const codegenProc = spawn('npx', codegenArgs, {
+          stdio: 'inherit',
+          shell: process.platform === 'win32',
+          cwd: projectPath
+        });
+        
+        codegenProc.on('close', (code) => {
+          if (code === 0 && existsSync(artifacts.testFilePath)) {
+            console.log('');
+            console.log(`  ${styles.brightGreen}${icons.success} Recording saved${styles.reset}`);
+            console.log('');
+            console.log(`  ${styles.dim}Test file:${styles.reset} ${truncatePath(artifacts.testFilePath)}`);
+            console.log(`  ${styles.dim}Artifacts:${styles.reset} ${truncatePath(artifacts.artifactDir)}`);
+            console.log('');
+            console.log(`  ${styles.bold}To run the recorded test:${styles.reset}`);
+            console.log(`    ${styles.brightCyan}guardrail reality --run --flow ${options.flow}${styles.reset}`);
+            console.log('');
+            process.exit(0);
+          } else {
+            console.log('');
+            console.log(`  ${styles.brightRed}${icons.error} Recording cancelled or failed${styles.reset}`);
+            console.log('');
+            process.exit(code || 1);
+          }
+        });
+        
+        return;
+      }
+      
+      // Run static "No Dead UI" scan if requested
+      if (options.noDeadUi) {
+        console.log(`  ${styles.brightCyan}${icons.info} Running static "No Dead UI" scan...${styles.reset}`);
+        console.log('');
+        
+        const scanResult = runStaticScan(projectPath, ['src', 'app', 'components', 'pages'], []);
+        const scanOutput = formatStaticScanResults(scanResult);
+        console.log(scanOutput);
+        console.log('');
+        
+        if (!scanResult.passed) {
+          console.log(`  ${styles.brightRed}${icons.error} Static scan failed - found ${scanResult.errors.length} error(s)${styles.reset}`);
+          console.log(`  ${styles.dim}Fix dead UI patterns before continuing${styles.reset}`);
+          console.log('');
+          
+          if (options.run) {
+            // If --run is set, fail early
+            exitWith(ExitCode.POLICY_FAIL, 'Dead UI patterns detected');
+          } else {
+            console.log(`  ${styles.brightYellow}${icons.warning} Continuing despite errors (use --run to enforce)${styles.reset}`);
+            console.log('');
+          }
+        } else {
+          console.log(`  ${styles.brightGreen}${icons.success} Static scan passed${styles.reset}`);
+          console.log('');
+        }
+      }
+
+      // Generate button sweep test if requested
+      if (options.buttonSweep) {
+        console.log(`  ${styles.brightCyan}${icons.info} Generating button sweep test...${styles.reset}`);
+        console.log('');
+        
+        const buttonSweepConfig = {
+          baseUrl: options.url,
+          auth: options.authEmail && options.authPassword
+            ? { email: options.authEmail, password: options.authPassword }
+            : undefined,
+          pages: ['/', '/dashboard', '/settings', '/billing'],
+          requireDataActionId: false,
+        };
+        
+        const buttonSweepTest = generateButtonSweepTest(buttonSweepConfig);
+        const buttonSweepOutputDir = join(process.cwd(), '.guardrail', 'reality-tests');
+        if (!existsSync(buttonSweepOutputDir)) {
+          mkdirSync(buttonSweepOutputDir, { recursive: true });
+        }
+        const buttonSweepFile = join(buttonSweepOutputDir, 'button-sweep.test.ts');
+        writeFileSync(buttonSweepFile, buttonSweepTest);
+        
+        console.log(`  ${styles.brightGreen}${icons.success} Button sweep test generated${styles.reset}`);
+        console.log(`  ${styles.dim}File:${styles.reset} ${truncatePath(buttonSweepFile)}`);
+        console.log('');
+        
+        if (options.run) {
+          // If --run is set, run the button sweep test instead of the regular test
+          const artifacts = createArtifactDirectory(projectPath, 'button-sweep');
+          copyTestToArtifacts(buttonSweepFile, artifacts);
+          
+          console.log(`  ${styles.bold}RUNNING BUTTON SWEEP TEST${styles.reset}`);
+          printDivider();
+          console.log('');
+          
+          const depCheck = checkPlaywrightDependencies(projectPath);
+          if (!depCheck.playwrightInstalled || !depCheck.browsersInstalled) {
+            console.log(`  ${styles.brightYellow}${icons.warning} Playwright dependencies required${styles.reset}`);
+            exitWith(ExitCode.SYSTEM_ERROR, 'Playwright not installed');
+          }
+          
+          const runResult = await runPlaywrightTests(
+            {
+              testFile: artifacts.testFilePath,
+              headless: options.headless,
+              timeout,
+              workers,
+              reporter: options.reporter,

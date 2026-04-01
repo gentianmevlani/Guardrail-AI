@@ -1,0 +1,60 @@
+{
+  "name": "@guardrail/procedural-memory",
+  "version": "0.1.0",
+  "description": "Procedural memory, metacognition, and consciousness for Claude Code",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "engram": "dist/cli.js",
+    "claude-conscious": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "config.example.yaml"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest",
+    "lint": "eslint src/",
+    "analyze": "tsx src/cli.ts analyze",
+    "extract": "tsx src/cli.ts extract",
+    "report": "tsx src/cli.ts report",
+    "inject": "tsx src/cli.ts inject",
+    "hook": "tsx src/cli.ts hook",
+    "extract-deep": "tsx src/cli.ts extract --deep",
+    "doctor": "tsx src/cli.ts doctor",
+    "projects": "tsx src/cli.ts projects"
+  },
+  "keywords": [
+    "claude-conscious",
+    "engram",
+    "claude-code",
+    "llm",
+    "agent",
+    "memory",
+    "procedural-memory",
+    "metacognition",
+    "consciousness",
+    "skill-acquisition",
+    "coding-agent"
+  ],
+  "author": "Gentian Mevlani",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

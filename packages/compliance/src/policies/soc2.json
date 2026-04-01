@@ -1,0 +1,206 @@
+{
+  "version": "1.0.0",
+  "framework": "SOC2",
+  "rules": [
+    {
+      "id": "SOC2-CC6.1-001",
+      "controlId": "CC6.1",
+      "title": "Authentication Implementation Required",
+      "description": "System must implement authentication mechanisms to verify user identity",
+      "severity": "critical",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": "src/auth"
+        },
+        {
+          "type": "file-exists",
+          "target": "src/middleware/auth.ts"
+        }
+      ],
+      "remediation": "Implement authentication using industry-standard libraries (e.g., Passport.js, Auth0, JWT). Create auth middleware and protect sensitive routes."
+    },
+    {
+      "id": "SOC2-CC6.1-002",
+      "controlId": "CC6.1",
+      "title": "Role-Based Access Control (RBAC)",
+      "description": "System must implement role-based access control to restrict access based on user roles",
+      "severity": "high",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "dependency-present",
+          "target": "casbin"
+        },
+        {
+          "type": "dependency-present",
+          "target": "accesscontrol"
+        }
+      ],
+      "remediation": "Implement RBAC using libraries like casbin or accesscontrol. Define roles, permissions, and access policies."
+    },
+    {
+      "id": "SOC2-CC6.6-001",
+      "controlId": "CC6.6",
+      "title": "Structured Logging Implementation",
+      "description": "System must implement structured logging for security event monitoring",
+      "severity": "high",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "dependency-present",
+          "target": "winston"
+        },
+        {
+          "type": "dependency-present",
+          "target": "pino"
+        }
+      ],
+      "remediation": "Implement structured logging using winston or pino. Log authentication attempts, authorization failures, and security events."
+    },
+    {
+      "id": "SOC2-CC6.6-002",
+      "controlId": "CC6.6",
+      "title": "Audit Trail Logging",
+      "description": "System must maintain audit logs for security-relevant events",
+      "severity": "high",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuditLog",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement audit logging that captures user actions, data access, and system changes with timestamps and user context."
+    },
+    {
+      "id": "SOC2-CC6.7-001",
+      "controlId": "CC6.7",
+      "title": "Encryption at Rest",
+      "description": "Sensitive data must be encrypted at rest",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "dependency-present",
+          "target": "bcrypt"
+        },
+        {
+          "type": "dependency-present",
+          "target": "argon2"
+        },
+        {
+          "type": "config-value",
+          "target": "hasEncryption",
+          "expected": true
+        }
+      ],
+      "remediation": "Use bcrypt or argon2 for password hashing. Implement encryption for sensitive data fields using AES-256 or similar."
+    },
+    {
+      "id": "SOC2-CC6.7-002",
+      "controlId": "CC6.7",
+      "title": "Encryption in Transit",
+      "description": "Data must be encrypted in transit using TLS/SSL",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "pattern-match",
+          "target": "src/server.ts",
+          "pattern": "https\\.createServer|tls\\.createServer"
+        }
+      ],
+      "remediation": "Configure HTTPS/TLS for all network communications. Use valid SSL certificates and enforce TLS 1.2 or higher."
+    },
+    {
+      "id": "SOC2-CC7.2-001",
+      "controlId": "CC7.2",
+      "title": "Application Performance Monitoring",
+      "description": "System must implement monitoring and alerting for performance and security events",
+      "severity": "medium",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "dependency-present",
+          "target": "@sentry/node"
+        },
+        {
+          "type": "dependency-present",
+          "target": "datadog"
+        },
+        {
+          "type": "dependency-present",
+          "target": "newrelic"
+        }
+      ],
+      "remediation": "Implement APM using Sentry, Datadog, or New Relic. Configure error tracking and performance monitoring."
+    },
+    {
+      "id": "SOC2-CC8.1-001",
+      "controlId": "CC8.1",
+      "title": "Version Control System",
+      "description": "Code must be managed in a version control system",
+      "severity": "high",
+      "category": "change-management",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": ".git"
+        },
+        {
+          "type": "config-value",
+          "target": "hasVersionControl",
+          "expected": true
+        }
+      ],
+      "remediation": "Initialize Git repository and commit all code. Implement branching strategy and code review process."
+    },
+    {
+      "id": "SOC2-CC8.1-002",
+      "controlId": "CC8.1",
+      "title": "CI/CD Pipeline",
+      "description": "Automated testing and deployment pipeline must be implemented",
+      "severity": "medium",
+      "category": "change-management",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": ".github/workflows"
+        },
+        {
+          "type": "file-exists",
+          "target": ".gitlab-ci.yml"
+        },
+        {
+          "type": "config-value",
+          "target": "hasCICD",
+          "expected": true
+        }
+      ],
+      "remediation": "Set up CI/CD pipeline using GitHub Actions, GitLab CI, or similar. Include automated tests, security scans, and deployment steps."
+    },
+    {
+      "id": "SOC2-CC6.8-001",
+      "controlId": "CC6.8",
+      "title": "Secrets Management",
+      "description": "Secrets and credentials must not be hardcoded in source code",
+      "severity": "critical",
+      "category": "security",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": ".env.example"
+        },
+        {
+          "type": "config-value",
+          "target": "hasSecrets",
+          "expected": false
+        }
+      ],
+      "remediation": "Use environment variables for secrets. Implement secrets management using tools like HashiCorp Vault, AWS Secrets Manager, or similar."
+    }
+  ]
+}

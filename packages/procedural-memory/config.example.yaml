@@ -1,0 +1,17 @@
+# Copy to config.yaml or ~/.claude-conscious/config.yaml (optional)
+
+# Claude Code data root (contains projects/)
+claudeDir: ~/.claude
+
+# Stored decision graphs + strategy indices
+dataDir: ~/.claude-conscious
+
+# Default first N sessions = baseline when running: engram report (no --split-date)
+reportBaselineSessions: 20
+
+# Optional default split for reports (ISO 8601) when `engram report` omits --split-date.
+# Use `engram report --baseline-only` to ignore this and use first-N vs remainder instead.
+# reportSplitDate: "2026-03-01T00:00:00Z"
+
+# Default model for `engram extract --deep` when --deep-model is omitted
+# deepModel: claude-sonnet-4-20250514

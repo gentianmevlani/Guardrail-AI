@@ -1,0 +1,46 @@
+# Development files
+*.md
+!README.md
+!SERVICE-README.md
+!AI-AGENT-GUARDRAILS-KIT.md
+!INTEGRATION-GUIDE.md
+
+# Source files (only include what's needed)
+src/
+!src/lib/
+!src/config/
+
+# Test files
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Development config
+.git/
+.gitignore
+.github/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+.next/
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+

@@ -1,0 +1,536 @@
+[
+  {
+    "name": "@anthropic-ai/sdk",
+    "version": "^0.20.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@aws-sdk/client-auto-scaling",
+    "version": "^3.600.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@aws-sdk/client-cloudfront",
+    "version": "^3.600.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@aws-sdk/client-cloudwatch",
+    "version": "^3.600.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@aws-sdk/client-ec2",
+    "version": "^3.600.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@aws-sdk/client-s3",
+    "version": "^3.600.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@octokit/rest",
+    "version": "^20.0.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@sentry/nextjs",
+    "version": "^8.0.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@apidevtools/swagger-parser",
+    "version": "^10.1.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@lhci/cli",
+    "version": "0.12.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@playwright/test",
+    "version": "^1.57.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@prisma/client",
+    "version": "^5.22.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/connect-pg-simple",
+    "version": "^7.0.3",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/express-session",
+    "version": "^1.18.2",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/memoizee",
+    "version": "^0.4.12",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/passport",
+    "version": "^1.0.17",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/pg",
+    "version": "^8.16.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "ajv",
+    "version": "^8.12.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "ajv-formats",
+    "version": "^2.1.1",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "bcrypt",
+    "version": "^5.1.1",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "bcryptjs",
+    "version": "^2.4.3",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "bundlesize",
+    "version": "^0.18.2",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "commander",
+    "version": "^12.0.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "connect-pg-simple",
+    "version": "^10.0.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "cors",
+    "version": "^2.8.5",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "cron",
+    "version": "^3.1.6",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "express",
+    "version": "^5.2.1",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "express-rate-limit",
+    "version": "^8.2.1",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "express-session",
+    "version": "^1.18.2",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "ioredis",
+    "version": "^5.3.2",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "jose",
+    "version": "^5.10.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "memoizee",
+    "version": "^0.4.17",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "openai",
+    "version": "^4.20.1",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "openid-client",
+    "version": "^6.8.1",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "passport",
+    "version": "^0.7.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "pg",
+    "version": "^8.16.3",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "prisma",
+    "version": "^5.22.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "tsx",
+    "version": "^4.21.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "turbo",
+    "version": "^1.11.2",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "typescript",
+    "version": "^5.3.3",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "ws",
+    "version": "^8.18.3",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "zod",
+    "version": "^3.25.76",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "chokidar",
+    "version": "^3.6.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "framer-motion",
+    "version": "^11.0.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@guardrail/core",
+    "version": "workspace:*",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "guardrail-security",
+    "version": "workspace:*",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "helmet",
+    "version": "^7.1.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "lucide-react",
+    "version": "^0.400.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "react",
+    "version": "^18.3.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "react-dom",
+    "version": "^18.3.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "react-router-dom",
+    "version": "^6.22.0",
+    "type": "production",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/react",
+    "version": "^18.3.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/react-dom",
+    "version": "^18.3.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@babel/core",
+    "version": "^7.28.5",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@babel/parser",
+    "version": "^7.28.5",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@babel/preset-env",
+    "version": "^7.28.5",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@babel/traverse",
+    "version": "^7.28.5",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@babel/types",
+    "version": "^7.28.5",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@jest/globals",
+    "version": "^29.7.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/babel__traverse",
+    "version": "^7.28.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/bcrypt",
+    "version": "^5.0.2",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/bcryptjs",
+    "version": "^2.4.6",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/commander",
+    "version": "^2.12.2",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/cron",
+    "version": "^2.0.1",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/express",
+    "version": "^5.0.6",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/express-rate-limit",
+    "version": "^6.0.2",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/jest",
+    "version": "^29.5.14",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/jsonwebtoken",
+    "version": "^9.0.10",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/node",
+    "version": "^20.19.27",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/supertest",
+    "version": "^6.0.3",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "@types/ws",
+    "version": "^8.18.1",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "artillery",
+    "version": "^2.0.27",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "babel-jest",
+    "version": "^30.2.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "dotenv",
+    "version": "^16.6.1",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "eslint",
+    "version": "^8.57.1",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "eslint-config-prettier",
+    "version": "^9.1.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "eslint-plugin-import",
+    "version": "^2.31.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "eslint-plugin-react",
+    "version": "^7.37.2",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "eslint-plugin-react-hooks",
+    "version": "^5.0.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "husky",
+    "version": "^9.1.7",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "jest",
+    "version": "^29.7.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "jest-environment-node",
+    "version": "^29.7.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "lint-staged",
+    "version": "^16.2.7",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "nock",
+    "version": "^14.0.10",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "prettier",
+    "version": "^3.1.1",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "stripe",
+    "version": "^17.0.0",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "supertest",
+    "version": "^7.1.4",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "ts-jest",
+    "version": "^29.4.6",
+    "type": "dev",
+    "registry": "npm"
+  },
+  {
+    "name": "vitest",
+    "version": "^1.2.0",
+    "type": "dev",
+    "registry": "npm"
+  }
+]

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SECURITY_ARCHIVE // KINETIC_CORE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Orbitron:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-primary {
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+        }
+        .glass-panel {
+            background: rgba(30, 32, 35, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111316;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333538;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes text-glow {
+            0%, 100% { text-shadow: 0 0 4px rgba(0, 229, 255, 0.2); }
+            50% { text-shadow: 0 0 12px rgba(0, 229, 255, 0.6); }
+        }
+        .animate-text-glow {
+            animation: text-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes breathing-glow {
+            0%, 100% { box-shadow: inset 0 0 15px rgba(255, 180, 171, 0.05); border-color: rgba(255, 180, 171, 0.1); }
+            50% { box-shadow: inset 0 0 30px rgba(255, 180, 171, 0.15); border-color: rgba(255, 180, 171, 0.4); }
+        }
+        .animate-breathing-glow {
+            animation: breathing-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .shimmer-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-overlay::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.05), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stagger-fade-in > * {
+            opacity: 0;
+            animation: fade-in-up 0.5s ease-out forwards;
+        }
+        .stagger-fade-in > *:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-fade-in > *:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-fade-in > *:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Hex Grid Styles */
+        .hex-grid-container {
+            display: grid;
+            grid-template-columns: repeat(6, 24px);
+            grid-auto-rows: 21px;
+            gap: 4px;
+            padding: 20px;
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.1));
+        }
+        .hex {
+            width: 30px;
+            height: 34.64px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .hex::after {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            background: inherit;
+            clip-path: inherit;
+            opacity: 0.8;
+        }
+        .hex-cyan { background: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.5); opacity: 0.9; }
+        .hex-amber { background: #ffb3b3; box-shadow: 0 0 15px rgba(255, 179, 179, 0.5); opacity: 0.9; }
+        .hex-red { background: #ff5252; box-shadow: 0 0 15px rgba(255, 82, 82, 0.5); opacity: 1; animation: hex-flicker 2s infinite; }
+        .hex-empty { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); }
+
+        @keyframes hex-flicker {
+            0%, 100% { opacity: 1; filter: brightness(1); }
+            50% { opacity: 0.7; filter: brightness(1.4); }
+        }
+
+        .hex-row-even { transform: translateX(17px); }
+
+        /* Mock loading logic */
+        .loading-skeleton { display: block; }
+        .content-ready { display: none; }
+        body.is-loaded .loading-skeleton { display: none; }
+        body.is-loaded .content-ready { display: block; animation: fade-in-up 0.4s ease-out; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-lowest": "#0c0e11",
+              "tertiary-container": "#ffc1c0",
+              "primary-fixed": "#9cf0ff",
+              "primary": "#c3f5ff",
+              "on-error-container": "#ffdad6",
+              "surface-tint": "#00daf3",
+              "on-secondary-fixed": "#001945",
+              "background": "#111316",
+              "inverse-surface": "#e2e2e6",
+              "surface-container-low": "#1a1c1f",
+              "error": "#ffb4ab",
+              "on-primary-container": "#00626e",
+              "surface": "#111316",
+              "outline-variant": "#3b494c",
+              "inverse-on-surface": "#2f3034",
+              "on-tertiary-fixed-variant": "#920021",
+              "on-background": "#e2e2e6",
+              "on-secondary-container": "#f2f3ff",
+              "on-secondary": "#002d6e",
+              "inverse-primary": "#006875",
+              "surface-dim": "#111316",
+              "primary-container": "#00e5ff",
+              "on-tertiary-container": "#b4002b",
+              "on-primary": "#00363d",
+              "surface-container-highest": "#333538",
+              "tertiary-fixed-dim": "#ffb3b3",
+              "surface-container": "#1e2023",
+              "secondary-container": "#0068ed",
+              "secondary": "#b0c6ff",
+              "on-primary-fixed": "#001f24",
+              "tertiary": "#ffe7e6",
+              "surface-variant": "#333538",
+              "secondary-fixed": "#d9e2ff",
+              "on-primary-fixed-variant": "#004f58",
+              "on-secondary-fixed-variant": "#00429b",
+              "surface-container-high": "#282a2d",
+              "surface-bright": "#37393d",
+              "on-surface": "#e2e2e6",
+              "on-error": "#690005",
+              "outline": "#849396",
+              "on-surface-variant": "#bac9cc",
+              "tertiary-fixed": "#ffdad9",
+              "on-tertiary-fixed": "#400009",
+              "error-container": "#93000a",
+              "primary-fixed-dim": "#00daf3",
+              "on-tertiary": "#680014",
+              "secondary-fixed-dim": "#b0c6ff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "orbitron": ["Orbitron"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('is-loaded');
+            }, 2500);
+        });
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<header class="w-full top-0 sticky z-50 flex justify-between items-center px-6 py-4 bg-[#111316]/80 backdrop-blur-md border-b border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-cyan-400" data-icon="security">security</span>
+<h1 class="text-xl font-bold tracking-widest text-cyan-400 font-headline">SECURITY_ARCHIVE</h1>
+</div>
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 bg-primary-container/10 border border-primary-container/20 px-4 py-1.5 rounded-sm hover:bg-primary-container/20 transition-all duration-200 active:scale-95 group">
+<span class="material-symbols-outlined text-primary-container text-sm" data-icon="play_arrow">play_arrow</span>
+<span class="font-headline text-xs font-bold tracking-widest text-primary-container">RUN SCAN</span>
+</button>
+<span class="material-symbols-outlined text-cyan-400 cursor-pointer hover:text-cyan-300 transition-colors" data-icon="settings">settings</span>
+</div>
+</header>
+<div class="flex min-h-[calc(100vh-68px)]">
+<aside class="hidden md:flex h-screen w-64 left-0 sticky flex-col py-8 space-y-2 bg-[#0c0e11] border-r border-white/5">
+<div class="px-6 mb-8">
+<h2 class="text-cyan-400 font-black font-headline tracking-tighter text-lg uppercase">KINETIC_CORE</h2>
+<div class="h-0.5 w-8 bg-cyan-400 mt-1"></div>
+</div>
+<nav class="flex flex-col space-y-1">
+<a class="flex items-center gap-4 px-6 py-3 border-l-2 border-cyan-400 bg-cyan-400/5 text-cyan-400 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-headline text-xs uppercase tracking-widest">DASHBOARD</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="gpp_maybe">gpp_maybe</span>
+<span class="font-headline text-xs uppercase tracking-widest">VULNERABILITIES</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="lock_open">lock_open</span>
+<span class="font-headline text-xs uppercase tracking-widest">VAULT_CONFIG</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-headline text-xs uppercase tracking-widest">AUDIT_LOGS</span>
+</a>
+</nav>
+<div class="mt-auto px-6 py-8">
+<div class="bg-surface-container-low p-4 rounded-sm border-l-2 border-error/30 shimmer-overlay">
+<p class="text-[10px] font-headline text-error mb-2 tracking-widest">SYSTEM ALERT</p>
+<p class="text-xs text-on-surface-variant font-light leading-relaxed">Vault integration bypass detected in 4 segments.</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 p-6 md:p-10 bg-surface-dim overflow-y-auto max-w-[1600px] mx-auto w-full">
+<!-- Hero Bento Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
+<!-- Threat Vector Hex-Grid Card -->
+<div class="lg:col-span-8 bg-surface-container p-8 relative overflow-hidden group border border-white/5">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+<!-- Cyber Circuit Background Decorations -->
+<div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="100" id="circuit" patternunits="userSpaceOnUse" width="100" x="0" y="0">
+<path d="M0 100 V 50 H 50 V 0" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+<circle cx="50" cy="50" fill="currentColor" r="2"></circle>
+</pattern>
+</defs>
+<rect fill="url(#circuit)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-12">
+<div class="relative flex flex-col items-center">
+<!-- Hex Grid Visualization -->
+<div class="hex-grid-container scale-125 mb-8">
+<!-- Row 1 -->
+<div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div>
+<!-- Row 2 -->
+<div class="hex-row-even flex gap-[4px]"><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-amber"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div></div>
+<!-- Row 3 -->
+<div class="hex hex-cyan"></div><div class="hex hex-red"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div>
+<!-- Row 4 -->
+<div class="hex-row-even flex gap-[4px]"><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div><div class="hex hex-amber"></div><div class="hex hex-cyan"></div><div class="hex hex-cyan"></div></div>
+</div>
+<div class="text-center mt-4">
+<span class="text-7xl font-orbitron font-black tracking-tighter text-on-surface drop-shadow-[0_0_15px_rgba(0,229,255,0.4)]">94</span>
+<div class="text-xs font-orbitron text-primary-container tracking-[0.4em] uppercase mt-1">Integrity_Level</div>
+</div>
+</div>
+<div class="flex-1 space-y-6 text-center md:text-left">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-container/10 rounded-full border border-primary-container/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-[10px] font-headline font-bold text-primary-container tracking-widest uppercase">Threat_Vector_Active</span>
+</div>
+<h2 class="text-3xl font-headline font-bold tracking-tight text-on-surface">Vector analysis complete.</h2>
+<p class="text-on-surface-variant text-sm max-w-md">System integrity mapped across all 24 hex-sectors. 3 sectors exhibiting high-risk signal variants requiring manual override or patch deployment.</p>
+<div class="flex gap-4 justify-center md:justify-start pt-2">
+<div class="flex flex-col">
+<span class="text-[9px] font-headline text-on-surface-variant uppercase tracking-widest">Latency</span>
+<span class="text-lg font-orbitron text-cyan-400">12ms</span>
+</div>
+<div class="w-px h-8 bg-white/10"></div>
+<div class="flex flex-col">
+<span class="text-[9px] font-headline text-on-surface-variant uppercase tracking-widest">Entropy</span>
+<span class="text-lg font-orbitron text-cyan-400">0.04%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Files Scanned Card -->
+<div class="lg:col-span-4 bg-surface-container-high p-8 flex flex-col justify-between border border-white/5 hover:border-primary/20 transition-colors">
+<div>
+<p class="text-[10px] font-headline text-primary-fixed tracking-[0.2em] mb-1 uppercase">Files_Scanned</p>
+<h3 class="text-4xl font-headline font-bold tracking-tighter">12,482</h3>
+</div>
+<div class="flex items-end justify-between">
+<div class="space-y-1">
+<span class="text-primary-container flex items-center gap-1 text-sm font-bold">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                            +12.4%
+                        </span>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">vs prev session</p>
+</div>
+<div class="flex gap-1 h-12 items-end">
+<div class="w-1 bg-primary/20 h-4"></div>
+<div class="w-1 bg-primary/40 h-6"></div>
+<div class="w-1 bg-primary/20 h-3"></div>
+<div class="w-1 bg-primary/60 h-8"></div>
+<div class="w-1 bg-primary-container h-12"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 stagger-fade-in">
+<div class="bg-surface-container p-6 flex items-center justify-between group hover:bg-surface-container-high transition-all border border-white/5 hover:border-error/20">
+<div>
+<p class="text-[10px] font-headline text-error tracking-[0.2em] mb-1">CRITICAL</p>
+<h4 class="text-3xl font-headline font-bold text-on-surface">03</h4>
+</div>
+<span class="material-symbols-outlined text-error/30 group-hover:text-error transition-all group-hover:scale-110" data-icon="gpp_bad">gpp_bad</span>
+</div>
+<div class="bg-surface-container p-6 flex items-center justify-between group hover:bg-surface-container-high transition-all border border-white/5 hover:border-tertiary-fixed-dim/20">
+<div>
+<p class="text-[10px] font-headline text-tertiary-fixed-dim tracking-[0.2em] mb-1">WARNING</p>
+<h4 class="text-3xl font-headline font-bold text-on-surface">28</h4>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed-dim/30 group-hover:text-tertiary-fixed-dim transition-all group-hover:scale-110" data-icon="warning">warning</span>
+</div>
+<div class="bg-surface-container p-6 flex items-center justify-between group hover:bg-surface-container-high transition-all border border-white/5 hover:border-primary-container/20">
+<div>
+<p class="text-[10px] font-headline text-primary-container tracking-[0.2em] mb-1">PASSED</p>
+<h4 class="text-3xl font-headline font-bold text-on-surface">811</h4>
+</div>
+<span class="material-symbols-outlined text-primary-container/30 group-hover:text-primary-container transition-all group-hover:scale-110" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="mb-10 bg-gradient-to-r from-surface-container-lowest to-surface-container p-6 flex flex-col md:flex-row items-center justify-between gap-6 border-l-4 border-error border-y border-r border-white/5 animate-breathing-glow">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-sm bg-error/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="lock_reset">lock_reset</span>
+</div>
+<div>
+<h5 class="text-on-surface font-headline font-bold tracking-tight">Vault Integration Required</h5>
+<p class="text-on-surface-variant text-sm">Secrets Manager Not Configured. Sensitive strings are currently at risk.</p>
+</div>
+</div>
+<button class="bg-on-surface text-surface px-8 py-2 font-headline text-xs font-bold tracking-widest hover:bg-primary-container transition-all hover:scale-105 active:scale-95 shadow-lg shadow-error/10">CONFIGURE</button>
+</div>
+<section class="space-y-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h3 class="text-xl font-headline font-bold tracking-tight text-on-surface">Security Issues</h3>
+<p class="text-on-surface-variant text-xs mt-1">Found 3 critical exposures across 12 repositories.</p>
+</div>
+<div class="flex gap-1 bg-surface-container-lowest p-1 rounded-sm border border-white/5">
+<button class="px-4 py-1.5 text-[10px] font-headline font-bold tracking-widest bg-surface-container-high text-primary-container">ALL</button>
+<button class="px-4 py-1.5 text-[10px] font-headline font-bold tracking-widest text-on-surface-variant hover:text-on-surface transition-colors">CRITICAL</button>
+<button class="px-4 py-1.5 text-[10px] font-headline font-bold tracking-widest text-on-surface-variant hover:text-on-surface transition-colors">HIGH</button>
+<button class="px-4 py-1.5 text-[10px] font-headline font-bold tracking-widest text-on-surface-variant hover:text-on-surface transition-colors">MEDIUM</button>
+<button class="px-4 py-1.5 text-[10px] font-headline font-bold tracking-widest text-on-surface-variant hover:text-on-surface transition-colors">LOW</button>
+</div>
+</div>
+<div class="space-y-4 loading-skeleton">
+<div class="bg-surface-container p-6 border border-white/5 shimmer-overlay">
+<div class="flex gap-4">
+<div class="w-6 h-6 bg-surface-container-highest rounded-full"></div>
+<div class="flex-1 space-y-3">
+<div class="h-4 w-1/3 bg-surface-container-highest rounded"></div>
+<div class="h-6 w-1/4 bg-surface-container-highest rounded"></div>
+<div class="h-12 w-full bg-surface-container-highest rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4 content-ready">
+<!-- Issue Card 1 -->
+<div class="bg-surface-container p-6 group cursor-pointer hover:bg-surface-container-high transition-all border-l-2 border-transparent hover:border-error border-y border-r border-white/5 overflow-hidden">
+<div class="flex flex-col md:flex-row gap-4 justify-between">
+<div class="flex gap-4">
+<div class="mt-1">
+<span class="material-symbols-outlined text-error" data-icon="dangerous">dangerous</span>
+</div>
+<div class="space-y-2">
+<div class="flex flex-wrap items-center gap-3">
+<h4 class="font-headline font-bold text-on-surface tracking-tight">AWS_SECRET_ACCESS_KEY exposed</h4>
+<span class="text-[9px] font-headline font-bold px-2 py-0.5 bg-error/10 text-error tracking-widest">CRITICAL</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono bg-surface-container-lowest/50 px-2 py-1 rounded-sm inline-block">src/services/cloud/aws_client.ts <span class="text-primary-container opacity-60">L:142</span></p>
+<p class="text-sm text-on-surface-variant max-w-2xl leading-relaxed">Hardcoded AWS credentials detected in source code. This exposure allows unauthorized access to production infrastructure.</p>
+</div>
+</div>
+<div class="flex items-start md:items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-primary-container text-on-primary font-headline text-[10px] font-bold tracking-widest px-4 py-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                                VIEW SOLUTION
+                            </button>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Issue Card 2 -->
+<div class="bg-surface-container p-6 group cursor-pointer hover:bg-surface-container-high transition-all border-l-2 border-transparent hover:border-error border-y border-r border-white/5 overflow-hidden">
+<div class="flex flex-col md:flex-row gap-4 justify-between">
+<div class="flex gap-4">
+<div class="mt-1">
+<span class="material-symbols-outlined text-error" data-icon="bug_report">bug_report</span>
+</div>
+<div class="space-y-2">
+<div class="flex flex-wrap items-center gap-3">
+<h4 class="font-headline font-bold text-on-surface tracking-tight">Potential SQL Injection Vulnerability</h4>
+<span class="text-[9px] font-headline font-bold px-2 py-0.5 bg-error/10 text-error tracking-widest">CRITICAL</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono bg-surface-container-lowest/50 px-2 py-1 rounded-sm inline-block">api/v1/auth/session.py <span class="text-primary-container opacity-60">L:89</span></p>
+<p class="text-sm text-on-surface-variant max-w-2xl leading-relaxed">Unsanitized user input in raw SQL query string. Requires immediate migration to parameterized queries.</p>
+</div>
+</div>
+<div class="flex items-start md:items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-primary-container text-on-primary font-headline text-[10px] font-bold tracking-widest px-4 py-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                                VIEW SOLUTION
+                            </button>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Issue Card 3 -->
+<div class="bg-surface-container p-6 group cursor-pointer hover:bg-surface-container-high transition-all border-l-2 border-transparent hover:border-tertiary-fixed-dim border-y border-r border-white/5 overflow-hidden">
+<div class="flex flex-col md:flex-row gap-4 justify-between">
+<div class="flex gap-4">
+<div class="mt-1">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="warning">warning</span>
+</div>
+<div class="space-y-2">
+<div class="flex flex-wrap items-center gap-3">
+<h4 class="font-headline font-bold text-on-surface tracking-tight">Deprecated TLS 1.0 Cipher Suite</h4>
+<span class="text-[9px] font-headline font-bold px-2 py-0.5 bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim tracking-widest">WARNING</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono bg-surface-container-lowest/50 px-2 py-1 rounded-sm inline-block">config/nginx/archive.conf <span class="text-primary-container opacity-60">L:22</span></p>
+<p class="text-sm text-on-surface-variant max-w-2xl leading-relaxed">System allows connections via TLS 1.0 which is no longer considered secure. Upgrade to TLS 1.2 or higher required.</p>
+</div>
+</div>
+<div class="flex items-start md:items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-primary-container text-on-primary font-headline text-[10px] font-bold tracking-widest px-4 py-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                                VIEW SOLUTION
+                            </button>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 md:hidden bg-[#111316]/90 backdrop-blur-xl z-50 border-t border-white/5 shadow-[0_-10px_30px_rgba(0,229,255,0.1)]">
+<a class="flex flex-col items-center justify-center text-cyan-400 bg-cyan-400/10 rounded-xl p-3 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-headline text-[10px] mt-1">DASHBOARD</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 p-3 hover:text-cyan-200 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="bug_report">bug_report</span>
+<span class="font-headline text-[10px] mt-1">ISSUES</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 p-3 hover:text-cyan-200 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="font-headline text-[10px] mt-1">VAULT</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 p-3 hover:text-cyan-200 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-headline text-[10px] mt-1">LOGS</span>
+</a>
+</nav>
+</body></html>

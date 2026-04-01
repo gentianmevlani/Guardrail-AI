@@ -1,0 +1,129 @@
+{
+  "version": "1.0.0",
+  "framework": "PCI-DSS",
+  "rules": [
+    {
+      "id": "PCI-REQ2",
+      "controlId": "Requirement 2",
+      "title": "Secure System Configuration",
+      "description": "Do not use vendor-supplied defaults for system passwords and security parameters",
+      "severity": "critical",
+      "category": "security",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasSecrets",
+          "expected": false
+        },
+        {
+          "type": "file-exists",
+          "target": ".env.example"
+        }
+      ],
+      "remediation": "Remove all default passwords. Use environment variables for configuration. Document secure configuration standards."
+    },
+    {
+      "id": "PCI-REQ3",
+      "controlId": "Requirement 3",
+      "title": "Protect Stored Cardholder Data",
+      "description": "Protect stored cardholder data through encryption and other security measures",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasEncryption",
+          "expected": true
+        },
+        {
+          "type": "dependency-present",
+          "target": "bcrypt"
+        }
+      ],
+      "remediation": "Encrypt all cardholder data at rest using strong cryptography (AES-256). Implement key management procedures."
+    },
+    {
+      "id": "PCI-REQ4",
+      "controlId": "Requirement 4",
+      "title": "Encrypt Transmission of Cardholder Data",
+      "description": "Encrypt transmission of cardholder data across open, public networks",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "pattern-match",
+          "target": "src/server.ts",
+          "pattern": "https\\.createServer"
+        },
+        {
+          "type": "config-value",
+          "target": "hasEncryption",
+          "expected": true
+        }
+      ],
+      "remediation": "Use TLS 1.2+ for all cardholder data transmissions. Disable insecure protocols (SSL, TLS 1.0/1.1)."
+    },
+    {
+      "id": "PCI-REQ6",
+      "controlId": "Requirement 6",
+      "title": "Secure Development Practices",
+      "description": "Develop and maintain secure systems and applications",
+      "severity": "high",
+      "category": "development",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": ".github/workflows"
+        },
+        {
+          "type": "config-value",
+          "target": "hasCICD",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement secure coding practices. Use automated security testing in CI/CD pipeline. Conduct regular code reviews."
+    },
+    {
+      "id": "PCI-REQ8",
+      "controlId": "Requirement 8",
+      "title": "Identify and Authenticate Access",
+      "description": "Assign a unique ID to each person with computer access",
+      "severity": "critical",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuth",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasRBAC",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement unique user IDs, strong authentication, and multi-factor authentication for all system access."
+    },
+    {
+      "id": "PCI-REQ10",
+      "controlId": "Requirement 10",
+      "title": "Track and Monitor Network Access",
+      "description": "Track and monitor all access to network resources and cardholder data",
+      "severity": "high",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuditLog",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasLogging",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement comprehensive logging of all access to cardholder data. Include user identification, timestamps, and actions."
+    }
+  ]
+}

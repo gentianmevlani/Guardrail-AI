@@ -1,0 +1,57 @@
+{
+  "name": "guardrail-context",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "AI doesn't know your codebase. Now it does.",
+  "keywords": [
+    "ai",
+    "context",
+    "mcp",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "hallucination",
+    "verification"
+  ],
+  "author": "guardrail",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guardrail-Official/guardrail"
+  },
+  "bin": {
+    "guardrail": "./dist/main.js",
+    "guardrail-context": "./dist/main.js"
+  },
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@guardrail-context/engine": "workspace:*",
+    "@guardrail-context/mcp-server": "workspace:*",
+    "@guardrail-context/shared": "workspace:*",
+    "boxen": "^8.0.1",
+    "chalk": "^5.6.2",
+    "cli-table3": "^0.6.5",
+    "log-update": "^7.0.2",
+    "open": "^11.0.0",
+    "ora": "^9.0.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/prompts": "^2.4.9",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

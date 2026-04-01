@@ -1,0 +1,178 @@
+[build]
+  base = ""
+  command = "rm -rf apps/web-ui/.next && pnpm run build:netlify"
+  publish = "apps/web-ui/.next"
+
+[build.environment]
+  NODE_VERSION = "22.13.0"
+  NPM_VERSION = "10"
+  PNPM_VERSION = "9.15.1"
+  NODE_ENV = "production"
+  NEXT_TELEMETRY_DISABLED = "1"
+  NEXT_FONT_GOOGLE_MOCKED_RESPONSES = "1"
+  # Exclude template files and test data from secrets scanning
+  SECRETS_SCAN_OMIT_PATHS = "templates/**,tests/**,*.example,*.template"
+  # NEXT_PUBLIC_* vars are intentionally bundled into client JS - not secrets
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_API_URL,NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,NEXT_PUBLIC_GITHUB_CLIENT_ID,NEXT_PUBLIC_GOOGLE_CLIENT_ID"
+
+# =============================================================================
+# API Proxy Redirects
+# =============================================================================
+# These use Netlify environment variables for the API URL.
+# Set API_URL in Netlify dashboard for each context:
+#   - Production: https://guardrail-production.up.railway.app
+#   - Deploy Preview/Staging: https://guardrail-staging.up.railway.app
+# =============================================================================
+
+# Auth routes are handled by Next.js API routes (Netlify Functions)
+# Do NOT proxy these - Next.js handles them automatically
+# No redirect needed - just don't match them in the proxy below
+
+# Proxy non-auth API routes to Railway
+[[redirects]]
+  from = "/api/projects/*"
+  to = ":API_URL/api/projects/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/advanced/*"
+  to = ":API_URL/api/advanced/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/compliance/*"
+  to = ":API_URL/api/compliance/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/audit/*"
+  to = ":API_URL/api/audit/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/security/*"
+  to = ":API_URL/api/security/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/guardrails/*"
+  to = ":API_URL/api/guardrails/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/profile/*"
+  to = ":API_URL/api/profile/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/billing/*"
+  to = ":API_URL/api/billing/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/tenants/*"
+  to = ":API_URL/api/tenants/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/notifications/*"
+  to = ":API_URL/api/notifications/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/ship/*"
+  to = ":API_URL/api/ship/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/mcp/*"
+  to = ":API_URL/api/mcp/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/reports/*"
+  to = ":API_URL/api/reports/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/collaboration/*"
+  to = ":API_URL/api/collaboration/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/webhooks/*"
+  to = ":API_URL/api/webhooks/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/findings/*"
+  to = ":API_URL/api/findings/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/dashboard/*"
+  to = ":API_URL/api/dashboard/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/usage/*"
+  to = ":API_URL/api/usage/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/organizations/*"
+  to = ":API_URL/api/organizations/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/health"
+  to = ":API_URL/health"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# =============================================================================
+# Context-Specific Configuration
+# =============================================================================
+
+[context.production]
+  command = "rm -rf apps/web-ui/.next && pnpm run build:netlify"
+  [context.production.environment]
+    NODE_ENV = "production"
+    # API_URL should be set in Netlify dashboard, not here
+    # Example: API_URL = "https://guardrail-production.up.railway.app"
+
+[context.deploy-preview]
+  command = "rm -rf apps/web-ui/.next && pnpm run build:netlify"
+  [context.deploy-preview.environment]
+    NODE_ENV = "development"
+    # Preview deploys use staging API by default
+    # Override API_URL in Netlify dashboard if needed
+
+[context.branch-deploy]
+  command = "rm -rf apps/web-ui/.next && pnpm run build:netlify"
+  [context.branch-deploy.environment]
+    NODE_ENV = "development"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

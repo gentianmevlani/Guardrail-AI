@@ -1,0 +1,185 @@
+# Next.js lives in apps/web-ui. Base must be that directory so @netlify/plugin-nextjs
+# (OpenNext) finds next.config.mjs and provisions SSR/edge handlers. Building from repo
+# root with publish=apps/web-ui/.next only deploys raw .next output → Netlify static 404.
+[build]
+  base = "apps/web-ui"
+  # pnpm + Next on Netlify requires hoisting or the OpenNext adapter fails to wire routes → static 404.
+  # See https://opennext.js.org/netlify#pnpm-support — PNPM_FLAGS applies to Netlify's pre-build install.
+  # Install must see devDependencies (plugin-nextjs, types). NODE_ENV=production skips them and breaks next/npx.
+  # guardrail-security is workspace source → dist/ is not in git; compile before Next bundles scanner.worker.ts.
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter guardrail-security run build && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
+  # Relative to base (apps/web-ui); the Next.js adapter rewrites this for deploy after it processes the build
+  publish = ".next"
+
+# Next.js plugin for proper App Router support
+# This plugin handles routing, functions, and static assets
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "22.13.0"
+  NPM_VERSION = "10"
+  PNPM_VERSION = "9.15.1"
+  PNPM_FLAGS = "--shamefully-hoist"
+  # Do not set NODE_ENV here — production skips devDependencies during pnpm install and breaks the Next.js build.
+  NEXT_TELEMETRY_DISABLED = "1"
+  # Do not set NEXT_FONT_GOOGLE_MOCKED_RESPONSES to "1" — Next treats it as a mock file path and breaks with Cannot find module '1'.
+  # Exclude template files and test data from secrets scanning
+  SECRETS_SCAN_OMIT_PATHS = "templates/**,tests/**,*.example,*.template"
+  # NEXT_PUBLIC_* vars are intentionally bundled into client JS - not secrets
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_API_URL,NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,NEXT_PUBLIC_GITHUB_CLIENT_ID,NEXT_PUBLIC_GOOGLE_CLIENT_ID"
+
+# =============================================================================
+# API Proxy Redirects
+# =============================================================================
+# These use Netlify environment variables for the API URL.
+# Set API_URL in Netlify dashboard for each context:
+#   - Production: https://api.guardrailai.dev
+#   - Deploy Preview/Staging: https://api.guardrailai.dev
+# =============================================================================
+
+# Auth routes are handled by Next.js API routes (Netlify Functions)
+# Do NOT proxy these - Next.js handles them automatically
+
+# Proxy non-auth API routes to Railway
+[[redirects]]
+  from = "/api/projects/*"
+  to = ":API_URL/api/projects/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/advanced/*"
+  to = ":API_URL/api/advanced/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/compliance/*"
+  to = ":API_URL/api/compliance/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/audit/*"
+  to = ":API_URL/api/audit/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/security/*"
+  to = ":API_URL/api/security/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/guardrails/*"
+  to = ":API_URL/api/guardrails/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/profile/*"
+  to = ":API_URL/api/profile/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/billing/*"
+  to = ":API_URL/api/billing/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/tenants/*"
+  to = ":API_URL/api/tenants/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/notifications/*"
+  to = ":API_URL/api/notifications/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/ship/*"
+  to = ":API_URL/api/ship/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/mcp/*"
+  to = ":API_URL/api/mcp/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/reports/*"
+  to = ":API_URL/api/reports/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/collaboration/*"
+  to = ":API_URL/api/collaboration/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/webhooks/*"
+  to = ":API_URL/api/webhooks/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/findings/*"
+  to = ":API_URL/api/findings/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/dashboard/*"
+  to = ":API_URL/api/dashboard/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/usage/*"
+  to = ":API_URL/api/usage/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/organizations/*"
+  to = ":API_URL/api/organizations/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/health"
+  to = ":API_URL/health"
+  status = 200
+
+# Next.js App Router - handle all routes through Next.js
+# The root page.tsx will redirect to /dashboard/auth
+# This ensures Next.js handles all routing
+
+# =============================================================================
+# Context-Specific Configuration
+# =============================================================================
+
+[context.production]
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter guardrail-security run build && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
+  [context.production.environment]
+    API_URL = "https://api.guardrailai.dev"
+
+[context.deploy-preview]
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter guardrail-security run build && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
+  [context.deploy-preview.environment]
+    API_URL = "https://api.guardrailai.dev"
+
+[context.branch-deploy]
+  command = "cd ../.. && NODE_ENV=development pnpm install --frozen-lockfile --ignore-scripts --shamefully-hoist && pnpm --filter guardrail-security run build && NODE_ENV=production pnpm --filter @guardrail/web-ui run build"
+  [context.branch-deploy.environment]
+    API_URL = "https://api.guardrailai.dev"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

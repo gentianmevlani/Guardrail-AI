@@ -1,0 +1,41 @@
+# Authentication Flow - Login/Signup Testing
+# Copy to .guardrail/flows/auth-flow.yaml and customize
+
+id: auth-login
+name: User Login
+description: Tests the standard email/password login flow
+required: true
+
+steps:
+  - action: navigate
+    target: /login
+
+  - action: wait
+    timeout: 2000
+
+  - action: fill
+    target: input[name="email"], input[type="email"], #email
+    value: "{{email}}"
+
+  - action: fill
+    target: input[name="password"], input[type="password"], #password
+    value: "{{password}}"
+
+  - action: click
+    target: button[type="submit"], button:has-text("Log in"), button:has-text("Sign in")
+
+  - action: wait
+    timeout: 5000
+
+assertions:
+  - type: url-contains
+    value: /dashboard|/home|/app
+    critical: true
+
+  - type: no-errors
+    value: ""
+    critical: true
+
+  - type: element-hidden
+    value: input[type="password"]
+    critical: false

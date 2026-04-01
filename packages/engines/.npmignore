@@ -1,0 +1,21 @@
+# Source
+src/
+tsconfig.json
+
+# Dev / build tooling
+.turbo/
+node_modules/
+*.tsbuildinfo
+
+# Tests
+__tests__/
+*.test.ts
+*.spec.ts
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+.DS_Store

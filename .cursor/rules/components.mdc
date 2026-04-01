@@ -1,0 +1,35 @@
+---
+description: Component creation and styling guidelines  
+globs: ["**/components/**/*.{tsx,jsx}"]
+alwaysApply: false
+---
+
+# Component Guidelines
+
+## Existing Components (3)
+- `EmptyState`
+- `ErrorBoundary`
+- `LoadingState`
+
+## Before Creating New Components
+
+1. **Check if it exists above**
+2. Place in `components/` or feature folder
+3. Use PascalCase naming
+4. Export as named export
+
+
+
+## Component Template
+
+```tsx
+interface Props {
+  // Define props with types
+}
+
+export function ComponentName({ ...props }: Props) {
+  return (
+    // JSX
+  );
+}
+```

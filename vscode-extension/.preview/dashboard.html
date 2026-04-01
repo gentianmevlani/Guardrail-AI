@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guardrail Dashboard Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --background: #111316; --surface: #111316; --surface-dim: #111316;
+      --surface-container: #1e2023; --surface-container-low: #1a1c1f;
+      --surface-container-high: #282a2d; --surface-container-highest: #333538;
+      --surface-container-lowest: #0c0e11; --surface-bright: #37393d;
+      --surface-variant: #333538; --on-surface: #e2e2e6; --on-surface-variant: #bac9cc;
+      --outline: #849396; --outline-variant: #3b494c;
+      --primary: #c3f5ff; --on-primary: #00363d;
+      --primary-container: #00e5ff; --on-primary-container: #00626e;
+      --primary-fixed: #9cf0ff; --primary-fixed-dim: #00daf3;
+      --inverse-primary: #006875; --secondary: #b0c6ff;
+      --secondary-container: #0068ed; --on-secondary-container: #f2f3ff;
+      --tertiary: #ffe7e6; --tertiary-container: #ffc1c0;
+      --error: #ffb4ab; --error-container: #93000a;
+      --border-subtle: rgba(255,255,255,0.05); --border-light: rgba(255,255,255,0.08);
+      --cyan-glow: #00e5ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; font-size: 20px; }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 10px; }
+
+    body { font-family: 'Inter', sans-serif; background: var(--background); color: var(--on-surface); min-height: 100vh; overflow-x: hidden; padding-bottom: 88px; }
+    .ka-ambient { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; border-radius: 50%; background: rgba(195, 245, 255, 0.05); filter: blur(120px); pointer-events: none; z-index: 0; }
+    .ka-shell { position: relative; z-index: 1; }
+
+    .top-bar { background: #111316; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border-subtle); }
+    .top-bar .brand { display: flex; align-items: center; gap: 8px; border: none; background: none; color: inherit; font: inherit; cursor: pointer; padding: 0; }
+    .top-bar .brand .material-symbols-outlined { color: var(--cyan-glow); font-size: 24px; }
+    .top-bar .brand span:last-child { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--cyan-glow); }
+    .scan-btn { background: linear-gradient(135deg, var(--primary-container), var(--secondary-container)); color: #001f24; border: none; padding: 8px 18px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; box-shadow: 0 0 20px rgba(0,229,255,0.15); display: flex; align-items: center; }
+
+    .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 50; display: flex; justify-content: space-around; align-items: center; padding: 12px 8px; background: rgba(17,19,22,0.95); backdrop-filter: blur(16px); border-top: 1px solid var(--border-subtle); box-shadow: 0 -10px 24px rgba(0,0,0,0.45); }
+    .nav-item { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; border: none; background: none; color: rgba(226,226,230,0.45); cursor: pointer; transition: all 0.2s; }
+    .nav-item:hover { color: var(--primary-fixed-dim); }
+    .nav-item.active { background: linear-gradient(135deg, rgba(0,229,255,0.25), rgba(0,104,237,0.2)); color: var(--primary); box-shadow: 0 0 16px rgba(0,229,255,0.2); }
+
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--outline); margin-bottom: 14px; }
+    .card { background: var(--surface-container-low); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 16px; transition: background 0.2s; }
+    .card:hover { background: var(--surface-container-high); }
+
+    @keyframes ka-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .anim { animation: fadeUp 0.4s ease forwards; }
+    .anim-d1 { animation-delay: 0.05s; opacity: 0; }
+    .anim-d2 { animation-delay: 0.1s; opacity: 0; }
+    .anim-d3 { animation-delay: 0.15s; opacity: 0; }
+
+    /* Dashboard CSS */
+    .db-main { padding: 24px; max-width: 1200px; margin: 0 auto; }
+    .db-main > section { margin-bottom: 28px; }
+    .db-bento { display: grid; gap: 16px; }
+    .db-bento-2 { grid-template-columns: 1fr 1fr; }
+    .db-bento-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .db-bento-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+    @media (max-width: 720px) { .db-bento-2, .db-bento-3, .db-bento-hero { grid-template-columns: 1fr; } }
+
+    .db-posture { background: var(--surface-container); border-radius: 16px; padding: 28px; position: relative; overflow: hidden; }
+    .db-posture::before { content: ''; position: absolute; right: -60px; bottom: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(0,229,255,0.06); filter: blur(60px); pointer-events: none; }
+    .db-posture:hover::before { background: rgba(0,229,255,0.12); }
+    .db-posture-label { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--outline); margin-bottom: 16px; }
+    .db-score-row { display: flex; align-items: baseline; gap: 6px; }
+    .db-score-big { font-family: 'Space Grotesk', sans-serif; font-size: 72px; font-weight: 800; line-height: 1; color: var(--cyan-glow); filter: drop-shadow(0 0 14px rgba(0,229,255,0.5)); }
+    .db-score-max { font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: var(--on-surface-variant); }
+    .db-posture-desc { font-size: 13px; color: #94a3b8; margin-top: 16px; line-height: 1.6; max-width: 240px; }
+    .db-posture-desc strong { color: var(--cyan-glow); font-weight: 700; }
+    .db-posture-meta { display: flex; align-items: center; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+    .db-meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .db-meta-label { font-size: 9px; text-transform: uppercase; font-weight: 700; color: #64748b; }
+    .db-meta-val { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 3px; }
+    .db-meta-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.06); }
+
+    .db-threat-map { background: var(--surface-container-low); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; min-height: 260px; }
+    .db-threat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .db-threat-header-left { display: flex; align-items: center; gap: 8px; }
+    .db-threat-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 8px rgba(239,68,68,0.6); animation: ka-pulse 2s infinite; }
+    .db-threat-title { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: var(--on-surface); }
+    .db-threat-btn { padding: 5px 12px; background: var(--surface-container-high); font-size: 9px; font-weight: 700; text-transform: uppercase; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); color: var(--on-surface-variant); cursor: pointer; }
+    .db-threat-btn:hover { border-color: rgba(0,229,255,0.3); }
+    .db-threat-canvas { flex: 1; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04); background: #0a0c0e; position: relative; overflow: hidden; }
+    .db-threat-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+    @keyframes db-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    .db-threat-node { position: absolute; border-radius: 50%; box-shadow: 0 0 12px currentColor; animation: db-float 3s ease infinite; }
+
+    .db-metric { background: var(--surface-container); border-radius: 14px; padding: 20px; transition: background 0.2s; cursor: pointer; }
+    .db-metric:hover { background: var(--surface-container-high); }
+    .db-metric-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+    .db-metric-icon { padding: 8px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .db-metric-badge { font-size: 9px; font-family: monospace; color: #475569; }
+    .db-metric-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--on-surface); margin-bottom: 14px; }
+
+    .db-vuln-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .db-vuln-row:last-child { margin-bottom: 0; }
+    .db-vuln-label { font-size: 12px; color: #94a3b8; min-width: 55px; }
+    .db-vuln-track { flex: 1; height: 5px; background: var(--surface-container-highest); border-radius: 999px; overflow: hidden; }
+    .db-vuln-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+    .db-vuln-count { font-size: 12px; font-family: monospace; font-weight: 700; min-width: 22px; text-align: right; }
+
+    .db-check { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+    .db-check-name { flex: 1; font-size: 12px; color: #94a3b8; }
+    .db-check-time { font-size: 10px; font-family: monospace; color: #475569; }
+
+    .db-scan-item { padding: 12px; background: var(--surface-container-lowest); border: 1px solid rgba(255,255,255,0.04); border-radius: 10px; margin-bottom: 8px; }
+    .db-scan-item:last-child { margin-bottom: 0; }
+    .db-scan-head { display: flex; justify-content: space-between; font-size: 10px; text-transform: uppercase; font-weight: 700; color: #64748b; margin-bottom: 8px; }
+    .db-scan-bar { height: 5px; background: #0f172a; border-radius: 999px; overflow: hidden; }
+    .db-scan-fill { height: 100%; background: var(--cyan-glow); border-radius: 999px; }
+
+    .db-feed { background: var(--surface-container-lowest); border-radius: 14px; border: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
+    .db-feed-head { padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: space-between; background: var(--surface-container-low); }
+    .db-feed-head-left { display: flex; align-items: center; gap: 10px; }
+    .db-feed-title { font-family: 'Space Grotesk', sans-serif; font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.15em; color: #94a3b8; }
+    .db-feed-status { display: flex; align-items: center; gap: 8px; font-size: 10px; font-family: monospace; color: #475569; }
+    .db-feed-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+    .db-feed-body { padding: 14px 18px; font-family: monospace; font-size: 11px; line-height: 1.8; max-height: 200px; overflow-y: auto; }
+    .db-feed-line { display: flex; gap: 10px; }
+    .db-feed-line:hover .db-feed-msg { color: var(--on-surface); }
+    .db-feed-ts { color: #334155; white-space: nowrap; }
+    .db-feed-lv { font-weight: 700; white-space: nowrap; }
+    .db-feed-info { color: var(--cyan-glow); }
+    .db-feed-warn { color: var(--secondary); }
+    .db-feed-fail { color: var(--error); }
+    .db-feed-msg { color: #94a3b8; transition: color 0.15s; }
+
+    .db-cli-row { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-radius: 10px; border: none; background: none; color: inherit; cursor: pointer; text-align: left; transition: background 0.15s; }
+    .db-cli-row:hover { background: rgba(0,229,255,0.06); }
+    .db-cli-cmd { font-family: monospace; font-size: 13px; color: var(--primary); font-weight: 700; }
+  </style>
+</head>
+<body style="font-family:'Inter',sans-serif;background:var(--background);color:var(--on-surface);min-height:100vh;overflow-x:hidden;padding-bottom:88px;">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <header class="top-bar">
+    <button type="button" class="brand">
+      <span class="material-symbols-outlined">shield_lock</span>
+      <span>GUARDRAIL</span>
+    </button>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="db-feed-status" style="margin-right:8px;">
+        <span class="db-feed-dot"></span>
+        <span style="font-size:10px;color:#64748b;">v2.0.0</span>
+      </div>
+      <button class="scan-btn">
+        <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:4px;">radar</span>
+        Scan
+      </button>
+    </div>
+  </header>
+
+  <div class="db-main">
+    <!-- Hero -->
+    <section class="anim">
+      <div class="db-bento db-bento-hero">
+        <div class="db-posture">
+          <div class="db-posture-label">Security Posture</div>
+          <div class="db-score-row">
+            <span class="db-score-big">87</span>
+            <span class="db-score-max">/100</span>
+          </div>
+          <p class="db-posture-desc">Infrastructure integrity is within <strong>optimal</strong> parameters. Grade B+.</p>
+          <div class="db-posture-meta">
+            <div class="db-meta-item">
+              <span class="db-meta-label">Trend</span>
+              <span class="db-meta-val" style="color:var(--cyan-glow);">+2.4% <span class="material-symbols-outlined" style="font-size:16px;">trending_up</span></span>
+            </div>
+            <div class="db-meta-divider"></div>
+            <div class="db-meta-item">
+              <span class="db-meta-label">Risk Level</span>
+              <span class="db-meta-val" style="color:var(--secondary);">Minimal</span>
+            </div>
+            <div class="db-meta-divider"></div>
+            <div class="db-meta-item">
+              <span class="db-meta-label">Ship</span>
+              <span class="db-meta-val" style="color:var(--cyan-glow);">READY</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="db-threat-map">
+          <div class="db-threat-header">
+            <div class="db-threat-header-left">
+              <span class="db-threat-dot"></span>
+              <span class="db-threat-title">Real-time Threat Map</span>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="db-threat-btn">Findings</button>
+              <button class="db-threat-btn">Re-scan</button>
+            </div>
+          </div>
+          <div class="db-threat-canvas">
+            <div class="db-threat-grid"></div>
+            <div class="db-threat-node" style="top:18%;left:25%;width:10px;height:10px;background:#ef4444;color:#ef4444;animation:ka-pulse 1.5s infinite,db-float 3s ease infinite;"></div>
+            <div class="db-threat-node" style="top:45%;left:72%;width:6px;height:6px;background:var(--secondary);color:var(--secondary);animation:db-float 3.5s ease infinite;"></div>
+            <div class="db-threat-node" style="top:65%;left:35%;width:6px;height:6px;background:var(--cyan-glow);color:var(--cyan-glow);animation:db-float 4s ease infinite;"></div>
+            <div class="db-threat-node" style="top:30%;left:55%;width:6px;height:6px;background:var(--secondary);color:var(--secondary);animation:db-float 3.8s ease infinite;"></div>
+            <div class="db-threat-node" style="top:75%;left:80%;width:6px;height:6px;background:var(--cyan-glow);color:var(--cyan-glow);animation:db-float 4.2s ease infinite;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Metrics -->
+    <section class="anim anim-d1">
+      <div class="db-bento db-bento-3">
+        <div class="db-metric">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(0,229,255,0.1);"><span class="material-symbols-outlined" style="color:var(--cyan-glow);font-size:22px;">shield</span></div>
+            <span class="db-metric-badge">TOTAL: 43</span>
+          </div>
+          <div class="db-metric-title">Vulnerabilities</div>
+          <div class="db-vuln-row"><span class="db-vuln-label">Critical</span><div class="db-vuln-track"><div class="db-vuln-fill" style="width:7%;background:var(--error);"></div></div><span class="db-vuln-count" style="color:var(--error);">03</span></div>
+          <div class="db-vuln-row"><span class="db-vuln-label">High</span><div class="db-vuln-track"><div class="db-vuln-fill" style="width:28%;background:var(--secondary);"></div></div><span class="db-vuln-count" style="color:var(--secondary);">12</span></div>
+          <div class="db-vuln-row"><span class="db-vuln-label">Medium</span><div class="db-vuln-track"><div class="db-vuln-fill" style="width:65%;background:#94a3b8;"></div></div><span class="db-vuln-count" style="color:#94a3b8;">28</span></div>
+        </div>
+
+        <div class="db-metric">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(176,198,255,0.1);"><span class="material-symbols-outlined" style="color:var(--secondary);font-size:22px;">package_2</span></div>
+            <span class="db-metric-badge">AUTO-RUN: ACTIVE</span>
+          </div>
+          <div class="db-metric-title">Recent Checks</div>
+          <div class="db-check"><span class="material-symbols-outlined" style="color:#22c55e;font-size:18px;font-variation-settings:'FILL' 1;">check_circle</span><span class="db-check-name">Workspace Scan</span><span class="db-check-time">just now</span></div>
+          <div class="db-check"><span class="material-symbols-outlined" style="color:#22c55e;font-size:18px;font-variation-settings:'FILL' 1;">check_circle</span><span class="db-check-name">Integrity: 4 signal(s)</span><span class="db-check-time">—</span></div>
+          <div class="db-check"><span class="material-symbols-outlined" style="color:var(--error);font-size:18px;font-variation-settings:'FILL' 1;">error</span><span class="db-check-name">Secrets: 2 found</span><span class="db-check-time">—</span></div>
+        </div>
+
+        <div class="db-metric" style="position:relative;overflow:hidden;">
+          <div class="db-metric-head">
+            <div class="db-metric-icon" style="background:rgba(195,245,255,0.1);"><span class="material-symbols-outlined" style="color:var(--primary);font-size:22px;">radar</span></div>
+            <span style="padding:2px 8px;border-radius:999px;background:rgba(0,229,255,0.15);color:var(--cyan-glow);font-size:9px;font-weight:800;">MONITORING</span>
+          </div>
+          <div class="db-metric-title">Active Scans</div>
+          <div class="db-scan-item"><div class="db-scan-head"><span>Security Sweep</span><span>100%</span></div><div class="db-scan-bar"><div class="db-scan-fill" style="width:100%;"></div></div></div>
+          <div class="db-scan-item" style="opacity:0.5;"><div class="db-scan-head"><span>Deep Dependency</span><span>Queued</span></div><div class="db-scan-bar"><div class="db-scan-fill" style="width:0%;"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Feed -->
+    <section class="anim anim-d2">
+      <div class="db-feed">
+        <div class="db-feed-head">
+          <div class="db-feed-head-left"><span class="material-symbols-outlined" style="font-size:16px;color:#64748b;">list_alt</span><span class="db-feed-title">Live Status Feed</span></div>
+          <div class="db-feed-status"><span class="db-feed-dot"></span><span>STREAMING</span><span style="margin-left:4px;">v2.0.0</span></div>
+        </div>
+        <div class="db-feed-body">
+          <div class="db-feed-line"><span class="db-feed-ts">[23:33:00]</span><span class="db-feed-lv db-feed-info">INFO:</span><span class="db-feed-msg">Scan complete. Grade: B+. Score: 87/100.</span></div>
+          <div class="db-feed-line"><span class="db-feed-ts">[23:33:02]</span><span class="db-feed-lv db-feed-info">INFO:</span><span class="db-feed-msg">43 finding(s) indexed.</span></div>
+          <div class="db-feed-line"><span class="db-feed-ts">[23:33:05]</span><span class="db-feed-lv db-feed-info">INFO:</span><span class="db-feed-msg">Ship gate: PASSED. Ready for deployment.</span></div>
+          <div class="db-feed-line"><span class="db-feed-ts">[23:33:08]</span><span class="db-feed-lv db-feed-info">INFO:</span><span class="db-feed-msg">Posture re-calculation complete. Status updated.</span></div>
+          <div class="db-feed-line"><span class="db-feed-ts">[23:33:12]</span><span class="db-feed-lv db-feed-fail">FAIL:</span><span class="db-feed-msg">Secret scan: 2 hit(s) detected.</span></div>
+          <div class="db-feed-line"><span class="db-feed-ts">[23:33:18]</span><span class="db-feed-lv db-feed-info">INFO:</span><span class="db-feed-msg">Dashboard telemetry synced.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLI + Modules -->
+    <section class="anim anim-d3">
+      <div class="db-bento db-bento-2">
+        <div>
+          <h2 class="section-title">CLI Shortcuts</h2>
+          <div class="card" style="padding:4px;background:var(--surface-container-lowest);">
+            <button class="db-cli-row"><span class="db-cli-cmd">guardrail scan</span><span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">terminal</span></button>
+            <div style="height:1px;background:var(--border-subtle);margin:0 18px;"></div>
+            <button class="db-cli-row"><span class="db-cli-cmd">guardrail gate</span><span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">lock_open</span></button>
+            <div style="height:1px;background:var(--border-subtle);margin:0 18px;"></div>
+            <button class="db-cli-row"><span class="db-cli-cmd">guardrail fix</span><span class="material-symbols-outlined" style="color:rgba(255,255,255,0.3);font-size:18px;">auto_fix_high</span></button>
+          </div>
+        </div>
+        <div>
+          <h2 class="section-title">Analysis Modules</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div class="db-metric" style="padding:14px;"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:20px;margin-bottom:8px;">security</span><p style="font-size:12px;font-weight:600;">Security</p></div>
+            <div class="db-metric" style="padding:14px;"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:20px;margin-bottom:8px;">verified_user</span><p style="font-size:12px;font-weight:600;">Compliance</p></div>
+            <div class="db-metric" style="padding:14px;"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:20px;margin-bottom:8px;">speed</span><p style="font-size:12px;font-weight:600;">Performance</p></div>
+            <div class="db-metric" style="padding:14px;"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:20px;margin-bottom:8px;">difference</span><p style="font-size:12px;font-weight:600;">Impact</p></div>
+            <div class="db-metric" style="padding:14px;"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:20px;margin-bottom:8px;">psychology</span><p style="font-size:12px;font-weight:600;">AI Explain</p></div>
+            <div class="db-metric" style="padding:14px;"><span class="material-symbols-outlined" style="color:var(--primary-fixed-dim);font-size:20px;margin-bottom:8px;">description</span><p style="font-size:12px;font-weight:600;">MDC Gen</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  </div>
+  <nav class="bottom-nav">
+    <button class="nav-item active"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">dashboard</span></button>
+    <button class="nav-item"><span class="material-symbols-outlined">analytics</span></button>
+    <button class="nav-item"><span class="material-symbols-outlined">settings</span></button>
+    <button class="nav-item"><span class="material-symbols-outlined">workspace_premium</span></button>
+  </nav>
+</body>
+</html>

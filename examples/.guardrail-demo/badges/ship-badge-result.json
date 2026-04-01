@@ -1,0 +1,75 @@
+{
+  "projectId": "1e9ae96f73af",
+  "projectName": "guardrail",
+  "verdict": "no-ship",
+  "score": 20,
+  "checks": [
+    {
+      "id": "no-mock-data",
+      "name": "No Mock Data Detected",
+      "shortName": "Mock Data",
+      "status": "fail",
+      "message": "Found 1 mock data patterns",
+      "details": [
+        "apps\\api\\src\\routes\\ship.ts: const\\s+mock\\w*\\s*="
+      ]
+    },
+    {
+      "id": "no-localhost",
+      "name": "No Localhost/Ngrok",
+      "shortName": "Real URLs",
+      "status": "fail",
+      "message": "Found 1 localhost/ngrok URLs",
+      "details": [
+        ".env: localhost:5433"
+      ]
+    },
+    {
+      "id": "env-vars",
+      "name": "Environment Variables Present",
+      "shortName": "Env Vars",
+      "status": "warning",
+      "message": "Missing 1 environment variables",
+      "details": [
+        "LOG_LEVEL"
+      ]
+    },
+    {
+      "id": "real-billing",
+      "name": "Billing Not Simulated",
+      "shortName": "Billing",
+      "status": "pass",
+      "message": "No test billing keys or demo billing code found",
+      "details": []
+    },
+    {
+      "id": "real-database",
+      "name": "Database Is Real",
+      "shortName": "Database",
+      "status": "warning",
+      "message": "Database URL points to local/fake database"
+    },
+    {
+      "id": "oauth-callbacks",
+      "name": "OAuth Callbacks Not Localhost",
+      "shortName": "OAuth",
+      "status": "skip",
+      "message": "No OAuth/auth code detected",
+      "details": []
+    }
+  ],
+  "badges": {
+    "main": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"153\" height=\"20\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  <clipPath id=\"round\">\n    <rect width=\"153\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#round)\">\n    <rect width=\"73\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"73\" width=\"80\" height=\"20\" fill=\"#ef4444\"/>\n    <rect width=\"153\" height=\"20\" fill=\"url(#smooth)\"/>\n  </g>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\">\n    <text x=\"36.5\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">guardrail</text>\n    <text x=\"36.5\" y=\"13\">guardrail</text>\n    <text x=\"113\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">🛑 NO SHIP</text>\n    <text x=\"113\" y=\"13\">🛑 NO SHIP</text>\n  </g>\n</svg>",
+    "mockData": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"20\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  <clipPath id=\"round\">\n    <rect width=\"125\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#round)\">\n    <rect width=\"73\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"73\" width=\"52\" height=\"20\" fill=\"#f87171\"/>\n    <rect width=\"125\" height=\"20\" fill=\"url(#smooth)\"/>\n  </g>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\">\n    <text x=\"36.5\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">Mock Data</text>\n    <text x=\"36.5\" y=\"13\">Mock Data</text>\n    <text x=\"99\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">❌ Fail</text>\n    <text x=\"99\" y=\"13\">❌ Fail</text>\n  </g>\n</svg>",
+    "realApi": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"20\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  <clipPath id=\"round\">\n    <rect width=\"125\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#round)\">\n    <rect width=\"73\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"73\" width=\"52\" height=\"20\" fill=\"#f87171\"/>\n    <rect width=\"125\" height=\"20\" fill=\"url(#smooth)\"/>\n  </g>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\">\n    <text x=\"36.5\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">Real URLs</text>\n    <text x=\"36.5\" y=\"13\">Real URLs</text>\n    <text x=\"99\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">❌ Fail</text>\n    <text x=\"99\" y=\"13\">❌ Fail</text>\n  </g>\n</svg>",
+    "envVars": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"146\" height=\"20\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  <clipPath id=\"round\">\n    <rect width=\"146\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#round)\">\n    <rect width=\"66\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"66\" width=\"80\" height=\"20\" fill=\"#fbbf24\"/>\n    <rect width=\"146\" height=\"20\" fill=\"url(#smooth)\"/>\n  </g>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\">\n    <text x=\"33\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">Env Vars</text>\n    <text x=\"33\" y=\"13\">Env Vars</text>\n    <text x=\"106\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">⚠️ Warning</text>\n    <text x=\"106\" y=\"13\">⚠️ Warning</text>\n  </g>\n</svg>",
+    "billing": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"111\" height=\"20\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  <clipPath id=\"round\">\n    <rect width=\"111\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#round)\">\n    <rect width=\"59\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"59\" width=\"52\" height=\"20\" fill=\"#4ade80\"/>\n    <rect width=\"111\" height=\"20\" fill=\"url(#smooth)\"/>\n  </g>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\">\n    <text x=\"29.5\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">Billing</text>\n    <text x=\"29.5\" y=\"13\">Billing</text>\n    <text x=\"85\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">✅ Pass</text>\n    <text x=\"85\" y=\"13\">✅ Pass</text>\n  </g>\n</svg>",
+    "database": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"146\" height=\"20\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  <clipPath id=\"round\">\n    <rect width=\"146\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#round)\">\n    <rect width=\"66\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"66\" width=\"80\" height=\"20\" fill=\"#fbbf24\"/>\n    <rect width=\"146\" height=\"20\" fill=\"url(#smooth)\"/>\n  </g>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\">\n    <text x=\"33\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">Database</text>\n    <text x=\"33\" y=\"13\">Database</text>\n    <text x=\"106\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">⚠️ Warning</text>\n    <text x=\"106\" y=\"13\">⚠️ Warning</text>\n  </g>\n</svg>",
+    "oauth": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"104\" height=\"20\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#bbb\" stop-opacity=\".1\"/>\n    <stop offset=\"1\" stop-opacity=\".1\"/>\n  </linearGradient>\n  <clipPath id=\"round\">\n    <rect width=\"104\" height=\"20\" rx=\"3\" fill=\"#fff\"/>\n  </clipPath>\n  <g clip-path=\"url(#round)\">\n    <rect width=\"45\" height=\"20\" fill=\"#555\"/>\n    <rect x=\"45\" width=\"59\" height=\"20\" fill=\"#9ca3af\"/>\n    <rect width=\"104\" height=\"20\" fill=\"url(#smooth)\"/>\n  </g>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\">\n    <text x=\"22.5\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">OAuth</text>\n    <text x=\"22.5\" y=\"13\">OAuth</text>\n    <text x=\"74.5\" y=\"14\" fill=\"#010101\" fill-opacity=\".3\">⏭️ Skip</text>\n    <text x=\"74.5\" y=\"13\">⏭️ Skip</text>\n  </g>\n</svg>",
+    "combined": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"153\" height=\"28\">\n  <linearGradient id=\"smooth\" x2=\"0\" y2=\"100%\">\n    <stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".7\"/>\n    <stop offset=\".1\" stop-color=\"#aaa\" stop-opacity=\".1\"/>\n    <stop offset=\".9\" stop-color=\"#000\" stop-opacity=\".3\"/>\n    <stop offset=\"1\" stop-color=\"#000\" stop-opacity=\".5\"/>\n  </linearGradient>\n  <rect rx=\"4\" width=\"153\" height=\"28\" fill=\"#555\"/>\n  <rect rx=\"4\" x=\"80\" width=\"73\" height=\"28\" fill=\"#f87171\"/>\n  <rect rx=\"4\" width=\"153\" height=\"28\" fill=\"url(#smooth)\"/>\n  <g fill=\"#fff\" text-anchor=\"middle\" font-family=\"DejaVu Sans,Verdana,Geneva,sans-serif\" font-size=\"11\" font-weight=\"bold\">\n    <text x=\"40\" y=\"18\" fill=\"#010101\" fill-opacity=\".3\">Ship Score</text>\n    <text x=\"40\" y=\"17\">Ship Score</text>\n    <text x=\"116.5\" y=\"18\" fill=\"#010101\" fill-opacity=\".3\">1/5 (20%)</text>\n    <text x=\"116.5\" y=\"17\">1/5 (20%)</text>\n  </g>\n</svg>"
+  },
+  "timestamp": "2026-01-01T09:47:00.028Z",
+  "expiresAt": "2026-01-08T09:47:00.028Z",
+  "permalink": "https://guardrailai.dev/badge/1e9ae96f73af",
+  "embedCode": "<!-- guardrail Ship Badge -->\n[![guardrail Ship Status](https://guardrailai.dev/api/badge/1e9ae96f73af/main.svg)](https://guardrailai.dev/badge/1e9ae96f73af)\n[![Mock Data](https://guardrailai.dev/api/badge/1e9ae96f73af/mock-data.svg)](https://guardrailai.dev/badge/1e9ae96f73af)\n[![Real APIs](https://guardrailai.dev/api/badge/1e9ae96f73af/real-api.svg)](https://guardrailai.dev/badge/1e9ae96f73af)\n<!-- End guardrail Ship Badge -->\n\n---\n\n**guardrail** verified by [guardrail](https://guardrailai.dev) - Stop shipping pretend features."
+}

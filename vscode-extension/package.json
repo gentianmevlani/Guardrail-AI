@@ -1,0 +1,598 @@
+{
+  "name": "guardrail",
+  "displayName": "guardrail",
+  "description": "Detect fake features and AI hallucinations before they ship to production",
+  "version": "2.0.0",
+  "publisher": "guardrail",
+  "icon": "images/guardrail_logo_transparent_2x.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guardiavault-oss/guardrail-Ofiicial"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "code quality",
+    "linter",
+    "security",
+    "fake features",
+    "mock data",
+    "hallucination",
+    "cursor",
+    "copilot",
+    "claude",
+    "enterprise",
+    "compliance",
+    "soc2",
+    "hipaa",
+    "gdpr",
+    "pci-dss",
+    "security scanner",
+    "performance monitoring",
+    "change impact",
+    "mdc generator",
+    "documentation"
+  ],
+  "galleryBanner": {
+    "color": "#0a0a0a",
+    "theme": "dark"
+  },
+  "badges": [
+    {
+      "url": "https://img.shields.io/visual-studio-marketplace/v/guardrail.guardrail",
+      "href": "https://marketplace.visualstudio.com/items?itemName=guardrail.guardrail",
+      "description": "VS Code Marketplace Version"
+    },
+    {
+      "url": "https://img.shields.io/visual-studio-marketplace/d/guardrail.guardrail",
+      "href": "https://marketplace.visualstudio.com/items?itemName=guardrail.guardrail",
+      "description": "VS Code Marketplace Downloads"
+    }
+  ],
+  "main": "./dist/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run build:prod",
+    "build": "node esbuild.config.js",
+    "build:prod": "node esbuild.config.js --production",
+    "watch": "node esbuild.config.js --watch",
+    "lint": "eslint src --ext ts",
+    "lint:fix": "eslint src --ext ts --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck && node ./dist/test/demo-extension.test.js",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "clean": "rm -rf dist out"
+  },
+  "dependencies": {
+    "@guardrail/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vscode/test-electron": "^2.3.8",
+    "@vscode/vsce": "^2.22.0",
+    "esbuild": "^0.19.8",
+    "eslint": "^8.54.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.3.2",
+    "vitest": "^1.0.0"
+  },
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onLanguage:python",
+    "onLanguage:go",
+    "onLanguage:rust",
+    "onLanguage:java",
+    "onLanguage:csharp",
+    "workspaceContains:**/.guardrail.json",
+    "workspaceContains:**/.guardrail/**",
+    "onView:guardrail.sidebar"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "guardrail",
+          "title": "Guardrail",
+          "icon": "images/guardrail-sidebar.svg"
+        }
+      ]
+    },
+    "views": {
+      "guardrail": [
+        {
+          "id": "guardrail.sidebar",
+          "name": "Guardrail",
+          "type": "webview",
+          "contextualTitle": "Guardrail"
+        }
+      ]
+    },
+    "walkthroughs": [
+      {
+        "id": "guardrail.getStarted",
+        "title": "Get Started with guardrail",
+        "description": "Detect fake features and AI hallucinations before they ship to production.",
+        "steps": [
+          {
+            "id": "guardrail.scanWorkspace",
+            "title": "Scan Your Workspace",
+            "description": "Run your first guardrail scan to detect fake features, mock data, and AI-generated issues.\n\n[Run Scan](command:guardrail.scanWorkspace)",
+            "media": {
+              "markdown": "media/walkthrough/scan.md"
+            },
+            "completionEvents": ["onCommand:guardrail.scanWorkspace"]
+          },
+          {
+            "id": "guardrail.viewDashboard",
+            "title": "View Your Score",
+            "description": "See your production readiness score and drill into specific issues.\n\n[Open Dashboard](command:guardrail.showDashboard)",
+            "media": {
+              "markdown": "media/walkthrough/scan.md"
+            },
+            "completionEvents": ["onCommand:guardrail.showDashboard"]
+          },
+          {
+            "id": "guardrail.fixIssue",
+            "title": "Fix an Issue",
+            "description": "Click the lightbulb 💡 on any highlighted code to see quick fixes.\n\n[Learn about Quick Fixes](https://guardrailai.dev/docs/quick-fixes)",
+            "media": {
+              "markdown": "media/walkthrough/quickfix.md"
+            },
+            "completionEvents": ["onCommand:guardrail.applyFix"]
+          },
+          {
+            "id": "guardrail.verifyAgent",
+            "title": "Verify AI Output",
+            "description": "Copy AI-generated code to clipboard, then verify it before applying.\n\n[Verify Clipboard](command:guardrail.verifyLastOutput)",
+            "media": {
+              "markdown": "media/walkthrough/quickfix.md"
+            },
+            "completionEvents": ["onCommand:guardrail.verifyLastOutput"]
+          },
+          {
+            "id": "guardrail.configureSettings",
+            "title": "Configure Your Rules",
+            "description": "Customize which rules are enabled and their severity.\n\n[Open Settings](command:workbench.action.openSettings?%5B%22codeguard%22%5D)",
+            "media": {
+              "markdown": "media/walkthrough/settings.md"
+            },
+            "completionEvents": ["onSettingChanged:guardrail.enabled"]
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "guardrail.openHub",
+        "title": "Open Guardrail Hub",
+        "category": "guardrail",
+        "icon": "$(hub)"
+      },
+      {
+        "command": "guardrail.connectGitHub",
+        "title": "Connect GitHub (Install App)",
+        "category": "guardrail",
+        "icon": "$(github)"
+      },
+      {
+        "command": "guardrail.setupCI",
+        "title": "Setup CI/CD Integration",
+        "category": "guardrail",
+        "icon": "$(server-process)"
+      },
+      {
+        "command": "guardrail.openFirewall",
+        "title": "Open AI Output Firewall",
+        "category": "guardrail",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "guardrail.scanWorkspace",
+        "title": "Scan Workspace",
+        "category": "guardrail",
+        "icon": "$(search)"
+      },
+      {
+        "command": "guardrail.showDashboard",
+        "title": "Show Dashboard",
+        "category": "guardrail",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "guardrail.verifyLastOutput",
+        "title": "Verify AI Output from Clipboard",
+        "category": "guardrail",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "guardrail.verifySelection",
+        "title": "Verify Selected Code",
+        "category": "guardrail",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "guardrail.applyFix",
+        "title": "Apply Quick Fix",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.realityCheckFile",
+        "title": "Check Current File",
+        "category": "guardrail",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "guardrail.toggleInlineHints",
+        "title": "Toggle Inline Hints",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.showFindings",
+        "title": "Show All Findings",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.runShip",
+        "title": "Run Ship Check",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.runReality",
+        "title": "Run Reality Mode",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.scanSecrets",
+        "title": "Scan for Secrets",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.scanVulnerabilities",
+        "title": "Scan Vulnerabilities",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.runSmells",
+        "title": "Analyze Code Smells",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.runDoctor",
+        "title": "Run CLI Doctor (environment check)",
+        "category": "guardrail",
+        "icon": "$(debug)"
+      },
+      {
+        "command": "guardrail.runWhoami",
+        "title": "Run CLI Whoami (account / plan)",
+        "category": "guardrail",
+        "icon": "$(account)"
+      },
+      {
+        "command": "guardrail.runGate",
+        "title": "Run CLI Gate (CI-style --json)",
+        "category": "guardrail",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "guardrail.runVibeCheck",
+        "title": "Run Vibe Check (shipping readiness)",
+        "category": "guardrail",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "guardrail.applyTemplate",
+        "title": "Apply Guardrail Template…",
+        "category": "guardrail",
+        "icon": "$(file-add)"
+      },
+      {
+        "command": "guardrail.openWebDashboard",
+        "title": "Open Web App (browser)",
+        "category": "guardrail",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "guardrail.syncCliCredentials",
+        "title": "Sync Login to Guardrail CLI",
+        "category": "guardrail",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "guardrail.refreshPlan",
+        "title": "Refresh Plan (re-sync tier from API / CLI)",
+        "category": "guardrail",
+        "icon": "$(debug)"
+      },
+      {
+        "command": "guardrail.runFix",
+        "title": "Run Auto-Fix",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.analyzeCodeHealth",
+        "title": "Analyze Code Health",
+        "category": "guardrail",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "guardrail.checkAccessibility",
+        "title": "Check Accessibility (WCAG)",
+        "category": "guardrail",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "guardrail.checkDocCoverage",
+        "title": "Check Documentation Coverage",
+        "category": "guardrail",
+        "icon": "$(book)"
+      },
+      {
+        "command": "guardrail.analyzeCodeDNA",
+        "title": "Analyze Code DNA",
+        "category": "guardrail",
+        "icon": "$(symbol-structure)"
+      },
+      {
+        "command": "guardrail.analyzeDependencyImpact",
+        "title": "Analyze Dependency Impact",
+        "category": "guardrail",
+        "icon": "$(package)"
+      },
+      {
+        "command": "guardrail.scanDuplicates",
+        "title": "Scan for Duplicates",
+        "category": "guardrail",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "guardrail.openMDCGenerator",
+        "title": "Open MDC Generator",
+        "category": "guardrail Enterprise",
+        "icon": "$(file-text)"
+      },
+      {
+        "command": "guardrail.openComplianceDashboard",
+        "title": "Open Compliance Dashboard",
+        "category": "guardrail Enterprise",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "guardrail.openSecurityScanner",
+        "title": "Open Security Scanner",
+        "category": "guardrail Enterprise",
+        "icon": "$(lock)"
+      },
+      {
+        "command": "guardrail.openPerformanceMonitor",
+        "title": "Open Performance Monitor",
+        "category": "guardrail Enterprise",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "guardrail.openChangeImpactAnalyzer",
+        "title": "Open Change Impact Analyzer",
+        "category": "guardrail Enterprise",
+        "icon": "$(git-branch)"
+      },
+      {
+        "command": "guardrail.openAIExplainer",
+        "title": "Open AI Code Explainer",
+        "category": "guardrail Enterprise",
+        "icon": "$(robot)"
+      },
+      {
+        "command": "guardrail.openTeamCollaboration",
+        "title": "Open Team Collaboration",
+        "category": "guardrail Enterprise",
+        "icon": "$(organization)"
+      },
+      {
+        "command": "guardrail.openProductionIntegrity",
+        "title": "Open Production Integrity",
+        "category": "guardrail Enterprise",
+        "icon": "$(server-environment)"
+      },
+      {
+        "command": "guardrail.openPromptFirewall",
+        "title": "Open Prompt Firewall",
+        "category": "guardrail Enterprise",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "guardrail.moveSecretToEnv",
+        "title": "Move Secret to .env",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.showContractDiff",
+        "title": "Show API Contract Diff (open file)",
+        "category": "guardrail"
+      },
+      {
+        "command": "guardrail.explainFinding",
+        "title": "Explain Finding",
+        "category": "guardrail"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "guardrail.scanWorkspace",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g"
+      },
+      {
+        "command": "guardrail.verifyLastOutput",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "!editorTextFocus"
+      },
+      {
+        "command": "guardrail.verifySelection",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "guardrail.realityCheckFile",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "guardrail.verifySelection",
+          "group": "guardrail@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "guardrail.realityCheckFile",
+          "group": "guardrail@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "guardrail.scanWorkspace",
+          "group": "guardrail@1",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "guardrail.realityCheckFile",
+          "group": "navigation",
+          "when": "resourceLangId =~ /javascript|typescript|python/"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "guardrail",
+      "properties": {
+        "guardrail.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable guardrail analysis"
+        },
+        "guardrail.analyzeOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run analysis when files are saved"
+        },
+        "guardrail.analyzeOnType": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run analysis as you type (may impact performance)"
+        },
+        "guardrail.showInlineHints": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inline decorations for issues"
+        },
+        "guardrail.severity": {
+          "type": "object",
+          "default": {
+            "CG001": "error",
+            "CG002": "error",
+            "CG003": "warning",
+            "CG004": "error",
+            "CG005": "error",
+            "CG006": "warning",
+            "CG007": "warning",
+            "CG008": "warning",
+            "CG009": "error",
+            "CG010": "hint"
+          },
+          "description": "Severity level for each rule (error, warning, hint, off)"
+        },
+        "guardrail.ignorePaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/*.test.*",
+            "**/*.spec.*"
+          ],
+          "description": "Glob patterns to ignore"
+        },
+        "guardrail.apiEndpoint": {
+          "type": "string",
+          "default": "https://api.guardrailai.dev",
+          "description": "guardrail API endpoint (for team/enterprise features)"
+        },
+        "guardrail.uploadRunsToCloud": {
+          "type": "boolean",
+          "default": false,
+          "description": "After Ship Check, POST results to the API (set API key in Guardrail account; uses apiEndpoint)"
+        },
+        "guardrail.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API key for AI intent verification"
+        },
+        "guardrail.webAppUrl": {
+          "type": "string",
+          "default": "https://guardrailai.dev",
+          "description": "Guardrail web app URL (opened by “Open Web App” and linked from the dashboard)"
+        },
+        "guardrail.openLocalWebAppFirst": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, opens http://localhost:3000 if it responds (local Next.js); otherwise uses webAppUrl"
+        },
+        "guardrail.syncCredentialsToCli": {
+          "type": "boolean",
+          "default": true,
+          "description": "After VS Code login or logout, update the Guardrail CLI credential file (~/.config/guardrail or Application Support) and run `guardrail logout` first so the new key replaces any CLI keychain entry"
+        }
+      }
+    },
+    "colors": [
+      {
+        "id": "guardrail.criticalBackground",
+        "description": "Background color for critical issues",
+        "defaults": {
+          "dark": "#ff6b6b20",
+          "light": "#ff6b6b15"
+        }
+      },
+      {
+        "id": "guardrail.warningBackground",
+        "description": "Background color for warnings",
+        "defaults": {
+          "dark": "#ffd93d20",
+          "light": "#ffd93d15"
+        }
+      },
+      {
+        "id": "guardrail.suggestionBackground",
+        "description": "Background color for suggestions",
+        "defaults": {
+          "dark": "#6bcb7720",
+          "light": "#6bcb7715"
+        }
+      }
+    ]
+  }
+}

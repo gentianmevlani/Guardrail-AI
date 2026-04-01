@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "gsap-fusion-site",
+    "framework": "node",
+    "language": "javascript",
+    "packageManager": "npm"
+  },
+  "scan": {
+    "exclude": [
+      "node_modules",
+      "dist",
+      "build",
+      ".next",
+      ".vibecheck"
+    ]
+  },
+  "createdAt": "2026-03-26T15:23:23.798Z"
+}

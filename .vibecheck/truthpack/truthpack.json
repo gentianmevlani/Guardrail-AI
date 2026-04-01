@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-03-31T16:35:01.046Z",
+  "projectPath": "/Users/liquidgroove/Downloads/Guardrail-Ofiicial-main",
+  "stack": {
+    "framework": "react",
+    "language": "typescript",
+    "packageManager": "pnpm",
+    "runtime": "node >=20.11"
+  },
+  "metadata": {
+    "fileCount": 6748,
+    "lineCount": 643213,
+    "totalSize": 246583801
+  }
+}

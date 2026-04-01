@@ -1,0 +1,6619 @@
+[
+  {
+    "path": "/health",
+    "method": "GET",
+    "file": "apps/api/src/__tests__/integration/health.test.ts",
+    "line": 13,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test/json-depth",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/integration/security-hardening.test.ts",
+    "line": 43,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/test/content-type",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/integration/security-hardening.test.ts",
+    "line": 53,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test/sql-injection",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/integration/security-hardening.test.ts",
+    "line": 63,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test/sanitize",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/integration/security-hardening.test.ts",
+    "line": 73,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test/rate-limit",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/integration/security-hardening.test.ts",
+    "line": 83,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/injection/scan",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/routes/injection.test.ts",
+    "line": 39,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/injection/sanitize",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/routes/injection.test.ts",
+    "line": 67,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/injection/batch-scan",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/routes/injection.test.ts",
+    "line": 87,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/security/scan/secrets",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/routes/security.test.ts",
+    "line": 35,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/security/scan/vulnerabilities",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/routes/security.test.ts",
+    "line": 54,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/security/scan/typosquat",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/routes/security.test.ts",
+    "line": 78,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/security/sbom/generate",
+    "method": "POST",
+    "file": "apps/api/src/__tests__/routes/security.test.ts",
+    "line": 99,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/version",
+    "method": "GET",
+    "file": "apps/api/src/middleware/api-versioning.ts",
+    "line": 281,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/auth/login",
+    "method": "POST",
+    "file": "apps/api/src/middleware/demo-rate-limiter.js",
+    "line": 56,
+    "handler": "handler",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/billing/subscribe",
+    "method": "POST",
+    "file": "apps/api/src/middleware/demo-rate-limiter.js",
+    "line": 57,
+    "handler": "handler",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/projects",
+    "method": "GET",
+    "file": "apps/api/src/middleware/demo-rate-limiter.js",
+    "line": 58,
+    "handler": "handler",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/custom",
+    "method": "POST",
+    "file": "apps/api/src/middleware/demo-rate-limiter.js",
+    "line": 67,
+    "handler": "handler",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/security-events",
+    "method": "GET",
+    "file": "apps/api/src/routes/admin/security-events.ts",
+    "line": 92,
+    "handler": "0",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/security-events/stats",
+    "method": "GET",
+    "file": "apps/api/src/routes/admin/security-events.ts",
+    "line": 176,
+    "handler": "0",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/security-events/export",
+    "method": "GET",
+    "file": "apps/api/src/routes/admin/security-events.ts",
+    "line": 252,
+    "handler": "000",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/suggestions",
+    "method": "POST",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 443,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/suggestions/realtime",
+    "method": "POST",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 464,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/analyze/security",
+    "method": "POST",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 476,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/security/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 489,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/security/scan/:scanId/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 520,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/websocket/rooms",
+    "method": "GET",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 539,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/websocket/rooms/:roomId/users",
+    "method": "GET",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 550,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/websocket/notify",
+    "method": "POST",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 568,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/dashboard/:projectId/analytics",
+    "method": "GET",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 591,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/security/analytics",
+    "method": "GET",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 620,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/security/vulnerabilities",
+    "method": "GET",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 676,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/security/health",
+    "method": "GET",
+    "file": "apps/api/src/routes/advanced-features.ts",
+    "line": 705,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/agents.ts",
+    "line": 23,
+    "handler": "body",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/agents.ts",
+    "line": 53,
+    "handler": "body",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/permissions",
+    "method": "PUT",
+    "file": "apps/api/src/routes/agents.ts",
+    "line": 89,
+    "handler": "body",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/suspend",
+    "method": "POST",
+    "file": "apps/api/src/routes/agents.ts",
+    "line": 114,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/reactivate",
+    "method": "POST",
+    "file": "apps/api/src/routes/agents.ts",
+    "line": 140,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/actions",
+    "method": "GET",
+    "file": "apps/api/src/routes/agents.ts",
+    "line": 162,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/agents.ts",
+    "line": 200,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api-keys",
+    "method": "POST",
+    "file": "apps/api/src/routes/api-keys.ts",
+    "line": 185,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api-keys",
+    "method": "GET",
+    "file": "apps/api/src/routes/api-keys.ts",
+    "line": 236,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api-keys/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/api-keys.ts",
+    "line": 282,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api-keys/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/api-keys.ts",
+    "line": 330,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/analyze",
+    "method": "POST",
+    "file": "apps/api/src/routes/attack-surface.ts",
+    "line": 12,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/attack-surface.ts",
+    "line": 24,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/visualization/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/attack-surface.ts",
+    "line": 43,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/query",
+    "method": "GET",
+    "file": "apps/api/src/routes/audit.ts",
+    "line": 39,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/timeline/:taskId",
+    "method": "GET",
+    "file": "apps/api/src/routes/audit.ts",
+    "line": 52,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/attribution",
+    "method": "GET",
+    "file": "apps/api/src/routes/audit.ts",
+    "line": 64,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/report",
+    "method": "POST",
+    "file": "apps/api/src/routes/audit.ts",
+    "line": 83,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/export/csv",
+    "method": "GET",
+    "file": "apps/api/src/routes/audit.ts",
+    "line": 95,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/export/json",
+    "method": "GET",
+    "file": "apps/api/src/routes/audit.ts",
+    "line": 117,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/register",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 625,
+    "handler": "refreshToken",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/login",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 662,
+    "handler": "refreshToken",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/refresh",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 701,
+    "handler": "refreshToken",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/request-reset",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 702,
+    "handler": "resetPassword",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/reset-password",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 709,
+    "handler": "resetPassword",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/github/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 712,
+    "handler": "clientId",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/github/sync",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 739,
+    "handler": "clientId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/github/connect",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 761,
+    "handler": "clientId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/github/callback",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 790,
+    "handler": "clientId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/github/disconnect",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 842,
+    "handler": "clientId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/oauth/github",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 859,
+    "handler": "clientId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/oauth/google",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 933,
+    "handler": "clientId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/google/connect",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1004,
+    "handler": "clientId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/google/callback",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1042,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/user",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1158,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/me",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1232,
+    "handler": "getProfile",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/logout",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1233,
+    "handler": "logout",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/change-password",
+    "method": "PUT",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1234,
+    "handler": "changePassword",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api-key",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1237,
+    "handler": "8",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api-key",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1286,
+    "handler": "12",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api-key",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/auth-fastify.ts",
+    "line": 1326,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/auth/whoami",
+    "method": "GET",
+    "file": "apps/api/src/routes/auth-v1.ts",
+    "line": 152,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/auth/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/auth-v1.ts",
+    "line": 175,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/enable",
+    "method": "POST",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 50,
+    "handler": "500",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/disable",
+    "method": "POST",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 109,
+    "handler": "500",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/status/:repositoryId",
+    "method": "GET",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 154,
+    "handler": "500",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/config/:repositoryId",
+    "method": "PATCH",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 194,
+    "handler": "500",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan/:repositoryId",
+    "method": "POST",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 265,
+    "handler": "500",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/activity/:repositoryId",
+    "method": "GET",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 312,
+    "handler": "500",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/digest/:repositoryId",
+    "method": "GET",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 368,
+    "handler": "500",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/repos",
+    "method": "GET",
+    "file": "apps/api/src/routes/autopilot.ts",
+    "line": 413,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/badge/:org/:repo.svg",
+    "method": "GET",
+    "file": "apps/api/src/routes/badge.ts",
+    "line": 187,
+    "handler": "repo",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/badge/:org/:repo.json",
+    "method": "GET",
+    "file": "apps/api/src/routes/badge.ts",
+    "line": 265,
+    "handler": "repo",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/badge/test.svg",
+    "method": "GET",
+    "file": "apps/api/src/routes/badge.ts",
+    "line": 360,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/report/:org/:repo",
+    "method": "GET",
+    "file": "apps/api/src/routes/badge.ts",
+    "line": 391,
+    "handler": "repo",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhook",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing-webhooks.ts",
+    "line": 191,
+    "handler": "WEBHOOK_SECRET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/checkout",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 313,
+    "handler": "i",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/create-checkout-session",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 378,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/subscribe",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 438,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/subscription",
+    "method": "GET",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 527,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/cancel",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 561,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/payment-method",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 627,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/payment-methods",
+    "method": "GET",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 638,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/history",
+    "method": "GET",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 708,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/usage",
+    "method": "GET",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 767,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/usage/extended",
+    "method": "GET",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 842,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/portal",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 1012,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/invoice/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 1059,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhook",
+    "method": "POST",
+    "file": "apps/api/src/routes/billing.ts",
+    "line": 1135,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/rooms",
+    "method": "GET",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 55,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/rooms/:roomId",
+    "method": "GET",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 76,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/rooms",
+    "method": "POST",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 97,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/rooms/:roomId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 123,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/join",
+    "method": "POST",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 147,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/notify",
+    "method": "POST",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 179,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/stats",
+    "method": "GET",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 207,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/broadcast",
+    "method": "POST",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 223,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/activity/:roomId",
+    "method": "GET",
+    "file": "apps/api/src/routes/collaboration.ts",
+    "line": 246,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/consent",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 72,
+    "handler": "ip",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/consent",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 107,
+    "handler": "ip",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/legal/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 144,
+    "handler": "ip",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/legal/accept",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 174,
+    "handler": "ip",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/gdpr/export",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 222,
+    "handler": "jobId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/gdpr/export/:jobId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 260,
+    "handler": "jobId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/gdpr/export/:jobId/download",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 299,
+    "handler": "jobId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/gdpr/delete",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 347,
+    "handler": "jobId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/gdpr/delete/:jobId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 385,
+    "handler": "jobId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/age/confirm",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 428,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/age/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance-v1.ts",
+    "line": 468,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/assess",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 110,
+    "handler": "frameworkId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 123,
+    "handler": "frameworkId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/frameworks",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 144,
+    "handler": "frameworkId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/framework/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 163,
+    "handler": "frameworkId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/evidence",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 184,
+    "handler": "frameworkId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/schedule",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 202,
+    "handler": "frameworkId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/schedule/:projectId/:frameworkId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 222,
+    "handler": "frameworkId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/schedules",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 248,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/run",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 256,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/execution/:executionId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 282,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/evidence/:collectionId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 301,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/evidence/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 321,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/reports/generate",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 333,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/reports/:reportId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 371,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/reports",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 390,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/reports/:reportId/export/:format",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 410,
+    "handler": "2",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/audit/query",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 456,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/audit/verify",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 482,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/dashboard",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 490,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/dashboard/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 523,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/alerts/configure",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 547,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/trigger",
+    "method": "POST",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 574,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health",
+    "method": "GET",
+    "file": "apps/api/src/routes/compliance.ts",
+    "line": 606,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/container.ts",
+    "line": 22,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/dockerfile",
+    "method": "POST",
+    "file": "apps/api/src/routes/container.ts",
+    "line": 35,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/container.ts",
+    "line": 54,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/kubernetes/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/container.ts",
+    "line": 72,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/kubernetes/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/container.ts",
+    "line": 81,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/kubernetes/rbac/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/container.ts",
+    "line": 99,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/summary",
+    "method": "GET",
+    "file": "apps/api/src/routes/dashboard.ts",
+    "line": 60,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/activity",
+    "method": "GET",
+    "file": "apps/api/src/routes/dashboard.ts",
+    "line": 214,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/stats/security",
+    "method": "GET",
+    "file": "apps/api/src/routes/dashboard.ts",
+    "line": 269,
+    "handler": "0",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/stats/compliance",
+    "method": "GET",
+    "file": "apps/api/src/routes/dashboard.ts",
+    "line": 354,
+    "handler": "a",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health-score",
+    "method": "GET",
+    "file": "apps/api/src/routes/dashboard.ts",
+    "line": 433,
+    "handler": "s",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/vercel",
+    "method": "POST",
+    "file": "apps/api/src/routes/deploy-hooks.ts",
+    "line": 79,
+    "handler": "signature",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/netlify",
+    "method": "POST",
+    "file": "apps/api/src/routes/deploy-hooks.ts",
+    "line": 123,
+    "handler": "signature",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/railway",
+    "method": "POST",
+    "file": "apps/api/src/routes/deploy-hooks.ts",
+    "line": 163,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/check",
+    "method": "POST",
+    "file": "apps/api/src/routes/deploy-hooks.ts",
+    "line": 205,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/deploy-hooks.ts",
+    "line": 234,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/enhanced-api-keys",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-api-keys.ts",
+    "line": 230,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/enhanced-api-keys",
+    "method": "GET",
+    "file": "apps/api/src/routes/enhanced-api-keys.ts",
+    "line": 289,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/enhanced-api-keys/:id/rotate",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-api-keys.ts",
+    "line": 336,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/enhanced-api-keys/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/enhanced-api-keys.ts",
+    "line": 406,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/enhanced-api-keys/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-api-keys.ts",
+    "line": 457,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/enhanced-api-keys/templates/security-policies",
+    "method": "GET",
+    "file": "apps/api/src/routes/enhanced-api-keys.ts",
+    "line": 496,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/enhanced-ship/check",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-guardrail.ts",
+    "line": 77,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/prompt-firewall/process",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-guardrail.ts",
+    "line": 113,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/prompt-firewall/apply-fix",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-guardrail.ts",
+    "line": 157,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/context/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-guardrail.ts",
+    "line": 188,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/long-term-tracking/report",
+    "method": "GET",
+    "file": "apps/api/src/routes/enhanced-guardrail.ts",
+    "line": 222,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/unified/check",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-guardrail.ts",
+    "line": 256,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/unified/report",
+    "method": "POST",
+    "file": "apps/api/src/routes/enhanced-guardrail.ts",
+    "line": 299,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sbom/generate",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 57,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/policies/init",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 106,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/policies/evaluate",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 119,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/policies",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 147,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/policies/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 175,
+    "handler": "10",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/audit/events",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 189,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/audit/verify",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 215,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/audit/export",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 238,
+    "handler": "10",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/audit/keys",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 267,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/analytics/dashboard",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 287,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/analytics/trends",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 308,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/analytics/hotspots",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 330,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sso/configure",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 380,
+    "handler": "domain",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sso/verify-domain",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 408,
+    "handler": "domain",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sso/login",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 434,
+    "handler": "returnUrl",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sso/config/:organizationId",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 450,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scim/v2/Users",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 486,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scim/v2/Users",
+    "method": "POST",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 513,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scim/v2/Users/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 531,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scim/v2/Users/:id",
+    "method": "PATCH",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 565,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scim/v2/Users/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/enterprise.ts",
+    "line": 601,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/runs",
+    "method": "GET",
+    "file": "apps/api/src/routes/exports.ts",
+    "line": 34,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/findings",
+    "method": "GET",
+    "file": "apps/api/src/routes/exports.ts",
+    "line": 93,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/audit-logs",
+    "method": "GET",
+    "file": "apps/api/src/routes/exports.ts",
+    "line": 148,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/billing",
+    "method": "GET",
+    "file": "apps/api/src/routes/exports.ts",
+    "line": 201,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/usage",
+    "method": "GET",
+    "file": "apps/api/src/routes/exports.ts",
+    "line": 254,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/flags",
+    "method": "GET",
+    "file": "apps/api/src/routes/feature-flags-routes.ts",
+    "line": 18,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/flags",
+    "method": "GET",
+    "file": "apps/api/src/routes/feature-flags-routes.ts",
+    "line": 24,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/flags",
+    "method": "POST",
+    "file": "apps/api/src/routes/feature-flags-routes.ts",
+    "line": 29,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/flags/:key",
+    "method": "PUT",
+    "file": "apps/api/src/routes/feature-flags-routes.ts",
+    "line": 34,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/flags/:key",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/feature-flags-routes.ts",
+    "line": 39,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/flags/:key/toggle",
+    "method": "POST",
+    "file": "apps/api/src/routes/feature-flags-routes.ts",
+    "line": 44,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/feedback",
+    "method": "POST",
+    "file": "apps/api/src/routes/feedback-routes.ts",
+    "line": 18,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/feedback",
+    "method": "GET",
+    "file": "apps/api/src/routes/feedback-routes.ts",
+    "line": 23,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/feedback/stats",
+    "method": "GET",
+    "file": "apps/api/src/routes/feedback-routes.ts",
+    "line": 28,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/feedback/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/feedback-routes.ts",
+    "line": 33,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/feedback/:id",
+    "method": "PUT",
+    "file": "apps/api/src/routes/feedback-routes.ts",
+    "line": 38,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/feedback/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/feedback-routes.ts",
+    "line": 43,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/findings.ts",
+    "line": 180,
+    "handler": "300",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/export",
+    "method": "GET",
+    "file": "apps/api/src/routes/findings.ts",
+    "line": 285,
+    "handler": "10",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/apply",
+    "method": "POST",
+    "file": "apps/api/src/routes/fixes.ts",
+    "line": 63,
+    "handler": "userId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/diff",
+    "method": "POST",
+    "file": "apps/api/src/routes/fixes.ts",
+    "line": 131,
+    "handler": "userId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/rollback",
+    "method": "POST",
+    "file": "apps/api/src/routes/fixes.ts",
+    "line": 179,
+    "handler": "userId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/connect",
+    "method": "POST",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 86,
+    "handler": "sessionId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/callback",
+    "method": "GET",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 125,
+    "handler": "sessionId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/disconnect",
+    "method": "POST",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 376,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 416,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/app/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 468,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/github/repos",
+    "method": "GET",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 528,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/github/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 604,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sync",
+    "method": "POST",
+    "file": "apps/api/src/routes/github.ts",
+    "line": 742,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/parse",
+    "method": "POST",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 850,
+    "handler": "rule",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/rules",
+    "method": "GET",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 887,
+    "handler": "rule",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/rules/:ruleId/toggle",
+    "method": "PATCH",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 893,
+    "handler": "rule",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/rules/:ruleId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 912,
+    "handler": "rules",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 928,
+    "handler": "rules",
+    "auth": true,
+    "middleware": [
+      "rateLimit",
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/history",
+    "method": "GET",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 1001,
+    "handler": "preset",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/stats",
+    "method": "GET",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 1008,
+    "handler": "preset",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/achievements",
+    "method": "GET",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 1023,
+    "handler": "preset",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/presets",
+    "method": "GET",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 1084,
+    "handler": "preset",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/presets/:presetId/toggle",
+    "method": "PATCH",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 1090,
+    "handler": "preset",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/team/stats",
+    "method": "GET",
+    "file": "apps/api/src/routes/guardrails.ts",
+    "line": 1112,
+    "handler": "s",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/health",
+    "method": "GET",
+    "file": "apps/api/src/routes/health.ts",
+    "line": 39,
+    "handler": "7",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/live",
+    "method": "GET",
+    "file": "apps/api/src/routes/health.ts",
+    "line": 57,
+    "handler": "7",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/health",
+    "method": "GET",
+    "file": "apps/api/src/routes/health.ts",
+    "line": 70,
+    "handler": "7",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/ready",
+    "method": "GET",
+    "file": "apps/api/src/routes/health.ts",
+    "line": 160,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/startup",
+    "method": "GET",
+    "file": "apps/api/src/routes/health.ts",
+    "line": 221,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/iac.ts",
+    "line": 16,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/iac.ts",
+    "line": 25,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/drift",
+    "method": "POST",
+    "file": "apps/api/src/routes/iac.ts",
+    "line": 43,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/rules",
+    "method": "GET",
+    "file": "apps/api/src/routes/iac.ts",
+    "line": 52,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/injection.ts",
+    "line": 33,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/batch",
+    "method": "POST",
+    "file": "apps/api/src/routes/injection.ts",
+    "line": 58,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/jobs",
+    "method": "GET",
+    "file": "apps/api/src/routes/intelligence.ts",
+    "line": 455,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/license-keys.ts",
+    "line": 116,
+    "handler": "7",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/license-keys.ts",
+    "line": 164,
+    "handler": "7",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/license-keys.ts",
+    "line": 205,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/revoke",
+    "method": "POST",
+    "file": "apps/api/src/routes/license-keys.ts",
+    "line": 247,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/deactivate",
+    "method": "POST",
+    "file": "apps/api/src/routes/license-keys.ts",
+    "line": 281,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id/activations",
+    "method": "GET",
+    "file": "apps/api/src/routes/license-keys.ts",
+    "line": 315,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/analyze",
+    "method": "POST",
+    "file": "apps/api/src/routes/license.ts",
+    "line": 18,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/license.ts",
+    "line": 31,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/compatibility",
+    "method": "GET",
+    "file": "apps/api/src/routes/license.ts",
+    "line": 50,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/mcp/tools",
+    "method": "GET",
+    "file": "apps/api/src/routes/mcp-wrapper.ts",
+    "line": 18,
+    "handler": "args",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/mcp/:tool",
+    "method": "POST",
+    "file": "apps/api/src/routes/mcp-wrapper.ts",
+    "line": 31,
+    "handler": "args",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/mcp/resources",
+    "method": "GET",
+    "file": "apps/api/src/routes/mcp-wrapper.ts",
+    "line": 47,
+    "handler": "reject",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/mcp/resources/:uri",
+    "method": "GET",
+    "file": "apps/api/src/routes/mcp-wrapper.ts",
+    "line": 60,
+    "handler": "reject",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/metrics.ts",
+    "line": 17,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/json",
+    "method": "GET",
+    "file": "apps/api/src/routes/metrics.ts",
+    "line": 49,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/mfa.ts",
+    "line": 43,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/setup",
+    "method": "POST",
+    "file": "apps/api/src/routes/mfa.ts",
+    "line": 80,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/verify-setup",
+    "method": "POST",
+    "file": "apps/api/src/routes/mfa.ts",
+    "line": 131,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/verify",
+    "method": "POST",
+    "file": "apps/api/src/routes/mfa.ts",
+    "line": 182,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/disable",
+    "method": "POST",
+    "file": "apps/api/src/routes/mfa.ts",
+    "line": 347,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/notifications.ts",
+    "line": 47,
+    "handler": "params",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/notifications.ts",
+    "line": 98,
+    "handler": "action_url",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/mark-read",
+    "method": "POST",
+    "file": "apps/api/src/routes/notifications.ts",
+    "line": 133,
+    "handler": "i",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/mark-all-read",
+    "method": "POST",
+    "file": "apps/api/src/routes/notifications.ts",
+    "line": 173,
+    "handler": "reply",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/onboarding",
+    "method": "POST",
+    "file": "apps/api/src/routes/onboarding.ts",
+    "line": 49,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/onboarding/analytics/completion-rate",
+    "method": "GET",
+    "file": "apps/api/src/routes/onboarding.ts",
+    "line": 219,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 81,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 102,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/accept-invite/:token",
+    "method": "POST",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 118,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId",
+    "method": "GET",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 139,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId",
+    "method": "PATCH",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 160,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/invite",
+    "method": "POST",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 183,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/members/:memberId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 211,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/members/:memberId",
+    "method": "PATCH",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 236,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/seats",
+    "method": "GET",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 263,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/seats/purchase",
+    "method": "POST",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 284,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/seats/reduce",
+    "method": "POST",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 307,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/upgrade",
+    "method": "POST",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 330,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:orgId/usage",
+    "method": "GET",
+    "file": "apps/api/src/routes/organizations.ts",
+    "line": 353,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/detect",
+    "method": "POST",
+    "file": "apps/api/src/routes/pii.ts",
+    "line": 12,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/pii.ts",
+    "line": 21,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/data-flow/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/pii.ts",
+    "line": 39,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/policies.ts",
+    "line": 150,
+    "handler": "ignore_globs",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "PUT",
+    "file": "apps/api/src/routes/policies.ts",
+    "line": 211,
+    "handler": "ignore_globs",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "PUT",
+    "file": "apps/api/src/routes/policies.ts",
+    "line": 294,
+    "handler": "ignore_globs",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/analyze",
+    "method": "POST",
+    "file": "apps/api/src/routes/production-integrity.ts",
+    "line": 61,
+    "handler": "openaiApiKey",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/fix",
+    "method": "POST",
+    "file": "apps/api/src/routes/production-integrity.ts",
+    "line": 118,
+    "handler": "openaiApiKey",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/explain",
+    "method": "POST",
+    "file": "apps/api/src/routes/production-integrity.ts",
+    "line": 150,
+    "handler": "20",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/categories",
+    "method": "GET",
+    "file": "apps/api/src/routes/production-integrity.ts",
+    "line": 198,
+    "handler": "20",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/profile.ts",
+    "line": 90,
+    "handler": "2",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "PUT",
+    "file": "apps/api/src/routes/profile.ts",
+    "line": 98,
+    "handler": "2",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/avatar",
+    "method": "POST",
+    "file": "apps/api/src/routes/profile.ts",
+    "line": 122,
+    "handler": "2",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test-email",
+    "method": "POST",
+    "file": "apps/api/src/routes/profile.ts",
+    "line": 163,
+    "handler": "500",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test-slack",
+    "method": "POST",
+    "file": "apps/api/src/routes/profile.ts",
+    "line": 198,
+    "handler": "50",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/notify",
+    "method": "POST",
+    "file": "apps/api/src/routes/profile.ts",
+    "line": 274,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/projects.ts",
+    "line": 272,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/projects.ts",
+    "line": 289,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/projects.ts",
+    "line": 301,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "PUT",
+    "file": "apps/api/src/routes/projects.ts",
+    "line": 318,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/projects.ts",
+    "line": 337,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/projects.ts",
+    "line": 356,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/stats",
+    "method": "GET",
+    "file": "apps/api/src/routes/projects.ts",
+    "line": 380,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/run",
+    "method": "POST",
+    "file": "apps/api/src/routes/reality-check-api.ts",
+    "line": 18,
+    "handler": "50",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/pdf",
+    "method": "POST",
+    "file": "apps/api/src/routes/reality-check-api.ts",
+    "line": 163,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/latest",
+    "method": "GET",
+    "file": "apps/api/src/routes/reality-check-api.ts",
+    "line": 244,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/categories",
+    "method": "GET",
+    "file": "apps/api/src/routes/reality-check.ts",
+    "line": 498,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/generate",
+    "method": "POST",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 645,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:reportId/download",
+    "method": "GET",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 675,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId/list",
+    "method": "GET",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 703,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/templates",
+    "method": "GET",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 728,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId/schedule",
+    "method": "POST",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 740,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId/scheduled",
+    "method": "GET",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 779,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scheduled/:scheduleId",
+    "method": "PUT",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 797,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scheduled/:scheduleId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/reports.ts",
+    "line": 815,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/list",
+    "method": "GET",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 23,
+    "handler": "authMiddlewareOrApiKey",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/save",
+    "method": "POST",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 42,
+    "handler": "authMiddlewareOrApiKey",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 105,
+    "handler": "query",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 168,
+    "handler": "query",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 199,
+    "handler": "query",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 231,
+    "handler": "contentType",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/replay",
+    "method": "GET",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 269,
+    "handler": "contentType",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 307,
+    "handler": "contentType",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/artifacts/:filename",
+    "method": "GET",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 345,
+    "handler": "contentType",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/fixes/:packId/diff",
+    "method": "POST",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 401,
+    "handler": "packId",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id/fixes/:packId/apply",
+    "method": "POST",
+    "file": "apps/api/src/routes/runs.ts",
+    "line": 441,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/intercept",
+    "method": "POST",
+    "file": "apps/api/src/routes/sandbox.ts",
+    "line": 33,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/checkpoint",
+    "method": "POST",
+    "file": "apps/api/src/routes/sandbox.ts",
+    "line": 56,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/rollback",
+    "method": "POST",
+    "file": "apps/api/src/routes/sandbox.ts",
+    "line": 77,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/checkpoints/:agentId/:taskId",
+    "method": "GET",
+    "file": "apps/api/src/routes/sandbox.ts",
+    "line": 97,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:scanId1/compare/:scanId2",
+    "method": "GET",
+    "file": "apps/api/src/routes/scan-comparison.ts",
+    "line": 27,
+    "handler": "f",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 128,
+    "handler": "9",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 223,
+    "handler": "params",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 295,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id/findings",
+    "method": "GET",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 353,
+    "handler": "params",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id/explain",
+    "method": "POST",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 450,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 536,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id/cancel",
+    "method": "POST",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 584,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/scans.ts",
+    "line": 647,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/scheduled-scans.ts",
+    "line": 51,
+    "handler": "body",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/scheduled-scans.ts",
+    "line": 100,
+    "handler": "body",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/scheduled-scans.ts",
+    "line": 136,
+    "handler": "body",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "PUT",
+    "file": "apps/api/src/routes/scheduled-scans.ts",
+    "line": 181,
+    "handler": "body",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/scheduled-scans.ts",
+    "line": 238,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/secrets.ts",
+    "line": 20,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan-project",
+    "method": "POST",
+    "file": "apps/api/src/routes/secrets.ts",
+    "line": 36,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/secrets.ts",
+    "line": 47,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/pre-commit",
+    "method": "POST",
+    "file": "apps/api/src/routes/secrets.ts",
+    "line": 63,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 134,
+    "handler": "ALLOWED_PROJECT_ROOT",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/policy-check",
+    "method": "POST",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 189,
+    "handler": "ALLOWED_PROJECT_ROOT",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/secret-scan",
+    "method": "POST",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 306,
+    "handler": "ALLOWED_PROJECT_ROOT",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/supply-chain",
+    "method": "POST",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 469,
+    "handler": "ALLOWED_PROJECT_ROOT",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/ship-check",
+    "method": "POST",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 555,
+    "handler": "projectPath",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/deploy-verdict",
+    "method": "GET",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 604,
+    "handler": "projectPath",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/vulnerabilities",
+    "method": "GET",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 658,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/dashboard",
+    "method": "GET",
+    "file": "apps/api/src/routes/security.ts",
+    "line": 714,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/scan-history",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 26,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/repositories/:repoId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 60,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/delete-account",
+    "method": "POST",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 105,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/confirm-delete-account",
+    "method": "POST",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 143,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/notifications",
+    "method": "PUT",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 185,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/notifications",
+    "method": "GET",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 270,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan-preferences",
+    "method": "PUT",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 322,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan-preferences",
+    "method": "GET",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 396,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/appearance",
+    "method": "PUT",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 445,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/appearance",
+    "method": "GET",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 513,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhooks",
+    "method": "GET",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 562,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhooks",
+    "method": "POST",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 593,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhooks/:id",
+    "method": "PUT",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 646,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhooks/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 693,
+    "handler": "id",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhooks/:id/test",
+    "method": "POST",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 732,
+    "handler": "id",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhooks/:id/deliveries",
+    "method": "GET",
+    "file": "apps/api/src/routes/settings.ts",
+    "line": 820,
+    "handler": "id",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/pro",
+    "method": "POST",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 55,
+    "handler": "2",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/check",
+    "method": "POST",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 108,
+    "handler": "2",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/mockproof",
+    "method": "POST",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 199,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/badge",
+    "method": "POST",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 234,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/reality-mode",
+    "method": "POST",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 279,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/history",
+    "method": "GET",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 346,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/badge/:projectId/:type",
+    "method": "GET",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 402,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/github",
+    "method": "POST",
+    "file": "apps/api/src/routes/ship.ts",
+    "line": 448,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 20,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/status/incident",
+    "method": "GET",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 24,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/incidents",
+    "method": "GET",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 29,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/incidents",
+    "method": "POST",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 34,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/incidents/:id/resolve",
+    "method": "PUT",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 39,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/incidents/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 44,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/maintenance",
+    "method": "GET",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 49,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/maintenance/toggle",
+    "method": "POST",
+    "file": "apps/api/src/routes/status-routes.ts",
+    "line": 54,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/dashboard",
+    "method": "GET",
+    "file": "apps/api/src/routes/streaming.ts",
+    "line": 85,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/activity",
+    "method": "GET",
+    "file": "apps/api/src/routes/streaming.ts",
+    "line": 157,
+    "handler": "9",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/scan/:scanId",
+    "method": "GET",
+    "file": "apps/api/src/routes/streaming.ts",
+    "line": 217,
+    "handler": "client",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/clients",
+    "method": "GET",
+    "file": "apps/api/src/routes/streaming.ts",
+    "line": 269,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/analyze",
+    "method": "POST",
+    "file": "apps/api/src/routes/supply-chain.ts",
+    "line": 22,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/typosquat",
+    "method": "POST",
+    "file": "apps/api/src/routes/supply-chain.ts",
+    "line": 35,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sbom",
+    "method": "POST",
+    "file": "apps/api/src/routes/supply-chain.ts",
+    "line": 44,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/project/:projectId",
+    "method": "GET",
+    "file": "apps/api/src/routes/supply-chain.ts",
+    "line": 53,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/rbac-matrix",
+    "method": "GET",
+    "file": "apps/api/src/routes/team.ts",
+    "line": 617,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "POST",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 393,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/my",
+    "method": "GET",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 414,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:tenantId",
+    "method": "GET",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 434,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:tenantId",
+    "method": "PUT",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 461,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:tenantId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 489,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:tenantId/users",
+    "method": "POST",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 517,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:tenantId/users/:userId",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 546,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:tenantId/usage",
+    "method": "GET",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 566,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/:tenantId/limits/check",
+    "method": "GET",
+    "file": "apps/api/src/routes/tenants.ts",
+    "line": 584,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/score/:org/:repo",
+    "method": "GET",
+    "file": "apps/api/src/routes/trust-score-public.ts",
+    "line": 79,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/score/:org/:repo/history",
+    "method": "GET",
+    "file": "apps/api/src/routes/trust-score-public.ts",
+    "line": 154,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/score/:org/:repo",
+    "method": "POST",
+    "file": "apps/api/src/routes/trust-score-public.ts",
+    "line": 198,
+    "handler": "10",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/leaderboard",
+    "method": "GET",
+    "file": "apps/api/src/routes/trust-score-public.ts",
+    "line": 295,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/verified",
+    "method": "GET",
+    "file": "apps/api/src/routes/trust-score-public.ts",
+    "line": 393,
+    "handler": "10",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/check",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage-enforcement.ts",
+    "line": 73,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/increment",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage-enforcement.ts",
+    "line": 99,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/summary",
+    "method": "GET",
+    "file": "apps/api/src/routes/usage-enforcement.ts",
+    "line": 137,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/verify-token",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage-enforcement.ts",
+    "line": 177,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/queue-offline",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage-enforcement.ts",
+    "line": 210,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/sync",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage-enforcement.ts",
+    "line": 246,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/revoke-tokens",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage-enforcement.ts",
+    "line": 282,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/track",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage.ts",
+    "line": 104,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "apps/api/src/routes/usage.ts",
+    "line": 201,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/summary",
+    "method": "GET",
+    "file": "apps/api/src/routes/usage.ts",
+    "line": 320,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/history",
+    "method": "GET",
+    "file": "apps/api/src/routes/usage.ts",
+    "line": 388,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/report-overage",
+    "method": "POST",
+    "file": "apps/api/src/routes/usage.ts",
+    "line": 444,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/limits",
+    "method": "GET",
+    "file": "apps/api/src/routes/usage.ts",
+    "line": 540,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users",
+    "method": "GET",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 211,
+    "handler": "impersonationToken",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 336,
+    "handler": "impersonationToken",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users/:id/disable",
+    "method": "POST",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 374,
+    "handler": "impersonationToken",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users/:id/enable",
+    "method": "POST",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 444,
+    "handler": "impersonationToken",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users/:id/reset-mfa",
+    "method": "POST",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 495,
+    "handler": "impersonationToken",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/impersonate/start",
+    "method": "POST",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 554,
+    "handler": "impersonationToken",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/impersonate/stop",
+    "method": "POST",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 621,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/broadcast",
+    "method": "POST",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 654,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/broadcast/:jobId/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 747,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/broadcast",
+    "method": "GET",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 785,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/support-notes",
+    "method": "POST",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 845,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/support-notes/:userId",
+    "method": "GET",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 874,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/audit-log",
+    "method": "GET",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 925,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/dashboard",
+    "method": "GET",
+    "file": "apps/api/src/routes/v1/admin.ts",
+    "line": 998,
+    "handler": "anonymous",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/validate",
+    "method": "POST",
+    "file": "apps/api/src/routes/validation.ts",
+    "line": 32,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/:id",
+    "method": "GET",
+    "file": "apps/api/src/routes/validation.ts",
+    "line": 50,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/subscriptions",
+    "method": "GET",
+    "file": "apps/api/src/routes/webhook-config.ts",
+    "line": 41,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/subscriptions",
+    "method": "POST",
+    "file": "apps/api/src/routes/webhook-config.ts",
+    "line": 70,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/subscriptions/:id",
+    "method": "PUT",
+    "file": "apps/api/src/routes/webhook-config.ts",
+    "line": 115,
+    "handler": "updates",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/subscriptions/:id",
+    "method": "DELETE",
+    "file": "apps/api/src/routes/webhook-config.ts",
+    "line": 147,
+    "handler": "userId",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test",
+    "method": "POST",
+    "file": "apps/api/src/routes/webhook-config.ts",
+    "line": 177,
+    "handler": "secret",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/subscriptions",
+    "method": "PUT",
+    "file": "apps/api/src/routes/webhook-config.ts",
+    "line": 219,
+    "handler": "webhook",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/github",
+    "method": "POST",
+    "file": "apps/api/src/routes/webhooks.ts",
+    "line": 133,
+    "handler": "signature",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/status",
+    "method": "GET",
+    "file": "apps/api/src/routes/webhooks.ts",
+    "line": 235,
+    "handler": "installationId",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health",
+    "method": "GET",
+    "file": "apps/api/src/server.ts",
+    "line": 255,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health/live",
+    "method": "GET",
+    "file": "apps/api/src/server.ts",
+    "line": 263,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health/ready",
+    "method": "GET",
+    "file": "apps/api/src/server.ts",
+    "line": 268,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health/detailed",
+    "method": "GET",
+    "file": "apps/api/src/server.ts",
+    "line": 277,
+    "handler": "maintenanceMiddleware",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/openapi.json",
+    "method": "GET",
+    "file": "apps/api/src/server.ts",
+    "line": 289,
+    "handler": "maintenanceMiddleware",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/checkout",
+    "method": "POST",
+    "file": "apps/api/src/server.ts",
+    "line": 345,
+    "handler": "reply",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/users",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/ai-guardrails/page.tsx",
+    "line": 110,
+    "handler": "getAllUsers",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/api-key",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/auth/api-key/route.ts",
+    "line": 20,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/api-key",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/api-key/route.ts",
+    "line": 38,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/api-key",
+    "method": "DELETE",
+    "file": "apps/web-ui/src/app/api/auth/api-key/route.ts",
+    "line": 62,
+    "handler": "DELETE",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/device/poll",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/device/poll/route.ts",
+    "line": 13,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/device",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/device/route.ts",
+    "line": 11,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/device/verify",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/device/verify/route.ts",
+    "line": 12,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/forgot-password",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/forgot-password/route.ts",
+    "line": 9,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/github/callback",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/auth/github/callback/route.ts",
+    "line": 37,
+    "handler": "GET",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/github/connect",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/github/connect/route.ts",
+    "line": 9,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/github/disconnect",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/github/disconnect/route.ts",
+    "line": 5,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/github",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/auth/github/route.ts",
+    "line": 14,
+    "handler": "GET",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/github",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/github/route.ts",
+    "line": 68,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/google/callback",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/auth/google/callback/route.ts",
+    "line": 36,
+    "handler": "GET",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/google",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/auth/google/route.ts",
+    "line": 10,
+    "handler": "GET",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/google",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/google/route.ts",
+    "line": 71,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/login/route.ts",
+    "line": 10,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/logout",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/logout/route.ts",
+    "line": 11,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/logout",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/auth/logout/route.ts",
+    "line": 61,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/register",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/register/route.ts",
+    "line": 10,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/reset-password",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/auth/reset-password/route.ts",
+    "line": 9,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/user",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/auth/user/route.ts",
+    "line": 12,
+    "handler": "GET",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/checkout",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/checkout/route.ts",
+    "line": 31,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/checkout",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/checkout/route.ts",
+    "line": 168,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/compliance/audit-trail",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/compliance/audit-trail/route.ts",
+    "line": 99,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/compliance/export",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/compliance/export/route.ts",
+    "line": 6,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/compliance/frameworks",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/compliance/frameworks/route.ts",
+    "line": 282,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/compliance/integrity",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/compliance/integrity/route.ts",
+    "line": 6,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/compliance/integrity",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/compliance/integrity/route.ts",
+    "line": 40,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/csp-report",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/csp-report/route.ts",
+    "line": 50,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/csp-report",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/csp-report/route.ts",
+    "line": 108,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/github/callback",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/github/callback/route.ts",
+    "line": 14,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/github/connect",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/github/connect/route.ts",
+    "line": 13,
+    "handler": "GET",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/github/disconnect",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/github/disconnect/route.ts",
+    "line": 7,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/github/repos",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/github/repos/route.ts",
+    "line": 8,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/github/scan",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/github/scan/route.ts",
+    "line": 497,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/github/status",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/github/status/route.ts",
+    "line": 22,
+    "handler": "GET",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/artifacts",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/guardrail/artifacts/route.ts",
+    "line": 9,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/pipeline",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/guardrail/pipeline/route.ts",
+    "line": 80,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/policies",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/guardrail/policies/route.ts",
+    "line": 20,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/policies",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/guardrail/policies/route.ts",
+    "line": 37,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/runs",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/guardrail/runs/route.ts",
+    "line": 9,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/status",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/guardrail/status/route.ts",
+    "line": 9,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/telemetry",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/guardrail/telemetry/route.ts",
+    "line": 9,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/guardrail/truthpack",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/guardrail/truthpack/route.ts",
+    "line": 58,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/health",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/health/route.ts",
+    "line": 19,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/keys/generate",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/keys/generate/route.ts",
+    "line": 27,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/runs/[id]",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/runs/[id]/route.ts",
+    "line": 4,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": [
+      "id"
+    ]
+  },
+  {
+    "path": "/api/runs",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/runs/route.ts",
+    "line": 15,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/subscription",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/api/subscription/route.ts",
+    "line": 56,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/subscription",
+    "method": "DELETE",
+    "file": "apps/web-ui/src/app/api/subscription/route.ts",
+    "line": 74,
+    "handler": "DELETE",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/subscription",
+    "method": "PUT",
+    "file": "apps/web-ui/src/app/api/subscription/route.ts",
+    "line": 91,
+    "handler": "PUT",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/usage/check",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/usage/check/route.ts",
+    "line": 27,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/usage/record",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/usage/record/route.ts",
+    "line": 34,
+    "handler": "POST",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/webhooks/stripe",
+    "method": "POST",
+    "file": "apps/web-ui/src/app/api/webhooks/stripe/route.ts",
+    "line": 21,
+    "handler": "POST",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/unknown",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/changelog/feed.xml/route.ts",
+    "line": 134,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/unknown",
+    "method": "GET",
+    "file": "apps/web-ui/src/app/verify/[projectId]/badge.svg/route.ts",
+    "line": 10,
+    "handler": "GET",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users/:id",
+    "method": "GET",
+    "file": "apps/web-ui/src/components/landing/xray-scanner/CodeMockup.tsx",
+    "line": 71,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/data",
+    "method": "POST",
+    "file": "apps/web-ui/src/components/landing/xray-scanner/CodeMockup.tsx",
+    "line": 81,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/file",
+    "method": "GET",
+    "file": "apps/web-ui/src/components/landing/xray-scanner/CodeMockup.tsx",
+    "line": 89,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin",
+    "method": "GET",
+    "file": "bin/runners/runShip.js",
+    "line": 699,
+    "handler": "adminHandler",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/users",
+    "method": "GET",
+    "file": "mcp-server/index.old.js",
+    "line": 3929,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users",
+    "method": "GET",
+    "file": "packages/cli/src/__tests__/final-product-shape.test.ts",
+    "line": 214,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users",
+    "method": "POST",
+    "file": "packages/cli/src/__tests__/final-product-shape.test.ts",
+    "line": 218,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "packages/cli/src/reality/reality-graph.ts",
+    "line": 344,
+    "handler": "PATCH",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "packages/cli/src/reality/reality-graph.ts",
+    "line": 344,
+    "handler": "PATCH",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "packages/cli/src/truth-pack/index.ts",
+    "line": 429,
+    "handler": "handler",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "packages/cli/src/truth-pack/index.ts",
+    "line": 429,
+    "handler": "handler",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/data",
+    "method": "GET",
+    "file": "packages/engines/src/plugins/__tests__/packs.test.ts",
+    "line": 90,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health",
+    "method": "GET",
+    "file": "packages/llm-safety/src/server/routes/meta.ts",
+    "line": 5,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/engines",
+    "method": "GET",
+    "file": "packages/llm-safety/src/server/routes/meta.ts",
+    "line": 7,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/config",
+    "method": "GET",
+    "file": "packages/llm-safety/src/server/routes/meta.ts",
+    "line": 15,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "scripts/template-generator.js",
+    "line": 905,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/items",
+    "method": "GET",
+    "file": "scripts/template-generator.js",
+    "line": 929,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/items/:id",
+    "method": "GET",
+    "file": "scripts/template-generator.js",
+    "line": 935,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/items",
+    "method": "POST",
+    "file": "scripts/template-generator.js",
+    "line": 941,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": ", ",
+    "method": "GET",
+    "file": "src/lib/advanced-ai.ts",
+    "line": 201,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": ", ",
+    "method": "POST",
+    "file": "src/lib/advanced-ai.ts",
+    "line": 201,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/users/:id",
+    "method": "GET",
+    "file": "src/lib/ai/examples.ts",
+    "line": 71,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/",
+    "method": "GET",
+    "file": "src/lib/ai/examples.ts",
+    "line": 189,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/admin/users",
+    "method": "GET",
+    "file": "src/lib/ai-production-integrity.ts",
+    "line": 795,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "src/lib/file-watcher.ts",
+    "line": 130,
+    "handler": "handler",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhook",
+    "method": "POST",
+    "file": "src/lib/mdc-generator/v3/critical-invariants.ts",
+    "line": 105,
+    "handler": "res",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/webhook",
+    "method": "POST",
+    "file": "src/lib/mdc-generator/v3/critical-invariants.ts",
+    "line": 106,
+    "handler": "handler",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "src/lib/mdc-generator/v3/truth-index-extractor.ts",
+    "line": 231,
+    "handler": "file",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "src/lib/mdc-generator/v3/truth-index-extractor.ts",
+    "line": 231,
+    "handler": "file",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/register",
+    "method": "POST",
+    "file": "src/lib/template-generator.ts",
+    "line": 912,
+    "handler": "authRoutesContent",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/login",
+    "method": "POST",
+    "file": "src/lib/template-generator.ts",
+    "line": 927,
+    "handler": "authRoutesContent",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/refresh",
+    "method": "POST",
+    "file": "src/lib/template-generator.ts",
+    "line": 941,
+    "handler": "authRoutesContent",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/logout",
+    "method": "POST",
+    "file": "src/lib/template-generator.ts",
+    "line": 954,
+    "handler": "authRoutesContent",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/forgot-password",
+    "method": "POST",
+    "file": "src/lib/template-generator.ts",
+    "line": 963,
+    "handler": "authRoutesContent",
+    "auth": false,
+    "middleware": [
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/health",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 61,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "cors",
+      "helmet"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/scan/mock-data",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 72,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/scan/mock-data/content",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 94,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/analyze/project",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 120,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/validate/project",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 142,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit",
+      "validation"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/ai/explain",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 168,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/ai/ask",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 194,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/search/index",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 223,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/search/query",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 245,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/search/similar",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 267,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/search/stats",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 289,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/dependencies/analyze",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 312,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/dependencies/analyze-content",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 334,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/relationships/analyze",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 360,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/relationships/export",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 382,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/quality/predict",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 413,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/quality/predict-content",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 435,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/temporal/analyze",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 461,
+    "handler": "file",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/temporal/files",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 483,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/realtime/analyze",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 509,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/realtime/score",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 531,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/realtime/autofix",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 553,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/production/analyze",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 580,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/production/analyze-content",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 603,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/metrics",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 629,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/metrics/project",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 646,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/auth/register",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 672,
+    "handler": "name",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 695,
+    "handler": "password",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 720,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/auth/logout",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 735,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/projects",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 755,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/projects",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 788,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/projects/:id",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 808,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/projects/:id",
+    "method": "PUT",
+    "file": "src/server/index.ts",
+    "line": 832,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/projects/:id",
+    "method": "DELETE",
+    "file": "src/server/index.ts",
+    "line": 864,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/usage/track",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 888,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/usage/stats",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 920,
+    "handler": "error",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/collaboration/rooms",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 946,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/collaboration/rooms/:roomId",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 962,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/collaboration/rooms",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 981,
+    "handler": "name",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/collaboration/rooms/:roomId",
+    "method": "DELETE",
+    "file": "src/server/index.ts",
+    "line": 1001,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/collaboration/stats",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1020,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/github/repo/:owner/:repo",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1045,
+    "handler": "repo",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/github/user/:username/repos",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1062,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/github/analyze",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1080,
+    "handler": "repo",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/github/analyze-multiple",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1100,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/github/search",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1120,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/github/rate-limit",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1140,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/design-system/analyze",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1162,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/design-system/extract-components",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1182,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/design-system/extract-tokens",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1203,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/design-system/generate-tokens",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1223,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/snapshot",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1250,
+    "handler": "metadata",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/:projectId/snapshots",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1270,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/:projectId/latest",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1291,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/:projectId/trends",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1311,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/:projectId",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1328,
+    "handler": "projectName",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/compare",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1349,
+    "handler": "snapshotId2",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1372,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/:projectId",
+    "method": "DELETE",
+    "file": "src/server/index.ts",
+    "line": 1388,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/:projectId/export",
+    "method": "GET",
+    "file": "src/server/index.ts",
+    "line": 1408,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/evolution/import",
+    "method": "POST",
+    "file": "src/server/index.ts",
+    "line": 1430,
+    "handler": "error",
+    "auth": false,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "file": "src/server/middleware/auth-rate-limiter.ts",
+    "line": 484,
+    "handler": "res",
+    "auth": true,
+    "middleware": [
+      "rateLimit"
+    ],
+    "params": []
+  },
+  {
+    "path": "/health",
+    "method": "GET",
+    "file": "templates/backend/routes/health.route.ts",
+    "line": 17,
+    "handler": "503",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/health/check",
+    "method": "GET",
+    "file": "templates/backend/routes/health.route.ts",
+    "line": 28,
+    "handler": "503",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/ready",
+    "method": "GET",
+    "file": "templates/backend/routes/health.route.ts",
+    "line": 58,
+    "handler": "503",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/live",
+    "method": "GET",
+    "file": "templates/backend/routes/health.route.ts",
+    "line": 78,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/health",
+    "method": "GET",
+    "file": "tests/integration/api-routes.test.ts",
+    "line": 43,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "file": "tests/integration/api-routes.test.ts",
+    "line": 48,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/auth/register",
+    "method": "POST",
+    "file": "tests/integration/api-routes.test.ts",
+    "line": 60,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/projects",
+    "method": "GET",
+    "file": "tests/integration/api-routes.test.ts",
+    "line": 75,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/projects",
+    "method": "POST",
+    "file": "tests/integration/api-routes.test.ts",
+    "line": 84,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/scan",
+    "method": "POST",
+    "file": "tests/integration/api-routes.test.ts",
+    "line": 100,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/api/scan/:scanId",
+    "method": "GET",
+    "file": "tests/integration/api-routes.test.ts",
+    "line": 115,
+    "handler": "res",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/test",
+    "method": "GET",
+    "file": "tests/integration/request-id-propagation.test.ts",
+    "line": 17,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/error",
+    "method": "GET",
+    "file": "tests/integration/request-id-propagation.test.ts",
+    "line": 59,
+    "handler": "anonymous",
+    "auth": false,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "vscode-extension/src/quick-fixes.ts",
+    "line": 258,
+    "handler": "handler",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  },
+  {
+    "path": "/path",
+    "method": "GET",
+    "file": "vscode-extension/src/quick-fixes.ts",
+    "line": 258,
+    "handler": "handler",
+    "auth": true,
+    "middleware": [],
+    "params": []
+  }
+]

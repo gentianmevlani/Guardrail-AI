@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "checks": ["integrity", "security", "hygiene"],
+  "output": ".guardrail",
+  "policy": {
+    "failOn": ["critical", "high"],
+    "allowlist": {
+      "domains": [],
+      "packages": [],
+      "paths": []
+    },
+    "ignore": {
+      "paths": ["node_modules", "dist", "coverage", "__tests__"]
+    }
+  },
+  "rules": {
+    "auth-required": {
+      "enabled": true,
+      "patterns": ["/api/admin/*", "/api/users/*/delete"]
+    },
+    "no-placeholder-routes": {
+      "enabled": true
+    }
+  }
+}

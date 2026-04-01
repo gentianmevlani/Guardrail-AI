@@ -1,0 +1,124 @@
+name: Lint Regression Check
+
+on:
+  pull_request:
+    paths:
+      - "apps/web-ui/**"
+  push:
+    branches: [main]
+    paths:
+      - "apps/web-ui/**"
+
+jobs:
+  lint-check:
+    name: ESLint Regression Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run TypeScript check
+        id: tsc
+        working-directory: apps/web-ui
+        run: |
+          echo "Running TypeScript check..."
+          pnpm exec tsc --noEmit 2>&1 | tee tsc-output.txt
+          TSC_EXIT_CODE=${PIPESTATUS[0]}
+          echo "tsc_exit_code=$TSC_EXIT_CODE" >> $GITHUB_OUTPUT
+          if [ $TSC_EXIT_CODE -ne 0 ]; then
+            echo "::error::TypeScript check failed"
+          fi
+
+      - name: Run ESLint and count warnings
+        id: lint
+        working-directory: apps/web-ui
+        run: |
+          echo "Running ESLint..."
+          pnpm run lint 2>&1 | tee lint-output.txt || true
+
+          # Count warnings
+          WARNING_COUNT=$(grep -c "Warning:" lint-output.txt || echo "0")
+          echo "warning_count=$WARNING_COUNT" >> $GITHUB_OUTPUT
+          echo "Found $WARNING_COUNT ESLint warnings"
+
+      - name: Check against baseline
+        id: baseline
+        working-directory: apps/web-ui
+        run: |
+          BASELINE_FILE=".lint-baseline.json"
+          CURRENT_WARNINGS=${{ steps.lint.outputs.warning_count }}
+
+          if [ -f "$BASELINE_FILE" ]; then
+            BASELINE_WARNINGS=$(jq -r '.warningCount' $BASELINE_FILE)
+            echo "Baseline: $BASELINE_WARNINGS warnings"
+            echo "Current: $CURRENT_WARNINGS warnings"
+            
+            if [ "$CURRENT_WARNINGS" -gt "$BASELINE_WARNINGS" ]; then
+              echo "::error::ESLint warning count increased from $BASELINE_WARNINGS to $CURRENT_WARNINGS"
+              echo "regression=true" >> $GITHUB_OUTPUT
+              exit 1
+            elif [ "$CURRENT_WARNINGS" -lt "$BASELINE_WARNINGS" ]; then
+              echo "::notice::ESLint warnings decreased from $BASELINE_WARNINGS to $CURRENT_WARNINGS! Consider updating the baseline."
+              echo "regression=false" >> $GITHUB_OUTPUT
+            else
+              echo "ESLint warning count unchanged at $CURRENT_WARNINGS"
+              echo "regression=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "::warning::No baseline file found. Creating initial baseline."
+            echo "{\"warningCount\": $CURRENT_WARNINGS, \"updatedAt\": \"$(date -Iseconds)\"}" > $BASELINE_FILE
+            echo "regression=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const warningCount = '${{ steps.lint.outputs.warning_count }}';
+            const regression = '${{ steps.baseline.outputs.regression }}' === 'true';
+            const tscPassed = '${{ steps.tsc.outputs.tsc_exit_code }}' === '0';
+
+            let status = '✅';
+            let message = '';
+
+            if (!tscPassed) {
+              status = '❌';
+              message = `## ${status} TypeScript Check Failed\n\nPlease fix TypeScript errors before merging.`;
+            } else if (regression) {
+              status = '⚠️';
+              message = `## ${status} ESLint Regression Detected\n\nThis PR introduces new ESLint warnings. Current: **${warningCount}** warnings.\n\nPlease fix the new warnings before merging.`;
+            } else {
+              message = `## ${status} Lint Check Passed\n\n- **TypeScript**: ✅ No errors\n- **ESLint**: ${warningCount} warnings (no regression)`;
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+      - name: Upload lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: |
+            apps/web-ui/lint-output.txt
+            apps/web-ui/tsc-output.txt
+          retention-days: 7

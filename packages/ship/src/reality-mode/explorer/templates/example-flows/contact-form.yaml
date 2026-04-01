@@ -1,0 +1,43 @@
+# Contact Form Flow
+# Copy to .guardrail/flows/contact-form.yaml and customize
+
+id: contact-form
+name: Contact Form Submission
+description: Tests the contact form submission process
+required: false
+
+steps:
+  - action: navigate
+    target: /contact
+
+  - action: wait
+    timeout: 2000
+
+  - action: fill
+    target: input[name="name"], #name
+    value: "{{name}}"
+
+  - action: fill
+    target: input[name="email"], #email
+    value: "{{email}}"
+
+  - action: fill
+    target: input[name="subject"], #subject
+    value: "Test inquiry from Reality Mode"
+
+  - action: fill
+    target: textarea[name="message"], #message, textarea
+    value: "This is an automated test message from guardrail Reality Mode. Please disregard."
+
+  # Don't actually submit in test mode to avoid spam
+  # - action: click
+  #   target: button[type="submit"]
+
+assertions:
+  - type: no-errors
+    value: ""
+    critical: true
+
+  - type: element-visible
+    value: button[type="submit"], input[type="submit"]
+    critical: true

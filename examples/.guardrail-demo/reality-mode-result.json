@@ -1,0 +1,1711 @@
+{
+  "verdict": "fake",
+  "score": 0,
+  "detections": [
+    {
+      "type": "fake-domain",
+      "url": "http://localhost:3001/",
+      "evidence": "URL matches fake domain pattern: localhost:\\d+",
+      "timestamp": 1767260344980
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260344993
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260347849
+    },
+    {
+      "type": "fake-domain",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "URL matches fake domain pattern: localhost:\\d+",
+      "timestamp": 1767260347850
+    },
+    {
+      "type": "fake-domain",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "URL matches fake domain pattern: localhost:\\d+",
+      "timestamp": 1767260347850
+    },
+    {
+      "type": "fake-domain",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "URL matches fake domain pattern: localhost:\\d+",
+      "timestamp": 1767260347850
+    },
+    {
+      "type": "fake-domain",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "URL matches fake domain pattern: localhost:\\d+",
+      "timestamp": 1767260347850
+    },
+    {
+      "type": "fake-domain",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "URL matches fake domain pattern: localhost:\\d+",
+      "timestamp": 1767260347853
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/dashboard",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260347877
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/user",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/billing/invoices",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260347882
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/webhooks/config",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "http://localhost:3001/api/activity",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260347883
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Demo invoice ID",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Demo user ID",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Demo customer ID",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Demo subscription ID",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Test Stripe key",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Test Stripe public key",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Demo success response",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Lorem ipsum placeholder",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Placeholder name",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Placeholder email",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Placeholder domain/image",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Fake ID pattern",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Simulated status",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Mock flag enabled",
+      "timestamp": 1767260347986
+    },
+    {
+      "type": "demo-data",
+      "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "evidence": "Response contains Demo mode flag",
+      "timestamp": 1767260347986
+    }
+  ],
+  "replay": [
+    {
+      "timestamp": 1767260344980,
+      "type": "request",
+      "data": {
+        "url": "http://localhost:3001/",
+        "method": "GET"
+      },
+      "detections": [
+        {
+          "type": "fake-domain",
+          "url": "http://localhost:3001/",
+          "evidence": "URL matches fake domain pattern: localhost:\\d+",
+          "timestamp": 1767260344980
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260344989,
+      "type": "request",
+      "data": {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+        "method": "GET"
+      },
+      "detections": []
+    },
+    {
+      "timestamp": 1767260344993,
+      "type": "response",
+      "data": {
+        "url": "http://localhost:3001/",
+        "status": 200,
+        "bodyPreview": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title>Metriq | Analytics Dashboard</title>\r\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\r\n  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\r\n  <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\r\n  <style>\r\n    :root {\r\n      --bg-primary: #0f0f12;\r\n      "
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260344993
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260344993
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347848,
+      "type": "request",
+      "data": {
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "method": "GET"
+      },
+      "detections": []
+    },
+    {
+      "timestamp": 1767260347849,
+      "type": "response",
+      "data": {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+        "status": 200,
+        "bodyPreview": "/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3"
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260347849
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260347849
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347850,
+      "type": "request",
+      "data": {
+        "url": "http://localhost:3001/api/dashboard",
+        "method": "GET"
+      },
+      "detections": [
+        {
+          "type": "fake-domain",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "URL matches fake domain pattern: localhost:\\d+",
+          "timestamp": 1767260347850
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347850,
+      "type": "request",
+      "data": {
+        "url": "http://localhost:3001/api/user",
+        "method": "GET"
+      },
+      "detections": [
+        {
+          "type": "fake-domain",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "URL matches fake domain pattern: localhost:\\d+",
+          "timestamp": 1767260347850
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347850,
+      "type": "request",
+      "data": {
+        "url": "http://localhost:3001/api/billing/invoices",
+        "method": "GET"
+      },
+      "detections": [
+        {
+          "type": "fake-domain",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "URL matches fake domain pattern: localhost:\\d+",
+          "timestamp": 1767260347850
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347850,
+      "type": "request",
+      "data": {
+        "url": "http://localhost:3001/api/activity",
+        "method": "GET"
+      },
+      "detections": [
+        {
+          "type": "fake-domain",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "URL matches fake domain pattern: localhost:\\d+",
+          "timestamp": 1767260347850
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347853,
+      "type": "request",
+      "data": {
+        "url": "http://localhost:3001/api/webhooks/config",
+        "method": "GET"
+      },
+      "detections": [
+        {
+          "type": "fake-domain",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "URL matches fake domain pattern: localhost:\\d+",
+          "timestamp": 1767260347853
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347877,
+      "type": "response",
+      "data": {
+        "url": "http://localhost:3001/api/dashboard",
+        "status": 200,
+        "bodyPreview": "{\"welcome\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\",\"stats\":{\"users\":42,\"revenue\":\"$4,200\",\"note\":\"Demo data - not real\"},\"fallback\":true}"
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260347877
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/dashboard",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260347877
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347882,
+      "type": "response",
+      "data": {
+        "url": "http://localhost:3001/api/user",
+        "status": 200,
+        "bodyPreview": "{\"id\":1234567890,\"email\":\"user@example.com\",\"name\":\"John Doe\",\"avatar\":\"https://placeholder.com/150\"}"
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/user",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260347882
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347882,
+      "type": "response",
+      "data": {
+        "url": "http://localhost:3001/api/billing/invoices",
+        "status": 200,
+        "bodyPreview": "{\"success\":true,\"invoices\":[{\"id\":\"inv_demo_001\",\"amount\":9900,\"status\":\"paid\",\"customer\":\"cus_demo_abc123\"},{\"id\":\"inv_demo_002\",\"amount\":4900,\"status\":\"pending\",\"customer\":\"cus_demo_def456\"},{\"id\":\"inv_demo_003\",\"amount\":19900,\"status\":\"paid\",\"customer\":\"cus_demo_ghi789\"}],\"isDemo\":true}"
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260347882
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/billing/invoices",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260347882
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347883,
+      "type": "response",
+      "data": {
+        "url": "http://localhost:3001/api/webhooks/config",
+        "status": 200,
+        "bodyPreview": "{\"webhookUrl\":\"https://abc123.ngrok-free.app/webhook\",\"status\":\"configured\"}"
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/webhooks/config",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260347883
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347883,
+      "type": "response",
+      "data": {
+        "url": "http://localhost:3001/api/activity",
+        "status": 200,
+        "bodyPreview": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title>Metriq | Analytics Dashboard</title>\r\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\r\n  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\r\n  <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\r\n  <style>\r\n    :root {\r\n      --bg-primary: #0f0f12;\r\n      "
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260347883
+        },
+        {
+          "type": "demo-data",
+          "url": "http://localhost:3001/api/activity",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260347883
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347986,
+      "type": "response",
+      "data": {
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "status": 200,
+        "bodyPreview": "wOF2\u0000\u0001\u0000\u0000\u0000\u0000��\u0000\u0015\u0000\u0000\u0000\u0001� \u0000\u0000�\u0005\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u001a�^\u001b��D\u001c�p?HVAR�i?MVAR^\u0006`?STAT�N'&\u0000�6/l\u0011\b\n��@��\u0014\u000b�\u000e\u00000��>\u00016\u0002$\u0003�\u0018\u0004 \u0005�.\u0007�\u0004\f\u0007[s͑B�\u001b����ljP��\u0010�ʩ�R��p\u00037w�p�Rwuc\u000e�Q�T�]=�\u001d�⾳�������N&c�n�n\u001b����Y���Q��Gʥ��\u001a�\f�\u0011މ\u0018�L��4KV��a��C��s�9�#����gF�\u0005��]\u0006�\u0018�\u0010)�P�=���U�}���z`�/d���ʶ��J��Sٰ��˿H����\u0016m�#:ʧ\t/\"�Z�)\u0018$̄Q��\u0014;��]����b5��g��q�r\u0019�Ŋߩ~���J.�]s�,�lKh\"d�\\2�I��jA\"J3d��W\"\u0018�F�<\u001dqZ'Q̙ˆW��%\u0002�����*1\u000e�\u0011I!�EA4�\b{��\u0015��\u0010^EĒ���Ky���^�xp�\u0000�Nu&S\u0013I�Ӝ\u0006�x��\u0005\u001f��v��L������oÚ�%jOI�#i�\u001a\\�\u000e����=�tAI*���$���~���z�\u001f��Ĕv�\t��\u001bt\u0013�\u0016?�!08\u0016�"
+      },
+      "detections": [
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Demo invoice ID",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Demo user ID",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Demo customer ID",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Demo subscription ID",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Test Stripe key",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Test Stripe public key",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Demo success response",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Lorem ipsum placeholder",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Placeholder name",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Placeholder email",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Placeholder domain/image",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Fake ID pattern",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Simulated status",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Mock flag enabled",
+          "timestamp": 1767260347986
+        },
+        {
+          "type": "demo-data",
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+          "evidence": "Response contains Demo mode flag",
+          "timestamp": 1767260347986
+        }
+      ]
+    },
+    {
+      "timestamp": 1767260347990,
+      "type": "action",
+      "data": {
+        "type": "navigation",
+        "url": "http://localhost:3001"
+      },
+      "detections": []
+    },
+    {
+      "timestamp": 1767260358073,
+      "type": "action",
+      "data": {
+        "type": "click",
+        "selector": "nav a"
+      },
+      "detections": []
+    }
+  ],
+  "summary": {
+    "totalRequests": 8,
+    "fakeRequests": 6,
+    "totalActions": 2,
+    "criticalIssues": 126
+  },
+  "timestamp": "2026-01-01T09:40:04.699Z"
+}

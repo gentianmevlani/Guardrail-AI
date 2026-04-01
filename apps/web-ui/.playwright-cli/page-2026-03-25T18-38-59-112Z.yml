@@ -1,0 +1,338 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "Gentian Mevlani" [ref=e3] [cursor=pointer]:
+      - /url: "#top"
+    - generic [ref=e4]: Overview
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - paragraph [ref=e11]: Thornton, CO · Full-Stack Software Engineer
+          - paragraph [ref=e12]: Gentian Mevlani
+          - heading "d e v e l o p e r t o o l s t h a t g e t u s e d i n t h e r e a l w o r l d" [level=1] [ref=e13]:
+            - generic [ref=e14]:
+              - generic [ref=e15]: d
+              - generic [ref=e16]: e
+              - generic [ref=e17]: v
+              - generic [ref=e18]: e
+              - generic [ref=e19]: l
+              - generic [ref=e20]: o
+              - generic [ref=e21]: p
+              - generic [ref=e22]: e
+              - generic [ref=e23]: r
+            - generic [ref=e24]:
+              - generic [ref=e25]: t
+              - generic [ref=e26]: o
+              - generic [ref=e27]: o
+              - generic [ref=e28]: l
+              - generic [ref=e29]: s
+            - generic [ref=e30]:
+              - generic [ref=e31]: t
+              - generic [ref=e32]: h
+              - generic [ref=e33]: a
+              - generic [ref=e34]: t
+            - generic [ref=e35]:
+              - generic [ref=e36]:
+                - generic [ref=e38]: g
+                - generic [ref=e40]: e
+                - generic [ref=e42]: t
+              - generic [ref=e43]:
+                - generic [ref=e45]: u
+                - generic [ref=e47]: s
+                - generic [ref=e49]: e
+                - generic [ref=e51]: d
+            - generic [ref=e52]:
+              - generic [ref=e53]: i
+              - generic [ref=e54]: "n"
+            - generic [ref=e55]:
+              - generic [ref=e56]: t
+              - generic [ref=e57]: h
+              - generic [ref=e58]: e
+            - generic [ref=e59]:
+              - generic [ref=e60]: r
+              - generic [ref=e61]: e
+              - generic [ref=e62]: a
+              - generic [ref=e63]: l
+            - generic [ref=e64]:
+              - generic [ref=e65]: w
+              - generic [ref=e66]: o
+              - generic [ref=e67]: r
+              - generic [ref=e68]: l
+              - generic [ref=e69]: d
+          - paragraph [ref=e70]: Full-stack software engineer and product builder shipping developer tools across VS Code, CLI, GitHub Actions, npm, and web dashboards, with deep focus on AI agent systems and end-to-end product ownership.
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - img "Wide dashboard capture from the VibeCheck product" [ref=e73]
+            - img "Pulse logo used for VibeCheck" [ref=e74]
+          - complementary [ref=e75]:
+            - generic [ref=e76]: Selected links
+            - list [ref=e77]:
+              - listitem [ref=e78]:
+                - link "GitHub" [ref=e79] [cursor=pointer]:
+                  - /url: https://github.com/gentianmevlani
+              - listitem [ref=e80]:
+                - link "Resume PDF" [ref=e81] [cursor=pointer]:
+                  - /url: /GentianMevlani_Resume.pdf
+              - listitem [ref=e82]:
+                - link "VibeCheck" [ref=e83] [cursor=pointer]:
+                  - /url: https://vibecheckai.dev
+              - listitem [ref=e84]:
+                - link "ShipGate" [ref=e85] [cursor=pointer]:
+                  - /url: https://shipgate.dev
+              - listitem [ref=e86]:
+                - link "GuardeFi" [ref=e87] [cursor=pointer]:
+                  - /url: https://guardefi.net
+              - listitem [ref=e88]:
+                - link "GuardiaVault" [ref=e89] [cursor=pointer]:
+                  - /url: https://guardiavault.com
+            - generic [ref=e90]: Proof
+            - list [ref=e91]:
+              - listitem [ref=e92]: 20,000+ VibeCheck downloads
+              - listitem [ref=e93]: 5,000+ ShipGate downloads
+              - listitem [ref=e94]: 13,000 lines in Claude Conscious
+              - listitem [ref=e95]: 69 passing tests
+      - generic:
+        - generic: 20k+ downloads shipped
+    - generic [ref=e96]:
+      - generic [ref=e97]:
+        - paragraph [ref=e98]: Professional Summary
+        - heading "Shipping tools with real use, not just demos." [level=2] [ref=e99]
+      - generic "Animated manifesto" [ref=e100]:
+        - heading "Developer tools shipped across VS Code, CLI, GitHub Actions, npm, and the web" [level=3] [ref=e101]
+        - heading "20,000+ downloads on VibeCheck and 5,000+ on ShipGate" [level=3] [ref=e102]
+        - heading "AI agent systems with procedural memory, replay, and cognitive fingerprinting" [level=3] [ref=e103]
+        - heading "TypeScript, React, Next.js, Node.js, PostgreSQL, OAuth, Stripe, and monorepos" [level=3] [ref=e104]
+        - heading "Execution discipline shaped by business ownership and project management" [level=3] [ref=e105]
+    - generic [ref=e109]:
+      - generic [ref=e110]:
+        - paragraph [ref=e111]: How I Work
+        - heading "I like software that survives contact with real teams." [level=2] [ref=e112]
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - generic [ref=e115]: build
+          - generic [ref=e116]: ship
+          - generic [ref=e117]: own
+        - paragraph [ref=e118]:
+          - generic [ref=e119]: I
+          - generic [ref=e120]: like
+          - generic [ref=e121]: to
+          - generic [ref=e122]: developer
+          - generic [ref=e123]: tools,
+          - generic [ref=e124]: AI
+          - generic [ref=e125]: systems,
+          - generic [ref=e126]: and
+          - generic [ref=e127]: the
+          - generic [ref=e128]: product
+          - generic [ref=e129]: work
+          - generic [ref=e130]: that
+          - generic [ref=e131]: turns
+          - generic [ref=e132]: useful
+          - generic [ref=e133]: ideas
+          - generic [ref=e134]: into
+          - generic [ref=e135]: adopted
+          - generic [ref=e136]: software.
+    - generic [ref=e139]:
+      - generic [ref=e140]:
+        - paragraph [ref=e141]: Product Surface
+        - heading "Real interface work from a shipped product surface." [level=2] [ref=e142]
+      - generic [ref=e143]:
+        - generic [ref=e145]:
+          - heading "VibeCheck spans quick scans, live detection, project connection, and ship protection." [level=3] [ref=e146]
+          - paragraph [ref=e147]: These screens move the portfolio out of abstract claims and into the actual product language behind the tooling.
+        - generic [ref=e148]:
+          - img "Mobile-style VibeCheck home screen showing quick actions and AI lie detector" [ref=e150]
+          - img "Mobile-style VibeCheck tools screen showing health check, code graph, and firewall tools" [ref=e152]
+        - generic [ref=e154]:
+          - heading "The UI is designed around verification workflows, not generic dashboard filler." [level=3] [ref=e155]
+          - paragraph [ref=e156]: "Health, scans, findings, proofs, and agent tools all sit close to the core job: catching unreliable output before teams ship it."
+        - img "Animated VibeCheck identity visual" [ref=e159]
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - paragraph [ref=e162]: Project Identities
+        - heading "Brand and interface marks from the surrounding product ecosystem." [level=2] [ref=e163]
+      - generic [ref=e164]:
+        - figure "Claude Conscious" [ref=e165]:
+          - img "Claude Conscious logo mark" [ref=e166]
+          - generic [ref=e167]: Claude Conscious
+        - figure "ShipGate" [ref=e168]:
+          - img "ShipGate logo mark" [ref=e169]
+          - generic [ref=e170]: ShipGate
+        - figure "Paradex" [ref=e171]:
+          - img "Paradex logo mark" [ref=e172]
+          - generic [ref=e173]: Paradex
+        - figure "Scorpius" [ref=e174]:
+          - img "Scorpius logo mark" [ref=e175]
+          - generic [ref=e176]: Scorpius
+        - figure "MevGuard" [ref=e177]:
+          - img "MevGuard logo mark" [ref=e178]
+          - generic [ref=e179]: MevGuard
+    - generic [ref=e180]:
+      - generic [ref=e181]:
+        - paragraph [ref=e182]: Featured Work
+        - heading "Products shipped across developer tooling, AI systems, and web apps." [level=2] [ref=e183]
+      - generic [ref=e185]:
+        - article [ref=e186]:
+          - img "GitHub preview card for Claude Conscious" [ref=e188]
+          - generic [ref=e189]:
+            - generic [ref=e190]: "01"
+            - heading "Claude Conscious" [level=3] [ref=e191]
+            - paragraph [ref=e192]: 13,000-line TypeScript system for procedural memory, strategy refresh, session replay, and consciousness for Claude Code.
+        - article [ref=e193]:
+          - img "GitHub preview card for VibeCheck" [ref=e195]
+          - generic [ref=e196]:
+            - generic [ref=e197]: "02"
+            - heading "VibeCheck" [level=3] [ref=e198]
+            - paragraph [ref=e199]: AI code verification product across VS Code, CLI, and GitHub Actions with 20,000+ downloads.
+        - article [ref=e200]:
+          - img "GitHub preview card for ShipGate" [ref=e202]
+          - generic [ref=e203]:
+            - generic [ref=e204]: "03"
+            - heading "ShipGate" [level=3] [ref=e205]
+            - paragraph [ref=e206]: CLI and GitHub Actions merge gate for Next.js apps with 5,000+ downloads and ship/no-ship decisions.
+        - article [ref=e207]:
+          - img "GitHub preview card for ISL" [ref=e209]
+          - generic [ref=e210]:
+            - generic [ref=e211]: "04"
+            - heading "ISL" [level=3] [ref=e212]
+            - paragraph [ref=e213]: Intent Specification Language with compiler, standard library, VS Code language support, tracing, and visual tooling.
+        - article [ref=e214]:
+          - img "GitHub preview card for GuardiaVault" [ref=e216]
+          - generic [ref=e217]:
+            - generic [ref=e218]: "05"
+            - heading "GuardiaVault" [level=3] [ref=e219]
+            - paragraph [ref=e220]: Blockchain inheritance protocol with DeFi tooling, analytics workflows, and production wallet interactions.
+    - generic [ref=e223]:
+      - generic [ref=e224]:
+        - paragraph [ref=e225]: Core Strengths
+        - heading "Developer tools, AI agent systems, and product execution." [level=2] [ref=e226]
+      - generic [ref=e227]:
+        - article [ref=e228]:
+          - img "GitHub preview card for VibeCheck" [ref=e230]
+          - generic [ref=e231]:
+            - generic [ref=e232]: "01"
+            - paragraph [ref=e233]: VS Code extension API, CLI tooling, GitHub Actions, npm publishing, pnpm monorepos, and developer workflow design.
+        - article [ref=e234]:
+          - img "GitHub preview card for Claude Conscious" [ref=e236]
+          - generic [ref=e237]:
+            - generic [ref=e238]: "02"
+            - paragraph [ref=e239]: LLM orchestration, multi-agent architectures, procedural memory, cognitive fingerprinting, transcript analysis, and hooks.
+        - article [ref=e240]:
+          - img "Profile image for Gentian Mevlani" [ref=e242]
+          - generic [ref=e243]:
+            - generic [ref=e244]: "03"
+            - paragraph [ref=e245]: Product ownership shaped by planning, billing, launch, client communication, and operational discipline from outside software too.
+    - generic [ref=e248]:
+      - generic [ref=e249]:
+        - paragraph [ref=e250]: Prior Experience
+        - heading "Operator discipline before and alongside software." [level=2] [ref=e251]
+        - paragraph [ref=e252]:
+          - generic [ref=e253]: Before
+          - generic [ref=e254]: and
+          - generic [ref=e255]: around
+          - generic [ref=e256]: building
+          - generic [ref=e257]: software
+          - generic [ref=e258]: full
+          - generic [ref=e259]: time,
+          - generic [ref=e260]: I
+          - generic [ref=e261]: ran
+          - generic [ref=e262]: a
+          - generic [ref=e263]: remodeling
+          - generic [ref=e264]: business
+          - generic [ref=e265]: and
+          - generic [ref=e266]: managed
+          - generic [ref=e267]: electrical
+          - generic [ref=e268]: projects.
+          - generic [ref=e269]: That
+          - generic [ref=e270]: background
+          - generic [ref=e271]: still
+          - generic [ref=e272]: shapes
+          - generic [ref=e273]: how
+          - generic [ref=e274]: I
+          - generic [ref=e275]: approach
+          - generic [ref=e276]: "engineering:"
+          - generic [ref=e277]: clear
+          - generic [ref=e278]: communication,
+          - generic [ref=e279]: realistic
+          - generic [ref=e280]: schedules,
+          - generic [ref=e281]: procurement
+          - generic [ref=e282]: thinking,
+          - generic [ref=e283]: budget
+          - generic [ref=e284]: awareness,
+          - generic [ref=e285]: and
+          - generic [ref=e286]: finish-line
+          - generic [ref=e287]: accountability.
+        - generic "Journey highlights" [ref=e288]
+      - generic [ref=e289]:
+        - generic [ref=e290]: thornton, co
+        - img "Profile image for Gentian Mevlani" [ref=e292]
+    - generic [ref=e293]:
+      - generic [ref=e294]:
+        - paragraph [ref=e295]: Technical Skills
+        - heading "TypeScript-first across frontend, backend, platform, and AI tooling." [level=2] [ref=e296]
+      - generic [ref=e297]:
+        - article [ref=e298]:
+          - text: Frontend
+          - paragraph [ref=e299]: React, Next.js, Vite, Tailwind CSS, and Three.js for product surfaces that need polish without losing speed.
+          - generic [ref=e301]: FE
+        - article [ref=e302]:
+          - text: Backend
+          - paragraph [ref=e303]: Node.js, REST APIs, PostgreSQL, OAuth, Stripe billing, webhooks, and the systems work needed to support production launch.
+          - generic [ref=e306]: BE
+        - article [ref=e308]:
+          - text: Platform + AI
+          - paragraph [ref=e309]: VS Code Extension API, CLI tooling, GitHub Actions, npm publishing, pnpm monorepos, SARIF, orchestration, procedural memory, and session analysis.
+          - generic [ref=e311]: AI
+    - generic [ref=e313]:
+      - generic [ref=e314]:
+        - paragraph [ref=e315]: Additional Product Work
+        - generic [ref=e316]:
+          - heading "More" [level=2] [ref=e317]
+          - heading "systems" [level=2] [ref=e318]
+          - heading "built" [level=2] [ref=e319]
+        - paragraph [ref=e320]: Open a card to get a quick read on the adjacent projects and systems work behind the main portfolio pieces.
+      - generic [ref=e321]:
+        - article "Open details for WikiCode" [ref=e322] [cursor=pointer]:
+          - generic [ref=e324]:
+            - strong [ref=e325]: WikiCode
+            - generic [ref=e326]: Developer tooling
+          - generic [ref=e328]:
+            - generic [ref=e329]: Semantic navigation
+            - paragraph [ref=e330]: VS Code extension for intent-driven codebase navigation using semantic indexing, search, and LLM-assisted planning.
+            - button "Close review" [ref=e331]: Close
+        - article "Open details for FullStackFlow" [ref=e332] [cursor=pointer]:
+          - generic [ref=e334]:
+            - strong [ref=e335]: FullStackFlow
+            - generic [ref=e336]: Multi-agent systems
+          - generic [ref=e338]:
+            - generic [ref=e339]: Application generation
+            - paragraph [ref=e340]: Multi-agent system that generates complete applications across frontend, backend, documentation, and build workflows.
+            - button "Close review" [ref=e341]: Close
+        - article "Open details for GuardeFi" [ref=e342] [cursor=pointer]:
+          - generic [ref=e344]:
+            - strong [ref=e345]: GuardeFi
+            - generic [ref=e346]: Web3 security stack
+          - generic [ref=e348]:
+            - generic [ref=e349]: Security and analytics
+            - paragraph [ref=e350]: Architected a multi-service platform for contract scanning, mempool monitoring, MEV analysis, blockchain forensics, and dashboard interfaces across related repositories.
+            - button "Close review" [ref=e351]: Close
+        - article "Open details for Paradex Wallet" [ref=e352] [cursor=pointer]:
+          - generic [ref=e354]:
+            - strong [ref=e355]: Paradex Wallet
+            - generic [ref=e356]: Wallet infrastructure
+          - generic [ref=e358]:
+            - generic [ref=e359]: Portfolio and DeFi
+            - paragraph [ref=e360]: Full-featured crypto wallet with cross-chain bridging, DEX aggregation, fiat onramp, and AI-powered portfolio analysis.
+            - button "Close review" [ref=e361]: Close
+    - generic [ref=e363]:
+      - paragraph [ref=e364]: Get in touch
+      - heading "Building developer tools, AI agent systems, and product infrastructure." [level=2] [ref=e365]
+      - paragraph [ref=e366]: Based in Thornton, Colorado. Associate Degree from Front Range Community College. Open to work that blends engineering depth, product ownership, and systems thinking.
+      - generic [ref=e367]:
+        - link "GitHub" [ref=e368] [cursor=pointer]:
+          - /url: https://github.com/gentianmevlani
+        - link "Resume" [ref=e369] [cursor=pointer]:
+          - /url: /GentianMevlani_Resume.pdf
+        - link "VibeCheck" [ref=e370] [cursor=pointer]:
+          - /url: https://vibecheckai.dev
+        - link "Back to top" [ref=e371] [cursor=pointer]:
+          - /url: "#top"

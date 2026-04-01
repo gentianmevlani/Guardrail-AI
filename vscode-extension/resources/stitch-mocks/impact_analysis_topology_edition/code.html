@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KINETIC ARCHIVE // IMPACT ANALYSIS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface-variant": "#333538",
+                        "secondary-fixed": "#d9e2ff",
+                        "surface-container-high": "#282a2d",
+                        "surface-bright": "#37393d",
+                        "on-secondary-fixed-variant": "#00429b",
+                        "secondary": "#b0c6ff",
+                        "secondary-container": "#0068ed",
+                        "tertiary": "#ffe7e6",
+                        "on-primary-fixed": "#001f24",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#400009",
+                        "secondary-fixed-dim": "#b0c6ff",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-tertiary": "#680014",
+                        "outline": "#849396",
+                        "on-surface": "#e2e2e6",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#ffdad9",
+                        "on-surface-variant": "#bac9cc",
+                        "surface-container-low": "#1a1c1f",
+                        "error": "#ffb4ab",
+                        "surface": "#111316",
+                        "on-primary-container": "#00626e",
+                        "surface-tint": "#00daf3",
+                        "on-secondary-fixed": "#001945",
+                        "tertiary-container": "#ffc1c0",
+                        "primary-fixed": "#9cf0ff",
+                        "primary": "#c3f5ff",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0c0e11",
+                        "inverse-surface": "#e2e2e6",
+                        "background": "#111316",
+                        "tertiary-fixed-dim": "#ffb3b3",
+                        "surface-container-highest": "#333538",
+                        "surface-container": "#1e2023",
+                        "on-secondary-container": "#f2f3ff",
+                        "on-tertiary-fixed-variant": "#920021",
+                        "on-background": "#e2e2e6",
+                        "outline-variant": "#3b494c",
+                        "inverse-on-surface": "#2f3034",
+                        "on-tertiary-container": "#b4002b",
+                        "on-primary": "#00363d",
+                        "surface-dim": "#111316",
+                        "primary-container": "#00e5ff",
+                        "inverse-primary": "#006875",
+                        "on-secondary": "#002d6e"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                    animation: {
+                        'pulse-risk': 'pulse-risk 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'scan-sweep': 'scan-sweep 3s ease-in-out infinite',
+                        'reveal-stagger': 'reveal-stagger 0.5s ease-out forwards',
+                        'skeleton': 'skeleton 1.5s infinite linear',
+                        'topology-wave': 'topology-wave 8s infinite ease-in-out',
+                    },
+                    keyframes: {
+                        'pulse-risk': {
+                            '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                            '50%': { opacity: 0.7, transform: 'scale(0.98)', boxShadow: '0 0 15px rgba(147, 0, 10, 0.6)' },
+                        },
+                        'scan-sweep': {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        },
+                        'reveal-stagger': {
+                            '0%': { opacity: 0, transform: 'translateY(10px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        'skeleton': {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        'topology-wave': {
+                            '0%, 100%': { transform: 'perspective(1000px) rotateX(60deg) translateY(0px)' },
+                            '50%': { transform: 'perspective(1000px) rotateX(55deg) translateY(-20px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-primary {
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+        }
+        .glass-panel {
+            background: rgba(30, 32, 35, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .neon-link {
+            position: relative;
+            text-decoration: none;
+        }
+        .neon-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #00E5FF;
+            box-shadow: 0 0 8px #00E5FF;
+            transition: width 0.3s ease;
+        }
+        .neon-link:hover::after {
+            width: 100%;
+        }
+        .tooltip-trigger:hover .tooltip-box {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .skeleton-loader {
+            background: linear-gradient(90deg, #1e2023 25%, #282a2d 50%, #1e2023 75%);
+            background-size: 200% 100%;
+            animation: skeleton 1.5s infinite linear;
+        }
+        /* Blast Radius Topology Styles */
+        .topology-grid {
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: perspective(1000px) rotateX(60deg);
+            width: 200%;
+            height: 200%;
+            left: -50%;
+            top: -20%;
+        }
+        .blast-node {
+            filter: blur(4px);
+            animation: pulse-risk 4s infinite ease-in-out;
+        }
+        .ripple {
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 50%;
+            animation: ripple-expand 4s infinite linear;
+        }
+        @keyframes ripple-expand {
+            0% { transform: scale(0.1); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#1c1f24] hidden md:flex flex-col z-50">
+<div class="px-6 py-8">
+<h2 class="text-[#00E5FF] font-black font-headline tracking-widest text-sm uppercase">CORE TERMINAL</h2>
+</div>
+<nav class="flex flex-col space-y-1">
+<a class="text-slate-400 px-4 py-3 font-headline text-sm uppercase tracking-widest hover:bg-[#2a2d35] hover:text-white transition-all duration-150 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="radar">radar</span>
+            Threat Radar
+        </a>
+<a class="text-slate-400 px-4 py-3 font-headline text-sm uppercase tracking-widest hover:bg-[#2a2d35] hover:text-white transition-all duration-150 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="terminal">terminal</span>
+            Change Logs
+        </a>
+<a class="border-l-2 border-[#00E5FF] bg-[#2a2d35] text-[#00E5FF] font-bold px-4 py-3 font-headline text-sm uppercase tracking-widest flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span>
+            Impact Analysis
+        </a>
+<a class="text-slate-400 px-4 py-3 font-headline text-sm uppercase tracking-widest hover:bg-[#2a2d35] hover:text-white transition-all duration-150 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="security">security</span>
+            Vulnerability Scan
+        </a>
+<a class="text-slate-400 px-4 py-3 font-headline text-sm uppercase tracking-widest hover:bg-[#2a2d35] hover:text-white transition-all duration-150 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+            Archive Settings
+        </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen pb-20 md:pb-0">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-[#111316] flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00E5FF]" data-icon="security">security</span>
+<h1 class="text-xl font-bold tracking-tighter text-[#00E5FF] uppercase font-headline">KINETIC ARCHIVE // IMPACT ANALYSIS</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-[#2a2d35] transition-colors duration-200 rounded scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="px-6 py-8 max-w-7xl mx-auto space-y-8">
+<!-- Hero Section: Blast Radius Topology & Summary -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Blast Radius Topology Card -->
+<div class="lg:col-span-5 bg-surface-container rounded p-0 flex flex-col relative overflow-hidden h-[420px] border border-outline-variant/10">
+<div class="p-6 absolute top-0 left-0 z-30 w-full flex justify-between items-start pointer-events-none">
+<div>
+<h3 class="font-headline text-xs font-bold uppercase tracking-widest text-[#00E5FF]">Blast Radius Topology</h3>
+<p class="text-on-surface-variant text-[10px] uppercase font-medium mt-1">System-wide Impact Intensity Map</p>
+</div>
+<div class="text-right">
+<span class="text-2xl font-bold font-headline text-primary-container block">72%</span>
+<span class="text-[10px] text-error font-bold uppercase tracking-tighter">Intensity Level</span>
+</div>
+</div>
+<!-- 3D Topology Visualization Area -->
+<div class="relative w-full h-full flex items-center justify-center overflow-hidden bg-black/40">
+<!-- Perspective Grid -->
+<div class="absolute topology-grid animate-topology-wave"></div>
+<!-- Ripple Effects -->
+<div class="absolute ripple w-64 h-64 border-primary/20" style="animation-delay: 0s"></div>
+<div class="absolute ripple w-64 h-64 border-primary/10" style="animation-delay: 1s"></div>
+<div class="absolute ripple w-64 h-64 border-error/20" style="animation-delay: 2s"></div>
+<!-- Impact Nodes -->
+<div class="relative z-20 flex items-center justify-center">
+<!-- Primary Impact Core -->
+<div class="w-12 h-12 bg-primary rounded-full blast-node blur-md absolute opacity-60"></div>
+<div class="w-6 h-6 bg-primary rounded-full relative z-30 border border-white/20 shadow-[0_0_20px_rgba(0,229,255,0.8)]"></div>
+<!-- Satellite Impact Nodes (Red/Cyan Mix) -->
+<div class="absolute -top-12 -left-16 w-3 h-3 bg-error rounded-full blast-node shadow-[0_0_15px_#ffb4ab]"></div>
+<div class="absolute -bottom-8 -right-20 w-4 h-4 bg-error rounded-full blast-node shadow-[0_0_15px_#ffb4ab]" style="animation-delay: 1.5s"></div>
+<div class="absolute top-20 left-10 w-2 h-2 bg-primary rounded-full blast-node shadow-[0_0_10px_#00E5FF]" style="animation-delay: 0.5s"></div>
+<div class="absolute -top-4 right-14 w-3 h-3 bg-primary rounded-full blast-node shadow-[0_0_10px_#00E5FF]" style="animation-delay: 2.2s"></div>
+</div>
+<!-- Connection Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full opacity-30 pointer-events-none" viewbox="0 0 400 400">
+<defs>
+<lineargradient id="impact-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00E5FF"></stop>
+<stop offset="100%" stop-color="#ffb4ab"></stop>
+</lineargradient>
+</defs>
+<path class="animate-pulse" d="M150 150 L200 200 M200 200 L280 230 M200 200 L250 120 M140 280 L200 200" fill="none" stroke="url(#impact-grad)" stroke-width="0.5"></path>
+</svg>
+</div>
+<div class="p-6 absolute bottom-0 left-0 z-30 w-full bg-gradient-to-t from-surface-container via-surface-container/90 to-transparent">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 bg-error rounded-full animate-pulse"></span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-error">Critical Path Interrupted</span>
+</div>
+<p class="text-on-surface-variant text-xs leading-tight">Authentication middleware ripple effect detected across 14 downstream service nodes.</p>
+</div>
+</div>
+<!-- Summary Grid -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-6 flex flex-col justify-between border-l-2 border-primary">
+<span class="text-on-surface-variant font-headline text-xs uppercase tracking-widest">Total Files</span>
+<div class="flex items-baseline gap-2 mt-4">
+<span class="text-4xl font-bold font-headline text-on-surface">05</span>
+<span class="text-on-surface-variant text-sm">tracked</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 flex flex-col justify-between border-l-2 border-primary">
+<span class="text-on-surface-variant font-headline text-xs uppercase tracking-widest">High Impact</span>
+<div class="flex items-baseline gap-2 mt-4">
+<span class="text-4xl font-bold font-headline text-primary-container">02</span>
+<span class="text-on-surface-variant text-sm">critical</span>
+</div>
+</div>
+<!-- Affected Components -->
+<div class="bg-surface-container-low p-6 flex flex-col justify-between border-l-2 border-primary overflow-hidden group">
+<span class="text-on-surface-variant font-headline text-xs uppercase tracking-widest">Affected Components</span>
+<div class="flex items-baseline gap-2 mt-4 animate-reveal-stagger" style="animation-delay: 0.2s;">
+<span class="text-4xl font-bold font-headline text-on-surface">14</span>
+<span class="text-on-surface-variant text-sm">nodes</span>
+</div>
+<div class="flex gap-1 mt-2">
+<div class="h-1 w-4 bg-primary/40 rounded-full animate-reveal-stagger" style="animation-delay: 0.4s;"></div>
+<div class="h-1 w-4 bg-primary/40 rounded-full animate-reveal-stagger" style="animation-delay: 0.5s;"></div>
+<div class="h-1 w-4 bg-primary/40 rounded-full animate-reveal-stagger" style="animation-delay: 0.6s;"></div>
+<div class="h-1 w-2 bg-primary/20 rounded-full animate-reveal-stagger" style="animation-delay: 0.7s;"></div>
+</div>
+</div>
+<!-- Breaking Changes Alert -->
+<div class="bg-error-container/20 p-6 flex flex-col justify-between border-l-2 border-error ring-1 ring-error/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error" data-icon="report_problem" style="font-variation-settings: 'FILL' 1;">report_problem</span>
+<span class="text-error font-headline text-xs uppercase tracking-widest">Breaking Changes</span>
+</div>
+<div class="mt-4">
+<span class="text-lg font-bold text-on-error-container">01 Detected</span>
+<p class="text-error/80 text-xs mt-1">Exported interface `AuthPayload` modified in core-lib.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Change Details List -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-sm uppercase tracking-[0.2em] text-on-surface-variant">Modified Entity Registry</h3>
+<div class="h-[1px] flex-grow mx-6 bg-outline-variant/30"></div>
+</div>
+<div class="space-y-2">
+<!-- List Item 1 -->
+<div class="group bg-surface-container hover:bg-surface-container-high transition-colors p-4 flex flex-wrap md:flex-nowrap items-center gap-6">
+<div class="flex items-center gap-4 min-w-[300px] flex-grow">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="edit_note">edit_note</span>
+<div>
+<code class="text-on-surface font-mono text-sm">src/lib/auth-service.ts</code>
+<div class="flex items-center gap-2 mt-1">
+<span class="px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold uppercase tracking-wider rounded">High Impact</span>
+<span class="text-on-surface-variant text-[10px] uppercase font-medium">Modified</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="link">link</span>
+<span class="text-xs font-mono text-on-surface">08</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="sensors">sensors</span>
+<span class="text-xs font-mono text-on-surface">24</span>
+</div>
+</div>
+<div class="flex-shrink-0">
+<button class="text-xs font-headline uppercase tracking-widest text-primary neon-link">View Diff</button>
+</div>
+</div>
+<!-- Skeleton Loader Example -->
+<div class="bg-surface-container/50 p-4 flex flex-wrap md:flex-nowrap items-center gap-6 opacity-60">
+<div class="flex items-center gap-4 min-w-[300px] flex-grow">
+<div class="w-6 h-6 rounded skeleton-loader"></div>
+<div class="space-y-2">
+<div class="w-48 h-4 rounded skeleton-loader"></div>
+<div class="w-24 h-3 rounded skeleton-loader"></div>
+</div>
+</div>
+<div class="flex items-center gap-8 px-4">
+<div class="w-8 h-4 rounded skeleton-loader"></div>
+<div class="w-8 h-4 rounded skeleton-loader"></div>
+</div>
+<div class="w-16 h-4 rounded skeleton-loader"></div>
+</div>
+<!-- List Item 2 -->
+<div class="group bg-surface-container hover:bg-surface-container-high transition-colors p-4 flex flex-wrap md:flex-nowrap items-center gap-6">
+<div class="flex items-center gap-4 min-w-[300px] flex-grow">
+<span class="material-symbols-outlined text-error" data-icon="delete_forever">delete_forever</span>
+<div>
+<code class="text-on-surface font-mono text-sm">api/v1/users.js</code>
+<div class="flex items-center gap-2 mt-1">
+<span class="px-2 py-0.5 bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-wider rounded">Medium Impact</span>
+<span class="text-on-surface-variant text-[10px] uppercase font-medium">Deleted</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="link">link</span>
+<span class="text-xs font-mono text-on-surface">02</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="sensors">sensors</span>
+<span class="text-xs font-mono text-on-surface">05</span>
+</div>
+</div>
+<div class="flex-shrink-0">
+<button class="text-xs font-headline uppercase tracking-widest text-primary neon-link">View Diff</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Recommendations Section -->
+<section class="bg-[#1c1f24] rounded overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="lightbulb">lightbulb</span>
+<h3 class="font-headline text-sm uppercase tracking-widest text-on-surface">AI Insights &amp; Actionables</h3>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Insight Card 1 -->
+<div class="relative tooltip-trigger flex gap-4 p-4 bg-surface-container-lowest rounded group hover:bg-surface-container transition-all cursor-help border border-transparent hover:border-primary/20">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="text-primary text-xs font-bold">01</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">Phased Deployment Recommended</p>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">High-impact changes to auth-service detected. Deploy to staging group A before global rollout.</p>
+</div>
+<!-- Tooltip -->
+<div class="tooltip-box absolute bottom-full left-0 mb-2 w-64 p-3 bg-surface-bright text-[10px] text-on-surface leading-normal rounded shadow-2xl opacity-0 invisible translate-y-1 transition-all z-50 border border-outline-variant">
+<div class="font-bold text-primary-container mb-1 uppercase tracking-tighter">AI Rationale</div>
+                        The modified auth-service module is a singleton used by 92% of active sessions. Staging ensures no session-lock regressions.
+                    </div>
+</div>
+<!-- Insight Card 2 -->
+<div class="relative tooltip-trigger flex gap-4 p-4 bg-surface-container-lowest rounded group hover:bg-surface-container transition-all cursor-help border border-transparent hover:border-primary/20">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="text-primary text-xs font-bold">02</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">Regression Testing Required</p>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">Affected 24 downstream nodes. Run comprehensive integration suite for 'User Management' module.</p>
+</div>
+<div class="tooltip-box absolute bottom-full left-0 mb-2 w-64 p-3 bg-surface-bright text-[10px] text-on-surface leading-normal rounded shadow-2xl opacity-0 invisible translate-y-1 transition-all z-50 border border-outline-variant">
+<div class="font-bold text-primary-container mb-1 uppercase tracking-tighter">AI Rationale</div>
+                        Static analysis indicates data-prop propagation through 4 nested component layers. Automated unit tests cover only 40% of these paths.
+                    </div>
+</div>
+<!-- Insight Card 3 -->
+<div class="relative tooltip-trigger flex gap-4 p-4 bg-surface-container-lowest rounded group hover:bg-surface-container transition-all cursor-help border border-transparent hover:border-primary/20">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="text-primary text-xs font-bold">03</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">Dependency Lock Warning</p>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">Changes in security-policy.yaml might conflict with existing RBAC configurations.</p>
+</div>
+<div class="tooltip-box absolute bottom-full left-0 mb-2 w-64 p-3 bg-surface-bright text-[10px] text-on-surface leading-normal rounded shadow-2xl opacity-0 invisible translate-y-1 transition-all z-50 border border-outline-variant">
+<div class="font-bold text-primary-container mb-1 uppercase tracking-tighter">AI Rationale</div>
+                        Multiple overlapping scopes detected. Current changes reduce access privilege for 'Auditor' role which may break external reporting APIs.
+                    </div>
+</div>
+<!-- Insight Card 4 -->
+<div class="relative tooltip-trigger flex gap-4 p-4 bg-surface-container-lowest rounded group hover:bg-surface-container transition-all cursor-help border border-transparent hover:border-primary/20">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="text-primary text-xs font-bold">04</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">API Versioning Check</p>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">Deletions in api/v1/users.js require verification against mobile client version v2.4.1.</p>
+</div>
+<div class="tooltip-box absolute bottom-full left-0 mb-2 w-64 p-3 bg-surface-bright text-[10px] text-on-surface leading-normal rounded shadow-2xl opacity-0 invisible translate-y-1 transition-all z-50 border border-outline-variant">
+<div class="font-bold text-primary-container mb-1 uppercase tracking-tighter">AI Rationale</div>
+                        The removed endpoint `/v1/users/active` is still pinged by legacy mobile clients. Ensure v2.4.1 deprecation notice has been sent.
+                    </div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center py-3 bg-[#111316]/80 backdrop-blur-md border-t border-[#00E5FF]/10 md:hidden z-50 shadow-[0_-4px_20px_rgba(0,229,255,0.1)]">
+<a class="flex flex-col items-center justify-center text-slate-500 active:bg-[#2a2d35] tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-body uppercase mt-1">Dash</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 active:bg-[#2a2d35] tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-[10px] font-body uppercase mt-1">Logs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#00E5FF] active:bg-[#2a2d35] tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span class="text-[10px] font-body uppercase mt-1">Impact</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 active:bg-[#2a2d35] tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-body uppercase mt-1">User</span>
+</a>
+</nav>
+</body></html>

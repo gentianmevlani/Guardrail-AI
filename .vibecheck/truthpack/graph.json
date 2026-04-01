@@ -1,0 +1,4777 @@
+{
+  "Dashboard Development/src/App.tsx": [
+    "./context/auth-context",
+    "./context/github-context",
+    "./context/repository-context",
+    "./context/dashboard-context",
+    "./context/route-context",
+    "./components/theme-provider",
+    "./hooks/use-scan",
+    "./components/ui/utils",
+    "./components/header",
+    "./components/sidebar",
+    "./components/ui/dot-shader-background",
+    "./components/dashboard/health-score-card",
+    "./components/dashboard/stats-grid",
+    "./components/dashboard/scan-history-chart",
+    "./components/dashboard/health-graph",
+    "./components/dashboard/severity-chart",
+    "./components/dashboard/quality-trend-chart",
+    "./components/ui/badge",
+    "./components/ui/button",
+    "./components/ui/card",
+    "./components/ui/select",
+    "./pages/ship-check",
+    "./pages/intelligence",
+    "./pages/runs",
+    "./pages/settings",
+    "./pages/guardrails",
+    "./pages/vulnerabilities",
+    "./pages/repositories",
+    "./pages/reports",
+    "./pages/team",
+    "./pages/alerts",
+    "./pages/policies",
+    "./pages/compliance",
+    "./pages/cli",
+    "./pages/mcp",
+    "./pages/api-key",
+    "./pages/billing",
+    "./pages/command-center",
+    "./pages/runs-proof",
+    "./pages/policies-new"
+  ],
+  "Dashboard Development/src/components/github-connect-widget.tsx": [
+    "./ui/badge",
+    "./ui/button",
+    "./ui/card"
+  ],
+  "Dashboard Development/src/components/github-integration-card.tsx": [
+    "./ui/badge",
+    "./ui/button"
+  ],
+  "Dashboard Development/src/components/header.tsx": [
+    "./github-integration-card"
+  ],
+  "Dashboard Development/src/components/sidebar.tsx": [
+    "../context/dashboard-context",
+    "../context/route-context",
+    "./ui/utils"
+  ],
+  "Dashboard Development/src/components/ui/accordion.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/alert-dialog.tsx": [
+    "./utils",
+    "./button"
+  ],
+  "Dashboard Development/src/components/ui/alert.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/avatar.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/breadcrumb.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/calendar.tsx": [
+    "./utils",
+    "./button"
+  ],
+  "Dashboard Development/src/components/ui/carousel.tsx": [
+    "./utils",
+    "./button"
+  ],
+  "Dashboard Development/src/components/ui/chart.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/checkbox.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/command.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/context-menu.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/dialog.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/drawer.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/form.tsx": [
+    "./utils",
+    "./label"
+  ],
+  "Dashboard Development/src/components/ui/hover-card.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/input-otp.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/input.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/label.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/menubar.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/navigation-menu.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/pagination.tsx": [
+    "./utils",
+    "./button"
+  ],
+  "Dashboard Development/src/components/ui/popover.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/progress.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/radio-group.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/resizable.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/scroll-area.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/separator.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/sheet.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/sidebar.tsx": [
+    "./use-mobile",
+    "./utils",
+    "./button",
+    "./input",
+    "./separator",
+    "./skeleton"
+  ],
+  "Dashboard Development/src/components/ui/skeleton.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/slider.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/switch.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/table.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/tabs.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/textarea.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/toggle-group.tsx": [
+    "./utils",
+    "./toggle"
+  ],
+  "Dashboard Development/src/components/ui/toggle.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/components/ui/tooltip.tsx": [
+    "./utils"
+  ],
+  "Dashboard Development/src/main.tsx": [
+    "./App.tsx"
+  ],
+  "Dashboard Development/src/pages/alerts.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/api-key.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/billing.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/cli.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/command-center.tsx": [
+    "../components/ui/badge",
+    "../components/ui/button",
+    "../components/ui/utils",
+    "../components/github-connect-widget"
+  ],
+  "Dashboard Development/src/pages/compliance.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/guardrails.tsx": [
+    "../components/ui/card",
+    "../components/ui/button",
+    "../components/ui/badge"
+  ],
+  "Dashboard Development/src/pages/intelligence.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge"
+  ],
+  "Dashboard Development/src/pages/mcp.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/policies-new.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button",
+    "../components/ui/utils",
+    "../components/ui/switch"
+  ],
+  "Dashboard Development/src/pages/policies.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/reports.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/repositories.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/runs-proof.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button",
+    "../components/ui/utils"
+  ],
+  "Dashboard Development/src/pages/runs.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/settings.tsx": [
+    "../components/ui/card",
+    "../components/ui/button",
+    "../components/ui/badge"
+  ],
+  "Dashboard Development/src/pages/ship-check.tsx": [
+    "../components/ui/card",
+    "../components/ui/button",
+    "../components/ui/badge"
+  ],
+  "Dashboard Development/src/pages/team.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "Dashboard Development/src/pages/vulnerabilities.tsx": [
+    "../components/ui/card",
+    "../components/ui/badge",
+    "../components/ui/button"
+  ],
+  "apps/api/scripts/generate-openapi.js": [
+    "./dist/server.js"
+  ],
+  "apps/api/src/__tests__/api-key-security.test.ts": [
+    "../services/api-key-service"
+  ],
+  "apps/api/src/__tests__/api-versioning.test.ts": [
+    "../index",
+    "../src/middleware/performance",
+    "../src/middleware/performance"
+  ],
+  "apps/api/src/__tests__/integration/admin.test.ts": [
+    "../../middleware/fastify-auth",
+    "../../server"
+  ],
+  "apps/api/src/__tests__/integration/api-endpoints.test.ts": [
+    "../../index.ts"
+  ],
+  "apps/api/src/__tests__/integration/auth.test.ts": [
+    "../../index"
+  ],
+  "apps/api/src/__tests__/integration/comprehensive-api.test.ts": [
+    "../setup/test-setup"
+  ],
+  "apps/api/src/__tests__/integration/email-delivery.test.ts": [
+    "../../middleware/fastify-auth",
+    "../../server"
+  ],
+  "apps/api/src/__tests__/integration/non-blocking-scan.test.ts": [
+    "../../lib/queue"
+  ],
+  "apps/api/src/__tests__/integration/projects.test.ts": [
+    "../../index"
+  ],
+  "apps/api/src/__tests__/integration/security-features.test.ts": [
+    "../../index",
+    "../../middleware/request-id-tracking",
+    "../../services/security-event-service",
+    "../../src/middleware/log-redaction",
+    "../../src/middleware/log-redaction",
+    "../../src/middleware/log-redaction",
+    "../../src/middleware/log-redaction",
+    "../../src/lib/request-context"
+  ],
+  "apps/api/src/__tests__/integration/transactions.test.ts": [
+    "../../db/transactions"
+  ],
+  "apps/api/src/__tests__/log-redaction.test.ts": [
+    "../logger"
+  ],
+  "apps/api/src/__tests__/logger-hostname.test.ts": [
+    "../logger"
+  ],
+  "apps/api/src/__tests__/secrets.test.ts": [
+    "../config/secrets"
+  ],
+  "apps/api/src/__tests__/setup/test-setup.ts": [
+    "../../lib/enhanced-cache",
+    "../../lib/enhanced-database",
+    "../../lib/enhanced-queue",
+    "../../server",
+    "../../services/email-notification-service",
+    "../../services/webhook-integration-service"
+  ],
+  "apps/api/src/__tests__/unit/db/scans.test.ts": [
+    "../../../db",
+    "../../../db/scans"
+  ],
+  "apps/api/src/__tests__/unit/worker.test.ts": [
+    "../../worker",
+    "../../lib/queue",
+    "../src/logger"
+  ],
+  "apps/api/src/config/secrets.ts": [
+    "../logger"
+  ],
+  "apps/api/src/db/billing.ts": [
+    "./index"
+  ],
+  "apps/api/src/db/index.ts": [
+    "../logger"
+  ],
+  "apps/api/src/db/organizations.ts": [
+    "./index"
+  ],
+  "apps/api/src/db/queries/usage-queries.ts": [
+    "../../utils/sql-safety"
+  ],
+  "apps/api/src/db/scans.ts": [
+    "./index"
+  ],
+  "apps/api/src/db/transactions.ts": [
+    "./index"
+  ],
+  "apps/api/src/db/usage.ts": [
+    "./index"
+  ],
+  "apps/api/src/lib/__tests__/safe-fetch.test.ts": [
+    "../safe-fetch"
+  ],
+  "apps/api/src/lib/enhanced-cache.ts": [
+    "../logger",
+    "../middleware/enhanced-error-handler"
+  ],
+  "apps/api/src/lib/enhanced-database.ts": [
+    "../logger",
+    "../middleware/enhanced-error-handler"
+  ],
+  "apps/api/src/lib/enhanced-queue.js": [
+    "../middleware/enhanced-error-handler",
+    "./enhanced-logger"
+  ],
+  "apps/api/src/lib/enhanced-queue.ts": [
+    "../middleware/enhanced-error-handler",
+    "./enhanced-logger"
+  ],
+  "apps/api/src/lib/feature-metrics.ts": [
+    "../logger"
+  ],
+  "apps/api/src/lib/fetch-with-timeout.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/lib/queue.ts": [
+    "../logger"
+  ],
+  "apps/api/src/lib/redirect-validator.ts": [
+    "../logger"
+  ],
+  "apps/api/src/logger.js": [
+    "./lib/request-context"
+  ],
+  "apps/api/src/logger.ts": [
+    "./lib/request-context"
+  ],
+  "apps/api/src/middleware/__tests__/auth.test.ts": [
+    "../../index",
+    "../fastify-auth"
+  ],
+  "apps/api/src/middleware/__tests__/plan-gating.test.ts": [
+    "../plan-gating"
+  ],
+  "apps/api/src/middleware/__tests__/redis-rate-limiter.test.ts": [
+    "../../logger",
+    "../../logger",
+    "../../logger"
+  ],
+  "apps/api/src/middleware/__tests__/sanitizeInput.test.ts": [
+    "../sanitizeInput"
+  ],
+  "apps/api/src/middleware/api-versioning.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/auth.ts": [
+    "./fastify-auth"
+  ],
+  "apps/api/src/middleware/comprehensive-security.ts": [
+    "../logger",
+    "../types/api-responses",
+    "../utils/encryption",
+    "../utils/encryption",
+    "../utils/encryption",
+    "../utils/encryption"
+  ],
+  "apps/api/src/middleware/enhanced-error-handler.d.ts": [
+    "../types/api-responses"
+  ],
+  "apps/api/src/middleware/enhanced-error-handler.js": [
+    "../logger",
+    "../types/api-responses"
+  ],
+  "apps/api/src/middleware/enhanced-error-handler.ts": [
+    "../logger",
+    "../types/api-responses"
+  ],
+  "apps/api/src/middleware/enhanced-fastify-auth.ts": [
+    "../config/secrets",
+    "../logger",
+    "../services/enhanced-api-key-service"
+  ],
+  "apps/api/src/middleware/error-handler.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/explicit-cors.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/fastify-auth.ts": [
+    "../config/secrets",
+    "../logger"
+  ],
+  "apps/api/src/middleware/impersonation.ts": [
+    "../types/auth",
+    "../logger",
+    "./fastify-auth"
+  ],
+  "apps/api/src/middleware/log-redaction.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/maintenance.ts": [
+    "../config/secrets",
+    "../logger"
+  ],
+  "apps/api/src/middleware/performance.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/plan-gating.ts": [
+    "./fastify-auth",
+    "../logger",
+    "../lib/feature-metrics"
+  ],
+  "apps/api/src/middleware/rate-limiter.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/rbac.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/redis-rate-limiter.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/middleware/request-id-tracking.ts": [
+    "../lib/request-context",
+    "../logger"
+  ],
+  "apps/api/src/middleware/request-size-limits.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/middleware/request-timeout.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/require-admin.ts": [
+    "../config/secrets",
+    "../logger"
+  ],
+  "apps/api/src/middleware/security-hardening.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/telemetry.ts": [
+    "../logger"
+  ],
+  "apps/api/src/middleware/tenant.ts": [
+    "../services/multi-tenant-service",
+    "../logger"
+  ],
+  "apps/api/src/middleware/validation-middleware.ts": [
+    "../logger",
+    "../types/api-responses"
+  ],
+  "apps/api/src/plugins/websocket.ts": [
+    "../services/websocket-service",
+    "../services/realtime-events",
+    "../middleware/fastify-auth",
+    "../logger"
+  ],
+  "apps/api/src/routes/__tests__/badge.test.ts": [
+    "../badge"
+  ],
+  "apps/api/src/routes/__tests__/billing-webhooks.test.ts": [
+    "../../services/email-notification-service",
+    "../../services/billing-service",
+    "../billing-webhooks"
+  ],
+  "apps/api/src/routes/__tests__/compliance-v1.test.ts": [
+    "../../db",
+    "../../index"
+  ],
+  "apps/api/src/routes/__tests__/fixes.test.ts": [
+    "../fixes"
+  ],
+  "apps/api/src/routes/__tests__/trust-score-public.test.ts": [
+    "../trust-score-public"
+  ],
+  "apps/api/src/routes/admin/security-events.ts": [
+    "../../logger",
+    "../../services/security-event-service",
+    "../../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/advanced-features.ts": [
+    "../services/code-suggestion-service",
+    "../services/advanced-security-scanner",
+    "../services/advanced-websocket-service",
+    "../middleware/tenant"
+  ],
+  "apps/api/src/routes/agents.ts": [
+    "../middleware/validation",
+    "../middleware/error-handler",
+    "../middleware/fastify-auth"
+  ],
+  "apps/api/src/routes/api-keys.ts": [
+    "../config/secrets",
+    "../logger",
+    "../services/api-key-service",
+    "../types/auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/auth-fastify.ts": [
+    "../services/auth-service",
+    "../types/auth",
+    "../middleware/fastify-auth",
+    "../services/security-event-service",
+    "../lib/redirect-validator",
+    "../services/brute-force-protection",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/auth-v1.ts": [
+    "../services/auth-service",
+    "../services/multi-tenant-service"
+  ],
+  "apps/api/src/routes/autopilot.ts": [
+    "../services/autopilot-service",
+    "../middleware/plan-gating",
+    "../middleware/fastify-auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/badge.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/billing-webhooks.ts": [
+    "../logger",
+    "../utils/toErrorMessage",
+    "../services/email-notification-service",
+    "../services/admin-service",
+    "../config/stripe",
+    "../config/secrets",
+    "../schemas/stripe-webhook-json"
+  ],
+  "apps/api/src/routes/billing.ts": [
+    "../config/stripe",
+    "../config/secrets",
+    "../lib/db",
+    "../logger",
+    "../schemas/validation"
+  ],
+  "apps/api/src/routes/collaboration.ts": [
+    "../services/websocket-service",
+    "../middleware/validation",
+    "../middleware/error-handler",
+    "../middleware/fastify-auth"
+  ],
+  "apps/api/src/routes/dashboard.ts": [
+    "../middleware/fastify-auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/deploy-hooks.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/enhanced-api-keys.ts": [
+    "../config/secrets",
+    "../logger",
+    "../services/enhanced-api-key-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/enhanced-guardrail.ts": [
+    "../middleware/fastify-auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/exports.ts": [
+    "../services/export-service",
+    "../middleware/fastify-auth",
+    "../middleware/plan-gating",
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/feature-flags-routes.ts": [
+    "../middleware/auth"
+  ],
+  "apps/api/src/routes/feature-flags.ts": [
+    "../logger"
+  ],
+  "apps/api/src/routes/feedback-routes.ts": [
+    "../middleware/auth"
+  ],
+  "apps/api/src/routes/feedback.ts": [
+    "../logger"
+  ],
+  "apps/api/src/routes/findings.ts": [
+    "../middleware/fastify-auth",
+    "../logger",
+    "../services/cache-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/fixes.ts": [
+    "../middleware/fastify-auth",
+    "../middleware/plan-gating",
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/github.ts": [
+    "../logger",
+    "../middleware/fastify-auth"
+  ],
+  "apps/api/src/routes/guardrails.ts": [
+    "../middleware/fastify-auth",
+    "../middleware/error-handler",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/injection.ts": [
+    "../middleware/fastify-auth",
+    "../middleware/error-handler"
+  ],
+  "apps/api/src/routes/intelligence.ts": [
+    "../utils/toErrorMessage",
+    "../middleware/plan-gating",
+    "../middleware/fastify-auth"
+  ],
+  "apps/api/src/routes/license-keys.ts": [
+    "../config/secrets",
+    "../logger",
+    "../middleware/plan-gating",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/mcp-wrapper.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/mfa.ts": [
+    "../middleware/fastify-auth",
+    "../services/mfa-service",
+    "../logger",
+    "../services/auth-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/notifications.ts": [
+    "../config/secrets",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/organizations.ts": [
+    "../config/secrets",
+    "../services/http-errors",
+    "../services/organization-service"
+  ],
+  "apps/api/src/routes/policies.ts": [
+    "../middleware/fastify-auth",
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/production-integrity.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/profile.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/projects.ts": [
+    "../services/project-api.service"
+  ],
+  "apps/api/src/routes/reality-check-api.ts": [
+    "../utils/toErrorMessage",
+    "../../../../scripts/audit-production-integrity.js",
+    "../../../../scripts/generate-reality-check-pdf.js"
+  ],
+  "apps/api/src/routes/reality-check.ts": [
+    "../middleware/plan-gating",
+    "../middleware/fastify-auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/reports.ts": [
+    "../services/security-report-generator",
+    "../services/audit-logger"
+  ],
+  "apps/api/src/routes/runs.ts": [
+    "../logger",
+    "../services/runs.service",
+    "../services/run-execution.service"
+  ],
+  "apps/api/src/routes/sandbox.ts": [
+    "../middleware/fastify-auth",
+    "../middleware/error-handler"
+  ],
+  "apps/api/src/routes/scan-comparison.ts": [
+    "../middleware/fastify-auth",
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/scans.ts": [
+    "../db/scans",
+    "../lib/queue",
+    "../logger",
+    "../middleware/fastify-auth",
+    "../middleware/plan-gating",
+    "../types/auth"
+  ],
+  "apps/api/src/routes/scheduled-scans.ts": [
+    "../services/scheduled-scan-service",
+    "../logger",
+    "../middleware/fastify-auth",
+    "../types/auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/security.ts": [
+    "../utils/toErrorMessage",
+    "../middleware/error-handler"
+  ],
+  "apps/api/src/routes/settings.ts": [
+    "../middleware/fastify-auth",
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/ship.ts": [
+    "../lib/queue",
+    "../middleware/plan-gating",
+    "../middleware/fastify-auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/status-routes.ts": [
+    "../middleware/auth"
+  ],
+  "apps/api/src/routes/status.ts": [
+    "../config/secrets",
+    "../logger"
+  ],
+  "apps/api/src/routes/streaming.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/team.ts": [
+    "../logger"
+  ],
+  "apps/api/src/routes/tenants.ts": [
+    "../services/multi-tenant-service",
+    "../services/audit-logger",
+    "../middleware/tenant",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/trust-score-public.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/usage-enforcement.ts": [
+    "../services/usage-enforcement",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/usage.ts": [
+    "../services/usage-enforcement",
+    "../middleware/fastify-auth",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/v1/admin.ts": [
+    "../../logger",
+    "../../middleware/fastify-auth"
+  ],
+  "apps/api/src/routes/v1/index.ts": [
+    "../../routes/admin/security-events",
+    "../../routes/agents",
+    "../../routes/api-keys",
+    "../../routes/attack-surface",
+    "../../routes/audit",
+    "../../routes/auth-v1",
+    "../../routes/auth-fastify",
+    "../../routes/autopilot",
+    "../../routes/billing",
+    "../../routes/collaboration",
+    "../../routes/compliance",
+    "../../routes/compliance-v1",
+    "../../routes/container",
+    "../../routes/dashboard",
+    "../../routes/deploy-hooks",
+    "../../routes/findings",
+    "../../routes/github",
+    "../../routes/guardrails",
+    "../../routes/iac",
+    "../../routes/injection",
+    "../../routes/intelligence",
+    "../../routes/license",
+    "../../routes/mcp-wrapper",
+    "../../routes/mfa",
+    "../../routes/metrics",
+    "../../routes/notifications",
+    "../../routes/onboarding",
+    "../../routes/organizations",
+    "../../routes/pii",
+    "../../routes/policies",
+    "../../routes/production-integrity",
+    "../../routes/profile",
+    "../../routes/projects",
+    "../../routes/reality-check",
+    "../../routes/reports",
+    "../../routes/runs",
+    "../../routes/sandbox",
+    "../../routes/scans",
+    "../../routes/scheduled-scans",
+    "../../routes/secrets",
+    "../../routes/security",
+    "../../routes/settings",
+    "../../routes/ship",
+    "../../routes/fixes",
+    "../../routes/enhanced-guardrail",
+    "../../routes/badge",
+    "../../routes/streaming",
+    "../../routes/supply-chain",
+    "../../routes/team",
+    "../../routes/tenants",
+    "../../routes/usage",
+    "../../routes/validation",
+    "../../routes/webhooks",
+    "../../routes/trust-score-public"
+  ],
+  "apps/api/src/routes/webhook-config.ts": [
+    "../middleware/fastify-auth",
+    "../logger",
+    "../services/webhook-integration-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/routes/webhooks.ts": [
+    "../config/secrets",
+    "../utils/toErrorMessage",
+    "../services/realtime-events"
+  ],
+  "apps/api/src/server.ts": [
+    "./logger",
+    "./middleware/redis-rate-limiter",
+    "./middleware/error-handler",
+    "./middleware/explicit-cors",
+    "./middleware/maintenance",
+    "./middleware/performance.js",
+    "./middleware/request-size-limits",
+    "./middleware/request-timeout",
+    "./middleware/sanitizeInput",
+    "./middleware/telemetry",
+    "./utils/gracefulShutdown",
+    "./utils/registerSchemas",
+    "./utils/toErrorMessage",
+    "./middleware/api-versioning",
+    "./middleware/security-hardening",
+    "./routes/v1/index",
+    "./plugins/session",
+    "./plugins/websocket"
+  ],
+  "apps/api/src/services/__tests__/compliance-service.test.ts": [
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db",
+    "../../db"
+  ],
+  "apps/api/src/services/__tests__/email-notification-service.test.ts": [
+    "../email-notification-service",
+    "../email-notification-service",
+    "../email-notification-service",
+    "../email-notification-service",
+    "../email-notification-service"
+  ],
+  "apps/api/src/services/__tests__/enhanced-api-key-security.test.ts": [
+    "../enhanced-api-key-service"
+  ],
+  "apps/api/src/services/__tests__/file-storage-service.test.ts": [
+    "../file-storage-service",
+    "../file-storage-service",
+    "../file-storage-service",
+    "../file-storage-service",
+    "../file-storage-service",
+    "../file-storage-service"
+  ],
+  "apps/api/src/services/__tests__/pr-comment.test.ts": [
+    "../github-app-service"
+  ],
+  "apps/api/src/services/__tests__/realtime-events.test.ts": [
+    "../realtime-events"
+  ],
+  "apps/api/src/services/__tests__/scheduled-jobs.test.ts": [
+    "../scheduled-jobs",
+    "../../logger"
+  ],
+  "apps/api/src/services/__tests__/security-event-service.test.ts": [
+    "../security-event-service"
+  ],
+  "apps/api/src/services/admin-service.ts": [
+    "./mfa-service",
+    "../logger",
+    "../middleware/fastify-auth"
+  ],
+  "apps/api/src/services/advanced-security-scanner.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/advanced-websocket-service.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/api-key-service.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/audit-logger.ts": [
+    "../lib/safe-fetch",
+    "../logger"
+  ],
+  "apps/api/src/services/auth-service.ts": [
+    "./email-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/autopilot-service.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/availability-service.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/billing-service.ts": [
+    "../lib/request-context",
+    "../logger"
+  ],
+  "apps/api/src/services/brute-force-protection.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/cache-service.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/cleanup-jobs.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/code-suggestion-service.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/compliance-service.ts": [
+    "../db",
+    "../logger"
+  ],
+  "apps/api/src/services/critical-finding-alerts.ts": [
+    "../logger",
+    "./email-notification-service"
+  ],
+  "apps/api/src/services/email-notification-service.js": [
+    "../lib/enhanced-logger",
+    "../lib/enhanced-queue",
+    "../middleware/enhanced-error-handler"
+  ],
+  "apps/api/src/services/email-notification-service.ts": [
+    "../lib/enhanced-logger",
+    "../lib/enhanced-queue",
+    "../middleware/enhanced-error-handler",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/email-service.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/enhanced-api-key-service.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/export-service.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/file-storage-service.ts": [
+    "../logger",
+    "../middleware/enhanced-error-handler",
+    "../utils/path-safety",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/finding-deduplication.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/fix-application-service.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/github-app-service.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/github-cloner.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/github-pr-service.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/mfa-service.ts": [
+    "../logger",
+    "./security-event-service"
+  ],
+  "apps/api/src/services/multi-tenant-service.ts": [
+    "../db/index",
+    "../logger"
+  ],
+  "apps/api/src/services/notification-service.ts": [
+    "../logger",
+    "./email-notification-service",
+    "./webhook-integration-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/organization-service.ts": [
+    "./http-errors"
+  ],
+  "apps/api/src/services/playwright-agent.ts": [
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/project-api.service.ts": [
+    "./project-service"
+  ],
+  "apps/api/src/services/realtime-events.ts": [
+    "../logger"
+  ],
+  "apps/api/src/services/run-execution.service.ts": [
+    "../logger",
+    "./github-cloner",
+    "./playwright-agent",
+    "./realtime-events"
+  ],
+  "apps/api/src/services/runs.service.ts": [
+    "../logger",
+    "../routes/runs.schema",
+    "./run-execution.service",
+    "./realtime-events",
+    "./runs-types"
+  ],
+  "apps/api/src/services/scan-scheduler.ts": [
+    "../logger",
+    "../config/redis"
+  ],
+  "apps/api/src/services/scheduled-jobs.ts": [
+    "./autopilot-service",
+    "./email-notification-service",
+    "../logger",
+    "./subscription-reconciliation",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/scheduled-scan-service.ts": [
+    "../logger",
+    "../lib/queue",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/scheduled-task-runner.ts": [
+    "../logger",
+    "../lib/queue",
+    "./email-notification-service"
+  ],
+  "apps/api/src/services/security-event-service.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/security-report-generator.ts": [
+    "./advanced-security-scanner",
+    "../logger",
+    "./audit-logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/ship-notification-service.js": [
+    "../logger",
+    "./email-notification-service",
+    "./webhook-integration-service",
+    "./enhanced-websocket-service"
+  ],
+  "apps/api/src/services/ship-notification-service.ts": [
+    "../logger",
+    "./email-notification-service",
+    "./webhook-integration-service",
+    "./advanced-websocket-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/stripe-metered-billing.ts": [
+    "../logger",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/subscription-reconciliation.ts": [
+    "../logger",
+    "../routes/billing-webhooks",
+    "./admin-service",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/usage-enforcement.ts": [
+    "../db/queries/usage-queries"
+  ],
+  "apps/api/src/services/webhook-delivery-service.ts": [
+    "../logger",
+    "../middleware/telemetry",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/webhook-integration-service.js": [
+    "../lib/enhanced-logger",
+    "../lib/enhanced-queue",
+    "../middleware/enhanced-error-handler"
+  ],
+  "apps/api/src/services/webhook-integration-service.ts": [
+    "../lib/enhanced-logger",
+    "../lib/enhanced-queue",
+    "../middleware/enhanced-error-handler",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/services/webhook-processor.ts": [
+    "../lib/db",
+    "../logger",
+    "../routes/billing"
+  ],
+  "apps/api/src/services/websocket-service.ts": [
+    "../logger"
+  ],
+  "apps/api/src/start.ts": [
+    "./lib/queue",
+    "./logger",
+    "./server",
+    "./utils/gracefulShutdown",
+    "./utils/toErrorMessage"
+  ],
+  "apps/api/src/types/fastify-raw-body.d.ts": [
+    "./auth"
+  ],
+  "apps/api/src/utils/broadcast.ts": [
+    "../services/websocket-service"
+  ],
+  "apps/api/src/utils/gracefulShutdown.ts": [
+    "../logger"
+  ],
+  "apps/api/src/utils/path-safety.ts": [
+    "../logger"
+  ],
+  "apps/api/src/utils/registerSchemas.ts": [
+    "../logger",
+    "./toErrorMessage",
+    "../middleware/validation",
+    "../schemas"
+  ],
+  "apps/api/src/worker/bootstrap.ts": [
+    "../lib/enhanced-logger",
+    "../config/redis",
+    "./jobs/process-scan-job",
+    "./jobs/process-scheduled-scan"
+  ],
+  "apps/api/src/worker/jobs/process-scan-job.ts": [
+    "../../lib/enhanced-logger",
+    "../../lib/queue",
+    "../../services/realtime-events",
+    "../scan-service"
+  ],
+  "apps/api/src/worker/jobs/process-scheduled-scan.ts": [
+    "../../lib/enhanced-logger"
+  ],
+  "apps/api/src/worker/jobs/scan-db.ts": [
+    "../../lib/enhanced-logger",
+    "../../lib/queue"
+  ],
+  "apps/api/src/worker/scan-service.ts": [
+    "../lib/enhanced-logger",
+    "../lib/queue",
+    "../services/realtime-events",
+    "../utils/toErrorMessage"
+  ],
+  "apps/api/src/worker.ts": [
+    "./lib/enhanced-logger",
+    "./worker/bootstrap"
+  ],
+  "apps/web-ui/src/app/(dashboard)/api-key/page.tsx": [
+    "../../../context/auth-context"
+  ],
+  "apps/web-ui/src/components/dashboard/header.tsx": [
+    "./github-integration-card"
+  ],
+  "apps/web-ui/src/components/landing/footer-content.tsx": [
+    "./enterprise-form"
+  ],
+  "apps/web-ui/src/components/landing/xray-scanner/CodeMockup.tsx": [
+    "./styles.module.css",
+    "./database"
+  ],
+  "apps/web-ui/src/components/landing/xray-scanner/ScanLine.tsx": [
+    "./styles.module.css"
+  ],
+  "apps/web-ui/src/components/landing/xray-scanner/XRayScanner.tsx": [
+    "./ScanLine",
+    "./CodeMockup"
+  ],
+  "apps/web-ui/src/components/mdx/index.tsx": [
+    "./CodeBlock"
+  ],
+  "apps/web-ui/src/components/onboarding/OnboardingProvider.tsx": [
+    "./OnboardingWizard"
+  ],
+  "apps/web-ui/src/components/onboarding/OnboardingWizard.tsx": [
+    "./steps/ConnectSourceStep",
+    "./steps/FirstScanStep",
+    "./steps/ResultsStep",
+    "./steps/WelcomeStep"
+  ],
+  "apps/web-ui/src/components/runs/__tests__/LiveScanConsole.test.tsx": [
+    "../LiveScanConsole"
+  ],
+  "apps/web-ui/src/components/scanner/LocalScanner.tsx": [
+    "./AutoFixPreview",
+    "./Dropzone",
+    "./ResultsView",
+    "./ScanProgress"
+  ],
+  "apps/web-ui/src/components/ui/ai-explainability-card.tsx": [
+    "./button"
+  ],
+  "apps/web-ui/src/components/ui/changelog-panel.tsx": [
+    "./badge",
+    "./button"
+  ],
+  "apps/web-ui/src/components/ui/natural-language-rules.tsx": [
+    "./button"
+  ],
+  "apps/web-ui/src/components/ui/optimistic/optimistic-updates.tsx": [
+    "../notifications/toast-system"
+  ],
+  "apps/web-ui/src/components/ui/recent-items.tsx": [
+    "./badge"
+  ],
+  "apps/web-ui/src/components/ui/states/loading-states.tsx": [
+    "../loaders/section-loader"
+  ],
+  "apps/web-ui/src/components/ui/support-widget.tsx": [
+    "./button"
+  ],
+  "apps/web-ui/src/components/ui/team-insights.tsx": [
+    "./security-score-ring"
+  ],
+  "apps/web-ui/src/hooks/useDashboard.ts": [
+    "./useApi",
+    "./useWebSocket"
+  ],
+  "apps/web-ui/src/hooks/useRealtimeScan.ts": [
+    "./useWebSocket"
+  ],
+  "apps/web-ui/src/hooks/useScan.ts": [
+    "./useWebSocket"
+  ],
+  "apps/web-ui/src/lib/api/advanced.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/auth.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/autopilot.ts": [
+    "./core",
+    "./types"
+  ],
+  "apps/web-ui/src/lib/api/billing.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/compliance.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/core.ts": [
+    "../logger"
+  ],
+  "apps/web-ui/src/lib/api/dashboard.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/deploy-hooks.ts": [
+    "./core",
+    "./types"
+  ],
+  "apps/web-ui/src/lib/api/fixes.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/github.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/intelligence.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/onboarding.ts": [
+    "../logger"
+  ],
+  "apps/web-ui/src/lib/api/organizations.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/policies.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/runs.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/security.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/settings.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/api/ship.ts": [
+    "./core"
+  ],
+  "apps/web-ui/src/lib/billing/stripe-client.ts": [
+    "./stripe-api-version"
+  ],
+  "apps/web-ui/src/lib/guardrail/rbac.ts": [
+    "./session-from-request"
+  ],
+  "apps/web-ui/src/lib/guardrails-api.ts": [
+    "./logger"
+  ],
+  "apps/web-ui/src/lib/ide-handlers.ts": [
+    "./logger",
+    "./security/safe-dom"
+  ],
+  "apps/web-ui/src/lib/query/optimistic-utils.ts": [
+    "./query-client"
+  ],
+  "apps/web-ui/src/lib/query/query-provider.tsx": [
+    "./query-client"
+  ],
+  "apps/web-ui/src/lib/query/use-mutation.ts": [
+    "./query-client"
+  ],
+  "apps/web-ui/src/lib/scanner/autofix.ts": [
+    "./types"
+  ],
+  "apps/web-ui/src/lib/scanner/export.ts": [
+    "./types"
+  ],
+  "apps/web-ui/src/lib/scanner/rules/debug-code.ts": [
+    "../types"
+  ],
+  "apps/web-ui/src/lib/scanner/rules/hardcoded-secret.ts": [
+    "../types"
+  ],
+  "apps/web-ui/src/lib/scanner/rules/index.ts": [
+    "../types",
+    "../types",
+    "./debug-code",
+    "./hardcoded-secret",
+    "./mock-data",
+    "./placeholder-api"
+  ],
+  "apps/web-ui/src/lib/scanner/rules/mock-data.ts": [
+    "../types"
+  ],
+  "apps/web-ui/src/lib/scanner/rules/placeholder-api.ts": [
+    "../types"
+  ],
+  "apps/web-ui/src/lib/security/audit-log.ts": [
+    "../logger"
+  ],
+  "bin/cli-hygiene.js": [
+    "../scripts/hygiene"
+  ],
+  "bin/guardrail.js": [
+    "./_router",
+    "./_deprecations",
+    "./runners/lib/auth",
+    "./runners/runScan",
+    "./runners/runGate",
+    "./runners/runContext",
+    "./runners/runDashboard",
+    "./runners/runFix",
+    "./runners/runShip",
+    "./runners/runLaunch",
+    "./runners/runAutopilot",
+    "./runners/runProof",
+    "./runners/runReality",
+    "./runners/runRealitySniff",
+    "./runners/runValidate",
+    "./runners/runDoctor",
+    "./runners/runInit",
+    "./runners/runMcp",
+    "./runners/runAuth",
+    "./runners/runNaturalLanguage",
+    "./runners/runAIAgent",
+    "./runners/runBadge",
+    "./runners/runUpgrade",
+    "./runners/runCertify",
+    "./runners/runVerifyAgentOutput",
+    "./runners/runFixPacks",
+    "./runners/runAudit",
+    "./runners/runMdc",
+    "./runners/runEnhancedShip",
+    "./runners/runPromptFirewall",
+    "./runners/runVibeCheck",
+    "./runners/runListTemplates",
+    "./runners/runApplyTemplate",
+    "./runners/workflowBootstrap",
+    "./runners/lib/auth"
+  ],
+  "bin/runners/context/ai-task-decomposer.js": [
+    "./semantic-search"
+  ],
+  "bin/runners/context/analyzer.js": [
+    "./patterns",
+    "./monorepo"
+  ],
+  "bin/runners/context/index.js": [
+    "./analyzer",
+    "./patterns",
+    "./memory",
+    "./insights",
+    "./monorepo",
+    "./context-diff",
+    "./context-pruner",
+    "./dependency-graph",
+    "./git-context",
+    "./api-contracts",
+    "./team-conventions",
+    "./semantic-search",
+    "./security-scanner",
+    "./ai-task-decomposer",
+    "./multi-repo-federation",
+    "./shared",
+    "../cli-utils",
+    "./generators/cursor",
+    "./generators/windsurf",
+    "./generators/copilot",
+    "./generators/claude",
+    "./generators/codex",
+    "./generators/mcp"
+  ],
+  "bin/runners/context/security-scanner.js": [
+    "../lib/stripe-scan-patterns"
+  ],
+  "bin/runners/context/truth-pack-generator.js": [
+    "./analyzer",
+    "./patterns",
+    "./dependency-graph",
+    "./api-contracts",
+    "./security-scanner"
+  ],
+  "bin/runners/lib/audit-bridge.js": [
+    "./stripe-scan-patterns"
+  ],
+  "bin/runners/lib/compliance-bridge.js": [
+    "../../../../packages/compliance/dist/index.js"
+  ],
+  "bin/runners/lib/entitlements.js": [
+    "../../../packages/core/dist/index.js",
+    "./server-usage"
+  ],
+  "bin/runners/lib/scan-output-schema.js": [
+    "../../../package.json"
+  ],
+  "bin/runners/lib/security-bridge.js": [
+    "../../../../packages/security/dist/index.js"
+  ],
+  "bin/runners/lib/unified-output.js": [
+    "../../../dist/lib/cli/output-contract",
+    "../../../dist/lib/cli/verdict-formatter"
+  ],
+  "bin/runners/lib/verification.js": [
+    "./stripe-scan-patterns"
+  ],
+  "bin/runners/runAIAgent.js": [
+    "./lib/entitlements"
+  ],
+  "bin/runners/runApplyTemplate.js": [
+    "../../dist/lib/template-applier"
+  ],
+  "bin/runners/runAudit.js": [
+    "./lib/error-handler",
+    "./lib/entitlements"
+  ],
+  "bin/runners/runAuth.js": [
+    "./lib/auth"
+  ],
+  "bin/runners/runAutopilot.js": [
+    "./lib/error-handler",
+    "./lib/auth",
+    "./runFixPacks",
+    "./lib/audit-bridge",
+    "./runShip"
+  ],
+  "bin/runners/runBadge.js": [
+    "./lib/error-handler"
+  ],
+  "bin/runners/runContext.js": [
+    "./context"
+  ],
+  "bin/runners/runDashboard.js": [
+    "./lib/error-handler",
+    "./cli-utils"
+  ],
+  "bin/runners/runDoctor.js": [
+    "./lib/doctor-enhanced"
+  ],
+  "bin/runners/runEnhancedShip.js": [
+    "./lib/error-handler"
+  ],
+  "bin/runners/runFix.js": [
+    "./lib/error-handler",
+    "./lib/unified-output"
+  ],
+  "bin/runners/runFixPacks.js": [
+    "./lib/error-handler",
+    "./cli-utils",
+    "./lib/entitlements"
+  ],
+  "bin/runners/runFixVerified.js": [
+    "./lib/entitlements"
+  ],
+  "bin/runners/runGate.js": [
+    "./runScan",
+    "./lib/auth",
+    "./lib/error-handler",
+    "./cli-utils",
+    "./lib/error-handler",
+    "../../packages/cli/src/runtime/json-output",
+    "../../packages/cli/src/runtime/exit-codes",
+    "./lib/error-handler"
+  ],
+  "bin/runners/runInit.js": [
+    "./context/truth-pack-generator"
+  ],
+  "bin/runners/runIntelligence.js": [
+    "./lib/stripe-scan-patterns",
+    "./lib/error-handler",
+    "./lib/error-handler",
+    "./lib/error-handler",
+    "./lib/error-handler",
+    "./lib/error-handler",
+    "./lib/error-handler"
+  ],
+  "bin/runners/runLaunch.js": [
+    "./lib/error-handler",
+    "./utils"
+  ],
+  "bin/runners/runListTemplates.js": [
+    "../../dist/lib/template-applier"
+  ],
+  "bin/runners/runNaturalLanguage.js": [
+    "./runReality",
+    "./runShip",
+    "./runProof",
+    "./runAIAgent",
+    "./runLaunch"
+  ],
+  "bin/runners/runOn.js": [
+    "./context/truth-pack-generator"
+  ],
+  "bin/runners/runPromptFirewall.js": [
+    "./lib/error-handler"
+  ],
+  "bin/runners/runProof.js": [
+    "./lib/auth",
+    "../../scripts/audit-mock-blocker.js"
+  ],
+  "bin/runners/runReality.js": [
+    "./lib/entitlements",
+    "./lib/audit-bridge",
+    "./lib/error-handler"
+  ],
+  "bin/runners/runRealitySniff.js": [
+    "./lib/error-handler",
+    "../../dist/lib/reality-sniff/replay-engine",
+    "../../dist/lib/reality-sniff/replay-engine",
+    "../../dist/lib/reality-sniff/reality-sniff-scanner",
+    "../../dist/lib/reality-sniff/reality-proof-graph",
+    "../../dist/lib/reality-sniff/replay-engine"
+  ],
+  "bin/runners/runRouteIntegrity.js": [
+    "../../src/lib/route-integrity"
+  ],
+  "bin/runners/runScan.js": [
+    "./lib/error-handler",
+    "./lib/entitlements",
+    "./lib/audit-bridge",
+    "../../dist/lib/route-integrity",
+    "../../dist/lib/cli/output-contract",
+    "./lib/unified-output",
+    "../../dist/lib/cli/cache-manager",
+    "../../package.json",
+    "../../package.json",
+    "./lib/unified-output",
+    "./lib/entitlements"
+  ],
+  "bin/runners/runShip.js": [
+    "./lib/error-handler",
+    "./utils",
+    "./lib/entitlements",
+    "./lib/audit-bridge",
+    "./lib/stripe-scan-patterns",
+    "./lib/error-handler",
+    "./utils",
+    "./lib/scan-output-schema",
+    "./lib/error-handler",
+    "./lib/error-handler",
+    "./utils"
+  ],
+  "bin/runners/runUpgrade.js": [
+    "./lib/entitlements"
+  ],
+  "bin/runners/runValidate.js": [
+    "./lib/ai-bridge"
+  ],
+  "bin/runners/runVerifyAgentOutput.js": [
+    "./lib/error-handler",
+    "./lib/verification",
+    "./lib/json-output"
+  ],
+  "bin/runners/runVibeCheck.js": [
+    "../../src/lib/vibecoder-detector",
+    "../../dist/lib/vibecoder-detector"
+  ],
+  "bin/runners/workflowBootstrap.js": [
+    "../../dist/lib/workflow-persistence-bootstrap"
+  ],
+  "bin/scan.js": [
+    "../scripts/generate-reality-check-pdf.js"
+  ],
+  "config/jest.coverage.config.js": [
+    "./jest.config.js"
+  ],
+  "examples/demo-for-video/good-code-example.ts": [
+    "./logger"
+  ],
+  "examples/demo-repos/guardrail-demo-mockproof/src/app.ts": [
+    "./fakeClient.js"
+  ],
+  "examples/demo-repos/guardrail-demo-mockproof/src/fakeClient.ts": [
+    "./realClient.js"
+  ],
+  "guardrail-context/packages/cli/src/commands/dashboard.ts": [
+    "../telemetry/ledger.js"
+  ],
+  "guardrail-context/packages/cli/src/commands/init.ts": [
+    "../ui/brand.js",
+    "../ui/spinner.js",
+    "../ui/box.js"
+  ],
+  "guardrail-context/packages/cli/src/commands/menu.ts": [
+    "../ui/brand.js",
+    "../ui/box.js",
+    "../ui/table.js",
+    "../ui/terminal.js",
+    "../ui/status.js",
+    "./on.js",
+    "./checkpoint.js",
+    "./ship.js",
+    "./stats.js",
+    "./init.js",
+    "./doctor.js",
+    "../auth/gate.js"
+  ],
+  "guardrail-context/packages/cli/src/commands/on.ts": [
+    "../telemetry/ledger.js",
+    "../mcp/handler.js",
+    "../ui/brand.js",
+    "../ui/spinner.js",
+    "../ui/box.js",
+    "../ui/terminal.js"
+  ],
+  "guardrail-context/packages/cli/src/commands/ship.ts": [
+    "../telemetry/ledger.js",
+    "../reports/html.js",
+    "../auth/gate.js"
+  ],
+  "guardrail-context/packages/cli/src/commands/stats.ts": [
+    "../telemetry/ledger.js",
+    "../ui/brand.js",
+    "../ui/box.js",
+    "../ui/terminal.js"
+  ],
+  "guardrail-context/packages/cli/src/main.ts": [
+    "./commands/init.js",
+    "./commands/index.js",
+    "./commands/on.js",
+    "./commands/checkpoint.js",
+    "./commands/ship.js",
+    "./commands/stats.js",
+    "./commands/verify.js",
+    "./commands/doctor.js",
+    "./commands/menu.js",
+    "./commands/dashboard.js",
+    "./auth/gate.js",
+    "./ui/terminal.js"
+  ],
+  "guardrail-context/packages/cli/src/mcp/handler.ts": [
+    "../telemetry/ledger.js"
+  ],
+  "guardrail-context/packages/cli/src/reports/html.ts": [
+    "../commands/ship.js"
+  ],
+  "guardrail-context/packages/cli/src/ui/box.ts": [
+    "./terminal.js"
+  ],
+  "guardrail-context/packages/cli/src/ui/brand.ts": [
+    "./terminal.js"
+  ],
+  "guardrail-context/packages/cli/src/ui/spinner.ts": [
+    "./terminal.js"
+  ],
+  "guardrail-context/packages/cli/src/ui/table.ts": [
+    "./terminal.js"
+  ],
+  "guardrail-context/packages/engine/src/index.ts": [
+    "./truthpack/write.js",
+    "./scan/symbols.js",
+    "./scan/deps.js",
+    "./scan/graph.js",
+    "./scan/risk.js",
+    "./scan/importance.js",
+    "./scan/patterns.js",
+    "./scan/antipatterns.js",
+    "./scan/routes.js"
+  ],
+  "guardrail-context/packages/engine/src/scan/autopilot.ts": [
+    "./patterns.js",
+    "./routes.js"
+  ],
+  "guardrail-context/packages/engine/src/scan/hallucination-tests.ts": [
+    "./routes.js"
+  ],
+  "guardrail-context/packages/engine/src/verify/fast.ts": [
+    "./gates/commands.js",
+    "./gates/scope.js",
+    "./gates/symbols.js",
+    "./gates/versions.js",
+    "../truthpack/read.js"
+  ],
+  "guardrail-context/packages/engine/src/verify/gates/symbols.ts": [
+    "./scope.js"
+  ],
+  "guardrail-context/packages/engine/src/verify/gates/versions.ts": [
+    "./scope.js"
+  ],
+  "guardrail-context/packages/mcp-server/src/server.ts": [
+    "./tools/repo.js",
+    "./tools/symbols.js",
+    "./tools/versions.js",
+    "./tools/graph.js",
+    "./tools/patterns.js",
+    "./tools/verify.js",
+    "./tools/antipatterns.js",
+    "./tools/routes.js",
+    "./tools/autopilot.js",
+    "./tools/scope.js"
+  ],
+  "guardrail-context/packages/shared/src/schema.ts": [
+    "./z.js"
+  ],
+  "mcp-server/audit-mcp.js": [
+    "../bin/runners/lib/stripe-scan-patterns.js"
+  ],
+  "mcp-server/guardrail-tools.js": [
+    "./tier-auth.js",
+    "../src/lib/code-smell-predictor"
+  ],
+  "mcp-server/hygiene-tools.js": [
+    "../scripts/hygiene"
+  ],
+  "mcp-server/index.js": [
+    "./tier-resolve.js",
+    "./mcp-redact.js",
+    "./audit-mcp.js",
+    "./mdc-generator.js"
+  ],
+  "mcp-server/index.old.js": [
+    "./premium-tools.js",
+    "./test-utils",
+    "../bin/runners/lib/stripe-scan-patterns.js",
+    "./hygiene-tools.js",
+    "../scripts/audit-api-endpoints.js"
+  ],
+  "mcp-server/premium-tools.js": [
+    "./tier-auth.js"
+  ],
+  "mcp-server/test-tools.js": [
+    "./guardrail-tools.js",
+    "./intelligence-tools.js"
+  ],
+  "packages/ai-guardrails/src/__tests__/audit/logger.test.ts": [
+    "../../audit/logger"
+  ],
+  "packages/ai-guardrails/src/__tests__/injection/detector.test.ts": [
+    "../../injection/detector"
+  ],
+  "packages/ai-guardrails/src/__tests__/sandbox/permission-manager.test.ts": [
+    "../../sandbox/templates",
+    "../../sandbox/permission-manager"
+  ],
+  "packages/ai-guardrails/src/__tests__/simulation/rogue-agent.test.ts": [
+    "../../sandbox/action-interceptor"
+  ],
+  "packages/ai-guardrails/src/audit/reporter.ts": [
+    "./query"
+  ],
+  "packages/ai-guardrails/src/firewall/advanced-prompt-firewall.js": [
+    "../../../src/lib/advanced-context-manager",
+    "../../../src/lib/hallucination-detector"
+  ],
+  "packages/ai-guardrails/src/injection/detector.ts": [
+    "./patterns"
+  ],
+  "packages/ai-guardrails/src/injection/secure-processor.ts": [
+    "./detector"
+  ],
+  "packages/ai-guardrails/src/output/pii-leakage-scanner.ts": [
+    "../input/pii-detector"
+  ],
+  "packages/ai-guardrails/src/pipeline/guardrail-pipeline.ts": [
+    "../input/content-policy-filter",
+    "../input/pii-detector",
+    "../input/input-schema-validator",
+    "../input/input-sanitizer",
+    "../input/topic-scope-filter",
+    "../output/toxicity-scanner",
+    "../output/pii-leakage-scanner",
+    "../output/policy-compliance-checker",
+    "../output/factual-grounding-verifier",
+    "../injection/detector",
+    "../behavioral/rate-limiter",
+    "../behavioral/tool-use-policy",
+    "../behavioral/conversation-boundary",
+    "../behavioral/chain-of-thought-monitor",
+    "../process/human-review-gate",
+    "../process/kill-switch",
+    "../process/monitoring-collector"
+  ],
+  "packages/ai-guardrails/src/sandbox/action-interceptor.ts": [
+    "./permission-manager",
+    "./circuit-breaker",
+    "./tool-policy"
+  ],
+  "packages/ai-guardrails/src/sandbox/checkpoint-manager.ts": [
+    "./resource-governor"
+  ],
+  "packages/ai-guardrails/src/sandbox/permission-manager.ts": [
+    "./templates"
+  ],
+  "packages/ai-guardrails/src/sandbox/resource-governor.ts": [
+    "./permission-manager"
+  ],
+  "packages/ai-guardrails/src/sandbox/templates.ts": [
+    "./types"
+  ],
+  "packages/ai-guardrails/src/sandbox/tool-policy.ts": [
+    "../behavioral/tool-use-policy"
+  ],
+  "packages/ai-guardrails/src/validation/validator.ts": [
+    "./hallucination-detector",
+    "./intent-matcher"
+  ],
+  "packages/cli/src/__tests__/baseline.test.ts": [
+    "../scanner/baseline"
+  ],
+  "packages/cli/src/__tests__/final-product-shape.test.ts": [
+    "../truth-pack"
+  ],
+  "packages/cli/src/__tests__/init-framework-detection.test.ts": [
+    "../init/detect-framework"
+  ],
+  "packages/cli/src/__tests__/osv-integration.test.ts": [
+    "../runtime/semver"
+  ],
+  "packages/cli/src/__tests__/sarif-output.test.ts": [
+    "../formatters/sarif-v2"
+  ],
+  "packages/cli/src/_extracted/interactive-menu-raw.ts": [
+    "./reality/reality-runner"
+  ],
+  "packages/cli/src/_extracted/registrations-2684-3280.ts": [
+    "./reality/reality-graph",
+    "./autopatch/verified-autopatch",
+    "./autopatch/verified-autopatch",
+    "./reality/receipt-generator"
+  ],
+  "packages/cli/src/_extracted/registrations-713-2682.ts": [
+    "./index",
+    "./reality/reality-runner",
+    "./reality/no-dead-buttons"
+  ],
+  "packages/cli/src/_extracted/scan-helpers-raw.ts": [
+    "./formatters/sarif-v2"
+  ],
+  "packages/cli/src/autopatch/verified-autopatch.ts": [
+    "../reality/receipt-generator"
+  ],
+  "packages/cli/src/bootstrap.ts": [
+    "./cli-program",
+    "./commands",
+    "./runtime/cli-config",
+    "./ui/cli-terminal"
+  ],
+  "packages/cli/src/cli-program.ts": [
+    "../package.json"
+  ],
+  "packages/cli/src/cli.ts": [
+    "./commands/scan.js",
+    "./commands/guard.js"
+  ],
+  "packages/cli/src/commands/auth-command-action.ts": [
+    "../runtime/client",
+    "../runtime/exit-codes",
+    "../runtime/auth-utils",
+    "../ui/cli-styles",
+    "../ui/cli-frame-inline",
+    "../ui/cli-menus",
+    "../ui/cli-terminal",
+    "./device-login"
+  ],
+  "packages/cli/src/commands/auto-init.ts": [
+    "../init",
+    "../truth-pack",
+    "../ui/spinner",
+    "../ui"
+  ],
+  "packages/cli/src/commands/baseline.ts": [
+    "../scanner/baseline",
+    "./scan-secrets",
+    "./scan-vulnerabilities"
+  ],
+  "packages/cli/src/commands/checkpoint.ts": [
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/ci-upload.ts": [
+    "../ui"
+  ],
+  "packages/cli/src/commands/context.ts": [
+    "../ui",
+    "../ui/progress",
+    "../ui"
+  ],
+  "packages/cli/src/commands/device-login.ts": [
+    "../runtime/creds",
+    "../runtime/client",
+    "../runtime/creds",
+    "../ui/cli-styles",
+    "../ui/cli-frame-inline",
+    "../ui/cli-terminal",
+    "../runtime/auth-utils",
+    "../runtime/exit-codes"
+  ],
+  "packages/cli/src/commands/doctor.ts": [
+    "../truth-pack",
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/evidence.ts": [
+    "../../package.json"
+  ],
+  "packages/cli/src/commands/explain.ts": [
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/fix-consolidated.ts": [
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/guard.ts": [
+    "./scan.js",
+    "../lib/guardrail-scan-adapter.js"
+  ],
+  "packages/cli/src/commands/index.ts": [
+    "./register-auth",
+    "./register-scans-core",
+    "./register-smells-fix",
+    "./register-fix-rollback",
+    "./register-ship",
+    "./register-reality",
+    "./register-advanced-a",
+    "./register-advanced-b",
+    "./cache",
+    "./init",
+    "./on",
+    "./stats",
+    "./checkpoint",
+    "./upgrade",
+    "./watch",
+    "./pre-commit",
+    "./verify",
+    "./context",
+    "./protect",
+    "./scan-consolidated",
+    "./ship-consolidated",
+    "./fix-consolidated",
+    "./explain",
+    "./replay",
+    "./ci-upload",
+    "./doctor",
+    "./plugin",
+    "./register-menu",
+    "./register-team",
+    "../ui/cli-terminal"
+  ],
+  "packages/cli/src/commands/init.ts": [
+    "../truth-pack",
+    "../ui",
+    "../ui",
+    "../ui/index",
+    "../runtime/exit-codes",
+    "./shared"
+  ],
+  "packages/cli/src/commands/interactive-menu.ts": [
+    "../ui/cli-styles",
+    "../ui/cli-terminal",
+    "../ui/cli-menus",
+    "../runtime/cli-config",
+    "../runtime/cli-auth",
+    "../ui/cli-prompts",
+    "../runtime/scan-secrets-vuln-cli",
+    "../runtime/compliance-sbom-cli",
+    "../runtime/init-project-cli",
+    "../runtime/scan-output-cli",
+    "../utils/playwright-install",
+    "../reality/reality-runner"
+  ],
+  "packages/cli/src/commands/launcher.ts": [
+    "../truth-pack",
+    "../runtime/creds",
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/on.ts": [
+    "../truth-pack",
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/plugin.ts": [
+    "../ui"
+  ],
+  "packages/cli/src/commands/pre-commit.ts": [
+    "../ui",
+    "../runtime/exit-codes",
+    "./shared"
+  ],
+  "packages/cli/src/commands/protect.ts": [
+    "../ui",
+    "../ui/progress",
+    "../ui",
+    "./shared"
+  ],
+  "packages/cli/src/commands/reality-command-action.ts": [
+    "../runtime/cli-auth",
+    "../runtime/exit-codes",
+    "../ui",
+    "../reality/critical-paths",
+    "../utils/playwright-install",
+    "./reality-command-record",
+    "./reality-cli-options",
+    "../reality/reality-runner",
+    "../reality/no-dead-buttons"
+  ],
+  "packages/cli/src/commands/reality-command-record.ts": [
+    "../runtime/exit-codes",
+    "../ui",
+    "../utils/playwright-install",
+    "./reality-cli-options",
+    "../reality/reality-runner"
+  ],
+  "packages/cli/src/commands/register-advanced-a.ts": [
+    "../ui",
+    "../reality/reality-graph",
+    "../reality/reality-graph",
+    "../autopatch/verified-autopatch",
+    "../autopatch/verified-autopatch",
+    "../reality/receipt-generator"
+  ],
+  "packages/cli/src/commands/register-advanced-b.ts": [
+    "../ui",
+    "../runtime/cli-config",
+    "../runtime/exit-codes"
+  ],
+  "packages/cli/src/commands/register-auth.ts": [
+    "../runtime/creds",
+    "../cli-program",
+    "../ui/cli-styles",
+    "../ui/cli-frame-inline",
+    "../ui/cli-terminal",
+    "./auth-command-action"
+  ],
+  "packages/cli/src/commands/register-fix-rollback.ts": [
+    "../runtime/client",
+    "../runtime/exit-codes",
+    "../runtime/json-output",
+    "../runtime/semver",
+    "../runtime/auth-utils",
+    "../ui/frame",
+    "../cli-program",
+    "../runtime/cli-config",
+    "../runtime/cli-auth",
+    "../utils/delay",
+    "../ui",
+    "../ui/cli-menus",
+    "../runtime/enterprise-scan-cli",
+    "../runtime/local-scan-demo",
+    "../runtime/scan-secrets-vuln-cli",
+    "../runtime/compliance-sbom-cli",
+    "../runtime/init-project-cli",
+    "../reality/critical-paths"
+  ],
+  "packages/cli/src/commands/register-menu.ts": [
+    "../ui/cli-terminal",
+    "../runtime/cli-config",
+    "./interactive-menu"
+  ],
+  "packages/cli/src/commands/register-reality.ts": [
+    "./reality-command-action"
+  ],
+  "packages/cli/src/commands/register-scans-core.ts": [
+    "../runtime/client",
+    "../runtime/exit-codes",
+    "../runtime/json-output",
+    "../runtime/semver",
+    "../runtime/auth-utils",
+    "../ui/frame",
+    "../cli-program",
+    "../runtime/cli-config",
+    "../runtime/cli-auth",
+    "../utils/delay",
+    "../ui",
+    "../ui/cli-menus",
+    "../runtime/enterprise-scan-cli",
+    "../runtime/local-scan-demo",
+    "../runtime/scan-secrets-vuln-cli",
+    "../runtime/compliance-sbom-cli",
+    "../runtime/init-project-cli",
+    "../reality/critical-paths"
+  ],
+  "packages/cli/src/commands/register-ship.ts": [
+    "../runtime/client",
+    "../runtime/exit-codes",
+    "../runtime/json-output",
+    "../runtime/semver",
+    "../runtime/auth-utils",
+    "../ui/frame",
+    "../cli-program",
+    "../runtime/cli-config",
+    "../runtime/cli-auth",
+    "../utils/delay",
+    "../ui",
+    "../ui/cli-menus",
+    "../runtime/enterprise-scan-cli",
+    "../runtime/local-scan-demo",
+    "../runtime/scan-secrets-vuln-cli",
+    "../runtime/compliance-sbom-cli",
+    "../runtime/init-project-cli",
+    "../reality/critical-paths"
+  ],
+  "packages/cli/src/commands/register-smells-fix.ts": [
+    "../runtime/client",
+    "../runtime/exit-codes",
+    "../runtime/json-output",
+    "../runtime/semver",
+    "../runtime/auth-utils",
+    "../ui/frame",
+    "../cli-program",
+    "../runtime/cli-config",
+    "../runtime/cli-auth",
+    "../utils/delay",
+    "../ui",
+    "../ui/cli-menus",
+    "../runtime/enterprise-scan-cli",
+    "../runtime/local-scan-demo",
+    "../runtime/scan-secrets-vuln-cli",
+    "../runtime/compliance-sbom-cli",
+    "../runtime/init-project-cli",
+    "../reality/critical-paths"
+  ],
+  "packages/cli/src/commands/replay.ts": [
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/scan-consolidated.ts": [
+    "../scan/reality-sniff",
+    "../scan/verification-engine",
+    "../scan/proof-graph",
+    "../ui",
+    "../ui",
+    "../ui/index",
+    "./auto-init",
+    "../scan/truth-pack-scoring",
+    "../scan/learning-loop"
+  ],
+  "packages/cli/src/commands/scan-secrets.ts": [
+    "../runtime/exit-codes",
+    "./evidence",
+    "../formatters/sarif"
+  ],
+  "packages/cli/src/commands/scan-vulnerabilities-enhanced.ts": [
+    "../runtime/exit-codes",
+    "./evidence",
+    "../formatters/sarif-enhanced"
+  ],
+  "packages/cli/src/commands/scan-vulnerabilities-osv.ts": [
+    "../runtime/exit-codes",
+    "./evidence"
+  ],
+  "packages/cli/src/commands/scan-vulnerabilities.ts": [
+    "../runtime/exit-codes",
+    "../runtime/semver",
+    "./evidence",
+    "../formatters/sarif"
+  ],
+  "packages/cli/src/commands/shared.ts": [
+    "../runtime/exit-codes",
+    "../ui"
+  ],
+  "packages/cli/src/commands/ship-consolidated.ts": [
+    "./scan-consolidated",
+    "../scan/dead-ui-detector",
+    "../scan/playwright-sweep",
+    "../scan/proof-bundle",
+    "../ui",
+    "../ui",
+    "../ui/index",
+    "./auto-init"
+  ],
+  "packages/cli/src/commands/stats.ts": [
+    "../truth-pack",
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/upgrade.ts": [
+    "../ui",
+    "../ui"
+  ],
+  "packages/cli/src/commands/verify.ts": [
+    "../ui",
+    "../ui/progress",
+    "../ui/summary",
+    "../ui",
+    "../runtime/exit-codes",
+    "./shared"
+  ],
+  "packages/cli/src/commands/watch.ts": [
+    "../ui",
+    "../ui/summary",
+    "../ui",
+    "../runtime/exit-codes",
+    "./shared",
+    "../scan/reality-sniff",
+    "../scan/verification-engine"
+  ],
+  "packages/cli/src/context/ai-task-decomposer.js": [
+    "./semantic-search"
+  ],
+  "packages/cli/src/context/analyzer.js": [
+    "./patterns",
+    "./monorepo"
+  ],
+  "packages/cli/src/context/generators/cursor.js": [
+    "../db"
+  ],
+  "packages/cli/src/context/index.js": [
+    "./analyzer",
+    "./patterns",
+    "./memory",
+    "./insights",
+    "./monorepo",
+    "./context-diff",
+    "./context-pruner",
+    "./dependency-graph",
+    "./git-context",
+    "./api-contracts",
+    "./team-conventions",
+    "./semantic-search",
+    "./security-scanner",
+    "./ai-task-decomposer",
+    "./multi-repo-federation",
+    "./shared",
+    "../cli-utils",
+    "./generators/cursor",
+    "./generators/windsurf",
+    "./generators/copilot",
+    "./generators/claude",
+    "./generators/codex",
+    "./generators/mcp",
+    "./generators/inject"
+  ],
+  "packages/cli/src/context/security-scanner.js": [
+    "../../../../bin/runners/lib/stripe-scan-patterns"
+  ],
+  "packages/cli/src/fix/__tests__/applicator.test.ts": [
+    "../applicator",
+    "../engine"
+  ],
+  "packages/cli/src/fix/__tests__/backup.test.ts": [
+    "../backup"
+  ],
+  "packages/cli/src/fix/__tests__/engine.test.ts": [
+    "../engine"
+  ],
+  "packages/cli/src/fix/applicator.ts": [
+    "./engine"
+  ],
+  "packages/cli/src/fix/interactive.ts": [
+    "./engine"
+  ],
+  "packages/cli/src/formatters/sarif-enhanced.ts": [
+    "../commands/scan-vulnerabilities-enhanced",
+    "../../package.json"
+  ],
+  "packages/cli/src/formatters/sarif-v2.ts": [
+    "../../package.json"
+  ],
+  "packages/cli/src/formatters/sarif.ts": [
+    "../../package.json"
+  ],
+  "packages/cli/src/index.legacy.backup.ts": [
+    "./runtime/client",
+    "./runtime/exit-codes",
+    "./runtime/json-output",
+    "./runtime/semver",
+    "./commands/scan-vulnerabilities-osv",
+    "./commands/cache",
+    "./commands/init",
+    "./commands/on",
+    "./commands/stats",
+    "./commands/checkpoint",
+    "./commands/upgrade",
+    "./commands/watch",
+    "./commands/pre-commit",
+    "./commands/verify",
+    "./commands/context",
+    "./commands/protect",
+    "./ui/frame",
+    "./commands/scan-consolidated",
+    "./commands/ship-consolidated",
+    "./commands/fix-consolidated",
+    "./commands/explain",
+    "./commands/replay",
+    "./commands/ci-upload",
+    "./commands/doctor",
+    "./commands/plugin",
+    "../package.json",
+    "./index",
+    "./reality/reality-runner",
+    "./reality/no-dead-buttons",
+    "./reality/reality-graph",
+    "./autopatch/verified-autopatch",
+    "./autopatch/verified-autopatch",
+    "./reality/receipt-generator",
+    "./formatters/sarif-v2",
+    "./reality/reality-runner"
+  ],
+  "packages/cli/src/init/ci-generator.ts": [
+    "./templates"
+  ],
+  "packages/cli/src/init/hooks-installer.ts": [
+    "./templates"
+  ],
+  "packages/cli/src/reality/__tests__/spawn-behavior.test.ts": [
+    "../reality-runner"
+  ],
+  "packages/cli/src/reality/no-dead-buttons/__tests__/button-sweep-generator.test.ts": [
+    "../button-sweep-generator"
+  ],
+  "packages/cli/src/reality/no-dead-buttons/__tests__/static-scanner.test.ts": [
+    "../static-scanner"
+  ],
+  "packages/cli/src/reality/reality-runner.ts": [
+    "./receipt-generator",
+    "./runtime-tracer"
+  ],
+  "packages/cli/src/reality/receipt-generator.ts": [
+    "./reality-graph"
+  ],
+  "packages/cli/src/runtime/auth-utils.ts": [
+    "../../package.json"
+  ],
+  "packages/cli/src/runtime/cli-auth.ts": [
+    "./client",
+    "./exit-codes",
+    "./cli-config",
+    "../ui/cli-terminal"
+  ],
+  "packages/cli/src/runtime/client.ts": [
+    "./creds",
+    "./auth-utils",
+    "../../package.json"
+  ],
+  "packages/cli/src/runtime/compliance-sbom-cli.ts": [
+    "../ui/cli-terminal",
+    "../utils/delay"
+  ],
+  "packages/cli/src/runtime/enterprise-scan-cli.ts": [
+    "../ui/cli-styles",
+    "../ui/cli-frame-inline",
+    "../ui/cli-menus",
+    "./json-output",
+    "./exit-codes",
+    "../formatters/sarif-v2"
+  ],
+  "packages/cli/src/runtime/init-project-cli.ts": [
+    "../ui/cli-terminal",
+    "../utils/delay",
+    "../ui/cli-frame-inline",
+    "../ui/cli-styles",
+    "../ui/cli-prompts"
+  ],
+  "packages/cli/src/runtime/local-scan-demo.ts": [
+    "../ui/cli-terminal",
+    "../utils/delay"
+  ],
+  "packages/cli/src/runtime/scan-output-cli.ts": [
+    "../ui/cli-styles",
+    "../ui/cli-frame-inline",
+    "../ui/cli-menus"
+  ],
+  "packages/cli/src/runtime/scan-secrets-vuln-cli.ts": [
+    "../ui/cli-terminal",
+    "./semver"
+  ],
+  "packages/cli/src/scan/reality-sniff.ts": [
+    "./truth-pack-scoring",
+    "./truth-pack-scoring"
+  ],
+  "packages/cli/src/scan/structural-verifier.ts": [
+    "./reality-sniff",
+    "./verification-engine"
+  ],
+  "packages/cli/src/scan/truth-pack-scoring.ts": [
+    "../truth-pack"
+  ],
+  "packages/cli/src/scan/verification-engine.ts": [
+    "./reality-sniff"
+  ],
+  "packages/cli/src/scanner/parallel.ts": [
+    "../commands/scan-secrets",
+    "../commands/scan-vulnerabilities"
+  ],
+  "packages/cli/src/ui/cli-frame-inline.ts": [
+    "./cli-styles"
+  ],
+  "packages/cli/src/ui/cli-menus.ts": [
+    "../runtime/cli-config",
+    "./cli-styles",
+    "./cli-frame-inline"
+  ],
+  "packages/cli/src/ui/cli-prompts.ts": [
+    "./cli-styles"
+  ],
+  "packages/cli/src/ui/cli-terminal.ts": [
+    "./cli-styles"
+  ],
+  "packages/cli/src/ui/progress.ts": [
+    "./frame"
+  ],
+  "packages/cli/src/ui/spinner.ts": [
+    "./frame"
+  ],
+  "packages/cli/src/ui/summary.ts": [
+    "./frame"
+  ],
+  "packages/cli/src/utils/playwright-install.ts": [
+    "../ui/cli-styles"
+  ],
+  "packages/compliance/src/audit/signed-storage.ts": [
+    "./events",
+    "./events"
+  ],
+  "packages/compliance/src/automation/__tests__/compliance-scheduler.test.ts": [
+    "../compliance-scheduler"
+  ],
+  "packages/compliance/src/automation/compliance-scheduler.ts": [
+    "../frameworks/engine",
+    "./evidence-collector",
+    "./reporting-engine",
+    "./email-service",
+    "./audit-logger"
+  ],
+  "packages/compliance/src/automation/dashboard.ts": [
+    "./audit-logger"
+  ],
+  "packages/compliance/src/automation/evidence-collector.ts": [
+    "../frameworks/engine"
+  ],
+  "packages/compliance/src/automation/reporting-engine.ts": [
+    "../frameworks/engine",
+    "./evidence-collector",
+    "./audit-logger"
+  ],
+  "packages/compliance/src/container/kubernetes.ts": [
+    "./rules"
+  ],
+  "packages/compliance/src/container/scanner.ts": [
+    "./rules"
+  ],
+  "packages/compliance/src/frameworks/engine.ts": [
+    "./soc2",
+    "./gdpr",
+    "./hipaa",
+    "./pci"
+  ],
+  "packages/compliance/src/frameworks/gdpr.ts": [
+    "./engine"
+  ],
+  "packages/compliance/src/frameworks/hipaa.ts": [
+    "./engine"
+  ],
+  "packages/compliance/src/frameworks/pci.ts": [
+    "./engine"
+  ],
+  "packages/compliance/src/frameworks/soc2.ts": [
+    "./engine"
+  ],
+  "packages/compliance/src/iac/scanner.ts": [
+    "./rules",
+    "./drift-detector"
+  ],
+  "packages/compliance/src/pii/detector.ts": [
+    "./patterns",
+    "./data-flow"
+  ],
+  "packages/compliance/src/sbom/collector.ts": [
+    "./types"
+  ],
+  "packages/compliance/src/sbom/formatters.ts": [
+    "./types"
+  ],
+  "packages/compliance/src/sbom/generator.ts": [
+    "./formatters"
+  ],
+  "packages/compliance/src/scanner/__tests__/drift-detector.test.ts": [
+    "../drift-detector",
+    "../types"
+  ],
+  "packages/compliance/src/scanner/__tests__/formatters.test.ts": [
+    "../formatters/table-formatter",
+    "../formatters/json-formatter",
+    "../formatters/sarif-formatter",
+    "../types"
+  ],
+  "packages/compliance/src/scanner/__tests__/policy-loader.test.ts": [
+    "../policy-loader",
+    "../types"
+  ],
+  "packages/compliance/src/scanner/__tests__/scanner-engine.test.ts": [
+    "../scanner-engine"
+  ],
+  "packages/compliance/src/scanner/drift-detector.ts": [
+    "./types"
+  ],
+  "packages/compliance/src/scanner/evidence-collector.ts": [
+    "./types"
+  ],
+  "packages/compliance/src/scanner/formatters/json-formatter.ts": [
+    "../types"
+  ],
+  "packages/compliance/src/scanner/formatters/sarif-formatter.ts": [
+    "../types"
+  ],
+  "packages/compliance/src/scanner/formatters/table-formatter.ts": [
+    "../types"
+  ],
+  "packages/compliance/src/scanner/policy-loader.ts": [
+    "./types"
+  ],
+  "packages/compliance/src/scanner/scanner-engine.ts": [
+    "./policy-loader",
+    "./evidence-collector",
+    "./drift-detector"
+  ],
+  "packages/compliance/tests/automation/compliance-scheduler.test.ts": [
+    "../../src/automation/compliance-scheduler",
+    "../../src/frameworks/engine",
+    "../../src/automation/evidence-collector",
+    "../../src/automation/reporting-engine"
+  ],
+  "packages/core/src/__tests__/autopilot-enterprise.test.ts": [
+    "../autopilot/autopilot-runner",
+    "../autopilot/types"
+  ],
+  "packages/core/src/__tests__/autopilot.test.ts": [
+    "../autopilot/autopilot-runner"
+  ],
+  "packages/core/src/autopilot/autopilot-runner.ts": [
+    "../entitlements"
+  ],
+  "packages/core/src/fix-packs/types.ts": [
+    "../tier-config"
+  ],
+  "packages/core/src/rbac/permissions.ts": [
+    "../tier-config"
+  ],
+  "packages/core/src/ship/enhanced-ship-decision.ts": [
+    "../../../src/lib/ship/ship-engine",
+    "../../../src/lib/hallucination-detector",
+    "../../../src/lib/advanced-context-manager"
+  ],
+  "packages/core/src/unified-guardrail.ts": [
+    "./ship/enhanced-ship-decision",
+    "./improvements/long-term-tracking",
+    "./prompt-firewall-types"
+  ],
+  "packages/core/src/verified-autofix/__tests__/pipeline.test.ts": [
+    "../format-validator"
+  ],
+  "packages/core/src/verified-autofix/__tests__/workspace.test.ts": [
+    "../workspace",
+    "../format-validator",
+    "../repo-fingerprint"
+  ],
+  "packages/core/src/verified-autofix/pipeline.ts": [
+    "./workspace",
+    "./repo-fingerprint",
+    "../entitlements"
+  ],
+  "packages/core/src/verified-autofix/workspace.ts": [
+    "./format-validator",
+    "./repo-fingerprint"
+  ],
+  "packages/engines/src/APITruthEngine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/BaseEngine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/CredentialsEngine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/EnvLoader.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/EnvVarEngine.test.ts": [
+    "./EnvVarEngine.js",
+    "./core-types"
+  ],
+  "packages/engines/src/EnvVarEngine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/FakeFeaturesEngine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/GhostRouteEngine.ts": [
+    "./core-types",
+    "./truthpack-loader.js"
+  ],
+  "packages/engines/src/PerformanceAntipatternEngine.ts": [
+    "./base-engine.js",
+    "./core-types"
+  ],
+  "packages/engines/src/PhantomDepEngine.test.ts": [
+    "./PhantomDepEngine.js"
+  ],
+  "packages/engines/src/PhantomDepEngine.ts": [
+    "./core-types",
+    "./EngineError.js"
+  ],
+  "packages/engines/src/RuntimeProbeEngine.ts": [
+    "./core-types",
+    "./truthpack-loader.js"
+  ],
+  "packages/engines/src/SecurityEngine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/SecurityPatternEngine.ts": [
+    "./base-engine.js",
+    "./core-types"
+  ],
+  "packages/engines/src/TypeContractEngine.ts": [
+    "./base-engine.js",
+    "./core-types"
+  ],
+  "packages/engines/src/VersionHallucinationEngine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/__tests__/CredentialsEngine.test.ts": [
+    "../CredentialsEngine.js",
+    "../core-types"
+  ],
+  "packages/engines/src/__tests__/EnvVarEngine.test.ts": [
+    "../EnvVarEngine.js",
+    "../core-types"
+  ],
+  "packages/engines/src/__tests__/FakeFeaturesEngine.test.ts": [
+    "../FakeFeaturesEngine.js",
+    "../core-types"
+  ],
+  "packages/engines/src/__tests__/SecurityEngine.test.ts": [
+    "../SecurityEngine.js"
+  ],
+  "packages/engines/src/__tests__/TrustScoreService.test.ts": [
+    "../TrustScoreService",
+    "../core-types"
+  ],
+  "packages/engines/src/__tests__/VersionHallucinationEngine.test.ts": [
+    "../VersionHallucinationEngine.js",
+    "../core-types"
+  ],
+  "packages/engines/src/base-engine.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/engine-types.ts": [
+    "./core-types"
+  ],
+  "packages/engines/src/output/formatters.ts": [
+    "../core-types",
+    "./sarif.js"
+  ],
+  "packages/engines/src/output/sarif.ts": [
+    "../core-types"
+  ],
+  "packages/engines/src/plugins/CustomRuleEngine.ts": [
+    "../base-engine.js",
+    "../core-types",
+    "./types",
+    "./plugin-loader.js",
+    "./types"
+  ],
+  "packages/engines/src/plugins/__tests__/CustomRuleEngine.test.ts": [
+    "../CustomRuleEngine",
+    "../../core-types",
+    "../types"
+  ],
+  "packages/engines/src/plugins/__tests__/packs.test.ts": [
+    "../packs/nextjs",
+    "../packs/express",
+    "../packs/python",
+    "../packs/index",
+    "../types"
+  ],
+  "packages/engines/src/plugins/config-loader.ts": [
+    "./types"
+  ],
+  "packages/engines/src/plugins/packs/express.ts": [
+    "../types"
+  ],
+  "packages/engines/src/plugins/packs/index.ts": [
+    "../types",
+    "./nextjs",
+    "./express",
+    "./python"
+  ],
+  "packages/engines/src/plugins/packs/nextjs.ts": [
+    "../types"
+  ],
+  "packages/engines/src/plugins/packs/python.ts": [
+    "../types"
+  ],
+  "packages/engines/src/plugins/plugin-loader.ts": [
+    "../core-types"
+  ],
+  "packages/engines/src/plugins/types.ts": [
+    "../core-types"
+  ],
+  "packages/engines/src/polish/engines/accessibility.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/backend.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/configuration.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/documentation.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/infrastructure.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/observability.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/performance.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/resilience.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/security.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/engines/seo.ts": [
+    "../utils",
+    "../types"
+  ],
+  "packages/engines/src/polish/index.ts": [
+    "./engines/seo",
+    "./engines/security",
+    "./engines/resilience",
+    "./engines/performance",
+    "./engines/observability",
+    "./engines/infrastructure",
+    "./engines/documentation",
+    "./engines/configuration",
+    "./engines/backend",
+    "./engines/accessibility",
+    "./types",
+    "./libraries",
+    "./utils"
+  ],
+  "packages/engines/src/polish/libraries.ts": [
+    "./utils",
+    "./types"
+  ],
+  "packages/engines/src/registry.ts": [
+    "./core-types",
+    "./engine-types.js",
+    "./TypeContractEngine.js",
+    "./SecurityPatternEngine.js",
+    "./PerformanceAntipatternEngine.js"
+  ],
+  "packages/engines/src/truthpack-loader.ts": [
+    "./core-types"
+  ],
+  "packages/llm-safety/src/classifiers/classifier.interface.ts": [
+    "../core/types.js"
+  ],
+  "packages/llm-safety/src/classifiers/custom-model.ts": [
+    "./classifier.interface.js",
+    "../core/types.js"
+  ],
+  "packages/llm-safety/src/classifiers/regex-classifier.ts": [
+    "./classifier.interface.js",
+    "../core/types.js"
+  ],
+  "packages/llm-safety/src/cli.ts": [
+    "./sdk/guardrail.js",
+    "./server/app.js"
+  ],
+  "packages/llm-safety/src/core/config.ts": [
+    "./errors.js"
+  ],
+  "packages/llm-safety/src/core/context.ts": [
+    "./types.js"
+  ],
+  "packages/llm-safety/src/core/engine.ts": [
+    "./types.js"
+  ],
+  "packages/llm-safety/src/core/pipeline.ts": [
+    "./engine.js",
+    "./registry.js",
+    "./result.js",
+    "./event-bus.js"
+  ],
+  "packages/llm-safety/src/core/registry.ts": [
+    "./engine.js",
+    "./types.js",
+    "./circuit-breaker.js"
+  ],
+  "packages/llm-safety/src/core/result.ts": [
+    "./types.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/action-gate.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/conversation-boundary.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/cot-monitor.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/retry-policy.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/sandbox.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/scope-boundary.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/token-limit.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/behavioral/tool-restriction.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/helpers.ts": [
+    "../core/types.js",
+    "../utils/timer.js"
+  ],
+  "packages/llm-safety/src/engines/input/auth-check.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/input/prompt-injection.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../detectors/injection-patterns.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/input/rate-limiter.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/input/sanitization.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/input/topic-filter.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/output/content-policy.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/output/factual-grounding.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/output/hallucination.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/output/pii-leakage.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../detectors/pii-detector.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/output/schema-validation.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/output/toxicity.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/audit-trail.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../core/event-bus.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/escalation.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/eval-suite.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/human-review.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/incident-response.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../core/event-bus.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/kill-switch.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/monitoring.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../core/event-bus.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/process/red-team.ts": [
+    "../../core/engine.js",
+    "../../core/types.js",
+    "../../utils/timer.js",
+    "../helpers.js"
+  ],
+  "packages/llm-safety/src/engines/register-default.ts": [
+    "../core/registry.js",
+    "../core/config.js",
+    "./input/prompt-injection.js",
+    "./input/sanitization.js",
+    "./input/topic-filter.js",
+    "./input/auth-check.js",
+    "./input/rate-limiter.js",
+    "./output/hallucination.js",
+    "./output/toxicity.js",
+    "./output/pii-leakage.js",
+    "./output/factual-grounding.js",
+    "./output/schema-validation.js",
+    "./output/content-policy.js",
+    "./behavioral/token-limit.js",
+    "./behavioral/tool-restriction.js",
+    "./behavioral/sandbox.js",
+    "./behavioral/action-gate.js",
+    "./behavioral/scope-boundary.js",
+    "./behavioral/retry-policy.js",
+    "./behavioral/cot-monitor.js",
+    "./behavioral/conversation-boundary.js",
+    "./process/human-review.js",
+    "./process/red-team.js",
+    "./process/eval-suite.js",
+    "./process/monitoring.js",
+    "./process/kill-switch.js",
+    "./process/audit-trail.js",
+    "./process/incident-response.js",
+    "./process/escalation.js",
+    "../core/engine.js"
+  ],
+  "packages/llm-safety/src/middleware-adapters/express.ts": [
+    "../sdk/guardrail.js",
+    "../core/types.js"
+  ],
+  "packages/llm-safety/src/middleware-adapters/langchain.ts": [
+    "../sdk/guardrail.js",
+    "../core/types.js"
+  ],
+  "packages/llm-safety/src/sdk/guardrail.test.ts": [
+    "../core/config.js",
+    "./guardrail.js"
+  ],
+  "packages/llm-safety/src/sdk/guardrail.ts": [
+    "../core/registry.js",
+    "../core/pipeline.js",
+    "../core/event-bus.js",
+    "../core/context.js",
+    "../core/config.js",
+    "../engines/register-default.js",
+    "../core/types.js"
+  ],
+  "packages/llm-safety/src/sdk/wrap.ts": [
+    "./guardrail.js",
+    "../core/types.js"
+  ],
+  "packages/llm-safety/src/server/app.ts": [
+    "../sdk/guardrail.js",
+    "../utils/logger.js",
+    "./routes/index.js"
+  ],
+  "packages/llm-safety/src/server/routes/analyze.ts": [
+    "../../sdk/guardrail.js",
+    "../../core/types.js"
+  ],
+  "packages/llm-safety/src/server/routes/index.ts": [
+    "../../sdk/guardrail.js",
+    "./analyze.js",
+    "./meta.js"
+  ],
+  "packages/llm-safety/src/server/routes/meta.ts": [
+    "../../sdk/guardrail.js"
+  ],
+  "packages/procedural-memory/src/audit/claude-code-audit.ts": [
+    "../types/decision-graph",
+    "../types/metacognition",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/classifier/classifier.ts": [
+    "../types/decision-graph",
+    "../types/metacognition"
+  ],
+  "packages/procedural-memory/src/cli.ts": [
+    "./parser/parse",
+    "./extractor/extract",
+    "./extractor/deep-extract",
+    "./injector/metacognitive-inject",
+    "./types/decision-graph",
+    "./lib/config",
+    "./lib/claude-project",
+    "./lib/report-cohorts",
+    "./lib/project-list",
+    "./stop-hook",
+    "./hooks/start-hook",
+    "./audit/claude-code-audit",
+    "./fingerprint/fingerprint",
+    "./metacognition/reflection",
+    "./temporal/temporal",
+    "./transfer/transfer",
+    "./predictor/predictor",
+    "./classifier/classifier",
+    "./consciousness/narrative-identity",
+    "./consciousness/epistemic-map",
+    "./consciousness/user-model",
+    "./consciousness/pre-mortem",
+    "./consciousness/dream-consolidator",
+    "./consciousness/somatic-markers",
+    "./consciousness/phenomenology"
+  ],
+  "packages/procedural-memory/src/consciousness/dream-consolidator.ts": [
+    "../types/decision-graph",
+    "../types/consciousness"
+  ],
+  "packages/procedural-memory/src/consciousness/epistemic-map.ts": [
+    "../types/decision-graph",
+    "../types/metacognition",
+    "../types/consciousness",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/consciousness/narrative-identity.ts": [
+    "../types/decision-graph",
+    "../types/metacognition",
+    "../types/consciousness",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/consciousness/phenomenology.ts": [
+    "../types/decision-graph",
+    "../types/metacognition",
+    "../types/consciousness",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/consciousness/pre-mortem.ts": [
+    "../types/decision-graph",
+    "../types/metacognition",
+    "../types/consciousness",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/consciousness/somatic-markers.ts": [
+    "../types/decision-graph",
+    "../types/metacognition",
+    "../types/consciousness",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/consciousness/user-model.ts": [
+    "../types/decision-graph",
+    "../types/consciousness"
+  ],
+  "packages/procedural-memory/src/extractor/deep-extract.ts": [
+    "../types/decision-graph"
+  ],
+  "packages/procedural-memory/src/fingerprint/fingerprint.ts": [
+    "../types/decision-graph",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/hooks/start-hook.ts": [
+    "../lib/config"
+  ],
+  "packages/procedural-memory/src/injector/metacognitive-inject.ts": [
+    "../types/decision-graph"
+  ],
+  "packages/procedural-memory/src/lib/consciousness-store.ts": [
+    "../types/consciousness"
+  ],
+  "packages/procedural-memory/src/lib/data-store.ts": [
+    "../types/decision-graph"
+  ],
+  "packages/procedural-memory/src/lib/metacognitive-store.ts": [
+    "../types/metacognition"
+  ],
+  "packages/procedural-memory/src/lib/project-list.ts": [
+    "../types/decision-graph"
+  ],
+  "packages/procedural-memory/src/lib/report-cohorts.ts": [
+    "../types/decision-graph"
+  ],
+  "packages/procedural-memory/src/metacognition/reflection.ts": [
+    "../types/decision-graph",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/predictor/predictor.ts": [
+    "../types/decision-graph"
+  ],
+  "packages/procedural-memory/src/stop-hook.ts": [
+    "./extractor/extract",
+    "./injector/metacognitive-inject",
+    "./parser/parse",
+    "./lib/config",
+    "./lib/claude-project",
+    "./fingerprint/fingerprint",
+    "./metacognition/reflection",
+    "./temporal/temporal",
+    "./classifier/classifier",
+    "./predictor/predictor",
+    "./consciousness/narrative-identity",
+    "./consciousness/epistemic-map",
+    "./consciousness/user-model",
+    "./consciousness/pre-mortem",
+    "./consciousness/somatic-markers",
+    "./consciousness/phenomenology"
+  ],
+  "packages/procedural-memory/src/temporal/temporal.ts": [
+    "../types/decision-graph",
+    "../classifier/classifier"
+  ],
+  "packages/procedural-memory/src/transfer/transfer.ts": [
+    "../types/decision-graph"
+  ],
+  "packages/procedural-memory/src/types/consciousness.ts": [
+    "./metacognition"
+  ],
+  "packages/procedural-memory/tests/config.test.ts": [
+    "../src/lib/config"
+  ],
+  "packages/procedural-memory/tests/consciousness.test.ts": [
+    "../src/types/decision-graph",
+    "../src/consciousness/narrative-identity",
+    "../src/consciousness/epistemic-map",
+    "../src/consciousness/user-model",
+    "../src/consciousness/pre-mortem",
+    "../src/consciousness/dream-consolidator",
+    "../src/consciousness/somatic-markers",
+    "../src/consciousness/phenomenology",
+    "../src/fingerprint/fingerprint",
+    "../src/classifier/classifier"
+  ],
+  "packages/procedural-memory/tests/inject-effectiveness.test.ts": [
+    "../src/injector/inject",
+    "../src/types/decision-graph"
+  ],
+  "packages/procedural-memory/tests/merge-deep.test.ts": [
+    "../src/extractor/extract",
+    "../src/types/decision-graph"
+  ],
+  "packages/procedural-memory/tests/metacognition.test.ts": [
+    "../src/types/decision-graph",
+    "../src/classifier/classifier",
+    "../src/fingerprint/fingerprint",
+    "../src/metacognition/reflection",
+    "../src/predictor/predictor",
+    "../src/temporal/temporal",
+    "../src/transfer/transfer",
+    "../src/injector/metacognitive-inject"
+  ],
+  "packages/procedural-memory/tests/parser.test.ts": [
+    "../src/parser/parse"
+  ],
+  "packages/procedural-memory/tests/project-list.test.ts": [
+    "../src/lib/project-list",
+    "../src/types/decision-graph"
+  ],
+  "packages/procedural-memory/tests/report-cohorts.test.ts": [
+    "../src/lib/report-cohorts",
+    "../src/types/decision-graph"
+  ],
+  "packages/security/src/__tests__/license/engine.test.ts": [
+    "../../license/engine"
+  ],
+  "packages/security/src/__tests__/supply-chain/typosquat.test.ts": [
+    "../../supply-chain/typosquat"
+  ],
+  "packages/security/src/license/engine.ts": [
+    "./compatibility-matrix"
+  ],
+  "packages/security/src/sbom/generator.test.ts": [
+    "./generator"
+  ],
+  "packages/security/src/secrets/__tests__/allowlist.test.ts": [
+    "../allowlist"
+  ],
+  "packages/security/src/secrets/__tests__/config-loader.test.ts": [
+    "../config-loader"
+  ],
+  "packages/security/src/secrets/__tests__/contextual-risk.test.ts": [
+    "../contextual-risk"
+  ],
+  "packages/security/src/secrets/__tests__/git-scanner.test.ts": [
+    "../git-scanner",
+    "../guardian",
+    "../stripe-placeholder-prefix"
+  ],
+  "packages/security/src/secrets/__tests__/integration.test.ts": [
+    "../guardian",
+    "../allowlist"
+  ],
+  "packages/security/src/secrets/config-loader.ts": [
+    "./patterns"
+  ],
+  "packages/security/src/secrets/contextual-risk.ts": [
+    "./patterns"
+  ],
+  "packages/security/src/secrets/git-scanner.ts": [
+    "./guardian"
+  ],
+  "packages/security/src/secrets/guardian.ts": [
+    "./stripe-placeholder-prefix",
+    "./config-loader",
+    "./allowlist",
+    "./contextual-risk"
+  ],
+  "packages/security/src/secrets/patterns.ts": [
+    "./stripe-placeholder-prefix"
+  ],
+  "packages/security/src/secrets/pre-commit.ts": [
+    "./guardian"
+  ],
+  "packages/security/src/secrets/vault-integration.ts": [
+    "./guardian",
+    "./patterns",
+    "./vault-providers"
+  ],
+  "packages/security/src/supply-chain/detector.ts": [
+    "./typosquat",
+    "./malicious-db",
+    "./script-analyzer"
+  ],
+  "packages/security/src/supply-chain/vulnerability-db.ts": [
+    "../utils/semver"
+  ],
+  "packages/ship/src/mockproof/__tests__/import-graph-scanner.test.ts": [
+    "../import-graph-scanner"
+  ],
+  "packages/ship/src/mockproof/import-graph-scanner.js": [
+    "../../../../bin/runners/lib/stripe-scan-patterns.js"
+  ],
+  "packages/ship/src/pro-ship/pro-ship-scanner.ts": [
+    "../mockproof/import-graph-scanner",
+    "../reality-mode/reality-scanner",
+    "../ship-badge/ship-badge-generator"
+  ],
+  "packages/ship/src/reality-mode/explorer/critical-flows.ts": [
+    "./types"
+  ],
+  "packages/ship/src/reality-mode/explorer/flow-parser.ts": [
+    "./types"
+  ],
+  "packages/ship/src/reality-mode/explorer/runtime-explorer.ts": [
+    "./surface-discovery"
+  ],
+  "packages/ship/src/reality-mode/fake-success-detector.ts": [
+    "./types"
+  ],
+  "packages/ship/src/reality-mode/reality-scanner.js": [
+    "../../../../bin/runners/lib/stripe-scan-patterns.js"
+  ],
+  "packages/ship/src/reality-mode/reality-scanner.ts": [
+    "./traffic-classifier",
+    "./fake-success-detector",
+    "./auth-enforcer"
+  ],
+  "packages/ship/src/reality-mode/report-generator.ts": [
+    "./types"
+  ],
+  "packages/ship/src/ship-badge/__tests__/ship-badge-generator.test.ts": [
+    "../ship-badge-generator"
+  ],
+  "packages/ship/src/ship-badge/ship-badge-generator.js": [
+    "../../../../bin/runners/lib/stripe-scan-patterns.js"
+  ],
+  "scripts/ai-behavior.js": [
+    "../src/lib/ai-behavior-learner",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/analyze-dependencies.js": [
+    "../src/lib/dependency-analyzer",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/analyze-impact.js": [
+    "../src/lib/change-impact"
+  ],
+  "scripts/architect.js": [
+    "../src/lib/architect-agent"
+  ],
+  "scripts/audit-env-secrets.js": [
+    "../bin/runners/lib/stripe-scan-patterns"
+  ],
+  "scripts/audit-production-integrity.js": [
+    "./audit-api-endpoints",
+    "./audit-auth-coverage",
+    "./audit-env-secrets",
+    "./audit-route-integrity",
+    "./audit-mock-blocker"
+  ],
+  "scripts/audit-repo-hygiene.js": [
+    "./hygiene/duplicates",
+    "./hygiene/unused",
+    "./hygiene/errors",
+    "./hygiene/root-cleanup",
+    "./hygiene/report"
+  ],
+  "scripts/auth.js": [
+    "../src/lib/auth-system.js"
+  ],
+  "scripts/auto-refactor.js": [
+    "../src/lib/refactoring-automation",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/batch-validate.js": [
+    "../src/lib/batch-validator"
+  ],
+  "scripts/build-context.js": [
+    "../src/lib/context-manager.js",
+    "../src/lib/context-generator.js"
+  ],
+  "scripts/build-knowledge.js": [
+    "../src/lib/codebase-knowledge"
+  ],
+  "scripts/check-accessibility.js": [
+    "../src/lib/accessibility-checker",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/check-docs.js": [
+    "../src/lib/documentation-checker",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/check-duplicates.js": [
+    "../src/lib/duplicate-detector.js"
+  ],
+  "scripts/check-subscription.js": [
+    "../src/lib/subscription-tiers",
+    "../src/lib/codebase-size",
+    "../src/lib/usage-tracker"
+  ],
+  "scripts/connect-mcp.js": [
+    "../src/lib/mcp-connector.js"
+  ],
+  "scripts/context.js": [
+    "./build-context.js"
+  ],
+  "scripts/cross-repo.js": [
+    "../src/lib/cross-repo-intelligence"
+  ],
+  "scripts/deep-context.js": [
+    "../src/lib/deep-context-agent"
+  ],
+  "scripts/dep-analyzer.js": [
+    "../src/lib/dependency-impact-analyzer"
+  ],
+  "scripts/detect-frameworks.js": [
+    "../src/lib/framework-detector",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/enforce-build.js": [
+    "../src/lib/build-enforcer.js"
+  ],
+  "scripts/enforce-subscription.js": [
+    "../src/lib/usage-tracker"
+  ],
+  "scripts/explain-code.js": [
+    "../src/lib/ai-code-explainer"
+  ],
+  "scripts/fix.js": [
+    "../src/lib/auto-fixer",
+    "../src/lib/polish-service"
+  ],
+  "scripts/generate-api-client.js": [
+    "../src/lib/api-endpoint-tracker.js"
+  ],
+  "scripts/generate-code.js": [
+    "../src/lib/code-generator"
+  ],
+  "scripts/generate-docs.js": [
+    "../src/lib/documentation-generator",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/generate-mdc-fixed.ts": [
+    "../src/lib/mdc-generator/mdc-generator"
+  ],
+  "scripts/generate-mdc.ts": [
+    "../src/lib/mdc-generator/mdc-generator"
+  ],
+  "scripts/generate-tests.js": [
+    "../src/lib/test-generator",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/get-context.js": [
+    "../src/lib/advanced-context-manager",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/github.js": [
+    "../src/lib/github-integration.js",
+    "../src/lib/auth-system.js"
+  ],
+  "scripts/health-score.js": [
+    "../src/lib/code-health-score",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/hook-build.js": [
+    "../src/lib/build-enforcer.js"
+  ],
+  "scripts/hygiene/errors.js": [
+    "./duplicates"
+  ],
+  "scripts/hygiene/index.js": [
+    "./duplicates",
+    "./unused",
+    "./errors",
+    "./root-cleanup",
+    "./report"
+  ],
+  "scripts/hygiene/unused.js": [
+    "./duplicates"
+  ],
+  "scripts/install-platform.js": [
+    "../src/lib/platform-plugins"
+  ],
+  "scripts/integrate-framework.js": [
+    "../src/lib/framework-integration-manager",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/integration-test-smell-predictor.js": [
+    "../src/lib/code-smell-predictor"
+  ],
+  "scripts/launch-checklist.js": [
+    "../LAUNCH-CHECKLIST.md"
+  ],
+  "scripts/natural-language-search.js": [
+    "../src/lib/natural-language-search"
+  ],
+  "scripts/onboard.js": [
+    "../src/lib/interactive-onboarding"
+  ],
+  "scripts/optimize-performance.js": [
+    "../src/lib/performance-optimizer",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/orchestrate.js": [
+    "../src/lib/natural-language-cli.js"
+  ],
+  "scripts/orchestrator.js": [
+    "../bin/runners/lib/stripe-scan-patterns"
+  ],
+  "scripts/plan-migration.js": [
+    "../src/lib/migration-assistant",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/polish-project.js": [
+    "../src/lib/polish-service",
+    "../src/lib/auto-fixer"
+  ],
+  "scripts/predict-production.js": [
+    "../src/lib/production-anomaly-predictor"
+  ],
+  "scripts/predict-quality.js": [
+    "../src/lib/predictive-quality",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/predict-smells.js": [
+    "../src/lib/code-smell-predictor",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/process-massive-repo.js": [
+    "../src/lib/massive-repo-processor",
+    "../src/lib/smart-file-filter",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/quality-guardian.js": [
+    "../src/lib/realtime-quality-guardian"
+  ],
+  "scripts/review-code.js": [
+    "../src/lib/ai-code-reviewer",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/run-truthpack-generate.ts": [
+    "../packages/cli/src/truth-pack/index.ts"
+  ],
+  "scripts/scan-security.js": [
+    "../src/lib/security-scanner-enhanced",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/security-scan.js": [
+    "../src/lib/security-scanner",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/setup-chat.js": [
+    "../src/lib/auto-setup"
+  ],
+  "scripts/ssrf-proof-examples.js": [
+    "../apps/api/src/lib/safe-fetch"
+  ],
+  "scripts/start-tracking.js": [
+    "../src/lib/file-watcher.js",
+    "../src/lib/api-endpoint-tracker.js",
+    "../src/lib/component-registry.js"
+  ],
+  "scripts/status.js": [
+    "../src/lib/health-checker.js",
+    "../src/lib/performance-monitor.js",
+    "../src/lib/usage-analytics.js",
+    "../src/lib/error-recovery.js"
+  ],
+  "scripts/strictness.js": [
+    "../src/lib/strictness-config.js",
+    "../src/lib/build-enforcer.js"
+  ],
+  "scripts/sync-decisions.js": [
+    "../src/lib/decision-tracker"
+  ],
+  "scripts/template-generator.js": [
+    "./App",
+    "./components/Button",
+    "./components/Card",
+    "./App.vue",
+    "./components/AppButton.vue",
+    "./components/AppCard.vue",
+    "./routes/health",
+    "./routes/api",
+    "./middleware/error-handler",
+    "./middleware/request-logger"
+  ],
+  "scripts/test-mcp-smells.js": [
+    "../src/lib/code-smell-predictor"
+  ],
+  "scripts/test-system.js": [
+    "../src/lib/health-checker.js",
+    "../src/lib/performance-monitor.js"
+  ],
+  "scripts/time-travel.js": [
+    "../src/lib/temporal-code-intelligence"
+  ],
+  "scripts/track-usage.js": [
+    "../src/lib/usage-tracker"
+  ],
+  "scripts/train-model.js": [
+    "../src/lib/ml-model"
+  ],
+  "scripts/update-docs.js": [
+    "../src/lib/documentation-updater.js"
+  ],
+  "scripts/validate-generation.js": [
+    "../src/lib/code-generation-validator",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/validate-paths.js": [
+    "../src/lib/path-validator.js",
+    "../src/lib/api-endpoint-tracker.js"
+  ],
+  "scripts/verify-secrets.js": [
+    "../bin/runners/lib/stripe-scan-patterns"
+  ],
+  "scripts/vibecoder-check.js": [
+    "../src/lib/vibecoder-detector"
+  ],
+  "scripts/visualize-relationships.js": [
+    "../src/lib/code-relationship-visualizer",
+    "../src/lib/cli-utils"
+  ],
+  "scripts/watch.js": [
+    "../src/lib/watch-validator"
+  ],
+  "shared/models/findings.js": [
+    "./auth"
+  ],
+  "shared/models/findings.ts": [
+    "./auth"
+  ],
+  "shared/schema.js": [
+    "./models/auth",
+    "./models/findings"
+  ],
+  "src/bin/badge.ts": [
+    "../lib/vibecoder-detector",
+    "../lib/polish/polish-service",
+    "../lib/health-badge-generator"
+  ],
+  "src/bin/design.ts": [
+    "../lib/design-system-enforcer"
+  ],
+  "src/bin/fix.ts": [
+    "../lib/vibecoder-detector",
+    "../lib/template-applier",
+    "../lib/env-validator"
+  ],
+  "src/lib/__tests__/accessibility-checker.simple.test.ts": [
+    "../accessibility-checker"
+  ],
+  "src/lib/__tests__/accessibility-checker.test.ts": [
+    "../accessibility-checker"
+  ],
+  "src/lib/__tests__/architect-agent.test.ts": [
+    "../architect-agent"
+  ],
+  "src/lib/__tests__/code-smell-predictor.test.ts": [
+    "../code-smell-predictor"
+  ],
+  "src/lib/__tests__/codebase-knowledge.test.ts": [
+    "./app",
+    "./utils/helpers",
+    "./utils/helpers",
+    "./b",
+    "./a",
+    "../codebase-knowledge"
+  ],
+  "src/lib/__tests__/natural-language-search.test.ts": [
+    "../natural-language-search"
+  ],
+  "src/lib/__tests__/polish-service.test.ts": [
+    "../polish/polish-service"
+  ],
+  "src/lib/__tests__/production-anomaly-predictor.test.ts": [
+    "../production-anomaly-predictor"
+  ],
+  "src/lib/__tests__/result-types.test.ts": [
+    "../types/result",
+    "../errors"
+  ],
+  "src/lib/__tests__/semantic-search-service.test.ts": [
+    "../semantic-search-service"
+  ],
+  "src/lib/__tests__/universal-guardrails.test.ts": [
+    "../universal-guardrails",
+    "../universal-guardrails",
+    "../../../components/Button"
+  ],
+  "src/lib/advanced-ai.ts": [
+    "./types/advanced-ai"
+  ],
+  "src/lib/advanced-auto-fixer.ts": [
+    "./universal-guardrails",
+    "./codebase-knowledge",
+    "./universal-guardrails"
+  ],
+  "src/lib/advanced-context-manager.js": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/advanced-context-manager.ts": [
+    "./types/advanced-context",
+    "./codebase-knowledge",
+    "./code-pattern-dna",
+    "./embedding-service",
+    "./change-tracker"
+  ],
+  "src/lib/ai/ai-hub.ts": [
+    "./providers/openai-provider",
+    "./providers/anthropic-provider",
+    "./smart-code-analyzer",
+    "./contextual-recommendation-system",
+    "./learning-system"
+  ],
+  "src/lib/ai/code-generator.ts": [
+    "../{{componentPath}}"
+  ],
+  "src/lib/ai/contextual-recommendation-system.ts": [
+    "./smart-code-analyzer"
+  ],
+  "src/lib/ai/examples.ts": [
+    "./ai-hub",
+    "./smart-code-analyzer",
+    "./contextual-recommendation-system",
+    "./learning-system"
+  ],
+  "src/lib/ai/smart-code-analyzer.ts": [
+    "./providers/openai-provider",
+    "./providers/anthropic-provider"
+  ],
+  "src/lib/ai-behavior-learner.ts": [
+    "./ai-pattern-learner"
+  ],
+  "src/lib/ai-co-architect.ts": [
+    "./llm-orchestrator",
+    "./llm-orchestrator"
+  ],
+  "src/lib/ai-code-explainer.ts": [
+    "./embedding-service",
+    "./natural-language-search"
+  ],
+  "src/lib/ai-code-reviewer.ts": [
+    "./codebase-knowledge",
+    "./types/advanced-context",
+    "./ai-behavior-learner",
+    "./code-pattern-dna",
+    "./predictive-quality"
+  ],
+  "src/lib/ai-pattern-learner.ts": [
+    "./universal-guardrails",
+    "./universal-guardrails"
+  ],
+  "src/lib/ai-production-integrity.ts": [
+    "./test-utils"
+  ],
+  "src/lib/analysis/__tests__/static-analyzer.test.ts": [
+    "../static-analyzer"
+  ],
+  "src/lib/analysis/llm-analyzer.ts": [
+    "./static-analyzer"
+  ],
+  "src/lib/analysis/scan-service.ts": [
+    "./static-analyzer",
+    "./llm-analyzer"
+  ],
+  "src/lib/analytics.ts": [
+    "./license-manager"
+  ],
+  "src/lib/architect-agent.ts": [
+    "./polish/polish-service",
+    "./polish/types",
+    "./project-growth",
+    "./codebase-size",
+    "./platform-detector"
+  ],
+  "src/lib/architecture-drift-predictor.ts": [
+    "./codebase-knowledge",
+    "./change-tracker"
+  ],
+  "src/lib/auto-fixer.ts": [
+    "./polish/types",
+    "./universal-guardrails"
+  ],
+  "src/lib/automated-reports.ts": [
+    "./license-manager",
+    "./project-health",
+    "./analytics"
+  ],
+  "src/lib/batch-validator.ts": [
+    "./universal-guardrails",
+    "./api-validator"
+  ],
+  "src/lib/build-enforcer.js": [
+    "./strictness-config.js"
+  ],
+  "src/lib/build-enforcer.ts": [
+    "./strictness-config"
+  ],
+  "src/lib/cache/query-optimizer.ts": [
+    "./redis-cache-manager"
+  ],
+  "src/lib/cache-manager.d.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/cache-manager.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/change-impact.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/change-tracker.d.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/change-tracker.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/cli/verdict-formatter.ts": [
+    "./output-contract"
+  ],
+  "src/lib/code-evolution-tracker.ts": [
+    "./codebase-knowledge",
+    "./change-tracker"
+  ],
+  "src/lib/code-generation-validator.ts": [
+    "./hallucination-detector",
+    "./multi-source-verifier",
+    "./advanced-context-manager",
+    "./codebase-knowledge"
+  ],
+  "src/lib/code-generator.ts": [
+    "./codebase-knowledge",
+    "./semantic-search"
+  ],
+  "src/lib/code-health-score.ts": [
+    "./code-smell-predictor",
+    "./predictive-quality",
+    "./architecture-drift-predictor",
+    "./codebase-knowledge"
+  ],
+  "src/lib/code-relationship-visualizer.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/context/enhanced-context-engine.js": [
+    "../advanced-context-manager",
+    "../advanced-context-manager",
+    "../code-pattern-dna",
+    "../advanced-context-manager"
+  ],
+  "src/lib/context/enhanced-context-engine.ts": [
+    "../advanced-context-manager",
+    "../code-pattern-dna"
+  ],
+  "src/lib/context-generator.ts": [
+    "./context-manager"
+  ],
+  "src/lib/cross-project-analyzer.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/cross-repo-intelligence.ts": [
+    "./natural-language-search",
+    "./embedding-service"
+  ],
+  "src/lib/decision-tracker.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/deep-context-agent.ts": [
+    "./codebase-knowledge",
+    "./architect-agent",
+    "./response-style-service",
+    "./types/common"
+  ],
+  "src/lib/design-validator.ts": [
+    "./design-system-builder"
+  ],
+  "src/lib/documentation-generator.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/documentation-updater.js": [
+    "./api-endpoint-tracker.js"
+  ],
+  "src/lib/documentation-updater.ts": [
+    "./api-endpoint-tracker",
+    "./component-registry"
+  ],
+  "src/lib/embedding-service.ts": [
+    "./cache-manager"
+  ],
+  "src/lib/enhanced-embedding-service.ts": [
+    "./embedding-service",
+    "./vector-store",
+    "./cache-manager"
+  ],
+  "src/lib/enhanced-performance-monitor.ts": [
+    "./performance-monitor",
+    "./performance-monitor"
+  ],
+  "src/lib/enhanced-team-collaboration.ts": [
+    "./codebase-knowledge",
+    "./universal-guardrails",
+    "./universal-guardrails",
+    "./codebase-knowledge"
+  ],
+  "src/lib/error-enhancer.ts": [
+    "./codebase-knowledge",
+    "./semantic-search",
+    "../../../lib/utils"
+  ],
+  "src/lib/errors/index.ts": [
+    "../types/result"
+  ],
+  "src/lib/file-watcher.js": [
+    "./api-endpoint-tracker.js"
+  ],
+  "src/lib/file-watcher.ts": [
+    "./api-endpoint-tracker"
+  ],
+  "src/lib/framework-adapters/react-adapter.ts": [
+    "../codebase-knowledge"
+  ],
+  "src/lib/framework-integration-manager.ts": [
+    "./framework-detector",
+    "./framework-adapters/react-adapter",
+    "./framework-adapters/vue-adapter",
+    "./framework-adapters/angular-adapter",
+    "./framework-adapters/backend-adapter",
+    "./framework-adapters/python-adapter",
+    "./advanced-context-manager"
+  ],
+  "src/lib/github-integration.ts": [
+    "./types/github"
+  ],
+  "src/lib/hallucination-detector.ts": [
+    "./codebase-knowledge",
+    "./code-pattern-dna",
+    "./api-validator"
+  ],
+  "src/lib/interactive-onboarding.ts": [
+    "./auto-setup",
+    "./auto-setup",
+    "./auto-setup",
+    "./auto-setup",
+    "./auto-setup"
+  ],
+  "src/lib/language-detector.ts": [
+    "./universal-guardrails"
+  ],
+  "src/lib/llm-orchestrator.ts": [
+    "./types/llm-orchestrator"
+  ],
+  "src/lib/mcp/doctor.ts": [
+    "./policy-manager"
+  ],
+  "src/lib/mcp/finding-explainer.ts": [
+    "./state-manager",
+    "./policy-manager"
+  ],
+  "src/lib/mcp/sarif-generator.ts": [
+    "./state-manager"
+  ],
+  "src/lib/mdc-generator/breaking-change-detector.ts": [
+    "./mdc-generator"
+  ],
+  "src/lib/mdc-generator/code-quality-analyzer.ts": [
+    "./mdc-generator"
+  ],
+  "src/lib/mdc-generator/hallucination-detector.ts": [
+    "./mdc-generator",
+    "./verification-engine",
+    "./source-anchor"
+  ],
+  "src/lib/mdc-generator/incremental-updater.ts": [
+    "./mdc-generator"
+  ],
+  "src/lib/mdc-generator/intelligent-updater.ts": [
+    "./mdc-generator"
+  ],
+  "src/lib/mdc-generator/mdc-generator.ts": [
+    "./verification-engine",
+    "./source-anchor",
+    "./hallucination-detector"
+  ],
+  "src/lib/mdc-generator/source-anchor.ts": [
+    "./mdc-generator",
+    "./verification-engine"
+  ],
+  "src/lib/mdc-generator/test-coverage-mapper.ts": [
+    "./mdc-generator"
+  ],
+  "src/lib/mdc-generator/v3/__tests__/deterministic-pack-generator.test.ts": [
+    "../deterministic-pack-generator",
+    "../truth-index-extractor",
+    "../critical-invariants",
+    "../critical-invariants"
+  ],
+  "src/lib/mdc-generator/v3/__tests__/golden.test.ts": [
+    "../deterministic-pack-generator"
+  ],
+  "src/lib/mdc-generator/v3/__tests__/lane-router.test.ts": [
+    "../lane-router"
+  ],
+  "src/lib/mdc-generator/v3/deterministic-pack-generator.ts": [
+    "./truth-index-extractor",
+    "./critical-invariants",
+    "./reality-scan-integration",
+    "./change-aware-selector"
+  ],
+  "src/lib/mdc-generator/v3/mdc-generator-v3.ts": [
+    "./change-aware-selector",
+    "./lane-router",
+    "./truth-index-extractor",
+    "./critical-invariants",
+    "./reality-scan-integration",
+    "./deterministic-pack-generator"
+  ],
+  "src/lib/mdc-generator/v3/reality-scan-integration.ts": [
+    "../../reality-sniff/reality-sniff-scanner",
+    "./change-aware-selector"
+  ],
+  "src/lib/mdc-generator/verification-engine.ts": [
+    "./mdc-generator"
+  ],
+  "src/lib/migration-assistant.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/ml-model.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/mockproof/__tests__/import-graph-scanner.test.ts": [
+    "../import-graph-scanner"
+  ],
+  "src/lib/mockproof/import-graph-scanner.js": [
+    "../../../bin/runners/lib/stripe-scan-patterns.js"
+  ],
+  "src/lib/multi-source-verifier.ts": [
+    "./codebase-knowledge",
+    "./code-pattern-dna",
+    "./api-validator",
+    "./advanced-context-manager"
+  ],
+  "src/lib/natural-language-cli.ts": [
+    "./strictness-config.js"
+  ],
+  "src/lib/natural-language-search.ts": [
+    "./embedding-service"
+  ],
+  "src/lib/optimization-engine.ts": [
+    "./llm-orchestrator"
+  ],
+  "src/lib/orchestrator/index.ts": [
+    "./policy-engine",
+    "./semgrep-integration",
+    "./supply-chain-integration",
+    "./secret-scanner"
+  ],
+  "src/lib/path-validator.js": [
+    "./api-endpoint-tracker.js"
+  ],
+  "src/lib/path-validator.ts": [
+    "./api-endpoint-tracker"
+  ],
+  "src/lib/performance-optimizer.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/polish/checkers/accessibility-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/backend-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/configuration-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/documentation-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/frontend-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/infrastructure-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/performance-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/security-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/checkers/seo-checker.ts": [
+    "../types",
+    "../utils"
+  ],
+  "src/lib/polish/polish-service.ts": [
+    "./types",
+    "./checkers/frontend-checker",
+    "./checkers/backend-checker",
+    "./checkers/security-checker",
+    "./checkers/performance-checker",
+    "./checkers/accessibility-checker",
+    "./checkers/seo-checker",
+    "./checkers/configuration-checker",
+    "./checkers/documentation-checker",
+    "./checkers/infrastructure-checker"
+  ],
+  "src/lib/predeploy-checker.ts": [
+    "./vibecoder-detector",
+    "./polish/polish-service",
+    "./semantic-vibe-analyzer",
+    "./design-system-enforcer",
+    "./env-validator"
+  ],
+  "src/lib/predictive-quality.ts": [
+    "./codebase-knowledge",
+    "./change-tracker"
+  ],
+  "src/lib/predictive-refactorer.ts": [
+    "./code-smell-predictor",
+    "./predictive-quality",
+    "./codebase-knowledge"
+  ],
+  "src/lib/project-health.ts": [
+    "./license-manager"
+  ],
+  "src/lib/real-time-validator.ts": [
+    "./universal-guardrails",
+    "./cache-manager"
+  ],
+  "src/lib/reality-mode/ai-agent/agent-runner.ts": [
+    "./openai-provider"
+  ],
+  "src/lib/reality-mode/ai-agent/openai-provider.ts": [
+    "./types"
+  ],
+  "src/lib/reality-mode/enhanced-runner.ts": [
+    "./project-detector"
+  ],
+  "src/lib/reality-mode/fake-success-detector.ts": [
+    "./types"
+  ],
+  "src/lib/reality-mode/reality-scanner.js": [
+    "../../../bin/runners/lib/stripe-scan-patterns.js"
+  ],
+  "src/lib/reality-mode/reality-scanner.ts": [
+    "./traffic-classifier",
+    "./fake-success-detector",
+    "./auth-enforcer"
+  ],
+  "src/lib/reality-mode/report-generator.ts": [
+    "./types"
+  ],
+  "src/lib/reality-mode/test-flows.ts": [
+    "./project-detector"
+  ],
+  "src/lib/reality-sniff/ast-verifier.d.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/reality-sniff/ast-verifier.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/reality-sniff/config-truth-detector.d.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/reality-sniff/config-truth-detector.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/reality-sniff/reality-proof-graph.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/reality-sniff/reality-sniff-scanner.js": [
+    "../cli/output-contract",
+    "./ast-verifier",
+    "./route-reality-checker",
+    "./config-truth-detector"
+  ],
+  "src/lib/reality-sniff/reality-sniff-scanner.ts": [
+    "../cli/output-contract"
+  ],
+  "src/lib/reality-sniff/replay-engine.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/reality-sniff/route-reality-checker.d.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/reality-sniff/route-reality-checker.ts": [
+    "./reality-sniff-scanner"
+  ],
+  "src/lib/realtime-quality-guardian.ts": [
+    "./production-anomaly-predictor"
+  ],
+  "src/lib/refactoring-automation.ts": [
+    "./predictive-refactorer",
+    "./code-generation-validator"
+  ],
+  "src/lib/route-integrity/ast/file-scanner.ts": [
+    "../types",
+    "./link-extractor"
+  ],
+  "src/lib/route-integrity/graph/navigation-graph.ts": [
+    "../normalization/route-normalizer"
+  ],
+  "src/lib/route-integrity/orchestrator.ts": [
+    "./discovery/project-discovery",
+    "./normalization/route-normalizer",
+    "./graph/navigation-graph",
+    "./ast/file-scanner",
+    "./truth/framework-adapters",
+    "./reality/playwright-crawler",
+    "./verdict/verdict-engine",
+    "./reporting/report-generator"
+  ],
+  "src/lib/route-integrity/truth/framework-adapters/index.ts": [
+    "./next-adapter",
+    "./react-router-adapter"
+  ],
+  "src/lib/route-integrity/verdict/verdict-engine.ts": [
+    "../normalization/route-normalizer"
+  ],
+  "src/lib/rule-suggester.ts": [
+    "./universal-guardrails",
+    "./error-enhancer",
+    "./codebase-knowledge"
+  ],
+  "src/lib/security/threat-detection.test.ts": [
+    "./threat-detection"
+  ],
+  "src/lib/security/threat-detection.ts": [
+    "./zero-trust-engine"
+  ],
+  "src/lib/security/zero-trust-engine.ts": [
+    "./ip-utils"
+  ],
+  "src/lib/security-scanner-enhanced.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/semantic-search.ts": [
+    "./codebase-knowledge"
+  ],
+  "src/lib/ship/ship-engine.ts": [
+    "./run-manager",
+    "../mockproof/import-graph-scanner",
+    "../ship-badge/ship-badge-generator"
+  ],
+  "src/lib/ship-badge/__tests__/ship-badge-generator.test.ts": [
+    "../ship-badge-generator"
+  ],
+  "src/lib/ship-badge/ship-badge-generator.js": [
+    "../../../bin/runners/lib/stripe-scan-patterns.js"
+  ],
+  "src/lib/subscription-tiers.ts": [
+    "./codebase-size"
+  ],
+  "src/lib/suites/ai-intelligence-suite.ts": [
+    "../ai-code-explainer",
+    "../ai-pattern-learner"
+  ],
+  "src/lib/team-collaboration.ts": [
+    "./codebase-knowledge",
+    "./universal-guardrails",
+    "./codebase-knowledge"
+  ],
+  "src/lib/team-knowledge-graph.ts": [
+    "./codebase-knowledge",
+    "./team-collaboration"
+  ],
+  "src/lib/template-generator.ts": [
+    "./health.route"
+  ],
+  "src/lib/test-generator.ts": [
+    "./codebase-knowledge",
+    "./code-pattern-dna",
+    "./${path.basename(testSuite.file)}",
+    "./${path.basename(testSuite.file)}"
+  ],
+  "src/lib/types/advanced-context.ts": [
+    "../codebase-knowledge"
+  ],
+  "src/lib/types/common.ts": [
+    "../codebase-knowledge"
+  ],
+  "src/lib/universal-guardrails.ts": [
+    "./errors",
+    "./types/result"
+  ],
+  "src/lib/usage-tracker.ts": [
+    "./subscription-tiers",
+    "./codebase-size"
+  ],
+  "src/lib/vector-store.ts": [
+    "./embedding-service"
+  ],
+  "src/lib/verification/__tests__/command-safety.test.ts": [
+    "../checks/command-safety"
+  ],
+  "src/lib/verification/__tests__/command-tooling.test.ts": [
+    "../checks/command-tooling",
+    "../types"
+  ],
+  "src/lib/verification/__tests__/diff-validator.test.ts": [
+    "../checks/diff-validator",
+    "./app",
+    "./logger"
+  ],
+  "src/lib/verification/__tests__/format-validator.test.ts": [
+    "../format-validator"
+  ],
+  "src/lib/verification/__tests__/path-validator.test.ts": [
+    "../checks/path-validator"
+  ],
+  "src/lib/verification/__tests__/pipeline.test.ts": [
+    "../pipeline",
+    "../types"
+  ],
+  "src/lib/verification/__tests__/secret-detector.test.ts": [
+    "../checks/secret-detector"
+  ],
+  "src/lib/verification/__tests__/stub-detector.test.ts": [
+    "../checks/stub-detector"
+  ],
+  "src/lib/verification/checks/command-safety.ts": [
+    "../types"
+  ],
+  "src/lib/verification/checks/command-tooling.ts": [
+    "../types"
+  ],
+  "src/lib/verification/checks/diff-validator.ts": [
+    "../types"
+  ],
+  "src/lib/verification/checks/path-validator.ts": [
+    "../types"
+  ],
+  "src/lib/verification/checks/secret-detector.ts": [
+    "../types"
+  ],
+  "src/lib/verification/checks/stub-detector.ts": [
+    "../types"
+  ],
+  "src/lib/verification/exec-utils.ts": [
+    "./types"
+  ],
+  "src/lib/verification/failure-context.ts": [
+    "./types"
+  ],
+  "src/lib/verification/pipeline.ts": [
+    "./format-validator",
+    "./repo-fingerprint",
+    "./scope-lock",
+    "./checks/path-validator",
+    "./checks/command-safety",
+    "./checks/command-tooling",
+    "./checks/stub-detector",
+    "./checks/secret-detector",
+    "./failure-context"
+  ],
+  "src/lib/verification/repo-fingerprint.ts": [
+    "./types"
+  ],
+  "src/lib/verification/scope-lock.ts": [
+    "./types",
+    "./checks/diff-validator"
+  ],
+  "src/lib/verification/workspace.ts": [
+    "./types",
+    "./exec-utils"
+  ],
+  "src/lib/watch-validator.ts": [
+    "./universal-guardrails",
+    "./api-validator"
+  ],
+  "src/lib/workflow-persistence-bootstrap.ts": [
+    "./workflow-versioning"
+  ],
+  "src/lib/workflow-sandbox.ts": [
+    "./llm-orchestrator"
+  ],
+  "src/lib/workflow-versioning.ts": [
+    "./llm-orchestrator"
+  ],
+  "src/server/__tests__/ai-explainer.test.ts": [
+    "../services/ai-explainer"
+  ],
+  "src/server/__tests__/code-search-service.test.ts": [
+    "../services/code-search-service"
+  ],
+  "src/server/__tests__/integration/api.test.ts": [
+    "../../index"
+  ],
+  "src/server/__tests__/mock-data-scanner.test.ts": [
+    "../services/mock-data-scanner",
+    "./api"
+  ],
+  "src/server/index.ts": [
+    "./middleware/auth",
+    "./middleware/auth-rate-limiter",
+    "./services/ai-explainer",
+    "./services/auth-service",
+    "./services/code-relationships-service",
+    "./services/code-search-service",
+    "./services/database-service",
+    "./services/dependency-analyzer-service",
+    "./services/git-history-service",
+    "./services/metrics-service",
+    "./services/mock-data-scanner",
+    "./services/predictive-quality-service",
+    "./services/production-predictor-service",
+    "./services/project-analyzer",
+    "./services/realtime-quality-service",
+    "./services/websocket-service",
+    "./services/github-api-service",
+    "./services/ast-parsing-service",
+    "./services/code-evolution-service"
+  ],
+  "src/server/middleware/auth.ts": [
+    "../services/auth-service"
+  ],
+  "src/server/middleware/enhanced-auth.ts": [
+    "../services/auth-service"
+  ],
+  "src/server/services/enhanced-websocket-service.ts": [
+    "./realtime-quality-service",
+    "./predictive-quality-service"
+  ],
+  "src/server/services/project-analyzer.ts": [
+    "./mock-data-scanner"
+  ],
+  "src/server/start.ts": [
+    "./index"
+  ],
+  "templates/backend/app.example.ts": [
+    "./middleware/cors.middleware",
+    "./middleware/request-id.middleware",
+    "./middleware/error-handler.middleware",
+    "./middleware/rate-limit.middleware",
+    "./routes/health.route",
+    "./utils/database.util",
+    "./config/env.config"
+  ],
+  "templates/backend/middleware/error-handler.middleware.ts": [
+    "../utils/logger.util"
+  ],
+  "templates/backend/routes/health.route.ts": [
+    "../utils/database.util",
+    "../utils/response.util"
+  ],
+  "templates/infrastructure/observability/correlation-id.middleware.ts": [
+    "./logger"
+  ],
+  "templates/ui/vibecoder-dashboard.tsx": [
+    "./strictness-settings"
+  ],
+  "templates/vibecoder/backup-restore.ts": [
+    "../backend/utils/database.util",
+    "../backend/utils/logger.util"
+  ],
+  "templates/vibecoder/data-export.ts": [
+    "../backend/utils/database.util",
+    "../backend/utils/logger.util"
+  ],
+  "templates/vibecoder/email-flows.ts": [
+    "../backend/utils/email.util",
+    "../backend/utils/database.util",
+    "../backend/utils/logger.util",
+    "../backend/utils/password.util"
+  ],
+  "templates/vibecoder/help-support.tsx": [
+    "./toast-notifications"
+  ],
+  "templates/vibecoder/payment-processing.ts": [
+    "../backend/utils/database.util",
+    "../backend/utils/logger.util"
+  ],
+  "templates/vibecoder/settings-page.tsx": [
+    "./toast-notifications"
+  ],
+  "tests/class-extraction.test.ts": [
+    "../src/lib/semantic-search-service"
+  ],
+  "tests/cli/error-handler.test.js": [
+    "../../bin/runners/lib/error-handler"
+  ],
+  "tests/cli/scan-cache.test.js": [
+    "../../bin/runners/lib/scan-cache"
+  ],
+  "tests/cli/scan-output-schema-hardened.test.js": [
+    "../../bin/runners/lib/scan-output-schema"
+  ],
+  "tests/cli/scan-output-schema.test.js": [
+    "../../bin/runners/lib/scan-output-schema"
+  ],
+  "tests/integration/request-id-propagation.test.ts": [
+    "../../apps/api/src/middleware/telemetry"
+  ],
+  "tests/security/admin-middleware.test.ts": [
+    "../../apps/api/src/logger"
+  ],
+  "tests/unit/exit-codes.test.ts": [
+    "../../packages/cli/src/runtime/exit-codes"
+  ],
+  "tests/vulnerability-osv-integration.test.ts": [
+    "../packages/security/src/supply-chain/vulnerability-db",
+    "../packages/cli/src/commands/scan-vulnerabilities-enhanced",
+    "../packages/cli/src/formatters/sarif-enhanced"
+  ],
+  "vscode-extension/dashboard-panel.ts": [
+    "./mcp-client"
+  ],
+  "vscode-extension/src/agent-verifier.ts": [
+    "./webview-shared-styles",
+    "./verification-report-stitch-css"
+  ],
+  "vscode-extension/src/codelens.ts": [
+    "./reality-check-service"
+  ],
+  "vscode-extension/src/diagnostic-severity.ts": [
+    "./reality-check-service"
+  ],
+  "vscode-extension/src/diagnostics.ts": [
+    "./reality-check-service",
+    "./diagnostic-severity"
+  ],
+  "vscode-extension/src/extension.ts": [
+    "./services/api-client",
+    "./diagnostics",
+    "./codelens",
+    "./hover",
+    "./ai-intent-verifier",
+    "./reality-check-service",
+    "./mcp-client",
+    "./score-badge",
+    "./agent-verifier",
+    "./features/mdc-generator-panel",
+    "./features/compliance-dashboard",
+    "./features/security-scanner-panel",
+    "./features/performance-monitor",
+    "./features/change-impact-analyzer",
+    "./features/ai-explainer-panel",
+    "./features/team-collaboration-panel",
+    "./features/production-integrity-panel",
+    "./features/guardrail-dashboard-panel",
+    "./quick-fixes",
+    "./webview-shared-styles",
+    "./kinetic-archive-styles",
+    "./services/cli-service",
+    "./services/cli-service",
+    "./scan-cli-map",
+    "./tier-context"
+  ],
+  "vscode-extension/src/features/ai-explainer-panel.ts": [
+    "../services/api-client",
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "../kinetic-archive-styles",
+    "./ai-explainer-webview-html",
+    "./ai-explainer-cyber-css"
+  ],
+  "vscode-extension/src/features/change-impact-analyzer.ts": [
+    "../services/api-client",
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "./change-impact-stitch-css",
+    "../scan-cli-map"
+  ],
+  "vscode-extension/src/features/compliance-dashboard.ts": [
+    "../services/api-client",
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "./compliance-dashboard-stitch-css",
+    "../scan-cli-map"
+  ],
+  "vscode-extension/src/features/guardrail-dashboard-panel.ts": [
+    "../scan-state",
+    "../kinetic-archive-styles",
+    "../webview-shared-styles",
+    "../tier-ui-cache"
+  ],
+  "vscode-extension/src/features/guardrail-sidebar-view.ts": [
+    "../scan-state",
+    "../vibe-check-state",
+    "../guardrail-web-urls",
+    "../tier-ui-cache"
+  ],
+  "vscode-extension/src/features/mdc-generator-panel.ts": [
+    "../services/api-client",
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "./mdc-generator-stitch-css",
+    "../scan-cli-map"
+  ],
+  "vscode-extension/src/features/performance-monitor.ts": [
+    "../services/api-client",
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "./performance-monitor-stitch-css",
+    "./performance-monitor-webview-html",
+    "../scan-cli-map"
+  ],
+  "vscode-extension/src/features/production-integrity-panel.ts": [
+    "../services/api-client",
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "./production-integrity-stitch-css"
+  ],
+  "vscode-extension/src/features/security-scanner-panel.ts": [
+    "../services/api-client",
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "./security-scanner-stitch-css",
+    "./security-scanner-webview-html",
+    "../guardrail-web-urls"
+  ],
+  "vscode-extension/src/features/team-collaboration-panel.ts": [
+    "../services/cli-service",
+    "../webview-shared-styles",
+    "./team-collaboration-stitch-css"
+  ],
+  "vscode-extension/src/hover.ts": [
+    "./reality-check-service"
+  ],
+  "vscode-extension/src/mcp-client.ts": [
+    "./scan-cli-map"
+  ],
+  "vscode-extension/src/quick-fix-commands.ts": [
+    "./webview-shared-styles",
+    "./explain-finding-stitch-css",
+    "./guardrail-web-urls"
+  ],
+  "vscode-extension/src/reality-check-service.ts": [
+    "./services/cli-service"
+  ],
+  "vscode-extension/src/scan-state.ts": [
+    "./mcp-client"
+  ],
+  "vscode-extension/src/score-badge.ts": [
+    "./mcp-client",
+    "./features/guardrail-sidebar-view",
+    "./scan-state"
+  ],
+  "vscode-extension/src/services/api-client.ts": [
+    "../guardrail-web-urls"
+  ],
+  "vscode-extension/src/services/cli-service.ts": [
+    "../scan-cli-map"
+  ],
+  "vscode-extension/src/tier-context.ts": [
+    "./services/api-client",
+    "./services/cli-credentials-sync",
+    "./guardrail-web-urls"
+  ],
+  "vscode-extension/src/tier-ui-cache.ts": [
+    "./score-badge"
+  ],
+  "vscode-extension/src/tier-ui-sync.ts": [
+    "./features/guardrail-dashboard-panel",
+    "./features/guardrail-sidebar-view",
+    "./score-badge",
+    "./tier-ui-cache"
+  ]
+}

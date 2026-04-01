@@ -1,0 +1,33 @@
+{
+  "name": "@guardrail/ai-guardrails",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "prebuild": "rm -f tsconfig.tsbuildinfo",
+    "build": "tsc --skipLibCheck",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@guardrail/core": "workspace:*",
+    "@guardrail/database": "workspace:*",
+    "crypto": "^1.0.1",
+    "diff": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/diff": "^5.0.9",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  }
+}

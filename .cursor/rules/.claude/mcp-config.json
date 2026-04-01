@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "guardrail": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@guardrail/mcp-server"
+      ],
+      "env": {
+        "GUARDRAIL_PROJECT_PATH": "C:\\Users\\mevla\\Downloads\\guardrail-Ofiicial-main\\guardrail-Ofiicial-main"
+      }
+    }
+  }
+}

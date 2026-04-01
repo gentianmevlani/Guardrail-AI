@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MDC Generator | Kinetic Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@300;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .cyber-grid {
+            background-image: linear-gradient(to right, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+        }
+
+        /* Laser Sweep Animation */
+        @keyframes laser-sweep {
+            0% { transform: translateX(-100%); }
+            50% { opacity: 1; }
+            100% { transform: translateX(400%); opacity: 0; }
+        }
+        .laser-sweep {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 20px;
+            background: linear-gradient(to right, transparent, #00E5FF, transparent);
+            filter: blur(4px);
+            animation: laser-sweep 2s infinite linear;
+        }
+
+        /* Reveal Animation */
+        @keyframes reveal-card {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-reveal {
+            animation: reveal-card 0.5s ease-out forwards;
+        }
+
+        /* Typing Effect Animation */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        .typing-effect {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #00E5FF;
+            animation: typing 4s steps(40, end) infinite;
+        }
+
+        /* Success Checkmark Hover */
+        .verified-badge:hover .check-icon {
+            animation: check-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            display: inline-block !important;
+        }
+        @keyframes check-pop {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Logic Flow Prism Animations */
+        @keyframes prism-pulse {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0-25px rgba(0, 229, 255, 0.7)); transform: scale(1.02); }
+        }
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .prism-float {
+            animation: prism-pulse 4s ease-in-out infinite;
+        }
+        .prism-rotate {
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        /* Shimmer for skeletons */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #1e2023 25%, #282a2d 50%, #1e2023 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-primary-fixed": "#001f24",
+                "background": "#111316",
+                "tertiary-container": "#ffc1c0",
+                "on-secondary-container": "#f2f3ff",
+                "on-error-container": "#ffdad6",
+                "on-tertiary-fixed-variant": "#920021",
+                "inverse-on-surface": "#2f3034",
+                "outline": "#849396",
+                "surface-container-lowest": "#0c0e11",
+                "secondary-fixed-dim": "#b0c6ff",
+                "primary": "#c3f5ff",
+                "error-container": "#93000a",
+                "primary-container": "#00e5ff",
+                "on-primary-fixed-variant": "#004f58",
+                "secondary": "#b0c6ff",
+                "tertiary-fixed-dim": "#ffb3b3",
+                "surface-variant": "#333538",
+                "surface-container": "#1e2023",
+                "surface-container-high": "#282a2d",
+                "on-tertiary-container": "#b4002b",
+                "on-tertiary": "#680014",
+                "on-primary-container": "#00626e",
+                "error": "#ffb4ab",
+                "tertiary-fixed": "#ffdad9",
+                "on-tertiary-fixed": "#400009",
+                "on-surface": "#e2e2e6",
+                "inverse-primary": "#006875",
+                "surface-bright": "#37393d",
+                "secondary-container": "#0068ed",
+                "primary-fixed": "#9cf0ff",
+                "inverse-surface": "#e2e2e6",
+                "on-secondary": "#002d6e",
+                "on-secondary-fixed": "#001945",
+                "surface-container-highest": "#333538",
+                "surface": "#111316",
+                "on-background": "#e2e2e6",
+                "surface-tint": "#00daf3",
+                "on-primary": "#00363d",
+                "on-surface-variant": "#bac9cc",
+                "surface-container-low": "#1a1c1f",
+                "on-secondary-fixed-variant": "#00429b",
+                "primary-fixed-dim": "#00daf3",
+                "tertiary": "#ffe7e6",
+                "secondary-fixed": "#d9e2ff",
+                "surface-dim": "#111316",
+                "outline-variant": "#3b494c",
+                "on-error": "#690005"
+              },
+              fontFamily: {
+                "headline": ["Space Grotesk"],
+                "body": ["Inter"],
+                "label": ["Inter"],
+                "mono": ["JetBrains Mono"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body cyber-grid min-h-screen selection:bg-primary/30">
+<!-- Top Navigation -->
+<header class="w-full top-0 sticky bg-[#111316]/90 backdrop-blur-md border-b border-white/5 z-50 flex justify-between items-center px-6 py-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00E5FF] animate-pulse">terminal</span>
+<h1 class="text-lg font-bold tracking-tighter text-[#00E5FF] font-headline">KINETIC ARCHIVE</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-6 text-sm">
+<a class="text-[#00E5FF] font-medium border-b-2 border-[#00E5FF] pb-1" href="#">Generator</a>
+<a class="text-slate-500 hover:text-white transition-colors pb-1" href="#">Documentation</a>
+<a class="text-slate-500 hover:text-white transition-colors pb-1" href="#">Risk Metrics</a>
+</div>
+<div class="w-8 h-8 rounded-full ring-2 ring-primary/20 bg-surface-container-highest border border-outline-variant overflow-hidden">
+<img alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEOwNQhGF5Kd8YeZhTdh3bLPH0ZYSa8O6cfl6XwO-TGCZy71-5YTHtAlHvkmieIdp423H_hex4ifwmNmPtVTj70SavDQRfSA6PseO2hoVnFihmLDtY5xPlM1WB1Y1NMvFL3gYNpyidckgNCFCv4Z_ymqtWKH4617kgLdJnvR7s5lLlC1TxTMOAvgJOmVPltXcuLhG51p0oHn6UhXLXak4O3A68qVDN2g8yQzHQjd15s4EmnJpEugVejnj79O_q0lU0YiNiXVw2gA"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-[calc(100vh-56px)]">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden md:flex flex-col h-auto w-64 bg-[#1c1f24] border-r border-[#00E5FF]/10 py-6 shrink-0">
+<div class="px-6 mb-8">
+<p class="text-[#00E5FF] uppercase tracking-widest text-[10px] font-bold">SYSTEM OPS</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-6 py-3 border-l-2 border-[#00E5FF] bg-[#2a2e35] text-[#00E5FF] font-bold transition-all duration-200" href="#">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-headline text-sm">Generator</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 opacity-70 hover:bg-[#2a2e35] hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-headline text-sm">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 opacity-70 hover:bg-[#2a2e35] hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-headline text-sm">Risk Metrics</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 opacity-70 hover:bg-[#2a2e35] hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-headline text-sm">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto pb-24 md:pb-10">
+<!-- Page Header -->
+<div class="flex items-center gap-4 mb-10">
+<div class="p-3 bg-surface-container-high rounded-sm border border-primary/20 glow-cyan">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<div>
+<h2 class="text-4xl font-headline font-bold tracking-tight text-white">MDC GENERATOR</h2>
+<p class="text-on-surface-variant font-mono text-xs uppercase tracking-[0.2em]">System Version 4.0.2 // Active</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Configuration Section -->
+<section class="lg:col-span-5 space-y-6">
+<div class="bg-surface-container-low p-6 rounded-sm border-l border-primary/30">
+<h3 class="font-headline text-sm font-bold text-primary tracking-widest uppercase mb-6 flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                        Parameters
+                    </h3>
+<div class="space-y-6">
+<!-- Dropdown -->
+<div class="space-y-2">
+<label class="text-xs font-mono text-on-surface-variant uppercase tracking-wider">Analysis Depth</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border-none text-on-surface py-3 px-4 appearance-none focus:ring-1 focus:ring-primary/50 text-sm font-mono transition-shadow">
+<option>Shallow</option>
+<option selected="">Medium</option>
+<option>Deep</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Toggle -->
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-sm">
+<span class="text-xs font-mono text-on-surface-variant uppercase tracking-wider">Include Code Examples</span>
+<button class="relative inline-flex h-5 w-10 shrink-0 cursor-pointer rounded-full bg-primary-container/20 transition-colors duration-200 ease-in-out focus:outline-none group">
+<span class="translate-x-5 inline-block h-4 w-4 transform rounded-full bg-primary-container shadow-[0_0_8px_#00E5FF] ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5 group-active:scale-90"></span>
+</button>
+</div>
+<!-- Chips -->
+<div class="space-y-3">
+<label class="text-xs font-mono text-on-surface-variant uppercase tracking-wider">Categories</label>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary-container text-on-primary-fixed text-[10px] font-bold uppercase tracking-tighter rounded-full flex items-center gap-1 cursor-pointer hover:brightness-110 transition-all">Architecture <span class="material-symbols-outlined text-[12px]">close</span></span>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface text-[10px] font-bold uppercase tracking-tighter rounded-full border border-outline-variant cursor-pointer hover:bg-surface-variant transition-all">Security</span>
+<span class="px-3 py-1 bg-primary-container text-on-primary-fixed text-[10px] font-bold uppercase tracking-tighter rounded-full flex items-center gap-1 cursor-pointer hover:brightness-110 transition-all">Design System <span class="material-symbols-outlined text-[12px]">close</span></span>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface text-[10px] font-bold uppercase tracking-tighter rounded-full border border-outline-variant cursor-pointer hover:bg-surface-variant transition-all">Integration</span>
+</div>
+</div>
+<!-- Action -->
+<button class="w-full mt-4 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-bold uppercase tracking-widest text-sm rounded-sm hover:brightness-110 hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] active:scale-[0.96] transition-all duration-200 shadow-[0_0_15px_rgba(0,229,255,0.2)]">
+                            🚀 GENERATE MDC FILES
+                        </button>
+</div>
+</div>
+<!-- Logic Flow Prism Visualization (Replaces Progress Bar/Gauge Area) -->
+<div class="bg-surface-container-low p-6 rounded-sm border-l border-primary/30 relative overflow-hidden group">
+<div class="flex justify-between items-start mb-2 relative z-10">
+<div>
+<h3 class="text-[10px] font-mono text-primary-container uppercase tracking-[0.2em] mb-1">Logic Flow Prism</h3>
+<p class="text-xs font-mono text-on-surface-variant">Depth: <span class="text-white">OPTIMIZED</span></p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-mono text-on-surface-variant uppercase tracking-widest">Confidence</p>
+<p class="text-xl font-headline font-bold text-white">84.2%</p>
+</div>
+</div>
+<div class="relative h-48 flex items-center justify-center my-4">
+<!-- 3D Crystalline Prism Structure (CSS based) -->
+<div class="prism-float relative w-32 h-32">
+<!-- Background Glow Layer -->
+<div class="absolute inset-0 bg-primary-container/20 blur-3xl rounded-full scale-150 animate-pulse"></div>
+<!-- Rotating Geometry -->
+<div class="prism-rotate relative w-full h-full">
+<!-- Face 1 -->
+<div class="absolute inset-0 bg-gradient-to-tr from-primary-container/40 via-surface-container-highest/20 to-transparent border-l border-t border-primary-container/60 transform rotate-45 skew-x-12 backdrop-blur-[2px]"></div>
+<!-- Face 2 -->
+<div class="absolute inset-0 bg-gradient-to-bl from-slate-600/30 to-transparent border-r border-b border-primary/40 transform -rotate-12 skew-y-6 translate-x-2"></div>
+<!-- Refractive Core -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-primary-container/20 rounded-full blur-xl group-hover:bg-primary-container/40 transition-colors"></div>
+<!-- Logic Threads (Visualizing Flow) -->
+<div class="absolute top-1/2 left-0 w-full h-[1px] bg-primary-container/30 rotate-[30deg]"></div>
+<div class="absolute top-1/2 left-0 w-full h-[1px] bg-primary-container/30 rotate-[-45deg]"></div>
+<div class="absolute top-0 left-1/2 h-full w-[1px] bg-primary-container/30 rotate-[15deg]"></div>
+</div>
+</div>
+<!-- Prism Data Nodes -->
+<div class="absolute top-0 left-4 w-1.5 h-1.5 bg-primary shadow-[0_0_8px_#00E5FF]"></div>
+<div class="absolute bottom-8 right-8 w-1 h-1 bg-white opacity-50"></div>
+<div class="absolute top-1/4 right-2 w-1 h-1 bg-primary opacity-30"></div>
+</div>
+<div class="border-t border-outline-variant/20 pt-3">
+<div class="flex items-center justify-between text-[9px] font-mono uppercase text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="w-1 h-1 bg-primary-container rounded-full animate-ping"></span> Real-time Refraction</span>
+<span>Sub-cycle: 044X</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Results Section -->
+<section class="lg:col-span-7 space-y-6">
+<!-- Summary Grid -->
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-surface-container p-4 rounded-sm border-t border-outline-variant/30 hover:border-primary/40 transition-colors">
+<p class="text-[10px] font-mono text-on-surface-variant uppercase mb-1">Generated</p>
+<p class="text-2xl font-headline font-bold text-white">12 Specs</p>
+</div>
+<div class="bg-surface-container p-4 rounded-sm border-t border-outline-variant/30 hover:border-primary/40 transition-colors">
+<p class="text-[10px] font-mono text-on-surface-variant uppercase mb-1">Avg Confidence</p>
+<p class="text-2xl font-headline font-bold text-white">84%</p>
+</div>
+<div class="bg-surface-container p-4 rounded-sm border-t border-outline-variant/30 hover:border-primary/40 transition-colors">
+<p class="text-[10px] font-mono text-on-surface-variant uppercase mb-1">Avg Risk</p>
+<p class="text-2xl font-headline font-bold text-[#00E676]">18%</p>
+</div>
+</div>
+<!-- Result Cards -->
+<div class="space-y-3">
+<!-- Loading Skeleton -->
+<div class="hidden h-[90px] bg-surface-container-low rounded-sm skeleton opacity-50" id="skeleton-1"></div>
+<!-- Card 1 -->
+<div class="group verified-badge animate-reveal bg-surface-container-low p-5 rounded-sm flex items-center justify-between hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-primary/20" style="animation-delay: 0.1s;">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center text-primary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div>
+<h4 class="font-mono text-sm text-white group-hover:text-primary-container transition-colors">Auth_Service.md</h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-[10px] font-mono text-on-surface-variant uppercase tracking-tighter">12 Components</span>
+<span class="flex items-center gap-1 px-2 py-0.5 bg-[#00E676]/10 text-[#00E676] text-[9px] font-bold rounded-sm uppercase transition-all group-hover:bg-[#00E676]/20">
+<span class="material-symbols-outlined check-icon hidden text-[12px] leading-none">check_circle</span>
+                                        Verified
+                                    </span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-mono text-on-surface-variant uppercase">Confidence</p>
+<p class="text-lg font-headline font-medium text-white group-hover:text-primary-container">94%</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group animate-reveal bg-surface-container-low p-5 rounded-sm flex items-center justify-between hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-primary/20" style="animation-delay: 0.2s;">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">database</span>
+</div>
+<div>
+<h4 class="font-mono text-sm text-white group-hover:text-primary-container transition-colors">Database_Schema.md</h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-[10px] font-mono text-on-surface-variant uppercase tracking-tighter">8 Components</span>
+<span class="px-2 py-0.5 bg-secondary-container/20 text-secondary text-[9px] font-bold rounded-sm uppercase">Medium Risk</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-mono text-on-surface-variant uppercase">Confidence</p>
+<p class="text-lg font-headline font-medium text-white">72%</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group verified-badge animate-reveal bg-surface-container-low p-5 rounded-sm flex items-center justify-between hover:bg-surface-container-high transition-all duration-300 border border-transparent hover:border-primary/20" style="animation-delay: 0.3s;">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center text-primary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">api</span>
+</div>
+<div>
+<h4 class="font-mono text-sm text-white group-hover:text-primary-container transition-colors">API_Endpoints.md</h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-[10px] font-mono text-on-surface-variant uppercase tracking-tighter">15 Components</span>
+<span class="flex items-center gap-1 px-2 py-0.5 bg-[#00E676]/10 text-[#00E676] text-[9px] font-bold rounded-sm uppercase transition-all group-hover:bg-[#00E676]/20">
+<span class="material-symbols-outlined check-icon hidden text-[12px] leading-none">check_circle</span>
+                                        Verified
+                                    </span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-mono text-on-surface-variant uppercase">Confidence</p>
+<p class="text-lg font-headline font-medium text-white group-hover:text-primary-container">88%</p>
+</div>
+</div>
+<!-- Decorator Graphic -->
+<div class="relative w-full h-32 mt-8 rounded-sm overflow-hidden bg-surface-container-lowest border border-outline-variant/20 group">
+<div class="absolute inset-0 opacity-20 cyber-grid group-hover:opacity-30 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary/10 to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="typing-effect">
+<span class="text-[8px] font-mono text-primary/40 uppercase tracking-[1em] select-none">System Telemetry Online // 0xAF44-KINETIC</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center py-4 px-2 bg-[#111316]/90 backdrop-blur-lg border-t border-[#00E5FF]/10 shadow-[0_-4px_20px_rgba(0,229,255,0.1)] z-50">
+<button class="text-[#00E5FF] drop-shadow-[0_0_8px_rgba(0,229,255,0.5)] scale-110 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+<button class="text-slate-600 hover:text-[#00E5FF] active:scale-90 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="text-slate-600 hover:text-[#00E5FF] active:scale-90 transition-transform">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="text-slate-600 hover:text-[#00E5FF] active:scale-90 transition-transform">
+<span class="material-symbols-outlined">account_tree</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="guardrail — Built with AI? Ship with proof. Catch fake features, broken auth, and exposed secrets before your users do."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>guardrail — Ship with proof</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <nav class="page-nav page-nav--landing" aria-label="Primary">
+      <a class="nav-brand" href="#top">
+        <img class="nav-logo" src="/guardrail-logo.svg" width="120" height="24" alt="guardrail" />
+      </a>
+      <div class="page-nav__links-wrap">
+        <nav class="page-nav__links" aria-label="On-page sections">
+          <a href="#how-it-works">How it works</a>
+          <a href="#teams">Teams</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#integrate">Integrate</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+      <div class="page-nav__actions">
+        <a class="page-nav__ghost" href="/auth">Log in</a>
+        <a class="page-nav__signup" href="/auth?mode=signup">Sign up</a>
+      </div>
+      <div class="page-nav__track">
+        <span class="nav-label" id="nav-section-label">Overview</span>
+        <div class="nav-progress">
+          <div class="nav-progress-fill" id="page-progress"></div>
+        </div>
+      </div>
+    </nav>
+
+    <main id="top">
+      <section class="hero-panel hero-panel--guardrail panel" data-section="Overview">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="hero-copy-frost">
+              <p class="section-kicker">Ship with proof</p>
+              <p class="hero-name">guardrail</p>
+              <h1 id="heroTitle" class="hero-title" aria-live="polite"></h1>
+              <div class="hero-cta">
+                <a class="hero-cta__primary" href="/auth?mode=signup">Get started</a>
+                <button
+                  type="button"
+                  class="hero-cta__cli"
+                  data-copy-cli="npx @guardrail/cli init"
+                  aria-label="Copy command: npx @guardrail/cli init"
+                >
+                  <code class="hero-cta__cli-code">npx @guardrail/cli init</code>
+                  <span class="hero-cta__cli-hint" aria-hidden="true">Copy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="scroll-velocity-marquee panel"
+        data-section="Signals"
+        aria-label="Scroll velocity marquee demonstration"
+      >
+        <div class="svm-stack">
+          <div class="svm-marquee-section" id="svmMarqueeSection">
+            <div class="svm-m-row" id="svmRow0">
+              <div class="svm-m-track" id="svmTrack0"></div>
+              <span class="svm-m-row__badge">01</span>
+            </div>
+
+            <div class="svm-m-row" id="svmRow1">
+              <div class="svm-m-track" id="svmTrack1"></div>
+              <span class="svm-m-row__badge">02</span>
+            </div>
+
+            <div class="svm-m-row" id="svmRow2">
+              <div class="svm-m-track" id="svmTrack2"></div>
+              <span class="svm-m-row__badge">03</span>
+            </div>
+
+            <div class="svm-m-row" id="svmRow3">
+              <div class="svm-m-track" id="svmTrack3"></div>
+              <span class="svm-m-row__badge">04</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="svm-hud" aria-hidden="true">
+          <span class="svm-hud__label">scroll velocity</span>
+          <div class="svm-hud__track">
+            <div class="svm-hud__fill" id="svmHudFill"></div>
+          </div>
+          <span class="svm-hud__val" id="svmHudVal">0 px/s</span>
+        </div>
+      </section>
+
+      <!-- Landing: stats rail (Guardrail home) -->
+      <section id="stats" class="gr-landing gr-stats-rail panel" data-section="Stats">
+        <div class="gr-landing__wrap">
+          <div class="gr-stat-item">
+            <p class="gr-stat-item__label">Classes of failure</p>
+            <p class="gr-stat-item__value">40+</p>
+            <p class="gr-stat-item__hint">mock data, dead routes, auth gaps, secret leaks</p>
+          </div>
+          <div class="gr-stat-item">
+            <p class="gr-stat-item__label">Minutes to first scan</p>
+            <p class="gr-stat-item__value">&lt; 3</p>
+            <p class="gr-stat-item__hint">CLI init → ship check in your repo</p>
+          </div>
+          <div class="gr-stat-item">
+            <p class="gr-stat-item__label">Where it runs</p>
+            <p class="gr-stat-item__value">CI · IDE · MCP</p>
+            <p class="gr-stat-item__hint">same rules from terminal to merge queue</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="gr-landing gr-how panel" data-section="How it works">
+        <div class="gr-landing__wrap gr-landing__narrow">
+          <h2 class="gr-how__title">
+            Three steps.
+            <span class="gr-how__accent">Then you ship with receipts.</span>
+          </h2>
+          <p class="gr-how__sub">Minutes to setup, not hours.</p>
+        </div>
+        <ol class="gr-how__steps gr-landing__wrap">
+          <li class="gr-how__step">
+            <span class="gr-how__step-num">01</span>
+            <h3 class="gr-how__step-title">Install</h3>
+            <p class="gr-how__step-code">npx @guardrail/cli init</p>
+          </li>
+          <li class="gr-how__step">
+            <span class="gr-how__step-num">02</span>
+            <h3 class="gr-how__step-title">Scan</h3>
+            <p class="gr-how__step-code">guardrail ship</p>
+          </li>
+          <li class="gr-how__step">
+            <span class="gr-how__step-num">03</span>
+            <h3 class="gr-how__step-title">Autopilot</h3>
+            <p class="gr-how__step-code">Set and forget</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="glide-stage panel" data-section="Scan results">
+        <div class="glide-shell">
+          <div class="glide-intro">
+            <p class="section-kicker glide-intro__kicker">Product surface</p>
+            <h2 class="section-title">Findings that match reality—not mocks.</h2>
+            <p class="glide-intro__lead">
+              Severity, paths, and policy status in one place—so AI-generated optimism doesn’t outrun
+              what production actually does.
+            </p>
+          </div>
+
+          <div class="glide-wrapper">
+            <div class="glide-col glide-col-1">
+              <div class="glide-copy glide-copy--dash-intro">
+                <p class="glide-dash-label">Severity</p>
+                <h3>See critical issues before they hit production.</h3>
+                <figure class="glide-dash-figure">
+                  <img
+                    src="/assets/dash/desktop-01.png"
+                    alt="guardrail scan overview with severity breakdown"
+                    loading="lazy"
+                  />
+                </figure>
+              </div>
+            </div>
+
+            <div class="glide-col glide-col-2">
+              <img
+                class="glide-dash-hero-img"
+                src="/assets/dash/desktop-02.png"
+                alt="guardrail findings detail with paths and rules"
+                loading="lazy"
+              />
+            </div>
+
+            <div class="glide-col glide-col-4">
+              <div class="glide-image glide-image--orb glide-image--dash-cap">
+                <img
+                  class="glide-dash-cap-img"
+                  src="/assets/dash/desktop-04.png"
+                  alt="guardrail ship check and policy status"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="capabilities" class="stack-stage panel" data-section="Capabilities">
+        <div class="section-head">
+          <p class="section-kicker">Capabilities</p>
+          <h2 class="section-title">One pipeline. Many places it actually runs.</h2>
+        </div>
+
+        <div class="sticky-cards">
+          <article class="stack-card">
+            <div class="stack-card-media stack-card-media--mark">
+              <img src="/guardrail-logo.svg" alt="guardrail" />
+            </div>
+            <div class="stack-card-copy">
+              <span>01</span>
+              <h3>Reality Mode</h3>
+              <p>Exercise real flows—not fixtures. Catch “green CI, broken humans” before release.</p>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="stack-card-media stack-card-media--mark">
+              <img src="/guardrail-logo.svg" alt="guardrail" />
+            </div>
+            <div class="stack-card-copy">
+              <span>02</span>
+              <h3>MCP + IDE</h3>
+              <p>Guardrails inside Cursor, VS Code, and any MCP client.</p>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="stack-card-media stack-card-media--mark">
+              <img src="/guardrail-logo.svg" alt="guardrail" />
+            </div>
+            <div class="stack-card-copy">
+              <span>03</span>
+              <h3>Policy gates</h3>
+              <p>Block merges on severity, tier, or org rules—automatically.</p>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="stack-card-media stack-card-media--mark">
+              <img src="/guardrail-logo.svg" alt="guardrail" />
+            </div>
+            <div class="stack-card-copy">
+              <span>04</span>
+              <h3>40+ failure classes</h3>
+              <p>Mock data, dead routes, auth gaps, secret leaks—modeled for AI-built apps.</p>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="stack-card-media stack-card-media--mark">
+              <img src="/guardrail-logo.svg" alt="guardrail" />
+            </div>
+            <div class="stack-card-copy">
+              <span>05</span>
+              <h3>CI · IDE · MCP</h3>
+              <p>Same rules from terminal to merge queue—no drift between environments.</p>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="stack-card-media stack-card-media--mark">
+              <img src="/guardrail-logo.svg" alt="guardrail" />
+            </div>
+            <div class="stack-card-copy">
+              <span>06</span>
+              <h3>guardrail ship</h3>
+              <p>One command tells you if your app works—or only looks like it does.</p>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="stack-card-media stack-card-media--mark">
+              <img src="/guardrail-logo.svg" alt="guardrail" />
+            </div>
+            <div class="stack-card-copy">
+              <span>07</span>
+              <h3>Audit-ready exports</h3>
+              <p>PDFs and evidence trails your security team can file without rework.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="gr-landing gr-failure panel" data-section="Green vs reality">
+        <div class="gr-landing__wrap gr-failure__card">
+          <div class="gr-failure__head">
+            <p class="section-kicker">The usual failure mode</p>
+            <h2 class="gr-failure__title">Green checks. Red reality.</h2>
+            <p class="gr-failure__aside">
+              We model the hand-off from AI-generated optimism to what production actually does—so
+              you fix it while it is still cheap.
+            </p>
+          </div>
+          <div class="gr-failure__steps">
+            <div>
+              <span class="gr-failure__badge">01</span>
+              <h3 class="gr-failure__step-title">AI drafts the feature</h3>
+              <p>Fast iterations, optimistic UI, synthetic data that “looks fine.”</p>
+            </div>
+            <div>
+              <span class="gr-failure__badge">02</span>
+              <h3 class="gr-failure__step-title">CI goes green</h3>
+              <p>Unit mocks pass; integration is shallow; security lags behind vibe.</p>
+            </div>
+            <div>
+              <span class="gr-failure__badge">03</span>
+              <h3 class="gr-failure__step-title">guardrail says no</h3>
+              <p>Reality gates, secret detection, and policy blocks on what matters.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="teams" class="split-stage panel" data-section="Teams">
+        <div class="split-shell">
+          <div class="sticky-header">
+            <p class="section-kicker">Teams</p>
+            <h2>Built for everyone who signs the release.</h2>
+          </div>
+
+          <div class="card-container">
+            <article class="flip-card" id="card-1">
+              <div class="card-face card-front">
+                <img
+                  src="/vs/vs-1.png"
+                  alt="Engineers shipping with guardrail"
+                />
+              </div>
+              <div class="card-face card-back">
+                <span>01</span>
+                <p>Engineers: catch dead routes, mock data, and auth gaps before the merge queue—without another dashboard to babysit.</p>
+              </div>
+            </article>
+
+            <article class="flip-card" id="card-2">
+              <div class="card-face card-front">
+                <img
+                  src="/vs/vs-2.png"
+                  alt="Security and compliance"
+                />
+              </div>
+              <div class="card-face card-back">
+                <span>02</span>
+                <p>Security: exports and evidence that map to how the app actually behaves, not how the README claims it behaves.</p>
+              </div>
+            </article>
+
+            <article class="flip-card" id="card-3">
+              <div class="card-face card-front">
+                <img
+                  src="/vs/vs-3.png"
+                  alt="Leads and delivery"
+                />
+              </div>
+              <div class="card-face card-back">
+                <span>03</span>
+                <p>Leads: one verdict on readiness—block deploys on severity, tier, or policy; same rules in CI and IDE.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="journey-stage panel" data-section="Reality">
+        <div class="journey-shell">
+          <div class="journey-copy">
+            <p class="section-kicker">Reality check</p>
+            <h2 class="section-title">Go beyond static scans—exercise real user flows.</h2>
+            <p class="journey-para">
+              guardrail models the hand-off from AI-generated optimism to what production actually
+              does. Reality Mode and ship checks catch fake features, shallow integration, and
+              security drift while fixes are still cheap—then wire the same rules through CI, the
+              IDE, and MCP so judgment doesn’t vary by surface.
+            </p>
+
+            <div class="journey-chip-group" aria-label="guardrail highlights">
+              <span class="journey-chip journey-chip--1">guardrail ship</span>
+              <span class="journey-chip journey-chip--2">Reality runs</span>
+              <span class="journey-chip journey-chip--3">Secret & policy gates</span>
+              <span class="journey-chip journey-chip--4">SARIF & webhooks</span>
+            </div>
+          </div>
+
+          <div class="journey-media-wrap">
+            <div class="journey-orbit" aria-hidden="true">Ship with proof</div>
+            <div class="journey-media-frame">
+              <div class="hero-terminal hero-terminal--journey journey-terminal-anim" aria-label="guardrail CLI demo">
+                <div class="hero-terminal__glow" aria-hidden="true"></div>
+                <div class="hero-terminal__shell">
+                  <div class="hero-terminal__titlebar">
+                    <div class="hero-terminal__dots" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span class="hero-terminal__title"
+                      >guardrail scan <span class="hero-terminal__run">● running</span></span
+                    >
+                  </div>
+                  <div class="hero-terminal__body">
+                    <img
+                      class="hero-terminal__gif journey-media"
+                      src="/terminal-demo.gif"
+                      width="1200"
+                      height="675"
+                      alt="guardrail terminal demo"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div class="hero-terminal__foot">
+                    <span>v1.0.0</span><span>secure</span>
+                  </div>
+                </div>
+                <p class="hero-terminal__caption">Real-time security scanning in your terminal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="integrate" class="gr-landing gr-integrate strip panel" data-section="Integrate">
+        <div class="gr-landing__wrap">
+          <p class="gr-integrate__label">Where you work</p>
+          <div class="gr-integrate__row">
+            <a class="gr-integrate__cell" href="/install">
+              <span class="gr-integrate__name">CLI</span>
+              <span class="gr-integrate__meta">npm · brew · docker</span>
+            </a>
+            <a class="gr-integrate__cell" href="/vscode">
+              <span class="gr-integrate__name">VS Code</span>
+              <span class="gr-integrate__meta">extension</span>
+            </a>
+            <a class="gr-integrate__cell" href="/products/mcp">
+              <span class="gr-integrate__name">MCP</span>
+              <span class="gr-integrate__meta">Cursor · Claude Desktop</span>
+            </a>
+            <a class="gr-integrate__cell" href="/docs">
+              <span class="gr-integrate__name">Docs</span>
+              <span class="gr-integrate__meta">guides + API</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="reality-bridge" class="gr-landing gr-bridge panel" data-section="Bridge">
+        <div class="gr-landing__wrap gr-bridge__flex">
+          <div>
+            <p class="section-kicker">Reality check</p>
+            <p class="gr-bridge__text">
+              Go beyond static scans—exercise real user flows before you tag a release.
+            </p>
+          </div>
+          <a class="final-link gr-bridge__btn" href="/reality-check">Explore Reality Check</a>
+        </div>
+      </section>
+
+      <section id="pricing" class="gr-landing gr-pricing panel" data-section="Pricing">
+        <div class="gr-landing__wrap gr-pricing__inner">
+          <div class="gr-pricing__intro">
+            <p class="section-kicker">Pricing</p>
+            <h2 class="gr-pricing__title">
+              Straight numbers.
+              <span class="gr-pricing__accent">No spreadsheet archaeology.</span>
+            </h2>
+            <p class="gr-pricing__lead">
+              Same tiers as in-app. Upgrade when findings stop being hypothetical.
+            </p>
+          </div>
+          <div class="gr-pricing__billing" role="tablist" aria-label="Billing period">
+            <button type="button" class="gr-billing__btn is-active" data-cycle="monthly">Monthly</button>
+            <button type="button" class="gr-billing__btn" data-cycle="annual">
+              Annual <span class="gr-billing__badge">~20% off</span>
+            </button>
+          </div>
+          <div class="gr-pricing__grid">
+            <article class="gr-price-card">
+              <header>
+                <h3 class="gr-price-card__name">Free</h3>
+                <p class="gr-price-card__desc">Severity counts & scans — findings blurred</p>
+                <p class="gr-price-card__limit">1 project</p>
+              </header>
+              <div class="gr-price-card__price">
+                <span class="gr-price-num" data-fixed>$0</span>
+                <span class="gr-price-suffix">forever</span>
+              </div>
+              <ul class="gr-price-card__list">
+                <li>guardrail scan — static analysis</li>
+                <li>Severity breakdown (critical / high / medium / low)</li>
+                <li>Findings blurred — upgrade for paths & snippets</li>
+                <li>10 scans/month</li>
+                <li>CLI & extension access</li>
+              </ul>
+              <a class="gr-price-card__btn gr-price-card__btn--outline" href="/auth?mode=signup">Start free</a>
+            </article>
+            <article class="gr-price-card">
+              <header>
+                <h3 class="gr-price-card__name">Starter</h3>
+                <p class="gr-price-card__desc">Full findings — no auto-fix</p>
+                <p class="gr-price-card__limit">3 projects</p>
+              </header>
+              <div class="gr-price-card__price">
+                <span
+                  class="gr-price-num"
+                  data-monthly="$9.99"
+                  data-annual-num="8.00"
+                  data-annual-total="96"
+                  >$9.99</span
+                >
+                <span class="gr-price-suffix">/month</span>
+              </div>
+              <p class="gr-price-card__annual" hidden>
+                <span class="gr-annual-total">$96.00</span> billed yearly ·
+                <span class="gr-save">save ~20%</span>
+              </p>
+              <ul class="gr-price-card__list">
+                <li>Everything in Free (unblurred)</li>
+                <li>Full issue detail: paths, rules, snippets</li>
+                <li>guardrail ship, reality, gate</li>
+                <li>100 scans/mo, 20 Reality runs/mo</li>
+              </ul>
+              <button
+                type="button"
+                class="gr-price-card__btn gr-stripe"
+                data-stripe-m="https://buy.stripe.com/8x2fZa4GZegD9QU7YW3Nm03"
+                data-stripe-a="https://buy.stripe.com/fZu8wI4GZgoL8MQ6US3Nm04"
+              >
+                Subscribe
+              </button>
+            </article>
+            <article class="gr-price-card gr-price-card--featured">
+              <p class="gr-price-card__ribbon">Most teams start here</p>
+              <header>
+                <h3 class="gr-price-card__name">Pro</h3>
+                <p class="gr-price-card__desc">Auto-fix & automation</p>
+                <p class="gr-price-card__limit">10 projects</p>
+              </header>
+              <div class="gr-price-card__price">
+                <span
+                  class="gr-price-num"
+                  data-monthly="$29.99"
+                  data-annual-num="24.00"
+                  data-annual-total="288"
+                  >$29.99</span
+                >
+                <span class="gr-price-suffix">/month</span>
+              </div>
+              <p class="gr-price-card__annual" hidden>
+                <span class="gr-annual-total">$288.00</span> billed yearly ·
+                <span class="gr-save">save ~20%</span>
+              </p>
+              <ul class="gr-price-card__list">
+                <li>Everything in Starter</li>
+                <li>guardrail fix — auto-fix</li>
+                <li>AI Agent, autopilot, MCP</li>
+                <li>500 scans, 100 Reality, 50 AI runs/mo</li>
+                <li>SARIF, API, webhooks</li>
+              </ul>
+              <button
+                type="button"
+                class="gr-price-card__btn gr-price-card__btn--primary gr-stripe"
+                data-stripe-m="https://buy.stripe.com/cNi14g7TbegDbZ25QO3Nm05"
+                data-stripe-a="https://buy.stripe.com/bJecMY4GZfkHgfi6US3Nm06"
+              >
+                Subscribe
+              </button>
+            </article>
+            <article class="gr-price-card">
+              <header>
+                <h3 class="gr-price-card__name">Compliance</h3>
+                <p class="gr-price-card__desc">Frameworks & audit-ready</p>
+                <p class="gr-price-card__limit">25 projects</p>
+              </header>
+              <div class="gr-price-card__price">
+                <span
+                  class="gr-price-num"
+                  data-monthly="$59.99"
+                  data-annual-num="48.00"
+                  data-annual-total="576"
+                  >$59.99</span
+                >
+                <span class="gr-price-suffix">/month</span>
+              </div>
+              <p class="gr-price-card__annual" hidden>
+                <span class="gr-annual-total">$576.00</span> billed yearly ·
+                <span class="gr-save">save ~20%</span>
+              </p>
+              <ul class="gr-price-card__list">
+                <li>Everything in Pro</li>
+                <li>SOC2, HIPAA, GDPR, PCI, NIST, ISO 27001</li>
+                <li>PDF reports, deploy hooks</li>
+                <li>Higher scan & Reality quotas</li>
+                <li>10 team seats included</li>
+              </ul>
+              <button
+                type="button"
+                class="gr-price-card__btn gr-stripe"
+                data-stripe-m="https://buy.stripe.com/cNi5kwflD0pN4wAfro3Nm07"
+                data-stripe-a="https://buy.stripe.com/14A8wI4GZ4G34wAgvs3Nm08"
+              >
+                Subscribe
+              </button>
+            </article>
+          </div>
+          <p class="gr-pricing__foot">
+            Cancel anytime. Questions? <a href="/support">Talk to us</a>.
+          </p>
+        </div>
+      </section>
+
+      <section id="faq" class="gr-landing gr-faq panel" data-section="FAQ">
+        <div class="gr-landing__wrap gr-faq__wrap">
+          <div class="gr-faq__intro">
+            <h2 class="gr-faq__title">
+              Questions?
+              <span class="gr-faq__accent">Answers.</span>
+            </h2>
+            <p class="gr-faq__sub">
+              Can’t find what you need? <a href="/support">Reach out to our team</a>.
+            </p>
+          </div>
+          <div class="gr-faq__list">
+            <details class="gr-faq__item">
+              <summary>What is guardrail?</summary>
+              <p>A tool that verifies your AI-built app actually works before you ship it.</p>
+            </details>
+            <details class="gr-faq__item">
+              <summary>How does it work?</summary>
+              <p>Run one command. guardrail tests your app, finds issues, and tells you exactly what to fix.</p>
+            </details>
+            <details class="gr-faq__item">
+              <summary>Is my code secure?</summary>
+              <p>Your code never leaves your machine. Everything runs locally.</p>
+            </details>
+            <details class="gr-faq__item">
+              <summary>Which IDEs work?</summary>
+              <p>Cursor, VS Code, Claude Desktop, Windsurf, and any MCP-compatible editor.</p>
+            </details>
+            <details class="gr-faq__item">
+              <summary>How long to setup?</summary>
+              <p>About two minutes. Run the init command and you’re ready.</p>
+            </details>
+            <details class="gr-faq__item">
+              <summary>Multiple projects?</summary>
+              <p>Yes. guardrail learns patterns across your repos.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonial-stage panel" data-section="Proof">
+        <div class="testimonial-pin-box">
+          <article class="vd-card rotate-4" tabindex="0" aria-label="Open details for Install">
+            <div class="card-cover card-cover--text">
+              <div class="cover-text">
+                <strong>Install</strong>
+                <span>Minutes to first scan</span>
+              </div>
+            </div>
+            <div class="review-layer">
+              <div class="review-content">
+                <span class="review-tag">CLI</span>
+                <p>
+                  Run <code>npx @guardrail/cli init</code> and get to a first ship check in under three
+                  minutes—local execution, no upload required.
+                </p>
+                <button class="close-review" type="button" aria-label="Close review">Close</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="vd-card rotate--10" tabindex="0" aria-label="Open details for Scan">
+            <div class="card-cover card-cover--text">
+              <div class="cover-text">
+                <strong>Scan</strong>
+                <span>Static + reality</span>
+              </div>
+            </div>
+            <div class="review-layer">
+              <div class="review-content">
+                <span class="review-tag">guardrail ship</span>
+                <p>
+                  One command surfaces broken auth, dead routes, mock data, and leaked secrets before
+                  users do—so “green CI” isn’t lying to you.
+                </p>
+                <button class="close-review" type="button" aria-label="Close review">Close</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="vd-card rotate--4" tabindex="0" aria-label="Open details for Integrations">
+            <div class="card-cover card-cover--text">
+              <div class="cover-text">
+                <strong>Integrations</strong>
+                <span>Where you work</span>
+              </div>
+            </div>
+            <div class="review-layer">
+              <div class="review-content">
+                <span class="review-tag">IDE · CI · MCP</span>
+                <p>
+                  Same rules in Cursor, VS Code, Claude Desktop, GitHub Actions, and any MCP
+                  client—no duplicate policy spreadsheets.
+                </p>
+                <button class="close-review" type="button" aria-label="Close review">Close</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="vd-card rotate--3" tabindex="0" aria-label="Open details for Trust">
+            <div class="card-cover card-cover--text">
+              <div class="cover-text">
+                <strong>Trust</strong>
+                <span>Local-first</span>
+              </div>
+            </div>
+            <div class="review-layer">
+              <div class="review-content">
+                <span class="review-tag">Your machine</span>
+                <p>
+                  Your code stays local. Run scans and Reality checks without handing the repo to a
+                  black box you don’t control.
+                </p>
+                <button class="close-review" type="button" aria-label="Close review">Close</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="final-panel panel" data-section="Ship">
+        <div class="final-copy">
+          <p class="section-kicker">Get started</p>
+          <h2 class="final-title">Proof beats polish. Ship with guardrail.</h2>
+          <p class="final-body">
+            Start free, wire CI, and let Reality Mode argue with your next deploy. Catch fake
+            features and exposed secrets before your users do—same tiers in-app, upgrade when
+            findings stop being hypothetical.
+          </p>
+          <div class="final-links">
+            <a class="final-link" href="/auth?mode=signup">Sign up</a>
+            <a class="final-link" href="/install">Install</a>
+            <a class="final-link" href="/docs">Docs</a>
+            <a class="final-link" href="#top">Back to top</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

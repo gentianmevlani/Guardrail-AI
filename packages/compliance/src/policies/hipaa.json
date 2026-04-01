@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "framework": "HIPAA",
+  "rules": [
+    {
+      "id": "HIPAA-164.312a1",
+      "controlId": "164.312(a)(1)",
+      "title": "Access Control",
+      "description": "Implement technical policies and procedures for electronic information systems that maintain ePHI",
+      "severity": "critical",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuth",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasRBAC",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement unique user identification, emergency access procedures, automatic logoff, and encryption/decryption mechanisms."
+    },
+    {
+      "id": "HIPAA-164.312b",
+      "controlId": "164.312(b)",
+      "title": "Audit Controls",
+      "description": "Implement hardware, software, and procedural mechanisms to record and examine access to ePHI",
+      "severity": "critical",
+      "category": "monitoring",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuditLog",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasLogging",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement comprehensive audit logging that captures all ePHI access with user identification, timestamps, and actions performed."
+    },
+    {
+      "id": "HIPAA-164.312c1",
+      "controlId": "164.312(c)(1)",
+      "title": "Integrity Controls",
+      "description": "Implement policies and procedures to protect ePHI from improper alteration or destruction",
+      "severity": "high",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasBackup",
+          "expected": true
+        },
+        {
+          "type": "file-exists",
+          "target": "docs/backup-policy.md"
+        }
+      ],
+      "remediation": "Implement data integrity mechanisms including checksums, digital signatures, and regular backup procedures."
+    },
+    {
+      "id": "HIPAA-164.312d",
+      "controlId": "164.312(d)",
+      "title": "Person or Entity Authentication",
+      "description": "Implement procedures to verify that a person or entity seeking access to ePHI is the one claimed",
+      "severity": "critical",
+      "category": "access-control",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuth",
+          "expected": true
+        },
+        {
+          "type": "dependency-present",
+          "target": "passport"
+        }
+      ],
+      "remediation": "Implement multi-factor authentication and strong password policies. Use industry-standard authentication protocols."
+    },
+    {
+      "id": "HIPAA-164.312e1",
+      "controlId": "164.312(e)(1)",
+      "title": "Transmission Security",
+      "description": "Implement technical security measures to guard against unauthorized access to ePHI being transmitted",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasEncryption",
+          "expected": true
+        },
+        {
+          "type": "pattern-match",
+          "target": "src/server.ts",
+          "pattern": "https\\.createServer"
+        }
+      ],
+      "remediation": "Use TLS 1.2+ for all network transmissions. Implement end-to-end encryption for ePHI in transit."
+    },
+    {
+      "id": "HIPAA-164.312a2iv",
+      "controlId": "164.312(a)(2)(iv)",
+      "title": "Encryption and Decryption",
+      "description": "Implement mechanism to encrypt and decrypt ePHI",
+      "severity": "critical",
+      "category": "data-protection",
+      "checks": [
+        {
+          "type": "dependency-present",
+          "target": "bcrypt"
+        },
+        {
+          "type": "dependency-present",
+          "target": "crypto-js"
+        }
+      ],
+      "remediation": "Implement AES-256 encryption for ePHI at rest. Use strong key management practices."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+import { Command } from 'commander';
+import { resolve, basename } from 'path';
+import { readFileSync, existsSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { join } from 'path';
+import { SecretsGuardian, SBOMGenerator } from 'guardrail-security';
+import {
+  loadAuthState,
+  saveAuthState,
+  clearAuthState,
+  type AuthState,
+  type Tier,
+  getConfigPath,
+} from '../runtime/creds';
+import { validateCredentials, validateApiKey, getCacheExpiry } from '../runtime/client';
+import { ExitCode, exitWith, getExitCodeForFindings } from '../runtime/exit-codes';
+import { createJsonOutput, formatScanResults } from '../runtime/json-output';
+import { isAffected } from '../runtime/semver';
+import {
+  scanVulnerabilitiesOSV,
+  outputOSVVulnResults,
+  toSarifVulnerabilitiesOSV,
+} from './scan-vulnerabilities-osv';
+import { maskApiKey, isExpiryWarning, formatExpiry, validateApiKeyFormat, hoursUntilExpiry } from '../runtime/auth-utils';
+import { printCommandHeader } from '../ui/frame';
+import {
+  detectFramework,
+  formatFrameworkName,
+  getTemplate,
+  validateConfig,
+  mergeWithFrameworkDefaults,
+  getTemplateChoices,
+  generateCIWorkflow,
+  getCIProviderFromProject,
+  installHooks,
+  getRecommendedRunner,
+  type TemplateType,
+} from '../init';
+import { CLI_VERSION } from '../cli-program';
+import { loadConfig, saveConfig, CONFIG_FILE, isInteractiveAllowed, defaultReportPath } from '../runtime/cli-config';
+import { requireAuth, requireAuthAsync } from '../runtime/cli-auth';
+import { delay } from '../utils/delay';
+import { icons, styles, box, c, frameLines, truncatePath, printDivider, printLogo, spinner, promptSelect, promptInput, promptConfirm, promptPassword } from '../ui';
+import { printMenuHeader } from '../ui/cli-menus';
+import { runScanEnterprise, outputResultsEnterprise } from '../runtime/enterprise-scan-cli';
+import { runScan } from '../runtime/local-scan-demo';
+import { scanSecrets, scanVulnerabilities } from '../runtime/scan-secrets-vuln-cli';
+import { scanCompliance, generateSBOM, generateContainerSBOM } from '../runtime/compliance-sbom-cli';
+import { initProject } from '../runtime/init-project-cli';
+import {
+  outputResults,
+  outputSecretsResults,
+  outputVulnResults,
+  outputComplianceResults,
+} from '../runtime/scan-output-cli';
+import { getCriticalPathsForFlow } from '../reality/critical-paths';

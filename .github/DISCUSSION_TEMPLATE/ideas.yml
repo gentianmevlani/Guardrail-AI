@@ -1,0 +1,77 @@
+title: "[Idea]: "
+labels:
+  - idea
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Share Your Ideas!
+
+        We love hearing from the community. Share your ideas for improving Guardrail!
+
+        Great ideas often get implemented. Check out our [roadmap](https://github.com/guardiavault-oss/codeguard/projects) to see what's planned.
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: What's your idea?
+      description: Describe your idea clearly and concisely
+      placeholder: I think Guardrail should...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does it solve?
+      description: Why would this be valuable?
+      placeholder: This would help because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: How do you envision it working?
+      description: Describe your proposed solution or UX
+      placeholder: |
+        Example command:
+        ```bash
+        guardrail new-feature --option value
+        ```
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What area does this idea relate to?
+      options:
+        - CLI Commands
+        - MCP Integration
+        - Reality Mode
+        - Dashboard/Web UI
+        - CI/CD Integration
+        - Documentation
+        - Performance
+        - Developer Experience
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this to you?
+      options:
+        - Nice to have
+        - Would significantly improve my workflow
+        - Critical for my use case
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd be willing to help implement this
+        - label: I'd be willing to test a beta version

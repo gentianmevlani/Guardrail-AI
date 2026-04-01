@@ -1,0 +1,24 @@
+{
+  "name": "@guardrail/context-engine",
+  "version": "1.0.0",
+  "description": "MCP Context Engine - Verified repo facts as tool calls for AI agents",
+  "main": "index.js",
+  "bin": {
+    "guardrail-context": "./index.js"
+  },
+  "scripts": {
+    "index": "node index.js index",
+    "serve": "node index.js serve --http",
+    "serve:mcp": "node index.js serve"
+  },
+  "keywords": [
+    "mcp",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "ai-context",
+    "guardrail"
+  ],
+  "author": "guardrail",
+  "license": "MIT"
+}

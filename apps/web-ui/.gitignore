@@ -1,0 +1,22 @@
+# Dependencies & build
+node_modules/
+dist/
+
+# Local / secrets
+.env
+.env.*
+.venv/
+
+# OS
+.DS_Store
+
+# Tooling / local sources (not needed for deploy)
+.cursor/
+.source/
+.guardrail/
+.specs/
+
+# VibeCheck
+.vibecheck/screenshots/
+.vibecheck/scan-results.json
+.vibecheck/context-engine-ledger.json

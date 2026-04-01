@@ -1,0 +1,78 @@
+{
+  "name": "guardrail-cli-tool",
+  "version": "2.5.2",
+  "description": "Guardrail CLI - Enterprise security scanning with interactive menu, arrow navigation, and auto-installation",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "guardrail": "bin/guardrail.js",
+    "vc": "bin/guardrail.js"
+  },
+  "files": [
+    "dist/**/*",
+    "bin/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "dev": "tsx src/index.ts",
+    "start": "node bin/guardrail.js",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
+    "test": "cd ../.. && jest --config config/jest.config.js --testPathPattern packages/cli",
+    "test:integration": "playwright test tests/integration/cli-features.test.ts"
+  },
+  "dependencies": {
+    "@guardrail/compliance": "workspace:*",
+    "@guardrail/core": "workspace:*",
+    "@guardrail/engines": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "archiver": "^7.0.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "guardrail-security": "workspace:*",
+    "guardrail-ship": "workspace:*",
+    "ora": "^8.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^6.0.0",
+    "@types/node": "^20.10.0",
+    "esbuild": ">=0.25.0",
+    "playwright": "^1.49.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  },
+  "keywords": [
+    "guardrail",
+    "security",
+    "cli",
+    "scanning",
+    "vulnerabilities",
+    "secrets",
+    "sbom",
+    "osv",
+    "cve",
+    "devsecops",
+    "sast",
+    "supply-chain"
+  ],
+  "license": "MIT",
+  "author": "Guardrail Team <support@guardrailai.dev>",
+  "homepage": "https://guardrailai.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardiavault-oss/codeguard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guardiavault-oss/codeguard/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

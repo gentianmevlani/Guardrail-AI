@@ -1,0 +1,43 @@
+---
+description: Type definitions and interfaces
+globs: ["**/*.d.ts", "**/types/**", "**/*.types.ts"]
+alwaysApply: false
+---
+
+# Type Definitions
+
+## Interfaces (55)
+- `CreateSubscriptionData`
+- `UpdateSubscriptionData`
+- `CreateInvoiceData`
+- `CreateLicenseKeyData`
+- `CreateLicenseActivationData`
+- `RawQueryOptions`
+- `CreateOrganizationData`
+- `UpdateOrganizationData`
+- `CreateOrganizationMemberData`
+- `UpdateOrganizationMemberData`
+- `CreateTeamSeatData`
+- `CreateScanData`
+- `UpdateScanData`
+- `CreateFindingData`
+- `ScanFilters`
+- `FindingFilters`
+- `CreateUsageRecordData`
+- `CreateUsageLogData`
+- `CreateUsageCounterData`
+- `CreateUsageTokenData`
+
+## Types (3)
+- `ApiVersion`
+- `Tier`
+- `RoutePolicy`
+
+## Enums
+- `LogLevel`
+- `ErrorCategory`
+
+## Conventions
+- Interfaces for object shapes
+- Type aliases for unions
+- No `any` - use `unknown`

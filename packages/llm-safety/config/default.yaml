@@ -1,0 +1,48 @@
+# Default runtime config shipped with @guardrail/llm-safety
+# Override path: Guardrail.create({ configPath: '/path/to/guardrail.yaml' })
+# Or env for CLI: LLM_GUARDRAIL_CONFIG=/path/to/guardrail.yaml llm-guardrail serve
+
+version: "1"
+pipelineMode: collect-all
+
+server:
+  host: "0.0.0.0"
+  port: 8787
+
+# Per-engine toggles (ids must match engine manifest ids).
+# Priority: lower runs earlier within the same category.
+engines:
+  input.prompt-injection: { enabled: true, priority: 10 }
+  input.sanitization: { enabled: true, priority: 20 }
+  input.topic-filter: { enabled: true, priority: 30 }
+  input.auth-check: { enabled: true, priority: 40 }
+  input.rate-limiter: { enabled: true, priority: 50 }
+
+  output.hallucination: { enabled: true, priority: 10 }
+  output.toxicity: { enabled: true, priority: 15 }
+  output.pii-leakage: { enabled: true, priority: 20 }
+  output.factual-grounding: { enabled: true, priority: 30 }
+  output.schema-validation: { enabled: true, priority: 40 }
+  output.content-policy: { enabled: true, priority: 50 }
+
+  behavioral.token-limit: { enabled: true, priority: 10 }
+  behavioral.tool-restriction: { enabled: true, priority: 20 }
+  behavioral.sandbox: { enabled: true, priority: 30 }
+  behavioral.action-gate: { enabled: true, priority: 40 }
+  behavioral.scope-boundary: { enabled: true, priority: 50 }
+  behavioral.retry-policy: { enabled: true, priority: 60 }
+
+  process.human-review: { enabled: true, priority: 10 }
+  process.red-team: { enabled: true, priority: 20 }
+  process.eval-suite: { enabled: true, priority: 30 }
+  process.monitoring: { enabled: true, priority: 40 }
+  process.kill-switch: { enabled: true, priority: 50 }
+  process.audit-trail: { enabled: true, priority: 60 }
+  process.incident-response: { enabled: true, priority: 70 }
+
+# Optional topic / content lists (inject via GuardrailContext.extensions or extend schema)
+topicFilter:
+  blockedTopics: []
+
+contentPolicy:
+  blockedTerms: []

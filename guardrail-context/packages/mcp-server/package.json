@@ -1,0 +1,19 @@
+{
+  "name": "@guardrail-context/mcp-server",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@guardrail-context/engine": "workspace:*",
+    "@guardrail-context/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  }
+}

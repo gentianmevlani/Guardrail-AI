@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Performance Monitor - Guardrail Elite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#849396",
+              "on-primary": "#00363d",
+              "inverse-on-surface": "#2f3034",
+              "secondary-fixed": "#d9e2ff",
+              "primary-container": "#00e5ff",
+              "on-secondary-fixed-variant": "#00429b",
+              "primary-fixed": "#9cf0ff",
+              "tertiary-fixed": "#ffdad9",
+              "primary-fixed-dim": "#00daf3",
+              "on-surface": "#e2e2e6",
+              "error-container": "#93000a",
+              "inverse-primary": "#006875",
+              "surface-container-highest": "#333538",
+              "tertiary-container": "#ffc1c0",
+              "surface-bright": "#37393d",
+              "on-primary-container": "#00626e",
+              "tertiary-fixed-dim": "#ffb3b3",
+              "secondary": "#b0c6ff",
+              "secondary-container": "#0068ed",
+              "on-background": "#e2e2e6",
+              "inverse-surface": "#e2e2e6",
+              "on-tertiary-fixed": "#400009",
+              "on-tertiary-fixed-variant": "#920021",
+              "on-secondary-container": "#f2f3ff",
+              "on-primary-fixed": "#001f24",
+              "tertiary": "#ffe7e6",
+              "primary": "#c3f5ff",
+              "on-tertiary": "#680014",
+              "on-secondary": "#002d6e",
+              "on-error": "#690005",
+              "surface-tint": "#00daf3",
+              "on-secondary-fixed": "#001945",
+              "error": "#ffb4ab",
+              "surface-container-high": "#282a2d",
+              "surface-container": "#1e2023",
+              "on-surface-variant": "#bac9cc",
+              "surface-container-lowest": "#0c0e11",
+              "surface-container-low": "#1a1c1f",
+              "surface-dim": "#111316",
+              "secondary-fixed-dim": "#b0c6ff",
+              "outline-variant": "#3b494c",
+              "on-tertiary-container": "#b4002b",
+              "surface-variant": "#333538",
+              "on-error-container": "#ffdad6",
+              "surface": "#111316",
+              "on-primary-fixed-variant": "#004f58",
+              "background": "#111316"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "1rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(26, 28, 31, 0.4);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(0, 229, 255, 0.1);
+        box-shadow: inset 0 0 15px rgba(0, 229, 255, 0.03);
+      }
+      .glow-primary {
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+      }
+      
+      @keyframes pulse-cyan {
+        0%, 100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+        50% { opacity: 0.8; transform: scale(1.02); filter: brightness(1.2) drop-shadow(0 0 8px #00E5FF); }
+      }
+      .pulse-ring {
+        animation: pulse-cyan 3s infinite ease-in-out;
+      }
+
+      @keyframes wave-flow {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .wave-streaming {
+        animation: wave-flow 10s linear infinite;
+        width: 200%;
+      }
+
+      @keyframes scan {
+        0% { transform: translateY(-100%); opacity: 0; }
+        50% { opacity: 0.3; }
+        100% { transform: translateY(200%); opacity: 0; }
+      }
+      .scanner-beam {
+        position: absolute;
+        width: 100%;
+        height: 60px;
+        background: linear-gradient(to bottom, transparent, rgba(0, 229, 255, 0.2), transparent);
+        pointer-events: none;
+        animation: scan 6s linear infinite;
+      }
+
+      .glow-hover:hover {
+        box-shadow: 0 0 20px 4px rgba(0, 229, 255, 0.3);
+        border-color: #00E5FF;
+        transform: translateY(-2px);
+      }
+
+      @keyframes skeleton-loading {
+        0% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .skeleton {
+        background: linear-gradient(90deg, #1e2023 25%, #333538 50%, #1e2023 75%);
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite;
+      }
+
+      /* World Class Glitch Effect */
+      @keyframes glitch {
+        0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 2px); }
+        10% { clip-path: inset(10% 0 40% 0); transform: translate(2px, -2px); }
+        20% { clip-path: inset(50% 0 10% 0); transform: translate(-2px, 2px); }
+        30% { clip-path: inset(20% 0 60% 0); transform: translate(2px, -2px); }
+        40% { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 2px); }
+        50% { clip-path: inset(0% 0 80% 0); transform: translate(2px, -2px); }
+        60% { clip-path: inset(40% 0 20% 0); transform: translate(-2px, 2px); }
+        70% { clip-path: inset(10% 0 70% 0); transform: translate(2px, -2px); }
+        80% { clip-path: inset(60% 0 10% 0); transform: translate(-2px, 2px); }
+        90% { clip-path: inset(20% 0 40% 0); transform: translate(2px, -2px); }
+        100% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 2px); }
+      }
+      .glitch-hover:hover::before {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        color: #ffb4ab;
+        clip-path: inset(0 0 0 0);
+        animation: glitch 0.3s steps(2) infinite;
+        opacity: 0.5;
+        z-index: -1;
+      }
+
+      /* Staggered Reveal */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .reveal-item {
+        opacity: 0;
+        animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .reveal-item:nth-child(1) { animation-delay: 0.1s; }
+      .reveal-item:nth-child(2) { animation-delay: 0.2s; }
+      .reveal-item:nth-child(3) { animation-delay: 0.3s; }
+
+      /* Neon Paths */
+      .neon-path {
+        filter: drop-shadow(0 0 4px #00E5FF) drop-shadow(0 0 12px rgba(0, 229, 255, 0.4));
+      }
+
+      body {
+        min-height: max(884px, 100dvh);
+        background-image: 
+          radial-gradient(circle at 0% 0%, rgba(0, 229, 255, 0.05) 0%, transparent 40%),
+          radial-gradient(circle at 100% 100%, rgba(0, 229, 255, 0.03) 0%, transparent 40%);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full glass-panel z-50 flex justify-between items-center px-6 h-16 border-b border-primary-container/10">
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined text-[#00E5FF] animate-pulse" data-icon="speed">speed</span>
+<div class="absolute -inset-1 bg-[#00E5FF] blur-md opacity-20 animate-pulse"></div>
+</div>
+<h1 class="text-xl font-bold tracking-tighter text-[#00E5FF] font-headline uppercase">Nexus Monitor</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-1.5 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-all flex items-center gap-2 text-sm glass-panel group">
+<span class="material-symbols-outlined text-sm group-hover:rotate-180 transition-transform duration-500" data-icon="refresh">refresh</span>
+                Refresh
+            </button>
+<button class="px-6 py-1.5 rounded-lg bg-gradient-to-br from-[#00E5FF] to-[#00daf3] text-on-primary font-headline font-bold text-sm hover:scale-95 transition-transform duration-150 shadow-[0_0_25px_rgba(0,229,255,0.3)] glow-hover uppercase tracking-tighter">
+                Optimize Engine
+            </button>
+<button class="p-2 rounded-lg text-slate-400 hover:text-[#00E5FF] transition-colors">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto grid grid-cols-12 gap-6">
+<!-- Hero: Performance Score -->
+<section class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="glass-panel p-8 rounded-xl relative overflow-hidden group border border-primary-container/20">
+<!-- Scanning effect -->
+<div class="scanner-beam"></div>
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" data-icon="bolt">bolt</span>
+</div>
+<h2 class="font-headline text-on-surface-variant text-xs tracking-[0.3em] uppercase mb-10 opacity-70">Core Health Matrix</h2>
+<div class="relative flex items-center justify-center">
+<svg class="w-56 h-56 -rotate-90 pulse-ring">
+<circle class="text-surface-container-highest/20" cx="112" cy="112" fill="transparent" r="100" stroke="currentColor" stroke-width="2"></circle>
+<circle class="neon-path" cx="112" cy="112" fill="transparent" r="100" stroke="url(#gradient-cyan)" stroke-dasharray="628.32" stroke-dashoffset="50.26" stroke-linecap="round" stroke-width="12"></circle>
+<defs>
+<lineargradient id="gradient-cyan" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#c3f5ff"></stop>
+<stop offset="100%" stop-color="#00e5ff"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-6xl font-bold font-headline text-primary drop-shadow-[0_0_15px_rgba(0,229,255,0.5)]">92</span>
+<span class="text-[10px] text-on-surface-variant tracking-[0.4em] mt-2 opacity-60">STABLE</span>
+</div>
+</div>
+<div class="mt-10 pt-6 border-t border-outline-variant/10 flex justify-between items-end">
+<div>
+<p class="text-xs text-on-surface-variant mb-1 uppercase tracking-widest opacity-50">Trend Analysis</p>
+<p class="text-sm text-primary font-bold">+12.4% Performance Gain</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+</section>
+<!-- Metrics Grid -->
+<section class="col-span-12 lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+<!-- CPU -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-primary glow-primary hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="memory">memory</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary uppercase font-bold tracking-widest border border-primary/20">Operational</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-1 tracking-tighter">42<span class="text-lg opacity-50">%</span></div>
+<div class="text-xs text-on-surface-variant font-medium uppercase tracking-[0.2em] opacity-60">CPU Architecture Load</div>
+</div>
+<!-- Memory -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-primary/40 hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl" data-icon="database">database</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary uppercase font-bold tracking-widest border border-primary/20">Optimal</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-1 tracking-tighter">2.4<span class="text-lg opacity-50">GB</span></div>
+<div class="text-xs text-on-surface-variant font-medium uppercase tracking-[0.2em] opacity-60">Neural Memory Cache</div>
+</div>
+<!-- I/O Warning -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-error/50 hover:bg-surface-container-high transition-all group">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-error text-2xl animate-pulse" data-icon="swap_horiz">swap_horiz</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-error/10 text-error uppercase font-bold tracking-widest border border-error/20">Critical</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-1 tracking-tighter text-error">840<span class="text-lg opacity-60">ms</span></div>
+<div class="text-xs text-on-surface-variant font-medium uppercase tracking-[0.2em] opacity-60">I/O Response Latency</div>
+</div>
+<!-- Network -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-primary/40 hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl" data-icon="router">router</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary uppercase font-bold tracking-widest border border-primary/20">Synced</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-1 tracking-tighter">12<span class="text-lg opacity-50">mbps</span></div>
+<div class="text-xs text-on-surface-variant font-medium uppercase tracking-[0.2em] opacity-60">Transmission Stream</div>
+</div>
+<!-- Render -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-primary/40 hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl" data-icon="grid_view">grid_view</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary uppercase font-bold tracking-widest border border-primary/20">Fluid</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-1 tracking-tighter">16.4<span class="text-lg opacity-50">ms</span></div>
+<div class="text-xs text-on-surface-variant font-medium uppercase tracking-[0.2em] opacity-60">Render Cycle Velocity</div>
+</div>
+<!-- Disk Read -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-primary/40 hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl" data-icon="hard_drive">hard_drive</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary uppercase font-bold tracking-widest border border-primary/20">Secure</span>
+</div>
+<div class="text-4xl font-headline font-bold mb-1 tracking-tighter">112<span class="text-lg opacity-50">MB/s</span></div>
+<div class="text-xs text-on-surface-variant font-medium uppercase tracking-[0.2em] opacity-60">Data Retrieval Rate</div>
+</div>
+</section>
+<!-- Activity Wave Visualization -->
+<section class="col-span-12">
+<div class="glass-panel p-6 rounded-xl overflow-hidden border border-primary-container/10">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="font-headline text-lg text-primary tracking-[0.1em] uppercase">System Profiling Engine</h3>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest opacity-60">High-Fidelity Flow Analysis</p>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 px-4 py-1.5 bg-[#00E5FF]/5 border border-[#00E5FF]/20 rounded-full text-[10px] font-bold text-[#00E5FF] uppercase tracking-[0.2em]">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                            Stream Live
+                        </div>
+</div>
+</div>
+<div class="h-56 w-full relative overflow-hidden rounded-lg bg-surface-container-lowest/30 border border-outline-variant/10">
+<!-- Animated Wave -->
+<div class="h-full wave-streaming">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 2000 200">
+<defs>
+<lineargradient id="waveGradientElite" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00E5FF" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#00E5FF" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area under path -->
+<path d="M0,150 C50,140 80,180 120,160 C180,130 220,50 300,80 C380,110 420,170 500,150 C580,130 620,40 700,60 C780,80 850,160 920,140 L1000,160 C1050,140 1080,180 1120,160 C1180,130 1220,50 1300,80 C1380,110 1420,170 1500,150 C1580,130 1620,40 1700,60 C1780,80 1850,160 1920,140 L2000,160 L2000,200 L0,200 Z" fill="url(#waveGradientElite)"></path>
+<!-- Neon Path -->
+<path class="neon-path" d="M0,150 C50,140 80,180 120,160 C180,130 220,50 300,80 C380,110 420,170 500,150 C580,130 620,40 700,60 C780,80 850,160 920,140 L1000,160 C1050,140 1080,180 1120,160 C1180,130 1220,50 1300,80 C1380,110 1420,170 1500,150 C1580,130 1620,40 1700,60 C1780,80 1850,160 1920,140 L2000,160" fill="transparent" stroke="#00E5FF" stroke-width="3"></path>
+</svg>
+</div>
+<!-- Background Mesh -->
+<div class="absolute inset-0 pointer-events-none opacity-20">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+<g class="stroke-primary" stroke-width="0.5">
+<line x1="0" x2="1000" y1="50" y2="50"></line>
+<line x1="0" x2="1000" y1="100" y2="100"></line>
+<line x1="0" x2="1000" y1="150" y2="150"></line>
+</g>
+</svg>
+</div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-on-surface-variant font-mono uppercase tracking-[0.3em] opacity-40">
+<span>T-120S</span>
+<span>T-90S</span>
+<span>T-60S</span>
+<span>T-30S</span>
+<span>REALTIME</span>
+</div>
+</div>
+</section>
+<!-- Performance Insights -->
+<section class="col-span-12">
+<h3 class="font-headline text-lg text-primary tracking-[0.1em] mb-6 flex items-center gap-3 uppercase">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+                Intelligence Insights
+            </h3>
+<div class="space-y-4">
+<!-- Insight Card 1 (High Priority with Glitch) -->
+<div class="reveal-item group glass-panel p-6 rounded-xl border-l-2 border-error hover:border-error transition-all flex items-center justify-between border-y border-r border-outline-variant/10 glitch-hover relative overflow-hidden" data-text="Inefficient async forEach Detected">
+<div class="flex items-start gap-5">
+<div class="mt-1 w-10 h-10 rounded-lg bg-error/10 flex items-center justify-center border border-error/20">
+<span class="material-symbols-outlined text-error text-xl animate-pulse" data-icon="warning">warning</span>
+</div>
+<div>
+<div class="flex items-center gap-4 mb-2">
+<h4 class="font-bold text-on-surface tracking-tight group-hover:text-error transition-colors">Inefficient async forEach detected in Worker.ts</h4>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-error/20 text-error uppercase tracking-widest border border-error/30">Priority Critical</span>
+</div>
+<p class="text-sm text-on-surface-variant max-w-2xl leading-relaxed">Found sequential execution in a standard loop. This creates an execution bottleneck causing a cumulative latency of <span class="text-error font-bold">~240ms</span>. Recommend immediate parallelism refactoring.</p>
+</div>
+</div>
+<button class="px-6 py-2.5 text-[10px] font-bold font-headline border border-error/40 hover:bg-error hover:text-on-error transition-all rounded-lg uppercase tracking-[0.2em] glow-hover">
+                        Auto-Fix
+                    </button>
+</div>
+<!-- Insight Card 2 -->
+<div class="reveal-item group glass-panel p-6 rounded-xl border-l-2 border-[#00E5FF] hover:border-[#00E5FF] transition-all flex items-center justify-between border-y border-r border-outline-variant/10">
+<div class="flex items-start gap-5">
+<div class="mt-1 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="memory_alt">memory_alt</span>
+</div>
+<div>
+<div class="flex items-center gap-4 mb-2">
+<h4 class="font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">DashboardShell Re-render Volatility</h4>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/20 text-primary uppercase tracking-widest border border-primary/30">Optimization Path</span>
+</div>
+<p class="text-sm text-on-surface-variant max-w-2xl leading-relaxed">Component is re-executing logic on global mouse context updates. Suggesting <code class="bg-surface-container-highest px-1.5 py-0.5 rounded text-primary text-xs">useMemo</code> for node caching to save 12% CPU cycles.</p>
+</div>
+</div>
+<button class="px-6 py-2.5 text-[10px] font-bold font-headline border border-primary/40 hover:bg-primary hover:text-on-primary transition-all rounded-lg uppercase tracking-[0.2em] glow-hover">
+                        Refactor
+                    </button>
+</div>
+<!-- Loading Skeleton (New Item) -->
+<div class="reveal-item glass-panel p-6 rounded-xl flex items-center justify-between border border-outline-variant/10 opacity-40">
+<div class="flex items-start gap-5 w-full">
+<div class="mt-1 w-10 h-10 rounded-lg skeleton"></div>
+<div class="flex-1 space-y-3">
+<div class="flex items-center gap-4">
+<div class="h-4 w-48 skeleton rounded"></div>
+<div class="h-4 w-20 skeleton rounded-full"></div>
+</div>
+<div class="h-3 w-4/5 skeleton rounded"></div>
+<div class="h-3 w-2/3 skeleton rounded"></div>
+</div>
+</div>
+<div class="w-32 h-10 skeleton rounded-lg ml-8"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe glass-panel border-t border-[#00E5FF]/20 shadow-[0_-10px_40px_rgba(0,229,255,0.08)] z-50">
+<a class="nav-link flex flex-col items-center justify-center text-slate-500 px-6 py-2 hover:text-[#00E5FF] transition-all hover:bg-primary/5 rounded-xl active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="grid_view">grid_view</span>
+<span class="font-headline text-[9px] uppercase tracking-widest">Grid</span>
+</a>
+<a class="nav-link flex flex-col items-center justify-center text-[#00E5FF] border-t-2 border-[#00E5FF] bg-primary/10 px-6 py-2 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="query_stats" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+<span class="font-headline text-[9px] uppercase tracking-widest">Metrics</span>
+</a>
+<a class="nav-link flex flex-col items-center justify-center text-slate-500 px-6 py-2 hover:text-[#00E5FF] transition-all hover:bg-primary/5 rounded-xl active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="tune">tune</span>
+<span class="font-headline text-[9px] uppercase tracking-widest">Config</span>
+</a>
+<a class="nav-link flex flex-col items-center justify-center text-slate-500 px-6 py-2 hover:text-[#00E5FF] transition-all hover:bg-primary/5 rounded-xl active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_tree">account_tree</span>
+<span class="font-headline text-[9px] uppercase tracking-widest">Flow</span>
+</a>
+</nav>
+</body></html>

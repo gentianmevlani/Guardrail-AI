@@ -1,0 +1,128 @@
+{
+  "packages\\cli\\src\\commands\\index.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\cli\\tsconfig.json": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\engine\\src\\index.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\engine\\tsconfig.json": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\package.json": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\server.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\antipatterns.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\autopilot.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\graph.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\patterns.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\repo.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\routes.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\scope.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\symbols.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\verify.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\src\\tools\\versions.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\mcp-server\\tsconfig.json": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\shared\\src\\index.ts": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "packages\\shared\\src\\schema.ts": {
+    "tags": [
+      "db"
+    ],
+    "score": 0.25
+  },
+  "packages\\shared\\tsconfig.json": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  },
+  "tsconfig.base.json": {
+    "tags": [
+      "core"
+    ],
+    "score": 0.25
+  }
+}

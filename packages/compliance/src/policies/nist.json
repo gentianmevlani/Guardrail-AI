@@ -1,0 +1,159 @@
+{
+  "version": "1.0.0",
+  "framework": "NIST-CSF",
+  "rules": [
+    {
+      "id": "NIST-ID.AM-1",
+      "controlId": "ID.AM-1",
+      "title": "Physical Devices and Systems Inventory",
+      "description": "Physical devices and systems within the organization are inventoried",
+      "severity": "medium",
+      "category": "identify",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": "docs/asset-inventory.md"
+        }
+      ],
+      "remediation": "Create and maintain an inventory of all physical and virtual assets. Document system dependencies."
+    },
+    {
+      "id": "NIST-PR.AC-1",
+      "controlId": "PR.AC-1",
+      "title": "Identity and Credential Management",
+      "description": "Identities and credentials are issued, managed, verified, revoked, and audited",
+      "severity": "critical",
+      "category": "protect",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasAuth",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasRBAC",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement identity and access management system. Use strong authentication and credential management practices."
+    },
+    {
+      "id": "NIST-PR.DS-1",
+      "controlId": "PR.DS-1",
+      "title": "Data-at-rest Protection",
+      "description": "Data-at-rest is protected through encryption and other appropriate mechanisms",
+      "severity": "critical",
+      "category": "protect",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasEncryption",
+          "expected": true
+        },
+        {
+          "type": "dependency-present",
+          "target": "bcrypt"
+        }
+      ],
+      "remediation": "Encrypt all sensitive data at rest using AES-256 or equivalent. Implement secure key management."
+    },
+    {
+      "id": "NIST-PR.DS-2",
+      "controlId": "PR.DS-2",
+      "title": "Data-in-transit Protection",
+      "description": "Data-in-transit is protected through encryption and other appropriate mechanisms",
+      "severity": "critical",
+      "category": "protect",
+      "checks": [
+        {
+          "type": "pattern-match",
+          "target": "src/server.ts",
+          "pattern": "https\\.createServer"
+        }
+      ],
+      "remediation": "Use TLS 1.2+ for all network communications. Implement certificate pinning where appropriate."
+    },
+    {
+      "id": "NIST-DE.AE-3",
+      "controlId": "DE.AE-3",
+      "title": "Event Data Aggregation and Correlation",
+      "description": "Event data are collected and correlated from multiple sources and sensors",
+      "severity": "high",
+      "category": "detect",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasLogging",
+          "expected": true
+        },
+        {
+          "type": "config-value",
+          "target": "hasMonitoring",
+          "expected": true
+        }
+      ],
+      "remediation": "Implement centralized logging and monitoring. Use SIEM or log aggregation tools for correlation."
+    },
+    {
+      "id": "NIST-DE.CM-1",
+      "controlId": "DE.CM-1",
+      "title": "Network Monitoring",
+      "description": "The network is monitored to detect potential cybersecurity events",
+      "severity": "high",
+      "category": "detect",
+      "checks": [
+        {
+          "type": "config-value",
+          "target": "hasMonitoring",
+          "expected": true
+        },
+        {
+          "type": "dependency-present",
+          "target": "@sentry/node"
+        }
+      ],
+      "remediation": "Implement network and application monitoring. Set up alerts for anomalous behavior and security events."
+    },
+    {
+      "id": "NIST-RS.CO-2",
+      "controlId": "RS.CO-2",
+      "title": "Incident Reporting",
+      "description": "Incidents are reported consistent with established criteria",
+      "severity": "medium",
+      "category": "respond",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": "docs/incident-response.md"
+        },
+        {
+          "type": "config-value",
+          "target": "hasAuditLog",
+          "expected": true
+        }
+      ],
+      "remediation": "Create incident response plan. Document reporting procedures and escalation paths."
+    },
+    {
+      "id": "NIST-RC.RP-1",
+      "controlId": "RC.RP-1",
+      "title": "Recovery Plan Execution",
+      "description": "Recovery plan is executed during or after a cybersecurity incident",
+      "severity": "medium",
+      "category": "recover",
+      "checks": [
+        {
+          "type": "file-exists",
+          "target": "docs/recovery-plan.md"
+        },
+        {
+          "type": "config-value",
+          "target": "hasBackup",
+          "expected": true
+        }
+      ],
+      "remediation": "Develop and document recovery procedures. Implement automated backups and test restoration processes."
+    }
+  ]
+}

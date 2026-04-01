@@ -1,0 +1,38 @@
+---
+description: Environment variables
+globs: ["**/*.env*", "**/config/**"]
+alwaysApply: false
+---
+
+# Environment Variables (47)
+
+- `ANTHROPIC_API_KEY`
+- `APPDATA`
+- `ARTIFACTS_DIR`
+- `BUILDKITE`
+- `CI`
+- `CIRCLECI`
+- `CONTINUOUS_INTEGRATION`
+- `DATABASE_URL`
+- `DEBUG`
+- `FRONTEND_URL`
+- `GITHUB_ACTIONS`
+- `GITHUB_ACTOR`
+- `GITLAB_CI`
+- `GITLAB_USER_LOGIN`
+- `GITLAB_USER_NAME`
+- `GUARDRAIL_ADMIN`
+- `GUARDRAIL_API_KEY`
+- `GUARDRAIL_API_URL`
+- `GUARDRAIL_DEBUG`
+- `GUARDRAIL_OWNER_MODE`
+- `GUARDRAIL_SKIP_AUTH`
+- `GUARDRAIL_SKIP_ENTITLEMENTS`
+- `GUARDRAIL_TIER`
+- `GUARDRAIL_USER_EMAIL`
+- `GUARDRAIL_USER_ID`
+
+## Rules
+- Never commit `.env` files
+- Access via `process.env.VAR_NAME`
+- Prefix client-side vars with `NEXT_PUBLIC_`

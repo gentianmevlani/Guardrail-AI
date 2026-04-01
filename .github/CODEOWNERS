@@ -1,0 +1,41 @@
+# Guardrail Code Owners
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything
+* @guardiavault-oss/core-team
+
+# CLI and bin scripts
+/bin/ @guardiavault-oss/cli-team
+/packages/cli/ @guardiavault-oss/cli-team
+
+# Core scanning engine
+/packages/core/ @guardiavault-oss/core-team
+/src/lib/ @guardiavault-oss/core-team
+
+# Web UI and Dashboard
+/apps/web-ui/ @guardiavault-oss/frontend-team
+
+# API Server
+/apps/api/ @guardiavault-oss/backend-team
+
+# Compliance and Security
+/packages/compliance/ @guardiavault-oss/security-team
+/SECURITY.md @guardiavault-oss/security-team
+
+# Database
+/prisma/ @guardiavault-oss/backend-team
+
+# Documentation
+/docs/ @guardiavault-oss/docs-team
+*.md @guardiavault-oss/docs-team
+
+# CI/CD and DevOps
+/.github/ @guardiavault-oss/devops-team
+/docker/ @guardiavault-oss/devops-team
+/deploy/ @guardiavault-oss/devops-team
+
+# MCP Server
+/mcp-server/ @guardiavault-oss/cli-team
+
+# VS Code Extension
+/vscode-extension/ @guardiavault-oss/extension-team

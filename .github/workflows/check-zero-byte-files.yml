@@ -1,0 +1,30 @@
+name: Check Zero-Byte Files
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-zero-byte-files:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check for zero-byte TypeScript files
+      run: |
+        # Find all .ts files in src/ directories and check for zero-byte files
+        zero_byte_files=$(find . -name "src" -type d -exec find {} -name "*.ts" \; | xargs -I {} sh -c 'if [ -f "{}" ] && [ ! -s "{}" ]; then echo "{}"; fi')
+        
+        if [ -n "$zero_byte_files" ]; then
+          echo "❌ Found zero-byte TypeScript files:"
+          echo "$zero_byte_files"
+          echo ""
+          echo "Please remove these files or add proper content."
+          exit 1
+        else
+          echo "✅ No zero-byte TypeScript files found"
+        fi

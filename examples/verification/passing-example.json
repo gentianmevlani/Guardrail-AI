@@ -1,0 +1,11 @@
+{
+  "format": "guardrail-v1",
+  "diff": "diff --git a/src/utils/logger.ts b/src/utils/logger.ts\n--- a/src/utils/logger.ts\n+++ b/src/utils/logger.ts\n@@ -1,5 +1,10 @@\n+import { format } from 'date-fns';\n+\n export function log(message: string): void {\n-  console.log(message);\n+  const timestamp = format(new Date(), 'yyyy-MM-dd HH:mm:ss');\n+  console.log(`[${timestamp}] ${message}`);\n }\n \n export function error(message: string): void {\n-  console.error(message);\n+  const timestamp = format(new Date(), 'yyyy-MM-dd HH:mm:ss');\n+  console.error(`[${timestamp}] ERROR: ${message}`);\n }",
+  "commands": [
+    "pnpm install date-fns"
+  ],
+  "tests": [
+    "pnpm test -- --testPathPattern=logger"
+  ],
+  "notes": "Added timestamp formatting to logger functions using date-fns"
+}

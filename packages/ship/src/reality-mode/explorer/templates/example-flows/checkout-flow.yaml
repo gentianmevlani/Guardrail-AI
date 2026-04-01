@@ -1,0 +1,66 @@
+# E-commerce Checkout Flow
+# Copy to .guardrail/flows/checkout-flow.yaml and customize
+
+id: ecommerce-checkout
+name: Checkout Flow
+description: Tests the complete checkout process
+required: false
+
+steps:
+  - action: navigate
+    target: /products
+
+  - action: wait
+    timeout: 2000
+
+  - action: click
+    target: button:has-text("Add to Cart"), [data-testid="add-to-cart"], .add-to-cart
+
+  - action: wait
+    timeout: 1000
+
+  - action: navigate
+    target: /cart
+
+  - action: wait
+    timeout: 2000
+
+  - action: click
+    target: button:has-text("Checkout"), a:has-text("Checkout"), [data-testid="checkout"]
+
+  - action: wait
+    timeout: 3000
+
+  # Fill shipping info
+  - action: fill
+    target: input[name="email"], #email
+    value: "{{email}}"
+
+  - action: fill
+    target: input[name="name"], input[name="fullName"], #name
+    value: "{{name}}"
+
+  - action: fill
+    target: input[name="address"], #address
+    value: "123 Test Street"
+
+  - action: fill
+    target: input[name="city"], #city
+    value: "Test City"
+
+  - action: fill
+    target: input[name="zip"], input[name="postalCode"], #zip
+    value: "12345"
+
+assertions:
+  - type: url-contains
+    value: /checkout|/payment
+    critical: true
+
+  - type: no-errors
+    value: ""
+    critical: true
+
+  - type: element-visible
+    value: button:has-text("Pay"), button:has-text("Place Order")
+    critical: false

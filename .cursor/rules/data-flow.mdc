@@ -1,0 +1,44 @@
+---
+description: Data fetching and API interaction patterns
+globs: ["**/api/**", "**/lib/**", "**/services/**", "**/hooks/**"]
+alwaysApply: false
+---
+
+# Data Flow Guidelines
+
+
+
+## Database (Prisma)
+
+Models: User, TokenBlacklist, RefreshToken, OAuthState, Subscription, Payment, Project, Team, TeamMember, UsageRecord, ApiKey, Analytics, CodeSnapshot, EvolutionTrend, CollaborationRoom, RoomActivity, RepositoryAnalysis, CrossRepoInsight, DesignSystem, ComplianceAssessment, AuditEvent, ComplianceSchedule, Alert, AlertConfig, RemediationTask, ReportSchedule, EvidenceCollection, KubernetesScan, ContainerScan, IaCScan, PIIDetection, ComplianceReport, Tenant, TenantUser, GithubAccount, Repository, Agent, AgentAction, AttackSurfaceAnalysis, DependencyAnalysis, SBOM, OutputValidation, LicenseAnalysis, LicenseKey, LicenseActivation, Invoice, BillingEvent, UsageLog, Scan, Finding, UserLLMKey, UsageCounter, UsageToken, OfflineUsageQueue, UserOnboarding, Organization, OrganizationMember, TeamSeat, SecurityEvent, Report, ConsentPreferences, LegalAcceptance, GdprJob, GdprAuditLog, AdminAuditLog, ImpersonationSession, SupportNote, BroadcastJob, BroadcastRecipient, RolePermission, TeamInvitation, RBACActivityLog, FeatureFlag, Feedback, IncidentMessage
+
+Rules:
+- Use Prisma client from `@/lib/prisma` or `@/server/db`
+- Use transactions for multi-step operations
+- Handle errors with try/catch
+- Never expose raw database errors
+
+
+## API Routes
+
+- /auth/api-key
+- /auth/forgot-password
+- /auth/github/callback
+- /auth/github/connect
+- /auth/github/disconnect
+- /auth/github/login
+- /auth/github
+- /auth/google/callback
+- /auth/google
+- /auth/login
+- /auth/logout
+- /auth/register
+- /auth/reset-password
+- /auth/user
+- /checkout
+
+Rules:
+- Validate all input with Zod
+- Return consistent response shapes
+- Use proper HTTP status codes
+

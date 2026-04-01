@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.js
+*.d.ts
+*.js.map
+!src/**
+.procedural-memory/
+.claude-strategies.json
+CLAUDE_STRATEGIES.md
+
+# VibeCheck (re-run creates this; keep out of git)
+.vibecheck/

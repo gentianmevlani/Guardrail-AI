@@ -1,0 +1,283 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "Motion Atlas" [ref=e3] [cursor=pointer]:
+      - /url: "#top"
+    - generic [ref=e4]: Opening Sequence
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - paragraph [ref=e11]: Built from the GSAP studies in your zip
+          - heading "t h e o p e n i n g s c e n e i s b u i l t t o e x p l o d e c l e a n l y" [level=1] [ref=e326]:
+            - generic [ref=e327]:
+              - generic [ref=e328]: t
+              - generic [ref=e329]: h
+              - generic [ref=e330]: e
+            - generic [ref=e331]:
+              - generic [ref=e332]: o
+              - generic [ref=e333]: p
+              - generic [ref=e334]: e
+              - generic [ref=e335]: "n"
+              - generic [ref=e336]: i
+              - generic [ref=e337]: "n"
+              - generic [ref=e338]: g
+            - generic [ref=e339]:
+              - generic [ref=e340]: s
+              - generic [ref=e341]: c
+              - generic [ref=e342]: e
+              - generic [ref=e343]: "n"
+              - generic [ref=e344]: e
+            - generic [ref=e345]:
+              - generic [ref=e346]: i
+              - generic [ref=e347]: s
+            - generic [ref=e348]:
+              - generic [ref=e349]: b
+              - generic [ref=e350]: u
+              - generic [ref=e351]: i
+              - generic [ref=e352]: l
+              - generic [ref=e353]: t
+            - generic [ref=e354]:
+              - generic [ref=e355]: t
+              - generic [ref=e356]: o
+            - generic [ref=e358]:
+              - generic [ref=e360]: e
+              - generic [ref=e362]: x
+              - generic [ref=e364]: p
+              - generic [ref=e366]: l
+              - generic [ref=e368]: o
+              - generic [ref=e370]: d
+              - generic [ref=e372]: e
+            - generic [ref=e373]:
+              - generic [ref=e374]: c
+              - generic [ref=e375]: l
+              - generic [ref=e376]: e
+              - generic [ref=e377]: a
+              - generic [ref=e378]: "n"
+              - generic [ref=e379]: l
+              - generic [ref=e380]: "y"
+          - paragraph [ref=e65]: Nine separate motion ideas now play as one long, cinematic scroll story with a shared rhythm, palette, and point of view.
+        - complementary [ref=e66]:
+          - generic [ref=e67]: Included chapters
+          - list [ref=e68]:
+            - listitem [ref=e69]: Exploding Hero Text
+            - listitem [ref=e70]: Text Fill on Scroll
+            - listitem [ref=e71]: Ultimate Flying Text
+            - listitem [ref=e72]: Layout Glides Cards
+            - listitem [ref=e73]: Cards That Stack
+            - listitem [ref=e74]: Split Card Scroll
+            - listitem [ref=e75]: Cinematic Scroll Journey
+            - listitem [ref=e76]: ScrollTrigger Guide
+            - listitem [ref=e77]: Cinematic Testimonial
+      - generic [ref=e81]: GSAP × Lenis × ScrollTrigger
+    - generic [ref=e82]:
+      - generic [ref=e83]:
+        - paragraph [ref=e84]: Text Fill On Scroll
+        - heading "Big type that wakes up as you move." [level=2] [ref=e85]
+      - generic "Animated manifesto" [ref=e86]:
+        - heading "Exploding type becomes a deliberate opening move" [level=3] [ref=e87]
+        - heading "Scroll reveal lines turn pacing into design" [level=3] [ref=e88]
+        - heading "Pinned scenes make each transition feel earned" [level=3] [ref=e89]
+        - heading "Images, panels, and reviews now share one language" [level=3] [ref=e90]
+        - heading "Every borrowed study now belongs to the same website" [level=3] [ref=e91]
+    - generic [ref=e95]:
+      - generic [ref=e96]:
+        - paragraph [ref=e97]: The Ultimate Flying Text Animation
+        - heading "Words leave the paragraph and become the headline." [level=2] [ref=e98]
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e101]: imagine
+          - generic [ref=e102]: build
+          - generic [ref=e103]: tell
+        - paragraph [ref=e104]:
+          - generic [ref=e105]: A
+          - generic [ref=e106]: fresh
+          - generic [ref=e107]: build
+          - generic [ref=e108]: can
+          - generic [ref=e109]: stronger
+          - generic [ref=e110]: motion,
+          - generic [ref=e111]: one
+          - generic [ref=e112]: consistent
+          - generic [ref=e113]: visual
+          - generic [ref=e114]: system,
+          - generic [ref=e115]: and
+          - generic [ref=e116]: a
+          - generic [ref=e117]: clearer
+          - generic [ref=e118]: story
+          - generic [ref=e119]: from
+          - generic [ref=e120]: the
+          - generic [ref=e121]: first
+          - generic [ref=e122]: frame
+          - generic [ref=e123]: to
+          - generic [ref=e124]: the
+          - generic [ref=e125]: last.
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - paragraph [ref=e130]: Layout Glides Cards
+        - heading "Editorial panels that trade places while the layout stays calm." [level=2] [ref=e131]
+      - generic [ref=e132]:
+        - generic [ref=e134]:
+          - heading "One page. One atmosphere. No disconnected demo feeling." [level=3] [ref=e135]
+          - paragraph [ref=e136]: The original motion studies now sit inside a single composition with tighter spacing, shared typography, and a more intentional color system.
+        - generic [ref=e137]:
+          - img "Warm, modern interior with layered textures" [ref=e139]
+          - img "Architectural interior with soft natural light" [ref=e141]
+        - generic [ref=e143]:
+          - heading "Scroll chapters can feel precise without becoming cold." [level=3] [ref=e144]
+          - paragraph [ref=e145]: Each panel moves with the same timing language, so different effects still read like one authored experience.
+        - img "Minimal lounge interior with a quiet, luxurious mood" [ref=e148]
+    - generic [ref=e149]:
+      - generic [ref=e150]:
+        - paragraph [ref=e151]: Cards That Stack Themselves
+        - heading "A pinned gallery that layers the best scenes one by one." [level=2] [ref=e152]
+      - generic [ref=e154]:
+        - article [ref=e155]:
+          - img "Woman framed by direct sunlight" [ref=e157]
+          - generic [ref=e158]:
+            - generic [ref=e159]: "01"
+            - heading "Exploding entrance" [level=3] [ref=e160]
+            - paragraph [ref=e161]: The site opens like a trailer instead of a template.
+        - article [ref=e162]:
+          - img "Glass object reflecting warm studio light" [ref=e164]
+          - generic [ref=e165]:
+            - generic [ref=e166]: "02"
+            - heading "Scroll-built language" [level=3] [ref=e167]
+            - paragraph [ref=e168]: Text reveal and section pacing now share the same cadence.
+        - article [ref=e169]:
+          - img "Architectural shadows on a textured facade" [ref=e171]
+          - generic [ref=e172]:
+            - generic [ref=e173]: "03"
+            - heading "Layered sections" [level=3] [ref=e174]
+            - paragraph [ref=e175]: Gliding layouts and pinned columns move like editorial spreads.
+        - article [ref=e176]:
+          - img "Abstract composition of shadows and curved concrete" [ref=e178]
+          - generic [ref=e179]:
+            - generic [ref=e180]: "04"
+            - heading "Transitional depth" [level=3] [ref=e181]
+            - paragraph [ref=e182]: Split cards and masked media turn change into choreography.
+        - article [ref=e183]:
+          - img "Close-up portrait with bold directional light" [ref=e185]
+          - generic [ref=e186]:
+            - generic [ref=e187]: "05"
+            - heading "Human payoff" [level=3] [ref=e188]
+            - paragraph [ref=e189]: The testimonial chapter lands as the emotional closing beat.
+    - generic [ref=e192]:
+      - generic [ref=e193]:
+        - paragraph [ref=e194]: Split Card Scroll + Lenis
+        - heading "Three pillars with one shared pulse" [level=2] [ref=e195]
+      - generic [ref=e196]:
+        - article [ref=e197]:
+          - img "Abstract image slice one" [ref=e199]
+          - generic [ref=e200]:
+            - generic [ref=e201]: "01"
+            - paragraph [ref=e202]: Interactive motion that feels smooth instead of flashy.
+        - article [ref=e203]:
+          - img "Abstract image slice two" [ref=e205]
+          - generic [ref=e206]:
+            - generic [ref=e207]: "02"
+            - paragraph [ref=e208]: A single design language that lets many demos coexist.
+        - article [ref=e209]:
+          - img "Abstract image slice three" [ref=e211]
+          - generic [ref=e212]:
+            - generic [ref=e213]: "03"
+            - paragraph [ref=e214]: Scroll structure that turns experiments into a real website.
+    - generic [ref=e217]:
+      - generic [ref=e218]:
+        - paragraph [ref=e219]: A Cinematic Scroll Journey
+        - heading "The reveal opens from a small signal to a full scene." [level=2] [ref=e220]
+        - paragraph [ref=e221]:
+          - generic [ref=e222]: Step
+          - generic [ref=e223]: into
+          - generic [ref=e224]: a
+          - generic [ref=e225]: calmer
+          - generic [ref=e226]: middle
+          - generic [ref=e227]: chapter
+          - generic [ref=e228]: where
+          - generic [ref=e229]: the
+          - generic [ref=e230]: page
+          - generic [ref=e231]: slows
+          - generic [ref=e232]: down,
+          - generic [ref=e233]: sharpens
+          - generic [ref=e234]: the
+          - generic [ref=e235]: message,
+          - generic [ref=e236]: and
+          - generic [ref=e237]: lets
+          - generic [ref=e238]: a
+          - generic [ref=e239]: single
+          - generic [ref=e240]: visual
+          - generic [ref=e241]: do
+          - generic [ref=e242]: the
+          - generic [ref=e243]: heavy
+          - generic [ref=e244]: lifting
+          - generic [ref=e245]: before
+          - generic [ref=e246]: the
+          - generic [ref=e247]: final
+          - generic [ref=e248]: sections
+          - generic [ref=e249]: arrive.
+        - generic "Journey highlights" [ref=e250]
+      - generic [ref=e251]:
+        - generic [ref=e252]: scroll crafted
+        - img "Mountain landscape with a broad, cinematic horizon" [ref=e254]
+    - generic [ref=e255]:
+      - generic [ref=e256]:
+        - paragraph [ref=e257]: GSAP ScrollTrigger Complete Guide
+        - heading "A compact lab that folds the tutorial demo into the site." [level=2] [ref=e258]
+      - generic [ref=e259]:
+        - article [ref=e260]:
+          - text: Basic Trigger
+          - paragraph [ref=e261]: A simple entry animation for the moment a section crosses into view.
+          - generic [ref=e263]: A
+        - article [ref=e264]:
+          - text: Scrub
+          - paragraph [ref=e265]: Scroll position maps directly to motion progress for a more tactile feel.
+          - generic [ref=e268]: B
+        - article [ref=e270]:
+          - text: Pin
+          - paragraph [ref=e271]: One scene holds its ground while the choreography keeps unfolding.
+          - generic [ref=e273]: C
+    - generic [ref=e275]:
+      - generic [ref=e276]:
+        - paragraph [ref=e277]: A Cinematic Testimonial
+        - generic [ref=e278]:
+          - heading "Voices" [level=2] [ref=e279]
+          - heading "in" [level=2] [ref=e280]
+          - heading "motion" [level=2] [ref=e281]
+        - paragraph [ref=e282]: Hover to tease the stack, click to open a card, and close it to drop back into the spread.
+      - generic [ref=e283]:
+        - article "Open review from Mika" [ref=e284] [cursor=pointer]:
+          - generic [ref=e285]:
+            - img "Portrait of a smiling reviewer in warm light" [ref=e286]
+            - generic [ref=e287]: Mika
+          - generic [ref=e289]:
+            - generic [ref=e290]: ★★★★★
+            - paragraph [ref=e291]: “It finally feels like one directed experience instead of a folder full of separate ideas. The pacing is what made it click.”
+            - button "Close review" [ref=e292]: Close
+        - article "Open review from Ezra" [ref=e293] [cursor=pointer]:
+          - generic [ref=e294]:
+            - img "Portrait of a reviewer standing near a bright window" [ref=e295]
+            - generic [ref=e296]: Ezra
+          - generic [ref=e298]:
+            - generic [ref=e299]: ★★★★★
+            - paragraph [ref=e300]: “The guide section was a smart choice. It gives the page a backbone and makes the flashy parts feel intentional.”
+            - button "Close review" [ref=e301]: Close
+        - article "Open review from Sol" [ref=e302] [cursor=pointer]:
+          - generic [ref=e303]:
+            - img "Portrait of a reviewer against a dark backdrop" [ref=e304]
+            - generic [ref=e305]: Sol
+          - generic [ref=e307]:
+            - generic [ref=e308]: ★★★★★
+            - paragraph [ref=e309]: “My favorite part is how the card sections feel consistent without becoming repetitive. Each one earns a different role.”
+            - button "Close review" [ref=e310]: Close
+        - article "Open review from Juno" [ref=e311] [cursor=pointer]:
+          - generic [ref=e312]:
+            - img "Portrait of a reviewer in soft neutral tones" [ref=e313]
+            - generic [ref=e314]: Juno
+          - generic [ref=e316]:
+            - generic [ref=e317]: ★★★★★
+            - paragraph [ref=e318]: “The mask reveal in the journey chapter gave the page a real midpoint. That’s where it stopped feeling like a demo gallery.”
+            - button "Close review" [ref=e319]: Close
+    - generic [ref=e321]:
+      - paragraph [ref=e322]: All studies merged into one website
+      - heading "From scattered experiments to a single motion-driven homepage." [level=2] [ref=e323]
+      - paragraph [ref=e324]: The new project lives outside the Vibecheck repo and is ready to run as its own standalone site.
+      - link "Back to top" [ref=e325] [cursor=pointer]:
+        - /url: "#top"

@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/types/*": ["src/types/*"],
+      "@/features/*": ["src/features/*"],
+      "@/server/*": ["src/server/*"],
+      "@/config/*": ["src/config/*"],
+      "@guardrail/database": ["packages/database/src/index.ts"],
+      "@guardrail/core": ["packages/core/src/index.ts"],
+      "@guardrail/security": ["packages/security/src/index.ts"],
+      "@guardrail/ai-guardrails": ["packages/ai-guardrails/src/index.ts"],
+      "@guardrail/compliance": ["packages/compliance/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "apps/**/*", "packages/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist", "build", "apps/web-ui/**"]
+}

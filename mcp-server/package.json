@@ -1,0 +1,48 @@
+{
+  "name": "guardrail-mcp-server",
+  "version": "2.0.1",
+  "description": "Professional MCP server for guardrail - Intelligent development environment guardrails",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "guardrail-mcp": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "GUARDRAIL_DEBUG=true node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "ai",
+    "guardrails",
+    "guardrail",
+    "development",
+    "validation",
+    "architecture"
+  ],
+  "dependencies": {
+    "@guardrail/core": "workspace:*",
+    "@modelcontextprotocol/sdk": "^0.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "guardrail",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "*.js",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guardiavault-oss/guardrail"
+  },
+  "bugs": {
+    "url": "https://github.com/guardiavault-oss/guardrail/issues"
+  },
+  "homepage": "https://github.com/guardiavault-oss/guardrail#readme"
+}
+

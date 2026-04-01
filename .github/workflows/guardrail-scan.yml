@@ -1,0 +1,152 @@
+###############################################################################
+# Guardrail Scan — GitHub Action
+#
+# Add this to your repo's .github/workflows/ to run Guardrail on every PR
+# and publish the trust score.
+#
+# Required secrets:
+#   GUARDRAIL_API_KEY — Your Guardrail API key (get one at guardrailai.dev)
+#
+# Optional:
+#   GUARDRAIL_API_URL — Custom API URL (default: https://api.guardrailai.dev)
+###############################################################################
+
+name: Guardrail Scan
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  guardrail:
+    name: Guardrail Trust Score
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for accurate diff
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Guardrail CLI
+        run: npm install -g guardrail@latest
+
+      - name: Run Guardrail Scan
+        id: scan
+        env:
+          GUARDRAIL_API_KEY: ${{ secrets.GUARDRAIL_API_KEY }}
+          GUARDRAIL_API_URL: ${{ vars.GUARDRAIL_API_URL || 'https://api.guardrailai.dev' }}
+        run: |
+          # Run scan and capture JSON output
+          guardrail scan --json --ci > scan-result.json 2>&1 || true
+
+          # Extract key values for downstream steps
+          SCORE=$(jq -r '.trustScore.overall // 0' scan-result.json)
+          VERDICT=$(jq -r '.trustScore.decision // "NO_SHIP"' scan-result.json)
+          GRADE=$(jq -r '.trustScore.grade // "F"' scan-result.json)
+          FINDINGS=$(jq -r '.trustScore.findingCount // 0' scan-result.json)
+          CRITICALS=$(jq -r '.findings | map(select(.severity == "critical")) | length // 0' scan-result.json)
+
+          echo "score=$SCORE" >> "$GITHUB_OUTPUT"
+          echo "verdict=$VERDICT" >> "$GITHUB_OUTPUT"
+          echo "grade=$GRADE" >> "$GITHUB_OUTPUT"
+          echo "findings=$FINDINGS" >> "$GITHUB_OUTPUT"
+          echo "criticals=$CRITICALS" >> "$GITHUB_OUTPUT"
+
+      - name: Publish Trust Score
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        env:
+          GUARDRAIL_API_KEY: ${{ secrets.GUARDRAIL_API_KEY }}
+          GUARDRAIL_API_URL: ${{ vars.GUARDRAIL_API_URL || 'https://api.guardrailai.dev' }}
+        run: |
+          # Publish score to Guardrail API for badge + leaderboard
+          ORG="${{ github.repository_owner }}"
+          REPO="${{ github.event.repository.name }}"
+          SCORE=$(jq -c '{
+            score: (.trustScore.overall // 0),
+            verdict: (.trustScore.decision // "NO_SHIP"),
+            grade: (.trustScore.grade // "F"),
+            findingCount: (.trustScore.findingCount // 0),
+            criticalCount: (.findings | map(select(.severity == "critical")) | length // 0),
+            highCount: (.findings | map(select(.severity == "high")) | length // 0),
+            dimensions: (.trustScore.dimensions // {}),
+            commitSha: "${{ github.sha }}",
+            branch: "${{ github.ref_name }}"
+          }' scan-result.json)
+
+          curl -sf -X POST \
+            "${GUARDRAIL_API_URL}/api/v1/score/${ORG}/${REPO}" \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: ${GUARDRAIL_API_KEY}" \
+            -d "$SCORE" || echo "Warning: Failed to publish score (non-blocking)"
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const score = ${{ steps.scan.outputs.score }};
+            const verdict = '${{ steps.scan.outputs.verdict }}';
+            const grade = '${{ steps.scan.outputs.grade }}';
+            const findings = ${{ steps.scan.outputs.findings }};
+            const criticals = ${{ steps.scan.outputs.criticals }};
+
+            const icon = verdict === 'SHIP' ? '🟢' : verdict === 'REVIEW' ? '🟡' : '🔴';
+            const verdictLabel = verdict === 'SHIP' ? 'SHIP ✅' : verdict === 'REVIEW' ? 'REVIEW ⚠️' : 'NO SHIP ⛔';
+
+            const body = [
+              `## ${icon} Guardrail: ${score}/100 — ${verdictLabel}`,
+              '',
+              `**Grade:** ${grade} | **Findings:** ${findings} | **Critical:** ${criticals}`,
+              '',
+              `> Run \`guardrail scan\` locally for full details.`,
+              '',
+              '---',
+              '*Powered by [Guardrail](https://guardrailai.dev) — Ship Real Code. Prove It.*',
+              '',
+              '<!-- guardrail-action-comment -->',
+            ].join('\n');
+
+            // Find existing comment
+            const marker = '<!-- guardrail-action-comment -->';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Gate Check
+        if: steps.scan.outputs.criticals != '0'
+        run: |
+          echo "::error::Guardrail found ${{ steps.scan.outputs.criticals }} critical findings. Score: ${{ steps.scan.outputs.score }}/100 (${{ steps.scan.outputs.verdict }})"
+          exit 1

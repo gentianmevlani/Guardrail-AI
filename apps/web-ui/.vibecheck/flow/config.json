@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "projectName": "gsap-fusion-site",
+  "userName": "developer",
+  "skillLevel": "intermediate",
+  "outputFolder": ".vibecheck/flow",
+  "planningArtifacts": ".vibecheck/flow/planning-artifacts",
+  "implementationArtifacts": ".vibecheck/flow/implementation-artifacts",
+  "installedAt": "2026-03-27T10:40:50.717Z",
+  "ide": [
+    "cursor"
+  ]
+}
