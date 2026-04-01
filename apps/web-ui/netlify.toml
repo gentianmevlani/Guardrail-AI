@@ -2,6 +2,11 @@
   command = "npm run build:netlify"
   publish = "apps/web-ui/.next"
 
+[build.environment]
+  # Test fixtures in packages/engines use fake API key patterns (sk-***, gho_***, xoxp-***)
+  # that trigger Netlify's smart secret detection. These are not real secrets.
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+
 # Single-page app: serve index.html for any path (e.g. direct links, refresh)
 [[redirects]]
   from = "/*"
