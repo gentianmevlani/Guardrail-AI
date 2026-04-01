@@ -1,0 +1,15 @@
+{
+  "extends": ["next", "next/core-web-vitals"],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/jsx-no-comment-textnodes": "off",
+    "@next/next/no-img-element": "warn",
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/role-supports-aria-props": "off",
+    "no-console": ["error", {
+      "allow": ["warn", "error"]
+    }]
+  }
+}

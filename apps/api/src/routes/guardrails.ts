@@ -1059,7 +1059,11 @@ export async function guardrailsRoutes(fastify: FastifyInstance) {
       name: "Prompt Injection Defense",
       description: "Multi-layer protection against injection attacks",
       rules: 5,
+<<<<<<< HEAD
       category: "llm-safety",
+=======
+      category: "ai-safety",
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       enabled: true,
     }],
     ["hallucination-detection", {
@@ -1067,7 +1071,11 @@ export async function guardrailsRoutes(fastify: FastifyInstance) {
       name: "Hallucination Detection",
       description: "Catch fake packages, APIs, and dependencies",
       rules: 4,
+<<<<<<< HEAD
       category: "llm-safety",
+=======
+      category: "ai-safety",
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       enabled: true,
     }],
     ["code-quality", {

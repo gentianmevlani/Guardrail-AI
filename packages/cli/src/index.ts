@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * @guardrail/cli — Enterprise AI Code Safety Scanner
  * Powered by VibeCheck engines.
@@ -13,3 +14,13 @@
 export { runCLI } from './cli.js';
 export { ScanCommand } from './commands/scan.js';
 export { GuardCommand } from './commands/guard.js';
+=======
+#!/usr/bin/env node
+/**
+ * guardrail CLI — thin entry: delegates to bootstrap (command registration + main).
+ */
+import './bootstrap';
+
+export { printLogo } from './ui/cli-terminal';
+export { styles, icons } from './ui/cli-styles';
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7

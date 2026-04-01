@@ -1,5 +1,6 @@
 {
   "project": "/Users/liquidgroove/Downloads/Guardrail/Ofiicial/main",
+<<<<<<< HEAD
   "lastConsolidated": "2026-03-31T14:34:18.250Z",
   "sessionsAnalyzed": 21,
   "strategies": [
@@ -489,6 +490,12 @@
       ]
     },
     {
+=======
+  "lastConsolidated": "2026-03-31T05:49:18.159Z",
+  "sessionsAnalyzed": 20,
+  "strategies": [
+    {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       "id": "strat_0",
       "triggerPattern": {
         "filePatterns": [
@@ -509,7 +516,11 @@
       },
       "content": "📋 Module checkpoint for Downloads/Guardrail-Ofiicial-main (based on 4 sessions):\nWhen entering this module, preload context on:\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/package.json (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/index.ts (touched in 75% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/init.ts (touched in 50% of sessions)",
       "scope": "project",
+<<<<<<< HEAD
       "confidence": 0.9499999999768518,
+=======
+      "confidence": 0.95,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       "supportingEvidence": [
         {
           "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
@@ -1230,6 +1241,7 @@
           "timestamp": "2026-03-30T18:31:54.316Z",
           "outcome": "confirmed",
           "summary": "Session touched Downloads/Guardrail-Ofiicial-main module"
+<<<<<<< HEAD
         },
         {
           "sessionId": "b6b835c9-643f-4483-853c-f2a8de95b5af",
@@ -1324,6 +1336,407 @@
       ],
       "createdAt": "2026-03-30T22:08:25.779Z",
       "lastValidated": "2026-03-31T14:34:18.249Z",
+=======
+        }
+      ],
+      "createdAt": "2026-03-30T22:08:25.779Z",
+      "lastValidated": "2026-03-31T05:49:18.159Z",
+      "decayRatePerDay": 0.002,
+      "injectionCount": 0,
+      "successCount": 0,
+      "tags": [
+        "convergence",
+        "module-checkpoint",
+        "auto-extracted"
+      ]
+    },
+    {
+      "id": "strat_1",
+      "triggerPattern": {
+        "filePatterns": [
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/package.json",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/spinner.ts",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/progress.ts",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/summary.ts",
+          "Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/index.ts"
+        ],
+        "errorPatterns": [],
+        "moduleAreas": [
+          "packages/cli"
+        ],
+        "promptKeywords": [
+          "packages",
+          "cli"
+        ]
+      },
+      "content": "📋 Module checkpoint for packages/cli (based on 2 sessions):\nWhen entering this module, preload context on:\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/package.json (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/spinner.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/progress.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/summary.ts (touched in 50% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/index.ts (touched in 50% of sessions)",
+      "scope": "project",
+      "confidence": 0.95,
+      "supportingEvidence": [
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "888bde23-473d-45fb-8d6f-d7d6faba8e80",
+          "timestamp": "2026-03-30T17:13:26.089Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "f3982808-6c7a-4095-819f-395d1a8d2a4c",
+          "timestamp": "2026-03-30T18:31:54.316Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "640e95b4-3a5d-4acb-af5c-88c208e4c446",
+          "timestamp": "2026-03-30T18:05:42.195Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "64655e3d-5775-4757-acad-67cfdbccc03a",
+          "timestamp": "2026-03-30T18:06:10.891Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        },
+        {
+          "sessionId": "08fada11-c638-4248-bfa0-c9ba6e7103ed",
+          "timestamp": "2026-03-30T23:41:22.945Z",
+          "outcome": "confirmed",
+          "summary": "Session touched packages/cli module"
+        }
+      ],
+      "createdAt": "2026-03-31T00:29:16.249Z",
+      "lastValidated": "2026-03-31T05:49:18.159Z",
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       "decayRatePerDay": 0.002,
       "injectionCount": 0,
       "successCount": 0,
@@ -1354,7 +1767,11 @@
       },
       "content": "📋 Module checkpoint for apps/web-ui (based on 2 sessions):\nWhen entering this module, preload context on:\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/layout.tsx (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/page.tsx (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/globals.css (touched in 100% of sessions)\n  - apps/web-ui/src/components/landing/home-landing.tsx (touched in 100% of sessions)\n  - Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/components/landing/home-landing.tsx (touched in 100% of sessions)",
       "scope": "project",
+<<<<<<< HEAD
       "confidence": 0.9499999999537041,
+=======
+      "confidence": 0.7999999999768521,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       "supportingEvidence": [
         {
           "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
@@ -1565,6 +1982,7 @@
           "timestamp": "2026-03-31T04:23:38.417Z",
           "outcome": "confirmed",
           "summary": "Session touched apps/web-ui module"
+<<<<<<< HEAD
         },
         {
           "sessionId": "1dcc0815-61fc-4198-b31d-ef20bd0f5908",
@@ -1659,6 +2077,12 @@
       ],
       "createdAt": "2026-03-31T05:26:56.353Z",
       "lastValidated": "2026-03-31T14:34:18.249Z",
+=======
+        }
+      ],
+      "createdAt": "2026-03-31T05:26:56.353Z",
+      "lastValidated": "2026-03-31T05:49:18.159Z",
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       "decayRatePerDay": 0.002,
       "injectionCount": 0,
       "successCount": 0,
@@ -1772,12 +2196,21 @@
     },
     {
       "sessionId": "dac63a62-db50-4e85-b8be-b148f2537406",
+<<<<<<< HEAD
       "actualSteps": 124,
       "optimalSteps": 41,
       "efficiency": 0.33,
       "keyInsight": "Agent investigated vscode-extension/**/*panel* but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/kinetic-archive-styles.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-sidebar-view.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/index.html, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-dashboard-panel.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/score-badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/dashboard.html, /Users/liquidgroove/.claude/plans/shimmying-jingling-ladybug.md, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/lib/device-code-store.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/api/auth/device/route.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/api/auth/device/poll/route.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/api/auth/device/verify/route.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/link-device/page.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/services/api-client.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/extension.ts",
       "wrongTurnNodeId": "node_5",
       "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/kinetic-archive-styles.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-sidebar-view.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/index.html, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-dashboard-panel.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/score-badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/dashboard.html, /Users/liquidgroove/.claude/plans/shimmying-jingling-ladybug.md, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/lib/device-code-store.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/api/auth/device/route.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/api/auth/device/poll/route.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/api/auth/device/verify/route.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/apps/web-ui/src/app/(dashboard)/link-device/page.tsx, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/services/api-client.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/extension.ts"
+=======
+      "actualSteps": 73,
+      "optimalSteps": 21,
+      "efficiency": 0.29,
+      "keyInsight": "Agent investigated vscode-extension/**/*panel* but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/kinetic-archive-styles.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-sidebar-view.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/index.html, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-dashboard-panel.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/score-badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/dashboard.html",
+      "wrongTurnNodeId": "node_5",
+      "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/kinetic-archive-styles.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-sidebar-view.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.claude/launch.json, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/index.html, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/features/guardrail-dashboard-panel.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/src/score-badge.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/vscode-extension/.preview/dashboard.html"
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     },
     {
       "sessionId": "2dec185b-09d4-4f51-9d8e-c9c3c1d574b4",
@@ -1796,6 +2229,7 @@
       "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/ai-guardrails/src/index.ts but resolution was in /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/ai-guardrails/src/sandbox/circuit-breaker.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/ai-guardrails/src/sandbox/approval-queue.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/ai-guardrails/src/sandbox/action-interceptor.ts",
       "wrongTurnNodeId": "node_17",
       "correctAlternative": "Should have gone directly to /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/ai-guardrails/src/sandbox/circuit-breaker.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/ai-guardrails/src/sandbox/approval-queue.ts, /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/packages/ai-guardrails/src/sandbox/action-interceptor.ts"
+<<<<<<< HEAD
     },
     {
       "sessionId": "05be253f-af01-4355-a321-1268878bee45",
@@ -1805,6 +2239,8 @@
       "keyInsight": "Agent investigated /Users/liquidgroove/Downloads/Guardrail-Ofiicial-main/.vibecheck/sync-queue.json but resolution was in /Users/liquidgroove/.claude/plans/dreamy-cuddling-lobster.md",
       "wrongTurnNodeId": "node_9",
       "correctAlternative": "Should have gone directly to /Users/liquidgroove/.claude/plans/dreamy-cuddling-lobster.md"
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   ],
   "schemaVersion": 1

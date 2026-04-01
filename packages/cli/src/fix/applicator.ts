@@ -67,9 +67,12 @@ export class FixApplicator {
 
     // Verify the old code matches
     const actualLine = lines[fix.line - 1];
+<<<<<<< HEAD
     if (actualLine === undefined) {
       throw new Error(`Line ${fix.line} out of range in ${fix.file}`);
     }
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     if (actualLine.trim() !== fix.oldCode.trim()) {
       throw new Error(
         `Line mismatch at ${fix.file}:${fix.line}. Expected: "${fix.oldCode.trim()}", Found: "${actualLine.trim()}"`

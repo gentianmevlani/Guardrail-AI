@@ -26,6 +26,7 @@ const COLORS = {
   bold: "\x1b[1m",
 };
 
+<<<<<<< HEAD
 function parseCertifyArgv(argv) {
   const out = { output: "all", embed: false, style: "flat" };
   if (!Array.isArray(argv)) return out;
@@ -60,6 +61,9 @@ ${COLORS.dim}Note:${COLORS.reset} Requires a successful scan (run ${COLORS.cyan}
     return 0;
   }
 
+=======
+async function runCertify(args, projectPath) {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   const outputFormat = args.output || "all";
   const shouldEmbed = args.embed || false;
   const style = args.style || "flat";

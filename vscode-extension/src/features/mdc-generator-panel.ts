@@ -11,7 +11,10 @@ import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
 import { getGuardrailPanelHead } from '../webview-shared-styles';
+<<<<<<< HEAD
 import { mdcGeneratorStitchCss } from './mdc-generator-stitch-css';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { mapContextJsonToMdcResults } from '../scan-cli-map';
 
 export interface MDCResult {
@@ -333,6 +336,7 @@ export class MDCGeneratorPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title>Prism MDC</title>
   ${getGuardrailPanelHead(mdcGeneratorStitchCss)}
 </head>
@@ -347,6 +351,195 @@ export class MDCGeneratorPanel {
       <p class="mdc-sub">Generate verified codebase documentation with hallucination detection.</p>
     </div>
   </header>
+=======
+  <title>MDC Generator</title>
+  ${getGuardrailPanelHead(`
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+    }
+    .ka-shell { padding: 16px; }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .logo { font-size: 32px; }
+    .title { font-size: 24px; font-weight: bold; }
+    .subtitle { color: var(--on-surface-variant); font-size: 14px; }
+    .controls {
+      background: var(--surface-container-low);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .control-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .control-group { flex: 1; min-width: 200px; }
+    .control-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: var(--on-surface-variant);
+    }
+    select, input[type="checkbox"] {
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      color: var(--on-surface);
+      padding: 8px;
+      border-radius: 4px;
+      width: 100%;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface-container-high);
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .checkbox-item input { width: auto; }
+    .btn {
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .progress-container {
+      display: none;
+      margin: 20px 0;
+      padding: 20px;
+      background: var(--surface-container-low);
+      border-radius: 8px;
+    }
+    .progress-bar {
+      height: 8px;
+      background: var(--surface-container-highest);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-container), var(--secondary-container));
+      transition: width 0.3s ease;
+    }
+    .results {
+      display: none;
+    }
+    .result-card {
+      background: var(--surface-container-low);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .result-card:hover { transform: translateX(5px); }
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .result-title { font-weight: bold; font-size: 16px; }
+    .result-badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .badge-low { background: #6bcb77; color: #000; }
+    .badge-medium { background: #ffd93d; color: #000; }
+    .badge-high { background: #ff6b6b; color: #000; }
+    .result-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--on-surface-variant);
+    }
+    .patterns-list {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .pattern-tag {
+      background: var(--surface-container-high);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .summary-card {
+      background: linear-gradient(135deg, rgba(107, 203, 119, 0.1) 0%, rgba(107, 203, 119, 0.05) 100%);
+      border: 1px solid rgba(107, 203, 119, 0.3);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .summary-value { font-size: 28px; font-weight: bold; color: #6bcb77; }
+    .summary-label { font-size: 12px; color: var(--on-surface-variant); }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--on-surface-variant);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 15px; }
+  `)}
+</head>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <div class="header">
+    <span class="logo">📋</span>
+    <div>
+      <div class="title">MDC Generator</div>
+      <div class="subtitle">Generate verified codebase documentation with hallucination detection</div>
+    </div>
+  </div>
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   <div class="controls">
     <div class="control-row">

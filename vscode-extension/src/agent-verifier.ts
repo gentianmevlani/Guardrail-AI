@@ -9,7 +9,10 @@ import * as fs from 'fs';
 import * as os from 'os';
 import { spawn } from 'child_process';
 import { getGuardrailPanelHead } from './webview-shared-styles';
+<<<<<<< HEAD
 import { getVerificationReportStitchCss } from './verification-report-stitch-css';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export type VerificationStatus = 'idle' | 'verifying' | 'pass' | 'fail';
 
@@ -710,6 +713,56 @@ export class AgentVerifier {
       </div>
     ` : '';
 
+<<<<<<< HEAD
+=======
+    const reportCss = `
+    .verify-pad { padding: 16px; max-width: 720px; margin: 0 auto; }
+    .header {
+      text-align: center;
+      padding: 28px 20px;
+      background: linear-gradient(135deg, var(--surface-container-low), var(--surface-container-high));
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .status { font-size: 40px; margin-bottom: 8px; }
+    .status-text {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      color: ${statusColor};
+    }
+    .section {
+      margin: 16px 0;
+      padding: 16px;
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+    }
+    .section h3 { margin-top: 0; font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
+    .check {
+      margin: 10px 0;
+      padding: 10px 12px;
+      background: var(--surface-container-lowest);
+      border-radius: 8px;
+    }
+    .check-header { display: flex; gap: 8px; align-items: flex-start; flex-wrap: wrap; font-size: 13px; color: var(--on-surface); }
+    .fix {
+      margin-top: 8px;
+      padding: 8px 10px;
+      background: rgba(255, 217, 61, 0.1);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--on-surface-variant);
+    }
+    .blockers { border-left: 4px solid #ff6b6b; }
+    .warnings { border-left: 4px solid #ffd93d; }
+    ul { margin: 0; padding-left: 20px; }
+    li { margin: 5px 0; font-size: 13px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    `;
+
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const csp = [
       `default-src 'none'`,
       `style-src ${cspSource} 'unsafe-inline' https://fonts.googleapis.com`,
@@ -723,7 +776,11 @@ export class AgentVerifier {
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Security-Policy" content="${csp}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<<<<<<< HEAD
   ${getGuardrailPanelHead(getVerificationReportStitchCss(statusColor))}
+=======
+  ${getGuardrailPanelHead(reportCss)}
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>

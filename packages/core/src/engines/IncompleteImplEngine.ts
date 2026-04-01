@@ -9,7 +9,7 @@
  * - Ellipsis or pass-through patterns
  */
 
-import type { Finding, DeltaContext, ScanEngine } from '@vibecheck/core';
+import type { Finding, DeltaContext, ScanEngine } from './types';
 
 export class IncompleteImplEngine implements ScanEngine {
   readonly id = 'incomplete_impl' as const;

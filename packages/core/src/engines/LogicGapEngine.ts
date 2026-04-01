@@ -10,7 +10,7 @@
  * - Unreachable code
  */
 
-import type { Finding, DeltaContext, ScanEngine } from '@vibecheck/core';
+import type { Finding, DeltaContext, ScanEngine } from './types';
 
 export class LogicGapEngine implements ScanEngine {
   readonly id = 'logic_gap' as const;

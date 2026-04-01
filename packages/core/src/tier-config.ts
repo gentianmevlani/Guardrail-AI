@@ -417,6 +417,7 @@ export function tierShowsFullIssueDetails(tier: string | undefined | null): bool
   return (tier ?? 'free').toLowerCase() !== 'free';
 }
 
+<<<<<<< HEAD
 /** Auto-fix / fix:auto — Pro tier and Compliance-equivalent (incl. enterprise/unlimited slugs). Starter: no auto-fix. */
 export function tierSupportsAutoFix(tier: string | undefined | null): boolean {
   const t = (tier ?? 'free').toLowerCase();
@@ -442,6 +443,12 @@ export function formatPlanSlugForDisplay(raw: string | undefined | null): string
   if (p.includes('starter')) return 'Starter';
   if (p.includes('pro') || p.includes('team')) return 'Pro';
   return 'Free';
+=======
+/** Auto-fix / fix:auto — Pro and Compliance only. */
+export function tierSupportsAutoFix(tier: string | undefined | null): boolean {
+  const t = (tier ?? 'free').toLowerCase();
+  return t === 'pro' || t === 'compliance';
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 /**

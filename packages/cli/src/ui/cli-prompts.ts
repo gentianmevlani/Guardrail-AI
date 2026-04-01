@@ -54,11 +54,15 @@ export async function promptSelect<T extends string>(
         process.stdin.setRawMode(false);
         process.stdin.removeListener('keypress', onKeyPress);
         rl.close();
+<<<<<<< HEAD
         const picked = choices[selectedIndex] ?? choices[0];
         if (picked === undefined) {
           throw new Error('promptSelect: empty choices');
         }
         resolve(picked.value);
+=======
+        resolve(choices[selectedIndex].value);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       } else if (key.ctrl && key.name === 'c') {
         process.stdin.setRawMode(false);
         process.stdin.removeListener('keypress', onKeyPress);

@@ -153,9 +153,14 @@ export function registerWatchCommand(program: Command): void {
           process.stdin.setRawMode(true);
           process.stdin.resume();
           process.stdin.setEncoding('utf8');
+<<<<<<< HEAD
           process.stdin.on('data', (key: Buffer | string) => {
             const ch = typeof key === 'string' ? key : key.toString('utf8');
             if (ch === 'q' || ch === '\u0003') {
+=======
+          process.stdin.on('data', (key) => {
+            if (key === 'q' || key === '\u0003') {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               // q or Ctrl+C
               console.log(`\n  ${styles.dim}Stopping watch mode...${styles.reset}\n`);
               watcher.close();

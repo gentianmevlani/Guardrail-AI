@@ -1,5 +1,6 @@
 /**
  * MCP Connector
+<<<<<<< HEAD
  *
  * Connects to external MCP servers using the Model Context Protocol
  * over stdio transport (newline-delimited JSON-RPC 2.0).
@@ -17,11 +18,24 @@ export interface MCPConnection {
   id: string;
   name: string;
   type: 'mcp-stdio' | 'mcp-sse' | 'api';
+=======
+ * 
+ * Connects with other MCP servers and integrations
+ */
+
+export interface MCPConnection {
+  id: string;
+  name: string;
+  type: 'mcp' | 'api' | 'webhook';
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   endpoint: string;
   config: Record<string, any>;
   status: 'connected' | 'disconnected' | 'error';
   capabilities: string[];
+<<<<<<< HEAD
   serverInfo?: { name: string; version: string };
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 export interface MCPTool {
@@ -31,6 +45,7 @@ export interface MCPTool {
   mcpId: string;
 }
 
+<<<<<<< HEAD
 export interface MCPResource {
   uri: string;
   name: string;
@@ -327,12 +342,32 @@ class MCPConnector {
       name,
       type: 'mcp-stdio',
       endpoint: resolvedPath,
+=======
+class MCPConnector {
+  private connections: Map<string, MCPConnection> = new Map();
+  private tools: Map<string, MCPTool> = new Map();
+
+  /**
+   * Connect to external MCP server
+   */
+  async connectMCP(
+    name: string,
+    endpoint: string,
+    config: Record<string, any> = {}
+  ): Promise<MCPConnection> {
+    const connection: MCPConnection = {
+      id: this.generateId(),
+      name,
+      type: 'mcp',
+      endpoint,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       config,
       status: 'disconnected',
       capabilities: [],
     };
 
     try {
+<<<<<<< HEAD
       const initResult = await session.connect(
         config.clientName || 'guardrail-connector',
         config.clientVersion || '1.0.0',
@@ -362,22 +397,50 @@ class MCPConnector {
       connection.status = 'error';
       this.connections.set(id, connection);
       await session.disconnect();
+=======
+      // Test connection
+      const capabilities = await this.testConnection(endpoint, config);
+      connection.capabilities = capabilities;
+      connection.status = 'connected';
+
+      // Discover tools
+      const discoveredTools = await this.discoverTools(endpoint, config);
+      this.registerTools(discoveredTools, connection.id);
+
+      this.connections.set(connection.id, connection);
+      return connection;
+    } catch (error) {
+      connection.status = 'error';
+      connection.capabilities = [];
+      this.connections.set(connection.id, connection);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       throw error;
     }
   }
 
   /**
+<<<<<<< HEAD
    * Connect to a REST/HTTP API service (non-MCP).
+=======
+   * Connect to API service
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    */
   async connectAPI(
     name: string,
     endpoint: string,
     apiKey: string,
+<<<<<<< HEAD
     config: Record<string, any> = {},
   ): Promise<MCPConnection> {
     const id = this.generateId();
     const connection: MCPConnection = {
       id,
+=======
+    config: Record<string, any> = {}
+  ): Promise<MCPConnection> {
+    const connection: MCPConnection = {
+      id: this.generateId(),
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       name,
       type: 'api',
       endpoint,
@@ -387,6 +450,7 @@ class MCPConnector {
     };
 
     try {
+<<<<<<< HEAD
       // Test API reachability with a HEAD request
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), config.timeoutMs || 5000);
@@ -408,25 +472,45 @@ class MCPConnector {
     } catch (error) {
       connection.status = 'error';
       this.connections.set(id, connection);
+=======
+      // Test API connection
+      const capabilities = await this.testAPIConnection(endpoint, apiKey);
+      connection.capabilities = capabilities;
+      connection.status = 'connected';
+
+      this.connections.set(connection.id, connection);
+      return connection;
+    } catch (error) {
+      connection.status = 'error';
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       throw error;
     }
   }
 
   /**
+<<<<<<< HEAD
    * List all connections.
+=======
+   * List all connections
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    */
   listConnections(): MCPConnection[] {
     return Array.from(this.connections.values());
   }
 
   /**
+<<<<<<< HEAD
    * Get connection by ID.
+=======
+   * Get connection by ID
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    */
   getConnection(id: string): MCPConnection | undefined {
     return this.connections.get(id);
   }
 
   /**
+<<<<<<< HEAD
    * Disconnect a specific connection.
    */
   async disconnect(id: string): Promise<void> {
@@ -446,10 +530,20 @@ class MCPConnector {
       if (tool.mcpId === id) {
         this.tools.delete(key);
       }
+=======
+   * Disconnect
+   */
+  disconnect(id: string): void {
+    const connection = this.connections.get(id);
+    if (connection) {
+      connection.status = 'disconnected';
+      this.connections.set(id, connection);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   }
 
   /**
+<<<<<<< HEAD
    * Disconnect all connections.
    */
   async disconnectAll(): Promise<void> {
@@ -485,18 +579,43 @@ class MCPConnector {
 
   /**
    * List all tools across all connections.
+=======
+   * Call tool from connected MCP
+   */
+  async callTool(connectionId: string, toolName: string, args: any): Promise<any> {
+    const connection = this.connections.get(connectionId);
+    if (!connection) {
+      throw new Error(`Connection not found: ${connectionId}`);
+    }
+
+    if (connection.status !== 'connected') {
+      throw new Error(`Connection not active: ${connectionId}`);
+    }
+
+    // Call tool via MCP protocol
+    return await this.executeMCPTool(connection, toolName, args);
+  }
+
+  /**
+   * List available tools from all connections
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    */
   listTools(): MCPTool[] {
     return Array.from(this.tools.values());
   }
 
   /**
+<<<<<<< HEAD
    * Get tools for a specific connection.
+=======
+   * Get tools by connection
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    */
   getToolsByConnection(connectionId: string): MCPTool[] {
     return Array.from(this.tools.values()).filter(t => t.mcpId === connectionId);
   }
 
+<<<<<<< HEAD
   /**
    * Find a tool by name across all connections.
    */
@@ -522,7 +641,45 @@ class MCPConnector {
 
   private generateId(): string {
     return `mcp-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+=======
+  // Private methods
+  private async testConnection(endpoint: string, config: Record<string, any>): Promise<string[]> {
+    // Simplified - would use actual MCP protocol
+    return ['tools', 'resources', 'prompts'];
+  }
+
+  private async testAPIConnection(endpoint: string, apiKey: string): Promise<string[]> {
+    // Test API and return capabilities
+    return ['read', 'write', 'search'];
+  }
+
+  private async discoverTools(endpoint: string, config: Record<string, any>): Promise<MCPTool[]> {
+    // Discover tools from MCP server
+    // Simplified - would use actual MCP protocol
+    return [];
+  }
+
+  private registerTools(tools: MCPTool[], connectionId: string): void {
+    for (const tool of tools) {
+      tool.mcpId = connectionId;
+      this.tools.set(`${connectionId}:${tool.name}`, tool);
+    }
+  }
+
+  private async executeMCPTool(connection: MCPConnection, toolName: string, args: any): Promise<any> {
+    // Execute tool via MCP protocol
+    // Simplified - would use actual MCP client
+    return { result: 'Tool executed', tool: toolName, args };
+  }
+
+  private generateId(): string {
+    return `mcp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 }
 
 export const mcpConnector = new MCPConnector();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7

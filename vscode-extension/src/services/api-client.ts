@@ -8,7 +8,10 @@
 import * as vscode from 'vscode';
 import * as https from 'https';
 import * as http from 'http';
+<<<<<<< HEAD
 import { getGuardrailWebAppUrl } from '../guardrail-web-urls';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -46,6 +49,7 @@ export class ApiClient {
     return 'https://api.guardrailai.dev';
   }
 
+<<<<<<< HEAD
   /**
    * Device flow returns `verification_url` from the API host. If the API runs on
    * `api.guardrailai.dev`, the link must still open the **web app** on `guardrail.webAppUrl`
@@ -65,6 +69,8 @@ export class ApiClient {
     return verificationUrl;
   }
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   async ensureAuthLoaded(): Promise<void> {
     this.config.baseUrl = this.getApiBaseUrl();
     await this.loadAuthConfig();
@@ -423,7 +429,11 @@ export class ApiClient {
     branch?: string;
     commitSha?: string;
     verdict: string;
+<<<<<<< HEAD
     score: number | null;
+=======
+    score: number;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     securityResult?: unknown;
     realityResult?: unknown;
     guardrailResult?: unknown;
@@ -513,10 +523,15 @@ export class ApiClient {
 
     const { device_code, user_code, verification_url, expires_in, interval } = codePayload;
 
+<<<<<<< HEAD
     const openVerificationUrl = this.normalizeDeviceVerificationUrl(verification_url);
 
     // Notify caller of the code (for display)
     onCode(user_code, openVerificationUrl);
+=======
+    // Notify caller of the code (for display)
+    onCode(user_code, verification_url);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     // Poll until authorized or expired
     const deadline = Date.now() + (expires_in || 600) * 1000;

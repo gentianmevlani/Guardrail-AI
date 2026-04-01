@@ -1,5 +1,8 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+<<<<<<< HEAD
   - 'mcp-server'
   - 'vscode-extension'
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7

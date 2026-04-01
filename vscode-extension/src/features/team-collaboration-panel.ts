@@ -10,7 +10,10 @@ import * as path from "path";
 import * as fs from "fs";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
+<<<<<<< HEAD
 import { teamCollaborationStitchCss } from "./team-collaboration-stitch-css";
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface TeamMember {
   id: string;
@@ -320,6 +323,7 @@ export class TeamCollaborationPanel {
     const tabClass = (v: string) =>
       v === view ? "tab active" : "tab";
 
+<<<<<<< HEAD
     const spotlightAvatars =
       teamMembers.length === 0
         ? '<span style="font-size:12px;color:var(--on-surface-variant)">No contributors loaded yet.</span>'
@@ -331,6 +335,8 @@ export class TeamCollaborationPanel {
             )
             .join("");
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const dashboardDisplay = view === "dashboard" ? "grid" : "none";
     const reviewsDisplay = view === "reviews" ? "block" : "none";
     const knowledgeDisplay = view === "knowledge" ? "block" : "none";
@@ -341,6 +347,7 @@ export class TeamCollaborationPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title>Pulse Collaboration</title>
   ${getGuardrailPanelHead(teamCollaborationStitchCss)}
 </head>
@@ -364,19 +371,150 @@ export class TeamCollaborationPanel {
   <div class="hint">${escapeHtml(hint)}</div>
 
   <div class="tabs" style="margin:16px 20px 0;">
+=======
+  <title>Team Collaboration</title>
+  ${getGuardrailPanelHead(`
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+    }
+    .hint {
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .title { font-size: 20px; font-weight: bold; }
+    .subtitle { color: var(--on-surface-variant); font-size: 13px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .tab {
+      background: none;
+      border: none;
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      padding: 8px 12px;
+      border-bottom: 2px solid transparent;
+      font-size: 13px;
+    }
+    .tab.active {
+      color: var(--on-surface);
+      border-bottom-color: var(--primary-container);
+    }
+    .actions { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .btn {
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+    }
+    .btn.secondary { background: var(--surface-container-high); color: var(--on-surface); border: 1px solid var(--border-subtle); }
+    .content-grid {
+      display: ${dashboardDisplay};
+      grid-template-columns: 1fr 2fr;
+      gap: 16px;
+    }
+    .team-sidebar {
+      background: var(--surface-container-low);
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .section-title { font-size: 14px; font-weight: bold; margin-bottom: 12px; }
+    .member-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      margin-bottom: 6px;
+      background: var(--surface-container-lowest);
+      border-radius: 6px;
+    }
+    .member-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary-container);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: bold;
+    }
+    .main-content {
+      background: var(--surface-container-low);
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stat-card {
+      background: var(--surface-container-lowest);
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .stat-value { font-size: 20px; font-weight: bold; }
+    .stat-label { font-size: 11px; color: var(--on-surface-variant); }
+    .empty { padding: 24px; text-align: center; color: var(--on-surface-variant); font-size: 13px; }
+    .panel-block { display: block; }
+  `)}
+</head>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <div class="header">
+    <div class="header-left">
+      <div>
+        <div class="title">Team Collaboration</div>
+        <div class="subtitle">Git contributors from guardrail team / context</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn secondary" onclick="refresh()">Refresh</button>
+      <button class="btn secondary" onclick="exportReport()">Export</button>
+    </div>
+  </div>
+
+  <div class="hint">${escapeHtml(hint)}</div>
+
+  <div class="tabs">
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     <button class="${tabClass("dashboard")}" onclick="switchView('dashboard')">Dashboard</button>
     <button class="${tabClass("reviews")}" onclick="switchView('reviews')">Code Reviews</button>
     <button class="${tabClass("knowledge")}" onclick="switchView('knowledge')">Knowledge</button>
     <button class="${tabClass("activity")}" onclick="switchView('activity')">Activity</button>
   </div>
 
+<<<<<<< HEAD
   <div class="actions" style="margin:12px 20px 0;">
+=======
+  <div class="actions">
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     <button class="btn" onclick="createReview()">Create review</button>
     <button class="btn" onclick="shareKnowledge()">Share knowledge</button>
     <button class="btn secondary" onclick="startMeeting()">Meeting</button>
     <button class="btn secondary" onclick="inviteMember()">Invite</button>
   </div>
 
+<<<<<<< HEAD
   <div class="tc-bento">
     <div class="tc-spotlight">
       <div class="tc-spot-inner">
@@ -406,6 +544,8 @@ export class TeamCollaborationPanel {
   </div>
 
   <div class="tc-main-pad">
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   <div id="dashboardView" class="content-grid" style="display:${dashboardDisplay};">
     <div class="team-sidebar">
       <div class="section-title">Contributors (${teamMembers.length})</div>
@@ -473,7 +613,10 @@ export class TeamCollaborationPanel {
       <div class="empty">No data — use git log in the terminal for history.</div>
     </div>
   </div>
+<<<<<<< HEAD
   </div>
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   <script>
     const vscode = acquireVsCodeApi();

@@ -8,7 +8,11 @@
 import * as path from "path";
 import * as fs from "fs";
 import { spawn } from "child_process";
+<<<<<<< HEAD
 import { extractJsonObject, normalizeScanJsonData } from "../scan-cli-map";
+=======
+import { extractJsonObject } from "../scan-cli-map";
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 /** Repo root to use as cwd when running `bin/guardrail.js` (expects project at cwd). */
 function resolveGuardrailCli(workspacePath: string): {
@@ -200,11 +204,15 @@ export class CLIService {
   }
 
   private parseStdoutJson(result: CLIResult): unknown | null {
+<<<<<<< HEAD
     const raw = extractJsonObject(result.stdout);
     if (raw && typeof raw === "object" && !Array.isArray(raw)) {
       return normalizeScanJsonData(raw as Record<string, unknown>);
     }
     return raw;
+=======
+    return extractJsonObject(result.stdout);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
@@ -373,6 +381,7 @@ export class CLIService {
   }
 
   /**
+<<<<<<< HEAD
    * `guardrail vibe-check` — shipping readiness analysis (stdout text or JSON).
    */
   async runVibeCheck(extraArgs: string[] = []): Promise<CLIResult> {
@@ -459,6 +468,8 @@ export class CLIService {
   }
 
   /**
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    * `guardrail doctor` — environment and CLI health (stdout text).
    */
   async runDoctor(): Promise<CLIResult> {

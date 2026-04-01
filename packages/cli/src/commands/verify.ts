@@ -325,9 +325,13 @@ export function registerVerifyCommand(program: Command): void {
         if (!selectedChecks.has(checkName)) continue;
 
         if (!silent) steps.start(checkName);
+<<<<<<< HEAD
         const runner = checkMap[checkName];
         if (!runner) continue;
         const result = await runner();
+=======
+        const result = await checkMap[checkName]();
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         results.push(result);
 
         if (!silent) {

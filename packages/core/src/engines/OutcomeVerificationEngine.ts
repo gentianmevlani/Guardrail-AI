@@ -9,7 +9,7 @@
  * - Misleading variable names
  */
 
-import type { Finding, DeltaContext, ScanEngine } from '@vibecheck/core';
+import type { Finding, DeltaContext, ScanEngine } from './types';
 
 export class OutcomeVerificationEngine implements ScanEngine {
   readonly id = 'outcome_verification' as const;

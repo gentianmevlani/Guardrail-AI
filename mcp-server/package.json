@@ -21,7 +21,10 @@
     "architecture"
   ],
   "dependencies": {
+<<<<<<< HEAD
     "@guardrail/core": "workspace:*",
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     "@modelcontextprotocol/sdk": "^0.5.0"
   },
   "engines": {

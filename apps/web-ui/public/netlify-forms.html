@@ -1,0 +1,17 @@
+<!-- 
+  Hidden form for Netlify Forms detection.
+  This form must exist in the build output for Netlify to detect form submissions.
+  The actual form is rendered by React in footer-content.tsx
+-->
+<form name="contact" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="email" name="email" />
+  <input type="text" name="company" />
+  <select name="team-size">
+    <option value="1-10">1-10 developers</option>
+    <option value="11-50">11-50 developers</option>
+    <option value="51-200">51-200 developers</option>
+    <option value="200+">200+ developers</option>
+  </select>
+  <textarea name="message"></textarea>
+</form>

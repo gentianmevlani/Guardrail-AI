@@ -26,9 +26,13 @@ import {
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+<<<<<<< HEAD
 import { execSync, execFileSync } from "child_process";
 import { getEffectiveTier } from "./tier-resolve.js";
 import { applyFreeTierRedaction } from "./mcp-redact.js";
+=======
+import { execSync } from "child_process";
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -519,6 +523,7 @@ const TOOLS = [
       },
     },
   },
+<<<<<<< HEAD
 
   // Vibe coder — shipping readiness + templates (CLI-backed)
   {
@@ -587,6 +592,8 @@ const TOOLS = [
       required: ["template"],
     },
   },
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 ];
 
 // ============================================================================
@@ -626,12 +633,19 @@ class GuardrailMCP {
         // Handle AI guardrail tools (verify, quality, smells, hallucination, breaking, mdc, coverage)
         if (["guardrail.verify", "guardrail.quality", "guardrail.smells", 
              "guardrail.hallucination", "guardrail.breaking", "guardrail.mdc", 
+<<<<<<< HEAD
              "guardrail.coverage", "guardrail.autofix"].includes(name)) {
           const result = await handleGuardrailTool(name, args);
           const tier = getEffectiveTier();
           const redacted = applyFreeTierRedaction(result, tier);
           return {
             content: [{ type: "text", text: JSON.stringify(redacted, null, 2) }],
+=======
+             "guardrail.coverage"].includes(name)) {
+          const result = await handleGuardrailTool(name, args);
+          return {
+            content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           };
         }
 
@@ -663,10 +677,15 @@ class GuardrailMCP {
           const tool = intentDriftTools.find(t => t.name === name);
           if (tool && tool.handler) {
             const result = await tool.handler(args);
+<<<<<<< HEAD
             const tier = getEffectiveTier();
             const redacted = applyFreeTierRedaction(result, tier);
             return {
               content: [{ type: "text", text: JSON.stringify(redacted, null, 2) }],
+=======
+            return {
+              content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             };
           }
         }
@@ -702,12 +721,15 @@ class GuardrailMCP {
             return await this.handleBadge(projectPath, args);
           case "guardrail.context":
             return await this.handleContext(projectPath, args);
+<<<<<<< HEAD
           case "guardrail.vibe_check":
             return await this.handleVibeCheck(projectPath, args);
           case "guardrail.list_templates":
             return await this.handleListTemplates(projectPath, args);
           case "guardrail.apply_template":
             return await this.handleApplyTemplate(projectPath, args);
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           case "guardrail.inject":
             return await handleInjectTool(args);
           case "generate_mdc":
@@ -852,11 +874,14 @@ class GuardrailMCP {
       output += `\n⚠️ Scan error: ${err.message}\n`;
     }
 
+<<<<<<< HEAD
     if (getEffectiveTier() === "free") {
       output +=
         "\n> **Free plan:** Same as CLI — detailed findings are redacted; you still see score and severity counts. Upgrade: https://guardrailai.dev/billing\n";
     }
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     output += "\n---\n_Context Enhanced by guardrail AI_\n";
     return this.success(output);
   }
@@ -1444,6 +1469,7 @@ class GuardrailMCP {
   }
 
   // ============================================================================
+<<<<<<< HEAD
   // VIBE CHECK & TEMPLATES
   // ============================================================================
   async handleVibeCheck(projectPath, args) {
@@ -1531,6 +1557,8 @@ class GuardrailMCP {
   }
 
   // ============================================================================
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   // STATUS
   // ============================================================================
   async handleStatus(projectPath, args) {

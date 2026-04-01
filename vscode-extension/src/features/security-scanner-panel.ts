@@ -11,17 +11,23 @@ import * as fs from "fs";
 import { ApiClient } from "../services/api-client";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
+<<<<<<< HEAD
 import { securityScannerStitchCss } from "./security-scanner-stitch-css";
 import { getSecurityScannerStitchHtml } from "./security-scanner-webview-html";
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import {
   mapFindingToSecurityIssue,
   scanFindingsFromData,
 } from "../scan-cli-map";
+<<<<<<< HEAD
 import { getGuardrailWebUrl } from "../guardrail-web-urls";
 import {
   resolveExtensionTier,
   shouldHideIssueDetailsForTier,
 } from "../tier-context";
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface SecurityIssue {
   id: string;
@@ -64,12 +70,18 @@ export class SecurityScannerPanel {
   private _isScanning: boolean = false;
   private _apiClient: ApiClient;
   private _cliService: CLIService;
+<<<<<<< HEAD
   private readonly _extensionContext: vscode.ExtensionContext;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   private constructor(panel: vscode.WebviewPanel, workspacePath: string, extensionContext: vscode.ExtensionContext) {
     this._panel = panel;
     this._workspacePath = workspacePath;
+<<<<<<< HEAD
     this._extensionContext = extensionContext;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this._apiClient = new ApiClient(extensionContext);
     this._cliService = new CLIService(workspacePath);
 
@@ -99,6 +111,7 @@ export class SecurityScannerPanel {
             await this._exportReport();
             break;
           case 'openBilling':
+<<<<<<< HEAD
             await vscode.env.openExternal(
               vscode.Uri.parse(getGuardrailWebUrl("/billing")),
             );
@@ -107,6 +120,9 @@ export class SecurityScannerPanel {
             if (typeof message.id === 'string') {
               void vscode.commands.executeCommand(message.id);
             }
+=======
+            await vscode.env.openExternal(vscode.Uri.parse('https://guardrailai.dev/billing'));
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             break;
         }
       },
@@ -127,7 +143,11 @@ export class SecurityScannerPanel {
 
     const panel = vscode.window.createWebviewPanel(
       'securityScanner',
+<<<<<<< HEAD
       'Security Archive',
+=======
+      'Security Scanner',
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -322,7 +342,11 @@ export class SecurityScannerPanel {
               ...this._report,
               issues: [],
               issueDetailsRedacted: true,
+<<<<<<< HEAD
               upgradeHint: `Upgrade for full issue list: ${getGuardrailWebUrl("/billing")}`,
+=======
+              upgradeHint: 'Upgrade for full issue list: https://guardrailai.dev/billing',
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             }
           : this._report;
       fs.writeFileSync(uri.fsPath, JSON.stringify(payload, null, 2));
@@ -334,11 +358,35 @@ export class SecurityScannerPanel {
     }
   }
 
+<<<<<<< HEAD
   /** Free tier: show counts only (same as CLI JSON redaction and web `hideIssueDetailsForTier`). */
   private async _shouldLockIssueDetails(): Promise<boolean> {
     try {
       const tier = await resolveExtensionTier(this._extensionContext);
       return shouldHideIssueDetailsForTier(tier);
+=======
+  /** Free tier or no auth: show counts only in the UI (matches web app). */
+  private async _shouldLockIssueDetails(): Promise<boolean> {
+    try {
+      await this._apiClient.ensureAuthLoaded();
+      if (!this._apiClient.isAuthenticated()) {
+        return true;
+      }
+      const res = (await this._apiClient.getUserProfile()) as {
+        data?: { user?: { subscription?: { plan?: string } }; subscription?: { plan?: string } };
+        user?: { subscription?: { plan?: string } };
+        subscription?: { plan?: string };
+        tier?: string;
+      };
+      const data = (res as { data?: unknown }).data ?? res;
+      const d = data as Record<string, unknown>;
+      const user = (d.user as Record<string, unknown> | undefined) ?? d;
+      const sub = (user.subscription as { plan?: string } | undefined) ??
+        (d.subscription as { plan?: string } | undefined);
+      const plan = sub?.plan ?? (typeof d.tier === 'string' ? d.tier : undefined);
+      const tier = typeof plan === 'string' ? plan.toLowerCase() : 'free';
+      return tier === 'free';
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     } catch {
       return true;
     }
@@ -353,9 +401,279 @@ export class SecurityScannerPanel {
   }
 
   private _getHtmlContent(): string {
+<<<<<<< HEAD
     return getSecurityScannerStitchHtml(
       getGuardrailPanelHead(securityScannerStitchCss),
     );
+=======
+    const panelCss = `
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-variant); margin-bottom: 12px; }
+    .action-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .progress-container { display: none; margin: 16px 0; padding: 16px; background: var(--surface-container-low); border-radius: 12px; border: 1px solid var(--border-subtle); }
+    .progress-bar { height: 6px; background: var(--surface-container-highest); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary-container), var(--secondary-container)); transition: width 0.3s ease; border-radius: 3px; }
+    .progress-msg { font-size: 12px; color: var(--on-surface); }
+    .dashboard { display: none; }
+    .score-card {
+      background: linear-gradient(135deg, var(--surface-container-low), var(--surface-container-high)); border-radius: 16px;
+      padding: 28px; text-align: center; margin-bottom: 16px;
+      border: 1px solid var(--border-subtle);
+    }
+    .score-value { font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 700; }
+    .score-label { font-size: 11px; color: var(--outline); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+    .summary-card {
+      background: var(--surface-container-low); padding: 16px; border-radius: 12px; text-align: center;
+      border: 1px solid var(--border-subtle); border-left: 3px solid var(--outline-variant);
+    }
+    .summary-card.critical { border-left-color: #cf2c2c; }
+    .summary-card.high { border-left-color: #ff8c00; }
+    .summary-card.medium { border-left-color: #ffb786; }
+    .summary-card.low { border-left-color: var(--primary-fixed-dim); }
+    .summary-val { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
+    .summary-lbl { font-size: 10px; color: var(--outline); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+    .vault-banner {
+      background: rgba(0, 229, 255, 0.06); border: 1px solid rgba(0, 229, 255, 0.2);
+      padding: 14px 16px; border-radius: 12px; margin-bottom: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .vault-banner.warning { background: rgba(207,44,44,0.08); border-color: rgba(207,44,44,0.3); }
+    .vault-text strong { font-size: 13px; }
+    .vault-text div { font-size: 11px; color: var(--on-surface-variant); margin-top: 2px; }
+    .filter-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+    .filter-tab {
+      background: none; border: 1px solid var(--border-subtle); color: var(--on-surface-variant);
+      cursor: pointer; padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;
+      transition: all 0.2s;
+    }
+    .filter-tab.active { background: rgba(0, 229, 255, 0.12); color: var(--primary-fixed-dim); border-color: rgba(0, 229, 255, 0.3); }
+    .filter-tab:hover { border-color: var(--border-light); }
+    .issue-card {
+      background: var(--surface-container-low); padding: 14px 16px; border-radius: 12px; margin-bottom: 8px;
+      cursor: pointer; transition: all 0.2s;
+      border: 1px solid var(--border-subtle); border-left: 3px solid var(--outline-variant);
+    }
+    .issue-card:hover { background: var(--surface-container-high); transform: translateX(4px); }
+    .issue-card.critical { border-left-color: #cf2c2c; }
+    .issue-card.high { border-left-color: #ff8c00; }
+    .issue-card.medium { border-left-color: #ffb786; }
+    .issue-card.low { border-left-color: var(--primary-fixed-dim); }
+    .issue-header { display: flex; justify-content: space-between; align-items: center; }
+    .issue-title { font-weight: 700; font-size: 13px; }
+    .issue-badge { padding: 2px 10px; border-radius: 999px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .badge-critical { background: rgba(207,44,44,0.2); color: var(--error); }
+    .badge-high { background: rgba(255,140,0,0.2); color: #ffb786; }
+    .badge-medium { background: rgba(255,183,134,0.15); color: #ffb786; }
+    .badge-low { background: rgba(0, 229, 255, 0.12); color: var(--primary-fixed-dim); }
+    .issue-meta { display: flex; gap: 12px; margin-top: 6px; font-size: 11px; color: var(--on-surface-variant); }
+    .issue-description { margin-top: 8px; font-size: 12px; color: var(--on-surface); }
+    .issue-code { margin-top: 8px; padding: 10px; background: var(--surface-container-lowest); border-radius: 8px; font-family: monospace; font-size: 11px; overflow-x: auto; color: var(--primary-fixed-dim); }
+    .issue-fix { margin-top: 8px; padding: 10px; background: rgba(0, 229, 255, 0.08); border-radius: 8px; font-size: 11px; color: var(--on-surface); }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--on-surface-variant); }
+    .empty-state .material-symbols-outlined { font-size: 48px; color: var(--primary-fixed-dim); margin-bottom: 12px; }
+    .empty-state h3 { font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; color: var(--on-surface); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .anim { animation: fadeUp 0.4s ease forwards; }
+    .free-tier-banner {
+      background: rgba(255, 193, 7, 0.08); border: 1px solid rgba(255, 193, 7, 0.35);
+      padding: 12px 14px; border-radius: 12px; margin-bottom: 12px; font-size: 12px; color: #ffe082;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .free-tier-lock { min-height: 180px; }
+    .free-tier-lock-card {
+      text-align: center; padding: 32px 16px; background: var(--surface-container-low); border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+    .free-tier-lock-card .material-symbols-outlined { font-size: 40px; color: #ffb74d; margin-bottom: 12px; display: block; }
+    .free-tier-lock-card .sub { color: var(--on-surface-variant); font-size: 12px; margin: 8px 0 16px; }
+    `;
+    return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Scanner</title>
+  ${getGuardrailPanelHead(panelCss)}
+</head>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <span class="material-symbols-outlined" style="color:var(--cyan-glow);">security</span>
+      <div>
+        <h1>SECURITY SCANNER</h1>
+        <div class="top-bar-sub">OWASP Top 10 · Secret Detection · Vault</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="action-row anim">
+      <button class="btn" id="scanBtn" onclick="runScan()">
+        <span class="material-symbols-outlined" style="font-size:16px;">search</span> Run Scan
+      </button>
+      <button class="btn btn-secondary" id="sbomBtn" onclick="exportSBOM()" disabled>
+        <span class="material-symbols-outlined" style="font-size:16px;">description</span> SBOM
+      </button>
+      <button class="btn btn-secondary" id="exportBtn" onclick="exportReport()" disabled>
+        <span class="material-symbols-outlined" style="font-size:16px;">download</span> Export
+      </button>
+    </div>
+
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-msg" id="progressMessage">Initializing security scan...</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+      <div class="score-card anim">
+        <div class="score-value" id="scoreValue">--</div>
+        <div class="score-label">Security Score</div>
+      </div>
+
+      <div class="summary-grid anim">
+        <div class="summary-card critical"><div class="summary-val" id="criticalCount">0</div><div class="summary-lbl">Critical</div></div>
+        <div class="summary-card high"><div class="summary-val" id="highCount">0</div><div class="summary-lbl">High</div></div>
+        <div class="summary-card medium"><div class="summary-val" id="mediumCount">0</div><div class="summary-lbl">Medium</div></div>
+        <div class="summary-card low"><div class="summary-val" id="lowCount">0</div><div class="summary-lbl">Low</div></div>
+      </div>
+
+      <div id="freeTierBanner" class="free-tier-banner" style="display:none;">
+        <span><strong>Free plan</strong> — severity counts only. Upgrade to see titles, files, and fixes.</span>
+        <button type="button" class="btn btn-secondary" onclick="openBilling()">View plans</button>
+      </div>
+
+      <div class="vault-banner warning" id="vaultBanner">
+        <div class="vault-text">
+          <strong>Secrets Manager Not Configured</strong>
+          <div>Configure a vault to securely store secrets found in your codebase</div>
+        </div>
+        <button class="btn btn-secondary" onclick="configureVault()">Configure</button>
+      </div>
+
+      <div>
+        <h2 class="section-title">Security Issues</h2>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="critical">Critical</button>
+          <button class="filter-tab" data-filter="high">High</button>
+          <button class="filter-tab" data-filter="medium">Medium</button>
+          <button class="filter-tab" data-filter="low">Low</button>
+        </div>
+        <div id="issuesList"></div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <span class="material-symbols-outlined">security</span>
+      <h3>No Security Scan Yet</h3>
+      <p>Click "Run Scan" to analyze your codebase for vulnerabilities.</p>
+    </div>
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+    let currentReport = null;
+    let currentFilter = 'all';
+
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.filter;
+        renderIssues();
+      });
+    });
+
+    function runScan() { document.getElementById('scanBtn').disabled = true; vscode.postMessage({ command: 'scan' }); }
+    function configureVault() { vscode.postMessage({ command: 'configureVault' }); }
+    function exportSBOM() { vscode.postMessage({ command: 'exportSBOM' }); }
+    function exportReport() { vscode.postMessage({ command: 'export' }); }
+    function openBilling() { vscode.postMessage({ command: 'openBilling' }); }
+    function openFile(file, line) { vscode.postMessage({ command: 'openFile', file, line }); }
+    function applyFix(issueId) { event.stopPropagation(); vscode.postMessage({ command: 'applyFix', issueId }); }
+
+    function getScoreColor(score) {
+      if (score >= 80) return '#00daf3';
+      if (score >= 60) return '#ffb786';
+      return '#ffb4ab';
+    }
+
+    function renderIssues() {
+      if (!currentReport) return;
+      if (currentReport.issueDetailsLocked) {
+        document.querySelector('.filter-tabs').style.display = 'none';
+        document.getElementById('issuesList').innerHTML = \`
+        <div class="free-tier-lock">
+          <div class="free-tier-lock-card">
+            <span class="material-symbols-outlined">lock</span>
+            <div class="issue-title">Issue details are hidden on the Free plan</div>
+            <div class="sub">Upgrade to unlock titles, file paths, code snippets, and remediation.</div>
+            <button type="button" class="btn" onclick="openBilling()">Upgrade to see issues</button>
+          </div>
+        </div>\`;
+        return;
+      }
+      document.querySelector('.filter-tabs').style.display = 'flex';
+      let issues = currentReport.issues;
+      if (currentFilter !== 'all') { issues = issues.filter(i => i.severity === currentFilter); }
+      document.getElementById('issuesList').innerHTML = issues.map(issue => \`
+        <div class="issue-card \${issue.severity}" onclick="openFile('\${issue.file}', \${issue.line || 1})">
+          <div class="issue-header">
+            <span class="issue-title">\${issue.title}</span>
+            <span class="issue-badge badge-\${issue.severity}">\${issue.severity.toUpperCase()}</span>
+          </div>
+          <div class="issue-meta">
+            <span>\${issue.file || 'N/A'}</span>
+            \${issue.line ? \`<span>Line \${issue.line}</span>\` : ''}
+            \${issue.cwe ? \`<span>\${issue.cwe}</span>\` : ''}
+            \${issue.owasp ? \`<span>OWASP \${issue.owasp}</span>\` : ''}
+          </div>
+          <div class="issue-description">\${issue.description}</div>
+          \${issue.code ? \`<div class="issue-code">\${issue.code}</div>\` : ''}
+          \${issue.fix ? \`<div class="issue-fix">\${issue.fix}</div>\` : ''}
+        </div>
+      \`).join('');
+    }
+
+    window.addEventListener('message', event => {
+      const message = event.data;
+      switch (message.type) {
+        case 'scanning': case 'progress':
+          document.getElementById('progressContainer').style.display = 'block';
+          document.getElementById('progressMessage').textContent = message.message || 'Scanning...';
+          document.getElementById('progressFill').style.width = (message.progress || 0) + '%';
+          break;
+        case 'complete':
+          document.getElementById('progressContainer').style.display = 'none';
+          document.getElementById('scanBtn').disabled = false;
+          document.getElementById('sbomBtn').disabled = false;
+          document.getElementById('exportBtn').disabled = false;
+          document.getElementById('emptyState').style.display = 'none';
+          document.getElementById('dashboard').style.display = 'block';
+          currentReport = message.report;
+          document.getElementById('scoreValue').textContent = currentReport.score;
+          document.getElementById('scoreValue').style.color = getScoreColor(currentReport.score);
+          document.getElementById('criticalCount').textContent = currentReport.summary.critical;
+          document.getElementById('highCount').textContent = currentReport.summary.high;
+          document.getElementById('mediumCount').textContent = currentReport.summary.medium;
+          document.getElementById('lowCount').textContent = currentReport.summary.low;
+          var fb = document.getElementById('freeTierBanner');
+          if (fb) fb.style.display = currentReport.issueDetailsLocked ? 'flex' : 'none';
+          renderIssues();
+          break;
+        case 'error':
+          document.getElementById('progressContainer').style.display = 'none';
+          document.getElementById('scanBtn').disabled = false;
+          break;
+      }
+    });
+  </script>
+  </div>
+</body>
+</html>`;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   public dispose() {

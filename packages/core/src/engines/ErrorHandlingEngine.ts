@@ -9,7 +9,7 @@
  * - Missing error boundaries in React components
  */
 
-import type { Finding, DeltaContext, ScanEngine } from '@vibecheck/core';
+import type { Finding, DeltaContext, ScanEngine } from './types';
 
 export class ErrorHandlingEngine implements ScanEngine {
   readonly id = 'error_handling' as const;

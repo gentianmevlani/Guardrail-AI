@@ -415,6 +415,7 @@ export const PREMIUM_TOOLS = [
 export async function handlePremiumTool(name, args, logger) {
   const projectPath = args?.projectPath || process.cwd();
   
+<<<<<<< HEAD
   /** Canonical `@guardrail/core` Feature ids (tier-config). */
   const featureMap = {
     get_status: "scan",
@@ -434,6 +435,23 @@ export async function handlePremiumTool(name, args, logger) {
     mark_fix_complete: "scan",
     exit_fix_mode: "scan:full",
     export_sarif: "reports:sarif",
+=======
+  // Map premium tools to required features (all require starter+)
+  const featureMap = {
+    'run_ship': 'smells', // ship check requires starter+
+    'run_reality': 'smells', // reality mode requires starter+
+    'run_mockproof': 'smells', // mockproof requires starter+
+    'run_airlock': 'breaking', // supply chain analysis requires pro+
+    'get_last_run': 'verify', // basic access
+    'open_artifact': 'verify', // basic access
+    'rerun_last_check': 'verify', // basic access
+    'run_doctor': 'verify', // basic access
+    'edit_policies': 'breaking', // policy editing requires pro+
+    'explain_finding': 'quality', // explanations require starter+
+    'policy_patch': 'smells', // patching requires starter+
+    'enter_fix_mode': 'smells', // fix mode requires starter+
+    'get_status': 'verify' // status check is free
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
 
   const requiredFeature = featureMap[name];

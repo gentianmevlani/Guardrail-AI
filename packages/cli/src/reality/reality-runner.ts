@@ -415,15 +415,24 @@ export async function runPlaywrightTests(
           }
           
           // Update critical paths coverage based on routes hit
+<<<<<<< HEAD
           const tracesForPaths = runtimeTraces;
           if (tracesForPaths && options.criticalPaths) {
             const routesHit = new Set(tracesForPaths.routes.map(r => r.path));
+=======
+          if (runtimeTraces && options.criticalPaths) {
+            const routesHit = new Set(runtimeTraces.routes.map(r => r.path));
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             options.criticalPaths = options.criticalPaths.map(path => ({
               ...path,
               covered: routesHit.has(path.path),
               evidence: path.covered ? [
                 ...path.evidence,
+<<<<<<< HEAD
                 ...tracesForPaths.requests
+=======
+                ...runtimeTraces.requests
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
                   .filter(r => r.url.includes(path.path))
                   .map(r => `request-${r.method}-${r.statusCode}.png`)
               ] : path.evidence,

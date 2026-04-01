@@ -50,9 +50,13 @@ function extractEnvVars(projectPath: string): ContextData['envVars'] {
 
       const match = trimmed.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/);
       if (match) {
+<<<<<<< HEAD
         const name = match[1];
         const value = match[2];
         if (name === undefined || value === undefined) continue;
+=======
+        const [, name, value] = match;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         vars.push({
           name,
           required: !value || value === '' || value.includes('your_') || value.includes('CHANGE_ME'),

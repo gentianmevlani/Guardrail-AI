@@ -66,10 +66,16 @@ function promptChoice(question: string, choices: Array<{ name: string; value: st
       rl.close();
       const idx = parseInt(answer) - 1;
       if (idx >= 0 && idx < choices.length) {
+<<<<<<< HEAD
         resolve(choices[idx]!.value);
       } else {
         const fallback = choices[defaultIdx] ?? choices[0];
         resolve(fallback!.value);
+=======
+        resolve(choices[idx].value);
+      } else {
+        resolve(choices[defaultIdx].value);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     });
   });

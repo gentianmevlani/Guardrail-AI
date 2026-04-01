@@ -41,8 +41,11 @@ export interface ViolationPattern {
   author?: string;
   /** Description of the violation */
   description?: string;
+<<<<<<< HEAD
   /** Internal: was absent in last scan (fixed-then-reintroduced detection) */
   _wasAbsent?: boolean;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 export interface ViolationHistory {
@@ -172,10 +175,17 @@ export function recordFindings(
       // This pattern was not found in the current scan — it may have been fixed
       // Mark it so that if it reappears, we flag it
       pattern._wasAbsent = true;
+<<<<<<< HEAD
     } else if (pattern._wasAbsent && currentKeys.has(pattern.key)) {
       // It was absent in a previous scan but is back now
       pattern.wasFixedThenReintroduced = true;
       delete pattern._wasAbsent;
+=======
+    } else if ((pattern as any)._wasAbsent && currentKeys.has(pattern.key)) {
+      // It was absent in a previous scan but is back now
+      pattern.wasFixedThenReintroduced = true;
+      delete (pattern as any)._wasAbsent;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
   }
 

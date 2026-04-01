@@ -4,9 +4,24 @@
  * Comprehensive test suite for the PromptInjectionDetector class
  */
 
+<<<<<<< HEAD
 import { describe, it, expect, beforeEach } from "vitest";
 import { PromptInjectionDetector } from "../../injection/detector";
 
+=======
+import { describe, it, expect, beforeEach, jest } from "@jest/globals";
+import { PromptInjectionDetector } from "../../injection/detector";
+
+// Mock prisma
+jest.mock("@guardrail/database", () => ({
+  prisma: {
+    injectionScan: {
+      create: jest.fn<() => Promise<any>>().mockResolvedValue({}),
+    },
+  },
+}));
+
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 describe("PromptInjectionDetector", () => {
   let detector: PromptInjectionDetector;
 

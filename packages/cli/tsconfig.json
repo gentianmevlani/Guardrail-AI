@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
@@ -7,3 +8,6 @@
   "include": ["src"],
   "exclude": ["src/_extracted/**", "src/index.legacy.backup.ts"]
 }
+=======
+{"compilerOptions": {"target": "ES2020", "module": "CommonJS", "lib": ["ES2020"], "outDir": "./dist", "rootDir": "./src", "strict": false, "skipLibCheck": true, "noImplicitAny": false, "esModuleInterop": true, "forceConsistentCasingInFileNames": true, "declaration": true, "declarationMap": true, "sourceMap": true, "moduleResolution": "node", "allowSyntheticDefaultImports": true, "noEmitOnError": false, "noUnusedLocals": false, "noUnusedParameters": false}, "include": ["src/**/*"], "exclude": ["node_modules", "dist", "**/*.test.ts", "src/_extracted/**", "src/index.legacy.backup.ts"]}
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7

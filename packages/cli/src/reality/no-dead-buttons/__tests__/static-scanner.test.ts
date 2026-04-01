@@ -24,7 +24,11 @@ describe('Static Scanner', () => {
       }
     `);
 
+<<<<<<< HEAD
     const result = runStaticScan(testDir, ['.']);
+=======
+    const result = runStaticScan(testDir);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     expect(result.passed).toBe(false);
     expect(result.errors.length).toBeGreaterThan(0);
     expect(result.errors.some(e => e.message.includes('Empty onClick handler'))).toBe(true);
@@ -38,7 +42,11 @@ describe('Static Scanner', () => {
       }
     `);
 
+<<<<<<< HEAD
     const result = runStaticScan(testDir, ['.']);
+=======
+    const result = runStaticScan(testDir);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     expect(result.passed).toBe(false);
     expect(result.errors.some(e => e.message.includes('href="#"'))).toBe(true);
   });
@@ -51,7 +59,11 @@ describe('Static Scanner', () => {
       } catch (e) {}
     `);
 
+<<<<<<< HEAD
     const result = runStaticScan(testDir, ['.']);
+=======
+    const result = runStaticScan(testDir);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     expect(result.passed).toBe(false);
     expect(result.errors.some(e => e.message.includes('Empty catch block'))).toBe(true);
   });
@@ -67,7 +79,11 @@ describe('Static Scanner', () => {
       }
     `);
 
+<<<<<<< HEAD
     const result = runStaticScan(testDir, ['.']);
+=======
+    const result = runStaticScan(testDir);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     expect(result.passed).toBe(true);
     expect(result.errors.length).toBe(0);
   });
@@ -80,7 +96,11 @@ describe('Static Scanner', () => {
       }
     `);
 
+<<<<<<< HEAD
     const result = runStaticScan(testDir, ['.']);
+=======
+    const result = runStaticScan(testDir);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const formatted = formatStaticScanResults(result);
     
     expect(formatted).toContain('error');

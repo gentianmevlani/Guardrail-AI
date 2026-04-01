@@ -16,7 +16,11 @@
  * ```
  */
 export interface ContextLayer {
+<<<<<<< HEAD
     type: 'file' | 'pattern' | 'dependency' | 'type' | 'endpoint' | 'convention' | 'procedural';
+=======
+    type: 'file' | 'pattern' | 'dependency' | 'type' | 'endpoint' | 'convention';
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     content: string;
     source: string;
     freshness: number;
@@ -40,7 +44,10 @@ export interface ContextRequest {
     relatedFiles?: string[];
     focus?: 'types' | 'patterns' | 'dependencies' | 'all';
     maxLayers?: number;
+<<<<<<< HEAD
     includeProceduralMemory?: boolean;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 declare class AdvancedContextManager {
     private contextCache;

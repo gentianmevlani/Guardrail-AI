@@ -126,10 +126,16 @@ describe('Baseline Suppression', () => {
       expect(loaded!.version).toBe('1.0.0');
       expect(loaded!.createdAt).toBeDefined();
       expect(loaded!.findings).toHaveLength(2);
+<<<<<<< HEAD
       const lf = loaded!.findings;
       expect(lf[0]!.fingerprint).toBeDefined();
       expect(lf[0]!.category).toBe('secrets');
       expect(lf[1]!.category).toBe('vulnerability');
+=======
+      expect(loaded!.findings[0].fingerprint).toBeDefined();
+      expect(loaded!.findings[0].category).toBe('secrets');
+      expect(loaded!.findings[1].category).toBe('vulnerability');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should return null for non-existent baseline', () => {
@@ -241,12 +247,20 @@ describe('Baseline Suppression', () => {
         },
       ];
 
+<<<<<<< HEAD
       BaselineManager.saveBaseline(baselinePath, findings.slice(0, 2));
+=======
+      BaselineManager.saveBaseline(baselinePath, [findings[0], findings[1]]);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
       const { filtered, suppressed } = BaselineManager.filterFindings(findings, baselinePath);
 
       expect(filtered).toHaveLength(1);
+<<<<<<< HEAD
       expect(filtered[0]!.title).toBe('API Key 3');
+=======
+      expect(filtered[0].title).toBe('API Key 3');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(suppressed).toBe(2);
     });
 
@@ -334,7 +348,11 @@ describe('Baseline Suppression', () => {
       const { filtered, suppressed } = BaselineManager.filterFindings(scan2Findings, baselinePath);
 
       expect(filtered).toHaveLength(1);
+<<<<<<< HEAD
       expect(filtered[0]!.snippet).toBe(STRIPE_TEST_PREFIX + 'new');
+=======
+      expect(filtered[0].snippet).toBe(STRIPE_TEST_PREFIX + 'new');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(suppressed).toBe(1);
     });
 

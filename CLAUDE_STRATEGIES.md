@@ -1,20 +1,33 @@
 # CLAUDE_STRATEGIES.md
 # Procedural Memory — Session Briefing
 # Generated: 2026-03-31
+<<<<<<< HEAD
 # Sessions analyzed: 21 | Strategies: 3
+=======
+# Sessions analyzed: 20 | Strategies: 3
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 # Identity: Mastery phase — consistently performing at high efficiency
 
 ## Pre-mortem: Predicted Risks
 
+<<<<<<< HEAD
 - **scope-creep** (68% likely, ~15 wasted steps): Touching more than 10 files or exceeding 25 tool calls
   Prevention: Before expanding scope, ask: "Is this necessary for the SPECIFIC task requested?"
 - **overengineering** (41% likely, ~10 wasted steps): Creating 3+ new files for what should be a localized change
   Prevention: Before creating a new file, ask: "Can this be done by modifying an existing file?"
 - **wrong-file-first** (74% likely, ~5 wasted steps): First file opened is not in the resolution path
+=======
+- **scope-creep** (95% likely, ~15 wasted steps): Touching more than 10 files or exceeding 25 tool calls
+  Prevention: Before expanding scope, ask: "Is this necessary for the SPECIFIC task requested?"
+- **overengineering** (59% likely, ~10 wasted steps): Creating 3+ new files for what should be a localized change
+  Prevention: Before creating a new file, ask: "Can this be done by modifying an existing file?"
+- **wrong-file-first** (95% likely, ~5 wasted steps): First file opened is not in the resolution path
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   Prevention: Read error messages, stack traces, and test output to identify the RIGHT file before exploring
 
 ## Self-Awareness Profile
 
+<<<<<<< HEAD
 > Your cognitive fingerprint across 21 sessions:
 
   Exploiter (direct path)      ░░░░░░░█░░░ Explorer (wide search)
@@ -22,12 +35,25 @@
   Quick pivoter                ░░░░░░░░░█░ Persistent
   Deep (few files, many actions) ░░░░░░░█░░░ Broad (many files, few actions)
   Specialist (few tools)       ░░░░░░█░░░░ Generalist (many tools)
+=======
+> Your cognitive fingerprint across 20 sessions:
+
+  Exploiter (direct path)      ░░░░░░█░░░░ Explorer (wide search)
+  Bold (writes early)          ░░░░░░█░░░░ Cautious (reads first)
+  Quick pivoter                ░░░░░░░░░█░ Persistent
+  Deep (few files, many actions) ░░░░░░░█░░░ Broad (many files, few actions)
+  Specialist (few tools)       ░░░░░█░░░░░ Generalist (many tools)
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   Externally corrected         ░░░░░░░░█░░ Self-correcting
   Efficient (minimal path)     ░░░░░░░█░░░ Thorough (exhaustive)
 
 
 **Signature strengths (keep doing):**
+<<<<<<< HEAD
 - Clean execution: 29% of sessions resolve with zero backtracks and ≤10 tool calls
+=======
+- Clean execution: 30% of sessions resolve with zero backtracks and ≤10 tool calls
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 ## Collaborator Awareness
 
@@ -49,6 +75,7 @@
 
 ## Strategies
 
+<<<<<<< HEAD
 ### packages/cli
 
 **[95% ◆]** (75 sessions)
@@ -63,6 +90,11 @@ When entering this module, preload context on:
 ### Downloads/Guardrail-Ofiicial-main
 
 **[95% ◆]** (135 sessions)
+=======
+### Downloads/Guardrail-Ofiicial-main
+
+**[95% ◆]** (120 sessions)
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 📋 Module checkpoint for Downloads/Guardrail-Ofiicial-main (based on 4 sessions):
 When entering this module, preload context on:
   - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/scan-consolidated.ts (touched in 100% of sessions)
@@ -70,3 +102,17 @@ When entering this module, preload context on:
   - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/index.ts (touched in 75% of sessions)
   - Downloads/Guardrail-Ofiicial-main/apps/api/src/routes/v1/index.ts (touched in 50% of sessions)
   - Downloads/Guardrail-Ofiicial-main/packages/cli/src/commands/init.ts (touched in 50% of sessions)
+<<<<<<< HEAD
+=======
+
+### packages/cli
+
+**[95% ◆]** (60 sessions)
+📋 Module checkpoint for packages/cli (based on 2 sessions):
+When entering this module, preload context on:
+  - Downloads/Guardrail-Ofiicial-main/packages/cli/package.json (touched in 100% of sessions)
+  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/spinner.ts (touched in 50% of sessions)
+  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/progress.ts (touched in 50% of sessions)
+  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/summary.ts (touched in 50% of sessions)
+  - Downloads/Guardrail-Ofiicial-main/packages/cli/src/ui/index.ts (touched in 50% of sessions)
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7

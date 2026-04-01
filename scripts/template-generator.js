@@ -343,6 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 async function generateLandingPageTemplate(outputDir) {
+<<<<<<< HEAD
   const landingHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1011,6 +1012,30 @@ NODE_ENV=development
   console.log('  ✅ Error handler and request logger middleware');
   console.log('  ✅ Frontend served as static files');
   console.log('  ✅ package.json with dev/start scripts');
+=======
+  // Similar structure but with landing page specific content
+  await generateFrontendTemplate(outputDir);
+}
+
+async function generateDashboardTemplate(outputDir) {
+  // Similar structure but with dashboard specific content
+  await generateFrontendTemplate(outputDir);
+}
+
+async function generateReactTemplate(outputDir) {
+  // Would generate React-specific files
+  await generateFrontendTemplate(outputDir);
+}
+
+async function generateVueTemplate(outputDir) {
+  // Would generate Vue-specific files
+  await generateFrontendTemplate(outputDir);
+}
+
+async function generateFullStackTemplate(outputDir) {
+  // Would generate full-stack setup
+  await generateFrontendTemplate(outputDir);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 main().catch(console.error);

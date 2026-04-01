@@ -11,7 +11,10 @@ import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
 import { getGuardrailPanelHead } from '../webview-shared-styles';
+<<<<<<< HEAD
 import { productionIntegrityStitchCss } from './production-integrity-stitch-css';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface ProductionService {
   id: string;
@@ -320,12 +323,236 @@ export class ProductionIntegrityPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title>Production Integrity</title>
   ${getGuardrailPanelHead(productionIntegrityStitchCss)}
+=======
+  <title>Production Integrity Dashboard</title>
+  ${getGuardrailPanelHead(`
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .header-left { display: flex; align-items: center; gap: 15px; }
+    .logo { font-size: 32px; }
+    .title { font-size: 24px; font-weight: bold; }
+    .subtitle { color: var(--on-surface-variant); font-size: 14px; }
+    .monitoring-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .monitoring-active {
+      background: rgba(107, 203, 119, 0.2);
+      color: #6bcb77;
+      border: 1px solid rgba(107, 203, 119, 0.3);
+    }
+    .monitoring-inactive {
+      background: rgba(255, 107, 107, 0.2);
+      color: #ff6b6b;
+      border: 1px solid rgba(255, 107, 107, 0.3);
+    }
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-danger {
+      background: #ff6b6b;
+      color: #000;
+    }
+    .btn-success {
+      background: #6bcb77;
+      color: #000;
+    }
+    .btn-secondary {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .health-overview {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .health-score {
+      font-size: 64px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .health-score.healthy { color: #6bcb77; }
+    .health-score.degraded { color: #ffd93d; }
+    .health-score.critical { color: #ff6b6b; }
+    .health-status {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .health-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .health-metric {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .metric-value { font-size: 24px; font-weight: bold; }
+    .metric-label { font-size: 12px; color: var(--on-surface-variant); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .service-card {
+      background: var(--surface-container-low);
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid;
+    }
+    .service-card.healthy { border-left-color: #6bcb77; }
+    .service-card.warning { border-left-color: #ffd93d; }
+    .service-card.critical { border-left-color: #ff6b6b; }
+    .service-card.offline { border-left-color: #999; }
+    .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .service-name { font-weight: bold; font-size: 16px; }
+    .service-status {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .status-healthy { background: #6bcb77; color: #000; }
+    .status-warning { background: #ffd93d; color: #000; }
+    .status-critical { background: #ff6b6b; color: #000; }
+    .status-offline { background: #999; color: #000; }
+    .service-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .service-metric {
+      font-size: 12px;
+    }
+    .metric-name { color: var(--on-surface-variant); }
+    .metric-number { font-weight: bold; }
+    .alerts-section {
+      margin-top: 15px;
+    }
+    .alert-item {
+      background: var(--surface-container-lowest);
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      font-size: 12px;
+      border-left: 3px solid;
+    }
+    .alert-error { border-left-color: #ff6b6b; }
+    .alert-warning { border-left-color: #ffd93d; }
+    .alert-info { border-left-color: #74c0fc; }
+    .incidents-section {
+      background: var(--surface-container-low);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .incident-item {
+      background: var(--surface-container-lowest);
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      border-left: 3px solid;
+    }
+    .incident-low { border-left-color: #6bcb77; }
+    .incident-medium { border-left-color: #ffd93d; }
+    .incident-high { border-left-color: #ffa94d; }
+    .incident-critical { border-left-color: #ff6b6b; }
+    .incident-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .incident-title { font-weight: bold; }
+    .incident-severity {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .severity-low { background: #6bcb77; color: #000; }
+    .severity-medium { background: #ffd93d; color: #000; }
+    .severity-high { background: #ffa94d; color: #000; }
+    .severity-critical { background: #ff6b6b; color: #000; }
+    .incident-meta {
+      font-size: 12px;
+      color: var(--on-surface-variant);
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--on-surface-variant);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 15px; }
+    .integrity-pad { padding: 0 16px 16px; }
+  `)}
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 </head>
 <body class="ka-dashboard-body ka-panel-page">
   <div class="ka-ambient" aria-hidden="true"></div>
   <div class="ka-shell">
+<<<<<<< HEAD
   <header class="pi-head">
     <div class="pi-head-left">
       <span class="logo" aria-hidden="true">🖥️</span>
@@ -333,12 +560,21 @@ export class ProductionIntegrityPanel {
         <div class="pi-kicker">Fleet integrity</div>
         <div class="title">Production</div>
         <div class="subtitle">Real-time monitoring · deployment integrity</div>
+=======
+  <div class="header">
+    <div class="header-left">
+      <span class="logo">🖥️</span>
+      <div>
+        <div class="title">Production Integrity Dashboard</div>
+        <div class="subtitle">Real-time monitoring and deployment integrity</div>
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       </div>
     </div>
     <div class="monitoring-status monitoring-inactive" id="monitoringStatus">
       <div class="status-indicator"></div>
       <span id="monitoringText">Monitoring Off</span>
     </div>
+<<<<<<< HEAD
   </header>
 
   <div class="pi-strip" aria-hidden="true">
@@ -348,6 +584,8 @@ export class ProductionIntegrityPanel {
       <circle cx="400" cy="28" r="5" fill="#00e5ff" />
       <circle cx="640" cy="28" r="4" fill="#00e5ff" opacity="0.85" />
     </svg>
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   </div>
 
   <div class="integrity-pad">

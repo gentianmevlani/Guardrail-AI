@@ -160,7 +160,10 @@ function parsePythonDependencies(projectPath: string): PackageInfo[] {
         const match = trimmed.match(/^([a-zA-Z0-9_-]+)(?:==|>=|<=|~=|>|<)?([\d.]+)?/);
         if (match) {
           const name = match[1];
+<<<<<<< HEAD
           if (name === undefined) continue;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           const version = match[2] || 'latest';
           packages.push({ name, version, ecosystem: 'PyPI', isDirect: true });
         }
@@ -190,7 +193,10 @@ function parseRubyDependencies(projectPath: string): PackageInfo[] {
         const match = trimmed.match(/gem\s+['"]([^'"]+)['"]\s*,?\s*['"]?([~>=<\d.]+)?['"]?/);
         if (match) {
           const name = match[1];
+<<<<<<< HEAD
           if (name === undefined) continue;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           const version = match[2]?.replace(/[~>=<]/g, '') || 'latest';
           packages.push({ name, version, ecosystem: 'RubyGems', isDirect: true });
         }
@@ -233,7 +239,10 @@ function parseGoDependencies(projectPath: string): PackageInfo[] {
         if (match) {
           const name = match[1];
           const version = match[2];
+<<<<<<< HEAD
           if (name === undefined || version === undefined) continue;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           packages.push({ name, version, ecosystem: 'Go', isDirect: true });
         }
       }
@@ -323,7 +332,11 @@ export async function scanVulnerabilitiesEnhanced(
   return {
     projectPath,
     scanType: 'vulnerabilities',
+<<<<<<< HEAD
     ecosystem: ecosystems[0] ?? 'npm',
+=======
+    ecosystem: ecosystems[0],
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     packagesScanned: allPackages.length,
     findings: results.filter(r => r.isVulnerable),
     summary,

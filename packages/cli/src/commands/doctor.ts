@@ -8,7 +8,10 @@
 import { Command } from 'commander';
 import { resolve, join } from 'path';
 import { existsSync, readFileSync } from 'fs';
+<<<<<<< HEAD
 import { execSync } from 'child_process';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { TruthPackGenerator } from '../truth-pack';
 import { printLogo } from '../ui';
 import { styles, icons } from '../ui';
@@ -74,8 +77,12 @@ export function registerDoctorCommand(program: Command): void {
 
       // Check 3: Node.js version
       const nodeVersion = process.version;
+<<<<<<< HEAD
       const majorStr = nodeVersion.slice(1).split('.')[0];
       const majorVersion = majorStr !== undefined ? parseInt(majorStr, 10) : NaN;
+=======
+      const majorVersion = parseInt(nodeVersion.slice(1).split('.')[0]);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (majorVersion < 18) {
         issues.push({
           id: 'DOCTOR-004',
@@ -194,6 +201,7 @@ export function registerDoctorCommand(program: Command): void {
         for (const issue of issues) {
           if (issue.command && issue.severity === 'error') {
             console.log(`  ${styles.dim}Running: ${issue.command}${styles.reset}`);
+<<<<<<< HEAD
             try {
               execSync(issue.command, {
                 cwd: projectPath,
@@ -207,6 +215,10 @@ export function registerDoctorCommand(program: Command): void {
                 `  ${styles.brightYellow}${icons.warning}${styles.reset} Command exited non-zero: ${issue.id}\n`
               );
             }
+=======
+            // TODO: Actually execute the command
+            console.log(`  ${styles.brightGreen}${icons.success}${styles.reset} Fixed: ${issue.id}\n`);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           }
         }
       } else {

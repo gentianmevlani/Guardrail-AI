@@ -1,14 +1,20 @@
 /**
  * guardrail MCP Client
  *
+<<<<<<< HEAD
  * Runs workspace scans and ship checks via the published CLI (`execCLI`).
  * The resolved MCP server path is the same bundle used by Cursor/MCP hosts over stdio;
  * use {@link getConnectionStatus} / {@link getMcpServerPath} to surface it in the UI.
+=======
+ * Communicates with the local guardrail MCP server via stdio transport.
+ * Falls back to direct CLI execution if MCP server is not running.
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
  */
 
 import * as vscode from "vscode";
 import { spawn, exec } from "child_process";
 import * as path from "path";
+<<<<<<< HEAD
 import {
   probeMcpStdioProtocol,
   type McpProtocolProbeResult,
@@ -29,6 +35,11 @@ export type { McpProtocolProbeResult } from "./mcp-stdio-probe";
 export interface ScanResult {
   /** `null` when the CLI did not emit a score (parse failure or missing fields) — not the same as 0. */
   score: number | null;
+=======
+
+export interface ScanResult {
+  score: number;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   grade: string;
   canShip: boolean;
   counts: {
@@ -47,9 +58,12 @@ export interface ScanResult {
     medium: number;
     low: number;
   };
+<<<<<<< HEAD
   /** When Free tier (or unauthenticated as free): findings cleared; counts remain in `cliSummary`. */
   issueDetailsRedacted?: boolean;
   upgradeHint?: string;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 export interface Issue {
@@ -65,6 +79,7 @@ export interface ValidateResult {
   score: number;
   status: "passed" | "failed";
   issues: Issue[];
+<<<<<<< HEAD
   issueDetailsRedacted?: boolean;
   upgradeHint?: string;
   /** When redacted, number of issues that were hidden (score still reflects full check). */
@@ -103,6 +118,16 @@ export class GuardrailMCPClient {
 
   constructor(options?: { resolveTier?: () => Promise<string> }) {
     this.resolveTier = options?.resolveTier;
+=======
+}
+
+export class GuardrailMCPClient {
+  private outputChannel: vscode.OutputChannel;
+  private mcpServerPath: string;
+  private cliPath: string;
+
+  constructor() {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this.outputChannel = vscode.window.createOutputChannel("guardrail");
 
     // Find paths relative to extension
@@ -152,6 +177,7 @@ export class GuardrailMCPClient {
     this.outputChannel.appendLine(`[${new Date().toISOString()}] ${message}`);
   }
 
+<<<<<<< HEAD
   /** Resolved path to the MCP server entry (for Cursor/VS Code MCP config). */
   getMcpServerPath(): string {
     return this.mcpServerPath;
@@ -212,6 +238,8 @@ export class GuardrailMCPClient {
     };
   }
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   /**
    * Scan workspace for issues (`guardrail scan --json`; no `--profile` — not supported by current CLI).
    */
@@ -221,7 +249,11 @@ export class GuardrailMCPClient {
     try {
       const result = await this.execCLI("scan", ["--json"], projectPath);
 
+<<<<<<< HEAD
       return this.applyTierScanPolicy(this.parseScanResult(result));
+=======
+      return this.parseScanResult(result);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     } catch (error: any) {
       this.log(`Scan error: ${error.message}`);
       throw error;
@@ -236,7 +268,11 @@ export class GuardrailMCPClient {
 
     try {
       const result = await this.execCLI("ship", ["--json"], projectPath);
+<<<<<<< HEAD
       return this.applyTierScanPolicy(this.parseScanResult(result));
+=======
+      return this.parseScanResult(result);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     } catch (error: any) {
       this.log(`Ship check error: ${error.message}`);
       throw error;
@@ -307,6 +343,7 @@ export class GuardrailMCPClient {
       }
     }
 
+<<<<<<< HEAD
     const base: ValidateResult = {
       score: Math.max(0, score),
       status:
@@ -350,6 +387,13 @@ export class GuardrailMCPClient {
       upgradeHint: FREE_TIER_ISSUE_DETAILS_UPGRADE_HINT,
       redactedIssueCount: n,
     };
+=======
+    return {
+      score: Math.max(0, score),
+      status: score >= 70 ? "passed" : "failed",
+      issues,
+    };
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   private isLikelyHallucinated(pkg: string): boolean {
@@ -391,7 +435,11 @@ export class GuardrailMCPClient {
     for (const p of candidates) {
       try {
         const content = await fs.readFile(p, "utf-8");
+<<<<<<< HEAD
         return await this.applyTierScanPolicy(this.parseScanResult(content));
+=======
+        return this.parseScanResult(content);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       } catch {
         continue;
       }
@@ -444,6 +492,7 @@ export class GuardrailMCPClient {
     const raw = this.extractJsonPayload(output);
     try {
       const parsed: unknown = JSON.parse(raw);
+<<<<<<< HEAD
       const normalized =
         parsed &&
         typeof parsed === "object" &&
@@ -451,14 +500,22 @@ export class GuardrailMCPClient {
           ? normalizeScanJsonData(parsed as Record<string, unknown>)
           : parsed;
       return this.jsonToScanResult(normalized);
+=======
+      return this.jsonToScanResult(parsed);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     } catch {
       const scoreMatch = output.match(/Score:\s*(\d+)/i);
       const gradeMatch = output.match(/Grade:\s*([A-F][+-]?)/i);
       const canShipMatch = output.match(/(SHIP|NO-SHIP|CLEAR|BLOCKED)/i);
 
       return {
+<<<<<<< HEAD
         score: scoreMatch ? parseInt(scoreMatch[1], 10) : null,
         grade: gradeMatch ? gradeMatch[1] : "?",
+=======
+        score: scoreMatch ? parseInt(scoreMatch[1], 10) : 0,
+        grade: gradeMatch ? gradeMatch[1] : "F",
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         canShip: canShipMatch ? /SHIP|CLEAR/.test(canShipMatch[1]) : false,
         counts: {},
         issues: [],
@@ -478,6 +535,17 @@ export class GuardrailMCPClient {
     return t;
   }
 
+<<<<<<< HEAD
+=======
+  private scoreToGrade(score: number): string {
+    if (score >= 90) return "A";
+    if (score >= 80) return "B";
+    if (score >= 70) return "C";
+    if (score >= 60) return "D";
+    return "F";
+  }
+
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   private severityToIssueType(sev: string): Issue["type"] {
     const s = (sev || "").toLowerCase();
     if (s === "critical") return "critical";
@@ -511,7 +579,11 @@ export class GuardrailMCPClient {
         ? summary.totalScore
         : typeof scanObj.score === "number"
           ? scanObj.score
+<<<<<<< HEAD
           : null;
+=======
+          : 0;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     const rawFindings = Array.isArray(scanObj.findings) ? scanObj.findings : [];
     const issues: Issue[] = rawFindings.map((item) =>
@@ -532,17 +604,27 @@ export class GuardrailMCPClient {
     const verdict = scanObj.verdict;
     let canShip = canShipOverride;
     if (canShip === undefined) {
+<<<<<<< HEAD
       const v =
         verdict === "PASS" || verdict === "FAIL" || verdict === "WARN"
           ? verdict
           : undefined;
       canShip = canShipFromScanState(totalScore, v);
+=======
+      if (verdict === "PASS") canShip = true;
+      else if (verdict === "FAIL" || verdict === "WARN") canShip = false;
+      else canShip = false;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     }
 
     const grade =
       typeof scanObj.grade === "string"
         ? scanObj.grade
+<<<<<<< HEAD
         : gradeFromScanScore(totalScore);
+=======
+        : this.scoreToGrade(totalScore);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     const counts =
       scanObj.counts && typeof scanObj.counts === "object"
@@ -562,8 +644,13 @@ export class GuardrailMCPClient {
   private jsonToScanResult(json: unknown): ScanResult {
     if (!json || typeof json !== "object") {
       return {
+<<<<<<< HEAD
         score: null,
         grade: "?",
+=======
+        score: 0,
+        grade: "F",
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         canShip: false,
         counts: {},
         issues: [],
@@ -617,6 +704,7 @@ export class GuardrailMCPClient {
 
     // Legacy extension shape: score + issues[]
     if (Array.isArray(j.issues) && j.issues.length > 0) {
+<<<<<<< HEAD
       const sc = typeof j.score === "number" ? j.score : null;
       return {
         score: sc,
@@ -625,6 +713,12 @@ export class GuardrailMCPClient {
           typeof j.canShip === "boolean"
             ? j.canShip
             : canShipFromScanState(sc, undefined),
+=======
+      return {
+        score: typeof j.score === "number" ? j.score : 0,
+        grade: typeof j.grade === "string" ? j.grade : "F",
+        canShip: Boolean(j.canShip),
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         counts:
           j.counts && typeof j.counts === "object"
             ? (j.counts as ScanResult["counts"])
@@ -642,12 +736,17 @@ export class GuardrailMCPClient {
     ) {
       return {
         score: j.score,
+<<<<<<< HEAD
         grade:
           typeof j.grade === "string" ? j.grade : gradeFromScanScore(j.score),
         canShip:
           typeof j.canShip === "boolean"
             ? j.canShip
             : canShipFromScanState(j.score, undefined),
+=======
+        grade: typeof j.grade === "string" ? j.grade : this.scoreToGrade(j.score),
+        canShip: Boolean(j.canShip),
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         counts:
           j.counts && typeof j.counts === "object"
             ? (j.counts as ScanResult["counts"])
@@ -657,6 +756,7 @@ export class GuardrailMCPClient {
     }
 
     // Last resort: flat score / issues
+<<<<<<< HEAD
     const lastSc = typeof j.score === "number" ? j.score : null;
     return {
       score: lastSc,
@@ -665,6 +765,12 @@ export class GuardrailMCPClient {
         typeof j.canShip === "boolean"
           ? j.canShip
           : canShipFromScanState(lastSc, undefined),
+=======
+    return {
+      score: typeof j.score === "number" ? j.score : 0,
+      grade: typeof j.grade === "string" ? j.grade : "F",
+      canShip: Boolean(j.canShip),
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       counts:
         j.counts && typeof j.counts === "object"
           ? (j.counts as ScanResult["counts"])

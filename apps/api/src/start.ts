@@ -1,8 +1,11 @@
 /**
  * API runtime entry — composes buildServer from server.ts and listens.
  */
+<<<<<<< HEAD
 import { existsSync } from "fs";
 import path from "path";
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import "dotenv/config";
 import { getEnv } from "@guardrail/core";
 import { initializeQueues } from "./lib/queue";
@@ -17,6 +20,7 @@ const { PORT, HOST } = env;
 export async function start() {
   try {
     try {
+<<<<<<< HEAD
       const bootstrapPath = path.resolve(
         __dirname,
         "../../../dist/lib/workflow-persistence-bootstrap.js",
@@ -48,6 +52,8 @@ export async function start() {
     }
 
     try {
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       await initializeQueues({
         concurrency: parseInt(process.env.WORKER_CONCURRENCY || "3", 10),
         retryAttempts: parseInt(process.env.WORKER_RETRY_ATTEMPTS || "3", 10),

@@ -23,7 +23,10 @@ export const c = {
   medium: (t: string) => `${colors.yellow}${t}${colors.reset}`,
   low: (t: string) => `${colors.blue}${t}${colors.reset}`,
   success: (t: string) => `${colors.green}${t}${colors.reset}`,
+<<<<<<< HEAD
   cyan: (t: string) => `${colors.cyan}${t}${colors.reset}`,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   info: (t: string) => `${colors.cyan}${t}${colors.reset}`,
   bold: (t: string) => `${colors.bold}${t}${colors.reset}`,
   dim: (t: string) => `${colors.dim}${t}${colors.reset}`,

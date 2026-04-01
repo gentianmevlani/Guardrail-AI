@@ -50,8 +50,13 @@ describe('frame utilities', () => {
       const result = frameLines(lines);
       
       expect(result.length).toBe(4); // top + 2 lines + bottom
+<<<<<<< HEAD
       expect(stripAnsi(result[0]!)).toContain('╔');
       expect(stripAnsi(result[result.length - 1]!)).toContain('╚');
+=======
+      expect(stripAnsi(result[0])).toContain('╔');
+      expect(stripAnsi(result[result.length - 1])).toContain('╚');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should handle title option', () => {
@@ -65,8 +70,13 @@ describe('frame utilities', () => {
       const longLine = 'A'.repeat(100);
       const result = frameLines([longLine, 'short']);
       
+<<<<<<< HEAD
       const topWidth = stripAnsi(result[0]!).length;
       const bottomWidth = stripAnsi(result[result.length - 1]!).length;
+=======
+      const topWidth = stripAnsi(result[0]).length;
+      const bottomWidth = stripAnsi(result[result.length - 1]).length;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       
       expect(topWidth).toBe(bottomWidth);
     });
@@ -173,8 +183,13 @@ describe('renderCommandHeader', () => {
       });
       
       const lines = result.split('\n');
+<<<<<<< HEAD
       const topBorder = stripAnsi(lines[0]!);
       const bottomBorder = stripAnsi(lines[lines.length - 1]!);
+=======
+      const topBorder = stripAnsi(lines[0]);
+      const bottomBorder = stripAnsi(lines[lines.length - 1]);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       
       // Borders should have same width
       expect(topBorder.length).toBe(bottomBorder.length);

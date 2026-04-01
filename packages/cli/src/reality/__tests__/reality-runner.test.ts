@@ -77,9 +77,18 @@ describe('Reality Runner', () => {
       expect(args[reporterIndex + 1]).toBe('html,line');
     });
 
+<<<<<<< HEAD
     it('should not include screenshot when not provided', () => {
       const args = buildPlaywrightArgs(baseOptions);
       expect(args).not.toContain('--screenshot');
+=======
+    it('should include default screenshot on failure setting', () => {
+      const args = buildPlaywrightArgs(baseOptions);
+      
+      const screenshotIndex = args.indexOf('--screenshot');
+      expect(screenshotIndex).toBeGreaterThan(-1);
+      expect(args[screenshotIndex + 1]).toBe('only-on-failure');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should include custom screenshot mode when provided', () => {
@@ -139,6 +148,10 @@ describe('Reality Runner', () => {
       expect(args).toContain('--timeout');
       expect(args).toContain('--workers');
       expect(args).toContain('--reporter');
+<<<<<<< HEAD
+=======
+      expect(args).toContain('--screenshot');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should include all optional flags when provided', () => {
@@ -207,6 +220,7 @@ describe('Reality Runner', () => {
 
     it('should return playwrightInstalled: false for empty project', () => {
       const result = checkPlaywrightDependencies(tempDir);
+<<<<<<< HEAD
 
       if (!result.playwrightInstalled) {
         expect(result.installCommands.length).toBeGreaterThan(0);
@@ -214,10 +228,16 @@ describe('Reality Runner', () => {
         // Global `npx playwright` can mark the toolchain as installed without local node_modules
         expect(result.playwrightInstalled).toBe(true);
       }
+=======
+      
+      expect(result.playwrightInstalled).toBe(false);
+      expect(result.installCommands.length).toBeGreaterThan(0);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should provide install commands when Playwright not found', () => {
       const result = checkPlaywrightDependencies(tempDir);
+<<<<<<< HEAD
 
       if (!result.playwrightInstalled) {
         expect(result.installCommands).toContain('npm install -D @playwright/test');
@@ -225,10 +245,16 @@ describe('Reality Runner', () => {
       } else {
         expect(result.installCommands.length).toBeGreaterThanOrEqual(0);
       }
+=======
+      
+      expect(result.installCommands).toContain('npm install -D @playwright/test');
+      expect(result.installCommands).toContain('npx playwright install');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should have an error message when not installed', () => {
       const result = checkPlaywrightDependencies(tempDir);
+<<<<<<< HEAD
 
       if (!result.playwrightInstalled) {
         expect(result.errorMessage).toBeTruthy();
@@ -237,6 +263,11 @@ describe('Reality Runner', () => {
         // Global `npx playwright` can satisfy the check without project-local deps
         expect(result.playwrightInstalled).toBe(true);
       }
+=======
+      
+      expect(result.errorMessage).toBeTruthy();
+      expect(result.errorMessage).toContain('Playwright');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
 
     it('should return consistent result structure', () => {

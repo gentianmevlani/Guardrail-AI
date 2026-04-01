@@ -53,11 +53,16 @@ async function testTierAuth() {
   console.log('2️⃣ Testing tier authentication...');
   try {
     const tierAuth = await import('./tier-auth.js');
+<<<<<<< HEAD
     if (typeof tierAuth.checkFeatureAccess !== "function") {
       throw new Error("checkFeatureAccess missing");
     }
     const info = await tierAuth.getUserInfo();
     console.log(`   ✅ Tier auth module loaded (effective tier: ${info.tier})`);
+=======
+    console.log(`   ✅ Tiers available: ${Object.keys(tierAuth.TIERS).join(', ')}`);
+    console.log(`   ✅ Tier auth module loaded successfully`);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return true;
   } catch (error) {
     console.log(`   ❌ Tier auth failed: ${error.message}`);

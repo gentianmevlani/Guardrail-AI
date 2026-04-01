@@ -11,9 +11,12 @@ import * as fs from 'fs';
 import { ApiClient } from '../services/api-client';
 import { CLIService } from '../services/cli-service';
 import { getGuardrailPanelHead } from '../webview-shared-styles';
+<<<<<<< HEAD
 import { GUARDRAIL_VERSION } from '../guardrail-styles';
 import { getAiExplainerCyberCircuitHtml } from './ai-explainer-webview-html';
 import { cyberCircuitPanelCss } from './ai-explainer-cyber-css';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export interface CodeExplanation {
   id: string;
@@ -82,6 +85,7 @@ export class AIExplainerPanel {
           case 'generateDocs':
             await this._generateDocumentation();
             break;
+<<<<<<< HEAD
           case 'vscodeCommand':
             if (typeof message.id === 'string') {
               void vscode.commands.executeCommand(message.id);
@@ -97,6 +101,8 @@ export class AIExplainerPanel {
               'Thanks — we logged your feedback for this session.',
             );
             break;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         }
       },
       null,
@@ -116,7 +122,11 @@ export class AIExplainerPanel {
 
     const panel = vscode.window.createWebviewPanel(
       'aiExplainer',
+<<<<<<< HEAD
       'Cyber-Circuit AI Explainer',
+=======
+      'AI Code Explainer',
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -392,10 +402,401 @@ export class AIExplainerPanel {
   }
 
   private _getHtmlContent(): string {
+<<<<<<< HEAD
     return getAiExplainerCyberCircuitHtml(
       GUARDRAIL_VERSION,
       getGuardrailPanelHead(cyberCircuitPanelCss),
     );
+=======
+    return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Code Explainer</title>
+  ${getGuardrailPanelHead(`
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.ka-dashboard-body {
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+    }
+    .ka-shell { padding: 16px; }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .header-left { display: flex; align-items: center; gap: 15px; }
+    .logo { font-size: 32px; }
+    .title { font-size: 24px; font-weight: bold; }
+    .subtitle { color: var(--on-surface-variant); font-size: 14px; }
+    .controls {
+      background: var(--surface-container-low);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .control-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .control-group { flex: 1; min-width: 200px; }
+    .control-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: var(--on-surface-variant);
+    }
+    select, textarea {
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      color: var(--on-surface);
+      padding: 8px;
+      border-radius: 4px;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    .btn {
+      background: linear-gradient(135deg, var(--primary-container), var(--secondary-container));
+      color: #001f24;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .progress-container {
+      display: none;
+      margin: 20px 0;
+      padding: 20px;
+      background: var(--surface-container-low);
+      border-radius: 8px;
+    }
+    .progress-bar {
+      height: 8px;
+      background: var(--surface-container-highest);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-container), var(--secondary-container));
+      transition: width 0.3s ease;
+    }
+    .explanation-result {
+      display: none;
+      background: var(--surface-container-low);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    .explanation-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .explanation-title { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+    .explanation-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      color: var(--on-surface-variant);
+    }
+    .explanation-section {
+      margin-bottom: 25px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--on-surface);
+    }
+    .complexity-badge {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .complexity-simple { background: #6bcb77; color: #000; }
+    .complexity-moderate { background: #ffd93d; color: #000; }
+    .complexity-complex { background: #ff6b6b; color: #000; }
+    .component-list, .pattern-list, .suggestion-list {
+      list-style: none;
+      padding: 0;
+    }
+    .component-item, .pattern-item, .suggestion-item {
+      background: var(--surface-container-lowest);
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--primary-container);
+    }
+    .component-name, .pattern-name { font-weight: bold; margin-bottom: 4px; }
+    .component-description, .pattern-description {
+      font-size: 13px;
+      color: var(--on-surface-variant);
+    }
+    .confidence {
+      font-size: 11px;
+      color: var(--on-surface-variant);
+      margin-top: 4px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--on-surface-variant);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 15px; }
+  `)}
+</head>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <div class="header">
+    <div class="header-left">
+      <span class="logo">🤖</span>
+      <div>
+        <div class="title">AI Code Explainer</div>
+        <div class="subtitle">Natural language code explanations and documentation generation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="control-row">
+      <div class="control-group">
+        <label>Detail Level</label>
+        <select id="detailLevel">
+          <option value="basic">Basic - Quick overview</option>
+          <option value="detailed" selected>Detailed - Comprehensive explanation</option>
+          <option value="comprehensive">Comprehensive - In-depth analysis</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Include Examples</label>
+        <select id="includeExamples">
+          <option value="true" selected>Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <div class="control-group">
+        <label>Finding ID (optional — runs <code>guardrail explain &lt;id&gt;</code>)</label>
+        <input type="text" id="findingIdInput" placeholder="From guardrail scan --json" style="width:100%;padding:8px;border-radius:6px;background:var(--vscode-input-background);color:var(--vscode-input-foreground);border:1px solid var(--vscode-input-border);" />
+      </div>
+    </div>
+
+    <div class="control-row">
+      <div class="control-group" style="flex: 2;">
+        <label>Code to Explain (or use selection/current file)</label>
+        <textarea id="codeInput" placeholder="Paste your code here or use the buttons below..."></textarea>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="btn" id="explainBtn" onclick="explainCode()">
+        <span>🤖</span> Explain Code
+      </button>
+      <button class="btn btn-secondary" onclick="explainSelection()">
+        <span>📋</span> Explain Selection
+      </button>
+      <button class="btn btn-secondary" onclick="explainFile()">
+        <span>📄</span> Explain Current File
+      </button>
+    </div>
+  </div>
+
+  <div class="progress-container" id="progressContainer">
+    <div id="progressMessage">Analyzing code...</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <div class="explanation-result" id="explanationResult">
+    <div class="explanation-header">
+      <div class="explanation-title" id="explanationTitle">Code Analysis</div>
+      <div class="explanation-meta">
+        <span>Complexity: <span class="complexity-badge" id="complexityBadge">--</span></span>
+        <span>Reading Time: <span id="readingTime">--</span></span>
+        <span>Purpose: <span id="purpose">--</span></span>
+      </div>
+    </div>
+
+    <div class="explanation-section">
+      <div class="section-title">📝 Summary</div>
+      <div id="summary">--</div>
+    </div>
+
+    <div class="explanation-section">
+      <div class="section-title">🔧 Key Components</div>
+      <ul class="component-list" id="componentList"></ul>
+    </div>
+
+    <div class="explanation-section">
+      <div class="section-title">🎯 Identified Patterns</div>
+      <ul class="pattern-list" id="patternList"></ul>
+    </div>
+
+    <div class="explanation-section">
+      <div class="section-title">💡 Suggestions</div>
+      <ul class="suggestion-list" id="suggestionList"></ul>
+    </div>
+
+    <div class="button-row" style="margin-top: 20px;">
+      <button class="btn btn-secondary" onclick="exportExplanation()">
+        <span>📤</span> Export Explanation
+      </button>
+      <button class="btn btn-secondary" onclick="generateDocs()">
+        <span>📚</span> Generate Documentation
+      </button>
+    </div>
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🤖</div>
+    <h3>No Code Explained Yet</h3>
+    <p>Enter a finding ID from <code>guardrail scan --json</code>, or paste code and use the API.</p>
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+    let currentExplanation = null;
+
+    function explainCode() {
+      const code = document.getElementById('codeInput').value;
+      const findingId = document.getElementById('findingIdInput').value.trim();
+      const detailLevel = document.getElementById('detailLevel').value;
+      const includeExamples = document.getElementById('includeExamples').value === 'true';
+
+      if (!findingId && !code.trim()) {
+        alert('Enter a finding ID for CLI explain, or paste code for the API');
+        return;
+      }
+
+      document.getElementById('explainBtn').disabled = true;
+      vscode.postMessage({
+        command: 'explain',
+        request: { code, detailLevel, includeExamples, language: 'typescript', findingId }
+      });
+    }
+
+    function explainSelection() {
+      vscode.postMessage({ command: 'explainSelection' });
+    }
+
+    function explainFile() {
+      vscode.postMessage({ command: 'explainFile' });
+    }
+
+    function exportExplanation() {
+      vscode.postMessage({ command: 'export' });
+    }
+
+    function generateDocs() {
+      vscode.postMessage({ command: 'generateDocs' });
+    }
+
+    function renderExplanation(explanation) {
+      currentExplanation = explanation;
+      
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('explanationResult').style.display = 'block';
+      document.getElementById('explainBtn').disabled = false;
+
+      // Update header
+      document.getElementById('explanationTitle').textContent = 'Code Analysis Complete';
+      
+      const complexityBadge = document.getElementById('complexityBadge');
+      complexityBadge.textContent = explanation.complexity.charAt(0).toUpperCase() + explanation.complexity.slice(1);
+      complexityBadge.className = 'complexity-badge complexity-' + explanation.complexity;
+      
+      document.getElementById('readingTime').textContent = explanation.estimatedTime;
+      document.getElementById('purpose').textContent = explanation.purpose;
+      document.getElementById('summary').textContent = explanation.summary;
+
+      // Render components
+      const componentList = document.getElementById('componentList');
+      componentList.innerHTML = explanation.keyComponents.map(comp => \`
+        <li class="component-item">
+          <div class="component-name">\${comp.name} (Line \${comp.line})</div>
+          <div class="component-description">\${comp.description}</div>
+        </li>
+      \`).join('');
+
+      // Render patterns
+      const patternList = document.getElementById('patternList');
+      patternList.innerHTML = explanation.patterns.map(pattern => \`
+        <li class="pattern-item">
+          <div class="pattern-name">\${pattern.name}</div>
+          <div class="pattern-description">\${pattern.description}</div>
+          <div class="confidence">Confidence: \${Math.round(pattern.confidence * 100)}%</div>
+        </li>
+      \`).join('');
+
+      // Render suggestions
+      const suggestionList = document.getElementById('suggestionList');
+      suggestionList.innerHTML = explanation.suggestions.map(suggestion => \`
+        <li class="suggestion-item">\${suggestion}</li>
+      \`).join('');
+    }
+
+    window.addEventListener('message', event => {
+      const message = event.data;
+
+      switch (message.type) {
+        case 'explaining':
+        case 'progress':
+          document.getElementById('progressContainer').style.display = 'block';
+          document.getElementById('progressMessage').textContent = message.message || 'Analyzing...';
+          document.getElementById('progressFill').style.width = (message.progress || 0) + '%';
+          break;
+
+        case 'complete':
+          document.getElementById('progressContainer').style.display = 'none';
+          renderExplanation(message.explanation);
+          break;
+
+        case 'error':
+          document.getElementById('progressContainer').style.display = 'none';
+          document.getElementById('explainBtn').disabled = false;
+          alert('Error: ' + message.message);
+          break;
+      }
+    });
+  </script>
+  </div>
+</body>
+</html>`;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   public dispose() {

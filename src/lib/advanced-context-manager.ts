@@ -24,6 +24,7 @@ import { codebaseKnowledgeBase } from './codebase-knowledge';
 import { codePatternDNA } from './code-pattern-dna';
 import { embeddingService } from './embedding-service';
 import { changeTracker } from './change-tracker';
+<<<<<<< HEAD
 import {
   loadProceduralMemorySlices,
   proceduralMemoryCacheKey,
@@ -38,6 +39,11 @@ export interface ContextLayer {
     | 'endpoint'
     | 'convention'
     | 'procedural';
+=======
+
+export interface ContextLayer {
+  type: 'file' | 'pattern' | 'dependency' | 'type' | 'endpoint' | 'convention';
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   content: string;
   source: string;
   freshness: number; // 0-1, 1 = most recent
@@ -63,8 +69,11 @@ export interface ContextRequest {
   relatedFiles?: string[];
   focus?: 'types' | 'patterns' | 'dependencies' | 'all';
   maxLayers?: number;
+<<<<<<< HEAD
   /** When false, skip CLAUDE_STRATEGIES.md procedural memory layers. Default: true */
   includeProceduralMemory?: boolean;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 class AdvancedContextManager {
@@ -78,7 +87,11 @@ class AdvancedContextManager {
     projectPath: string,
     request: ContextRequest = {}
   ): Promise<EnhancedContext> {
+<<<<<<< HEAD
     const cacheKey = await this.getCacheKey(projectPath, request);
+=======
+    const cacheKey = this.getCacheKey(projectPath, request);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const cached = this.contextCache.get(cacheKey);
 
     // Check cache
@@ -121,6 +134,7 @@ class AdvancedContextManager {
     const conventionLayers = await this.buildConventionLayers(knowledge);
     layers.push(...conventionLayers);
 
+<<<<<<< HEAD
     // Layer 7: Procedural memory (CLAUDE_STRATEGIES.md from engram / procedural-memory)
     if (request.includeProceduralMemory !== false) {
       const proceduralLayers = await this.buildProceduralMemoryLayers(projectPath);
@@ -130,6 +144,18 @@ class AdvancedContextManager {
     // Limit layers — procedural (truthpack + strategies + layout) kept first so they are not dropped
     const maxLayers = request.maxLayers || 20;
     const selectedLayers = this.selectLayersForBudget(layers, maxLayers);
+=======
+    // Sort by freshness and confidence
+    layers.sort((a, b) => {
+      const scoreA = a.freshness * 0.5 + a.confidence * 0.5;
+      const scoreB = b.freshness * 0.5 + b.confidence * 0.5;
+      return scoreB - scoreA;
+    });
+
+    // Limit layers
+    const maxLayers = request.maxLayers || 20;
+    const selectedLayers = layers.slice(0, maxLayers);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     // Build summary
     const summary = this.buildSummary(selectedLayers, knowledge);
@@ -308,6 +334,7 @@ class AdvancedContextManager {
   }
 
   /**
+<<<<<<< HEAD
    * Procedural memory from CLAUDE_STRATEGIES.md (outcome-weighted agent strategies).
    */
   private async buildProceduralMemoryLayers(
@@ -345,6 +372,8 @@ class AdvancedContextManager {
   }
 
   /**
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
    * Build summary
    */
   private buildSummary(layers: ContextLayer[], knowledge: KnowledgeBase): string {
@@ -356,6 +385,7 @@ class AdvancedContextManager {
     parts.push(`Dependencies: ${layers.filter(l => l.type === 'dependency').length} dependencies`);
     const conventions = (knowledge.architecture as any)?.conventions || {};
     parts.push(`Conventions: ${Object.keys(conventions).length} conventions`);
+<<<<<<< HEAD
     const proc = layers.filter((l) => l.type === 'procedural');
     const tp = proc.filter(
       (l) => (l.metadata as { kind?: string })?.kind === 'truthpack'
@@ -369,6 +399,8 @@ class AdvancedContextManager {
     parts.push(
       `Guardrail context: ${proc.length} procedural layer(s) — layout ${lo}, truthpack ${tp}, CLAUDE_STRATEGIES ${st}`
     );
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     return parts.join('\n');
   }
@@ -445,6 +477,7 @@ class AdvancedContextManager {
   }
 
   /**
+<<<<<<< HEAD
    * Get cache key (includes procedural file mtimes when present)
    */
   private async getCacheKey(
@@ -456,6 +489,12 @@ class AdvancedContextManager {
         ? 'pm:off'
         : await proceduralMemoryCacheKey(projectPath);
     return `${projectPath}:${request.file || ''}:${request.purpose || ''}:${pm}`;
+=======
+   * Get cache key
+   */
+  private getCacheKey(projectPath: string, request: ContextRequest): string {
+    return `${projectPath}:${request.file || ''}:${request.purpose || ''}`;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   /**
@@ -488,6 +527,7 @@ class AdvancedContextManager {
   ): Promise<string> {
     const context = await this.getContext(projectPath, request);
 
+<<<<<<< HEAD
     const procLayers = context.layers.filter((l) => l.type === 'procedural');
     const procByKind = (k: 'layout' | 'truthpack' | 'strategies') =>
       procLayers.filter((l) => (l.metadata as { kind?: string })?.kind === k);
@@ -503,6 +543,9 @@ class AdvancedContextManager {
         .join('\n\n');
 
     const prompt = `# Guardrail — code generation context
+=======
+    const prompt = `# Code Generation Context
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 ## Project Summary
 ${context.summary}
@@ -522,6 +565,7 @@ ${context.endpoints.map(e => `- ${e}`).join('\n')}
 ## Conventions
 ${Object.entries(context.conventions).map(([k, v]) => `- ${k}: ${v}`).join('\n')}
 
+<<<<<<< HEAD
 ## Guardrail layout (monorepo)
 ${renderProc(procByKind('layout'), 1200) || '(not a detected pnpm/Turbo monorepo — skipped)'}
 
@@ -531,6 +575,8 @@ ${renderProc(procByKind('truthpack'), 8000) || '(no truthpack dir yet — add `.
 ## Procedural strategies (CLAUDE_STRATEGIES.md)
 ${renderProc(procByKind('strategies'), 8000) || '(none — run `pnpm --filter @guardrail/procedural-memory exec engram inject -r .` from the monorepo root)'}
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 ## Context Layers (${context.layers.length})
 ${context.layers.slice(0, 5).map((l, i) => `
 ### Layer ${i + 1}: ${l.type}

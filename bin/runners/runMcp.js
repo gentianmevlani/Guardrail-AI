@@ -2,6 +2,7 @@ const path = require("path");
 const { execSync } = require("child_process");
 
 function runMcp(args) {
+<<<<<<< HEAD
   if (args.includes("--help") || args.includes("-h")) {
     console.log(`
   guardrail mcp
@@ -17,6 +18,8 @@ function runMcp(args) {
     return 0;
   }
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   console.log("\n  🔌 Starting guardrail MCP Server...\n");
 
   const mcpServer = path.join(__dirname, "../../mcp-server/index.js");

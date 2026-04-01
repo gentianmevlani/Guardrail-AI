@@ -1,6 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renderCommandHeader NO_COLOR mode should match snapshot in NO_COLOR mode: header-no-color 1`] = `
+<<<<<<< HEAD
 "╔═════════════════════════════════════════╗
 ║   👃 CODE SMELL ANALYSIS                ║
 ║                                         ║
@@ -8,6 +9,15 @@ exports[`renderCommandHeader NO_COLOR mode should match snapshot in NO_COLOR mod
 ║   Path:        /path/to/my-project      ║
 ║   Started:     MM/DD/YYYY, HH:MM:SS AM   ║
 ╚═════════════════════════════════════════╝"
+=======
+"╔════════════════════════════════════════╗
+║   👃 CODE SMELL ANALYSIS               ║
+║                                        ║
+║   Project:     my-project              ║
+║   Path:        /path/to/my-project     ║
+║   Started:     MM/DD/YYYY, HH:MM:SS AM   ║
+╚════════════════════════════════════════╝"
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 `;
 
 exports[`renderCommandHeader long project names should match snapshot with long project name: header-long-project-name 1`] = `
@@ -16,11 +26,16 @@ exports[`renderCommandHeader long project names should match snapshot with long 
 [96m[1m║[0m                                                                                                        [96m[1m║[0m
 [96m[1m║[0m   [2mProject:[0m     [1mmy-extremely-long-project-name-that-exceeds-normal-display-widths-and-tests-alignment[0m   [96m[1m║[0m
 [96m[1m║[0m   [2mPath:[0m        /very/long/path...directory/that/is/really/quite/long/indeed                            [96m[1m║[0m
+<<<<<<< HEAD
 [96m[1m║[0m   [2mStarted:[0m     MM/DD/YYYY, HH:MM:SS AM                                                                  [96m[1m║[0m
+=======
+[96m[1m║[0m   [2mStarted:[0m     MM/DD/YYYY, HH:MM:SS AM                                                                   [96m[1m║[0m
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 [96m[1m╚════════════════════════════════════════════════════════════════════════════════════════════════════════╝[0m"
 `;
 
 exports[`renderCommandHeader with color should match snapshot with color: header-with-color 1`] = `
+<<<<<<< HEAD
 "[96m[1m╔═════════════════════════════════════════╗[0m
 [96m[1m║[0m   [96m[1m👃 CODE SMELL ANALYSIS[0m                [96m[1m║[0m
 [96m[1m║[0m                                         [96m[1m║[0m
@@ -28,4 +43,13 @@ exports[`renderCommandHeader with color should match snapshot with color: header
 [96m[1m║[0m   [2mPath:[0m        /path/to/my-project      [96m[1m║[0m
 [96m[1m║[0m   [2mStarted:[0m     MM/DD/YYYY, HH:MM:SS AM   [96m[1m║[0m
 [96m[1m╚═════════════════════════════════════════╝[0m"
+=======
+"[96m[1m╔════════════════════════════════════════╗[0m
+[96m[1m║[0m   [96m[1m👃 CODE SMELL ANALYSIS[0m               [96m[1m║[0m
+[96m[1m║[0m                                        [96m[1m║[0m
+[96m[1m║[0m   [2mProject:[0m     [1mmy-project[0m              [96m[1m║[0m
+[96m[1m║[0m   [2mPath:[0m        /path/to/my-project     [96m[1m║[0m
+[96m[1m║[0m   [2mStarted:[0m     MM/DD/YYYY, HH:MM:SS AM   [96m[1m║[0m
+[96m[1m╚════════════════════════════════════════╝[0m"
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 `;

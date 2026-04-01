@@ -55,9 +55,12 @@ RUN pnpm turbo run build --filter=@guardrail/database
 # Build only API and its dependencies
 RUN pnpm turbo run build --filter=@guardrail/api
 
+<<<<<<< HEAD
 # Root tsconfig.lib — workflow-persistence-bootstrap.js for API startup hydration
 RUN pnpm run build:lib
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 # Production image
 FROM base AS runner
 WORKDIR /app
@@ -99,7 +102,10 @@ RUN pnpm install --frozen-lockfile --ignore-scripts --prod || \
     pnpm install --no-frozen-lockfile --ignore-scripts --prod
 
 # Copy built files
+<<<<<<< HEAD
 COPY --from=builder /app/dist/lib ./dist/lib
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 COPY --from=builder /app/packages/core/dist ./packages/core/dist
 COPY --from=builder /app/packages/database/dist ./packages/database/dist

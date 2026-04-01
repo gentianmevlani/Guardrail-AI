@@ -21,6 +21,7 @@ export function parseSemver(version: string): SemverParts | null {
   
   // Match semver pattern
   const match = cleaned.match(/^(\d+)\.(\d+)\.(\d+)(?:-(.+))?$/);
+<<<<<<< HEAD
   if (!match || match[1] === undefined || match[2] === undefined || match[3] === undefined) {
     // Try partial versions (1.2, 1)
     const partial = cleaned.match(/^(\d+)(?:\.(\d+))?$/);
@@ -31,6 +32,15 @@ export function parseSemver(version: string): SemverParts | null {
       return {
         major: parseInt(maj, 10),
         minor: min !== undefined ? parseInt(min, 10) : 0,
+=======
+  if (!match) {
+    // Try partial versions (1.2, 1)
+    const partial = cleaned.match(/^(\d+)(?:\.(\d+))?$/);
+    if (partial) {
+      return {
+        major: parseInt(partial[1], 10),
+        minor: partial[2] ? parseInt(partial[2], 10) : 0,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         patch: 0,
       };
     }
@@ -41,7 +51,11 @@ export function parseSemver(version: string): SemverParts | null {
     major: parseInt(match[1], 10),
     minor: parseInt(match[2], 10),
     patch: parseInt(match[3], 10),
+<<<<<<< HEAD
     prerelease: match[4] ?? undefined,
+=======
+    prerelease: match[4],
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
 }
 

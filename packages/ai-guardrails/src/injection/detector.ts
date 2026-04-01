@@ -1,10 +1,17 @@
+<<<<<<< HEAD
+=======
+import { prisma } from "@guardrail/database";
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import {
   InjectionScanRequest,
   InjectionScanResult,
   Detection,
 } from "@guardrail/core";
+<<<<<<< HEAD
 
 type InjectionVerdict = InjectionScanResult["verdict"];
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 // import { calculateHash } from '@guardrail/core'; // Not used yet
 import { INJECTION_PATTERNS, SEMANTIC_TRIGGERS } from "./patterns";
 
@@ -80,6 +87,30 @@ export class PromptInjectionDetector {
 
     const scanDuration = Date.now() - startTime;
 
+<<<<<<< HEAD
+=======
+    // Save to database
+    try {
+      // @ts-ignore - injectionScan may not exist in schema yet
+      await prisma.injectionScan.create({
+        data: {
+          id:
+            (request as any).id ||
+            `scan_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          contentType: request.contentType || "text",
+          contentHash: "hash_placeholder", // Required field
+          verdict: verdict as any, // Cast to any to avoid type mismatch
+          confidence,
+          detections: allDetections as any,
+          recommendation: "Review detected issues", // Required field
+          scanDuration: Date.now() - startTime, // Required field
+        } as any,
+      });
+    } catch (error) {
+      // Database table may not exist - continue without saving
+    }
+
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return {
       verdict,
       confidence,
@@ -281,7 +312,11 @@ export class PromptInjectionDetector {
   private calculateVerdict(
     detections: Detection[],
     _content: string,
+<<<<<<< HEAD
   ): { verdict: InjectionVerdict; confidence: number } {
+=======
+  ): { verdict: any; confidence: number } {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     // const severityScores = { low: 1, medium: 2, high: 3, critical: 4 }; // Not used
     // const totalScore = detections.reduce(
     //   (sum, d) => sum + severityScores[d.severity],
@@ -289,19 +324,31 @@ export class PromptInjectionDetector {
     // ); // Not used
 
     const avgConfidence =
+<<<<<<< HEAD
       detections.length === 0
         ? 1
         : detections.reduce((sum, d) => sum + d.confidence, 0) / detections.length;
+=======
+      detections.reduce((sum, d) => sum + d.confidence, 0) / detections.length;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     // Determine verdict
     const hasCritical = detections.some((d) => d.severity === "critical");
     const hasHigh = detections.some((d) => d.severity === "high");
 
+<<<<<<< HEAD
     let verdict: InjectionVerdict;
     if (hasCritical) verdict = "MALICIOUS";
     else if (hasHigh) verdict = "SUSPICIOUS";
     else if (detections.length > 0) verdict = "BLOCKED";
     else verdict = "CLEAN";
+=======
+    let verdict: any;
+    if (hasCritical) verdict = "MALICIOUS" as any;
+    else if (hasHigh) verdict = "SUSPICIOUS" as any;
+    else if (detections.length > 0) verdict = "BLOCKED" as any;
+    else verdict = "CLEAN" as any;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
     return { verdict, confidence: avgConfidence };
   }
@@ -310,7 +357,11 @@ export class PromptInjectionDetector {
    * Generate recommendation based on verdict
    */
   private generateRecommendation(
+<<<<<<< HEAD
     verdict: InjectionVerdict,
+=======
+    verdict: any,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     detections: Detection[],
     content: string,
   ): { action: string; reason: string; sanitizedContent?: string } {

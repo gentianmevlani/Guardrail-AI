@@ -136,6 +136,7 @@ const StrictnessTab: React.FC<{ config: any; onConfigChange: (config: any) => vo
   </div>
 );
 
+<<<<<<< HEAD
 const StatusTab: React.FC = () => {
   const rows = [
     { label: 'Ship readiness', value: 'Derived from last Vibe Check', hint: 'Run analysis from CI or locally' },
@@ -229,4 +230,19 @@ const SettingsTab: React.FC = () => {
     </div>
   );
 };
+=======
+const StatusTab: React.FC = () => (
+  <div className="vibecoder-tab">
+    <h1>Project Status</h1>
+    <p>Status information will appear here</p>
+  </div>
+);
+
+const SettingsTab: React.FC = () => (
+  <div className="vibecoder-tab">
+    <h1>Settings</h1>
+    <p>Settings will appear here</p>
+  </div>
+);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 

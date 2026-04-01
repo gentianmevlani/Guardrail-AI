@@ -4,14 +4,18 @@ interface SelectedRepo {
   owner: string;
   repo: string;
   fullName: string;
+<<<<<<< HEAD
   /** "app" (GitHub App installation) or "oauth" (personal token) */
   source?: "app" | "oauth";
   installationId?: string;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 interface ScanResults {
   verdict: "SHIP" | "NO_SHIP" | "WARNING";
   score: number;
+<<<<<<< HEAD
   scanId?: string;
   runId?: string;
   findings?: {
@@ -19,6 +23,8 @@ interface ScanResults {
     critical: number;
     high: number;
   };
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   mockproof?: {
     scannedFiles: number;
   };

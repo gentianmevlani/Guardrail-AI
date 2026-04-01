@@ -6,8 +6,14 @@
   "outputFolder": ".vibecheck/flow",
   "planningArtifacts": ".vibecheck/flow/planning-artifacts",
   "implementationArtifacts": ".vibecheck/flow/implementation-artifacts",
+<<<<<<< HEAD
   "installedAt": "2026-03-31T14:43:13.216Z",
   "ide": [
     "vscode"
+=======
+  "installedAt": "2026-03-30T19:53:57.640Z",
+  "ide": [
+    "cursor"
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   ]
 }

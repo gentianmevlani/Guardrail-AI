@@ -18,9 +18,12 @@ export function maskApiKey(apiKey: string): string {
   const prefixMatch = apiKey.match(/^(gr_[a-z]+_)/);
   if (prefixMatch) {
     const prefix = prefixMatch[1];
+<<<<<<< HEAD
     if (prefix === undefined) {
       return '****';
     }
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const suffix = apiKey.slice(-4);
     const maskedLength = apiKey.length - prefix.length - 4;
     // Use exactly 8 asterisks for keys of this length, or actual length if different

@@ -6,9 +6,13 @@
   "packageManager": "pnpm@9.15.1",
   "workspaces": [
     "apps/*",
+<<<<<<< HEAD
     "packages/*",
     "mcp-server",
     "vscode-extension"
+=======
+    "packages/*"
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   ],
   "engines": {
     "node": ">=20.11"
@@ -62,7 +66,10 @@
     "mcp": "node bin/guardrail.js mcp",
     "cli": "node bin/guardrail.js",
     "generate-mdc": "npx tsx scripts/generate-mdc.ts",
+<<<<<<< HEAD
     "truthpack:sync": "node scripts/sync-vibecheck-truthpack.mjs",
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     "prepare": "husky || true"
   },
   "dependencies": {
@@ -169,7 +176,11 @@
   "main": "bin/guardrail.js",
   "bin": {
     "guardrail": "bin/guardrail.js",
+<<<<<<< HEAD
     "gr": "bin/guardrail.js"
+=======
+    "vc": "bin/guardrail.js"
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   },
   "directories": {
     "doc": "docs",

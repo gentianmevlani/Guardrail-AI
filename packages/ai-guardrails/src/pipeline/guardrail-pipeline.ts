@@ -15,32 +15,41 @@ import type {
   BoundaryCheckResult,
   ChainOfThoughtAnalysis,
   GroundingSource,
+<<<<<<< HEAD
   InjectionScanResult,
   InputSanitizationResult,
   TopicScopeResult,
   AuthorizationCheckResult,
   StructuredOutputValidationResult,
   ResourceLimitsCheckResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 } from '@guardrail/core';
 
 // Input guardrails
 import { contentPolicyFilter, ContentPolicyFilter } from '../input/content-policy-filter';
 import { piiDetector, PIIDetector } from '../input/pii-detector';
 import { inputSchemaValidator, InputSchemaValidator } from '../input/input-schema-validator';
+<<<<<<< HEAD
 import { inputSanitizer, InputSanitizer } from '../input/input-sanitizer';
 import { topicScopeFilter, TopicScopeFilter } from '../input/topic-scope-filter';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 // Output guardrails
 import { toxicityScanner, ToxicityScanner } from '../output/toxicity-scanner';
 import { piiLeakageScanner, PIILeakageScanner } from '../output/pii-leakage-scanner';
 import { policyComplianceChecker, PolicyComplianceChecker } from '../output/policy-compliance-checker';
 import { factualGroundingVerifier, FactualGroundingVerifier } from '../output/factual-grounding-verifier';
+<<<<<<< HEAD
 import {
   structuredOutputValidator,
   StructuredOutputValidator,
 } from '../output/structured-output-validator';
 
 import { promptInjectionDetector, PromptInjectionDetector } from '../injection/detector';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 // Behavioral guardrails
 import { agentRateLimiter, AgentRateLimiter } from '../behavioral/rate-limiter';
@@ -57,6 +66,7 @@ import { monitoringCollector, MonitoringCollector } from '../process/monitoring-
  * Internal result type that extends the public summary with stage-level detail.
  */
 interface PipelineBuildPartial {
+<<<<<<< HEAD
   inputResults?: ContentPolicyResult & {
     pii: PIIScanResult;
     schema: InputSchemaResult;
@@ -71,12 +81,19 @@ interface PipelineBuildPartial {
     grounding: GroundingResult;
     structuredOutput?: StructuredOutputValidationResult;
   };
+=======
+  inputResults?: ContentPolicyResult & { pii: PIIScanResult; schema: InputSchemaResult };
+  outputResults?: ToxicityScanResult & { piiLeakage: PIILeakageResult; compliance: PolicyComplianceResult; grounding: GroundingResult };
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   behavioralResults?: {
     rateLimit: RateLimitState;
     toolUse?: ToolUseDecision;
     boundary: BoundaryCheckResult;
     cot: ChainOfThoughtAnalysis;
+<<<<<<< HEAD
     resourceLimits?: ResourceLimitsCheckResult;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
   processResults?: {
     reviewRequired: boolean;
@@ -129,11 +146,14 @@ export class GuardrailPipeline extends EventEmitter {
   private _killSwitch: KillSwitch;
   private _monitoringCollector: MonitoringCollector;
 
+<<<<<<< HEAD
   private _inputSanitizer: InputSanitizer;
   private _topicScopeFilter: TopicScopeFilter;
   private _structuredOutputValidator: StructuredOutputValidator;
   private _promptInjectionDetector: PromptInjectionDetector;
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   private config: GuardrailPipelineConfig;
   private requestCounter = 0;
 
@@ -160,11 +180,14 @@ export class GuardrailPipeline extends EventEmitter {
     this._killSwitch = killSwitch;
     this._monitoringCollector = monitoringCollector;
 
+<<<<<<< HEAD
     this._inputSanitizer = inputSanitizer;
     this._topicScopeFilter = topicScopeFilter;
     this._structuredOutputValidator = structuredOutputValidator;
     this._promptInjectionDetector = promptInjectionDetector;
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     // Apply config to modules
     this.applyConfig(config);
   }
@@ -203,11 +226,16 @@ export class GuardrailPipeline extends EventEmitter {
       });
     }
 
+<<<<<<< HEAD
     // ── 1. INPUT GUARDRAILS (defense in depth) ───────────────────
+=======
+    // ── 1. INPUT GUARDRAILS ───────────────────────────────────────
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     let processedInput = input;
     let inputContentResult: ContentPolicyResult | undefined;
     let inputPIIResult: PIIScanResult | undefined;
     let inputSchemaResult: InputSchemaResult | undefined;
+<<<<<<< HEAD
     let sanitizationResult: InputSanitizationResult | undefined;
     let injectionResult: InjectionScanResult | undefined;
     let topicScopeResult: TopicScopeResult | undefined;
@@ -309,6 +337,10 @@ export class GuardrailPipeline extends EventEmitter {
     }
 
     // 1d. Content policy filter
+=======
+
+    // 1a. Content policy filter
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     if (this.config.input.contentPolicy.enabled) {
       inputContentResult = await this._contentPolicyFilter.evaluate(processedInput);
       stages.push({
@@ -328,6 +360,7 @@ export class GuardrailPipeline extends EventEmitter {
           processedInput = inputContentResult.sanitizedContent;
         } else {
           return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
             inputResults: this.assembleInputResults(
               inputContentResult,
               inputPIIResult,
@@ -342,12 +375,19 @@ export class GuardrailPipeline extends EventEmitter {
               boundary: this.emptyBoundaryResult(),
               cot: this.emptyCoTResult(),
               resourceLimits: resourceLimitsResult,
+=======
+            inputResults: {
+              ...inputContentResult,
+              pii: this.emptyPIIScanResult(),
+              schema: this.emptySchemaResult(),
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             },
           });
         }
       }
     }
 
+<<<<<<< HEAD
     // 1e. Topic / scope filter
     if (this.config.input.topicScope.enabled) {
       topicScopeResult = this._topicScopeFilter.evaluate(
@@ -385,12 +425,19 @@ export class GuardrailPipeline extends EventEmitter {
     }
 
     // 1f. PII detection
+=======
+    // 1b. PII detection
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     if (this.config.input.piiDetection.enabled) {
       inputPIIResult = await this._piiDetector.scan(processedInput, {
         redact: this.config.input.piiDetection.redactByDefault,
       });
       stages.push({
+<<<<<<< HEAD
         allowed: true,
+=======
+        allowed: true, // PII detection redacts but never blocks outright
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         category: 'input',
         stage: 'pii_detection',
         processingTimeMs: inputPIIResult.processingTimeMs,
@@ -403,7 +450,11 @@ export class GuardrailPipeline extends EventEmitter {
       }
     }
 
+<<<<<<< HEAD
     // 1g. Input schema validation
+=======
+    // 1c. Input schema validation
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     if (this.config.input.schemaValidation.enabled) {
       inputSchemaResult = await this._inputSchemaValidator.validate(processedInput);
       stages.push({
@@ -416,6 +467,7 @@ export class GuardrailPipeline extends EventEmitter {
 
       if (!inputSchemaResult.valid) {
         return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
           inputResults: this.assembleInputResults(
             inputContentResult,
             inputPIIResult,
@@ -430,11 +482,18 @@ export class GuardrailPipeline extends EventEmitter {
             boundary: this.emptyBoundaryResult(),
             cot: this.emptyCoTResult(),
             resourceLimits: resourceLimitsResult,
+=======
+          inputResults: {
+            ...(inputContentResult || this.emptyContentResult()),
+            pii: inputPIIResult || this.emptyPIIScanResult(),
+            schema: inputSchemaResult,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           },
         });
       }
     }
 
+<<<<<<< HEAD
     // 1h. Authorization — app supplies `options.authorize` when enabled
     if (this.config.input.authorization.enabled) {
       if (options?.authorize) {
@@ -489,6 +548,8 @@ export class GuardrailPipeline extends EventEmitter {
       authorizationResult,
     );
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     // ── 2. BEHAVIORAL GUARDRAILS ──────────────────────────────────
     let rateLimitResult: RateLimitState | undefined;
     let toolUseResult: ToolUseDecision | undefined;
@@ -509,12 +570,18 @@ export class GuardrailPipeline extends EventEmitter {
       if (rateLimitResult.isLimited) {
         this.recordMetric('requests_blocked', 1, agentId);
         return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
           inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           behavioralResults: {
             rateLimit: rateLimitResult,
             boundary: this.emptyBoundaryResult(),
             cot: this.emptyCoTResult(),
+<<<<<<< HEAD
             resourceLimits: resourceLimitsResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           },
         });
       }
@@ -537,26 +604,38 @@ export class GuardrailPipeline extends EventEmitter {
 
       if (!toolUseResult.allowed) {
         return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
           inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           behavioralResults: {
             rateLimit: rateLimitResult || this.emptyRateLimitState(agentId),
             toolUse: toolUseResult,
             boundary: this.emptyBoundaryResult(),
             cot: this.emptyCoTResult(),
+<<<<<<< HEAD
             resourceLimits: resourceLimitsResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           },
         });
       }
 
       if (toolUseResult.requiresApproval) {
         return this.buildSummary(requestId, agentId, 'review', startTime, {
+<<<<<<< HEAD
           inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           behavioralResults: {
             rateLimit: rateLimitResult || this.emptyRateLimitState(agentId),
             toolUse: toolUseResult,
             boundary: this.emptyBoundaryResult(),
             cot: this.emptyCoTResult(),
+<<<<<<< HEAD
             resourceLimits: resourceLimitsResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           },
         });
       }
@@ -577,13 +656,19 @@ export class GuardrailPipeline extends EventEmitter {
 
       if (!boundaryResult.withinBounds) {
         return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
           inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           behavioralResults: {
             rateLimit: rateLimitResult || this.emptyRateLimitState(agentId),
             toolUse: toolUseResult,
             boundary: boundaryResult,
             cot: this.emptyCoTResult(),
+<<<<<<< HEAD
             resourceLimits: resourceLimitsResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           },
         });
       }
@@ -602,26 +687,38 @@ export class GuardrailPipeline extends EventEmitter {
 
       if (cotResult.recommendation === 'halt') {
         return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
           inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           behavioralResults: {
             rateLimit: rateLimitResult || this.emptyRateLimitState(agentId),
             toolUse: toolUseResult,
             boundary: boundaryResult || this.emptyBoundaryResult(),
             cot: cotResult,
+<<<<<<< HEAD
             resourceLimits: resourceLimitsResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           },
         });
       }
 
       if (this.config.behavioral.chainOfThoughtMonitoring.haltOnDrift && cotResult.driftDetected) {
         return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
           inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           behavioralResults: {
             rateLimit: rateLimitResult || this.emptyRateLimitState(agentId),
             toolUse: toolUseResult,
             boundary: boundaryResult || this.emptyBoundaryResult(),
             cot: cotResult,
+<<<<<<< HEAD
             resourceLimits: resourceLimitsResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           },
         });
       }
@@ -645,6 +742,7 @@ export class GuardrailPipeline extends EventEmitter {
     let outputPIILeakageResult: PIILeakageResult | undefined;
     let outputComplianceResult: PolicyComplianceResult | undefined;
     let outputGroundingResult: GroundingResult | undefined;
+<<<<<<< HEAD
     let outputStructuredResult: StructuredOutputValidationResult | undefined;
 
     if (outputText) {
@@ -680,6 +778,12 @@ export class GuardrailPipeline extends EventEmitter {
       }
 
       // 3b. Toxicity scanning
+=======
+
+    if (outputText) {
+      // ── 3. OUTPUT GUARDRAILS ──────────────────────────────────
+      // 3a. Toxicity scanning
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (this.config.output.toxicityScanning.enabled) {
         outputToxicityResult = await this._toxicityScanner.scan(outputText);
         stages.push({
@@ -694,13 +798,17 @@ export class GuardrailPipeline extends EventEmitter {
           this.recordMetric('requests_blocked', 1, agentId);
           this._killSwitch.recordMetric('toxicity_score', outputToxicityResult.overallScore);
           return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
             inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             outputResults: {
               ...outputToxicityResult,
               piiLeakage: this.emptyPIILeakageResult(),
               compliance: this.emptyComplianceResult(),
               grounding: this.emptyGroundingResult(),
             },
+<<<<<<< HEAD
             behavioralResults: behavioralPartial,
           });
         }
@@ -709,6 +817,16 @@ export class GuardrailPipeline extends EventEmitter {
       }
 
       // 3c. PII leakage prevention
+=======
+          });
+        }
+
+        // Feed toxicity score to kill switch for auto-trigger evaluation
+        this._killSwitch.recordMetric('toxicity_score', outputToxicityResult.overallScore);
+      }
+
+      // 3b. PII leakage prevention
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (this.config.output.piiLeakagePrevention.enabled) {
         outputPIILeakageResult = await this._piiLeakageScanner.scan(outputText, {
           originalInput: processedInput,
@@ -726,23 +844,37 @@ export class GuardrailPipeline extends EventEmitter {
           this.recordMetric('pii_detections', outputPIILeakageResult.leakedEntities.length, agentId);
 
           if (this.config.output.piiLeakagePrevention.scrubByDefault) {
+<<<<<<< HEAD
             outputText = outputPIILeakageResult.scrubbed;
           } else if (outputPIILeakageResult.riskLevel === 'critical' || outputPIILeakageResult.riskLevel === 'high') {
             return this.buildSummary(requestId, agentId, 'block', startTime, {
               inputResults: inputResultsComplete,
+=======
+            // Replace output with scrubbed version
+            outputText = outputPIILeakageResult.scrubbed;
+          } else if (outputPIILeakageResult.riskLevel === 'critical' || outputPIILeakageResult.riskLevel === 'high') {
+            return this.buildSummary(requestId, agentId, 'block', startTime, {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               outputResults: {
                 ...(outputToxicityResult || this.emptyToxicityResult()),
                 piiLeakage: outputPIILeakageResult,
                 compliance: this.emptyComplianceResult(),
                 grounding: this.emptyGroundingResult(),
               },
+<<<<<<< HEAD
               behavioralResults: behavioralPartial,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             });
           }
         }
       }
 
+<<<<<<< HEAD
       // 3d. Policy compliance
+=======
+      // 3c. Policy compliance
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       if (this.config.output.policyCompliance.enabled) {
         outputComplianceResult = await this._policyComplianceChecker.check(outputText);
         stages.push({
@@ -758,19 +890,26 @@ export class GuardrailPipeline extends EventEmitter {
 
           if (outputComplianceResult.overallScore < 0.3) {
             return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
               inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
               outputResults: {
                 ...(outputToxicityResult || this.emptyToxicityResult()),
                 piiLeakage: outputPIILeakageResult || this.emptyPIILeakageResult(),
                 compliance: outputComplianceResult,
                 grounding: this.emptyGroundingResult(),
               },
+<<<<<<< HEAD
               behavioralResults: behavioralPartial,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             });
           }
         }
       }
 
+<<<<<<< HEAD
       // 3e. Structured output (JSON / required keys) — schema validation for agents
       if (this.config.output.structuredOutput.enabled) {
         outputStructuredResult = this._structuredOutputValidator.validate(
@@ -811,6 +950,13 @@ export class GuardrailPipeline extends EventEmitter {
         outputGroundingResult = await this._factualGroundingVerifier.verify(
           outputText,
           groundingSources,
+=======
+      // 3d. Factual grounding verification
+      if (this.config.output.factualGrounding.enabled && this.config.output.factualGrounding.sources.length > 0) {
+        outputGroundingResult = await this._factualGroundingVerifier.verify(
+          outputText,
+          this.config.output.factualGrounding.sources,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           { threshold: this.config.output.factualGrounding.threshold },
         );
         stages.push({
@@ -823,15 +969,22 @@ export class GuardrailPipeline extends EventEmitter {
 
         if (outputGroundingResult.recommendation === 'reject') {
           return this.buildSummary(requestId, agentId, 'block', startTime, {
+<<<<<<< HEAD
             inputResults: inputResultsComplete,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
             outputResults: {
               ...(outputToxicityResult || this.emptyToxicityResult()),
               piiLeakage: outputPIILeakageResult || this.emptyPIILeakageResult(),
               compliance: outputComplianceResult || this.emptyComplianceResult(),
               grounding: outputGroundingResult,
+<<<<<<< HEAD
               ...(outputStructuredResult ? { structuredOutput: outputStructuredResult } : {}),
             },
             behavioralResults: behavioralPartial,
+=======
+            },
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           });
         }
       }
@@ -868,14 +1021,25 @@ export class GuardrailPipeline extends EventEmitter {
     );
 
     return this.buildSummary(requestId, agentId, overallDecision, startTime, {
+<<<<<<< HEAD
       inputResults: inputResultsComplete,
+=======
+      inputResults: {
+        ...(inputContentResult || this.emptyContentResult()),
+        pii: inputPIIResult || this.emptyPIIScanResult(),
+        schema: inputSchemaResult || this.emptySchemaResult(),
+      },
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       outputResults: outputText
         ? {
             ...(outputToxicityResult || this.emptyToxicityResult()),
             piiLeakage: outputPIILeakageResult || this.emptyPIILeakageResult(),
             compliance: outputComplianceResult || this.emptyComplianceResult(),
             grounding: outputGroundingResult || this.emptyGroundingResult(),
+<<<<<<< HEAD
             ...(outputStructuredResult ? { structuredOutput: outputStructuredResult } : {}),
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           }
         : undefined,
       behavioralResults: {
@@ -883,7 +1047,10 @@ export class GuardrailPipeline extends EventEmitter {
         toolUse: toolUseResult,
         boundary: boundaryResult || this.emptyBoundaryResult(),
         cot: cotResult || this.emptyCoTResult(),
+<<<<<<< HEAD
         resourceLimits: resourceLimitsResult,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       },
       processResults: {
         reviewRequired,
@@ -975,6 +1142,7 @@ export class GuardrailPipeline extends EventEmitter {
 
   // ─── PRIVATE HELPERS ─────────────────────────────────────────────
 
+<<<<<<< HEAD
   private assembleInputResults(
     content: ContentPolicyResult | undefined,
     pii: PIIScanResult | undefined,
@@ -1041,6 +1209,8 @@ export class GuardrailPipeline extends EventEmitter {
     return { withinLimits: true };
   }
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   private applyConfig(config: GuardrailPipelineConfig): void {
     // Apply tool use policy
     if (config.behavioral.toolUsePolicy.enabled) {
@@ -1280,6 +1450,7 @@ export interface ProcessOptions {
     action?: string;
     confidence: number;
   };
+<<<<<<< HEAD
   /** Grounding sources for factual verification (overrides config when set) */
   groundingSources?: GroundingSource[];
   /** Async authorization callback when config.input.authorization.enabled */
@@ -1290,6 +1461,10 @@ export interface ProcessOptions {
   }) => Promise<AuthorizationCheckResult>;
   /** Measured or estimated output tokens for resourceLimits.maxOutputTokens */
   outputTokenCount?: number;
+=======
+  /** Grounding sources for factual verification */
+  groundingSources?: GroundingSource[];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 }
 
 // ─── FACTORY ──────────────────────────────────────────────────────
@@ -1311,6 +1486,7 @@ export function createDefaultPipeline(agentId: string = 'default'): GuardrailPip
       piiDetection: { enabled: true, redactByDefault: true },
       schemaValidation: { enabled: true, rules: { maxLength: 100_000 } },
       injectionDetection: { enabled: true, strictMode: false },
+<<<<<<< HEAD
       sanitization: {
         enabled: true,
         stripHtml: true,
@@ -1324,13 +1500,18 @@ export function createDefaultPipeline(agentId: string = 'default'): GuardrailPip
         mode: 'lenient',
       },
       authorization: { enabled: false },
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     },
     output: {
       toxicityScanning: { enabled: true, threshold: 0.5 },
       piiLeakagePrevention: { enabled: true, scrubByDefault: true },
       policyCompliance: { enabled: true, rules: [] },
       factualGrounding: { enabled: false, threshold: 0.6, sources: [] },
+<<<<<<< HEAD
       structuredOutput: { enabled: false, expectJson: false },
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     },
     behavioral: {
       rateLimiting: {
@@ -1374,12 +1555,15 @@ export function createDefaultPipeline(agentId: string = 'default'): GuardrailPip
         },
       },
       chainOfThoughtMonitoring: { enabled: false, haltOnDrift: false },
+<<<<<<< HEAD
       resourceLimits: {
         enabled: false,
         maxInputTokens: 200_000,
         maxOutputTokens: 32_000,
         maxContextChars: 500_000,
       },
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     },
     process: {
       humanReview: { enabled: true, requiredForRiskLevel: 'CRITICAL' },

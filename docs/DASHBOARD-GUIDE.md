@@ -113,8 +113,13 @@ The dashboard uses a **sidebar + header + main content** layout:
   | Preset | Category | Rules |
   |--------|----------|-------|
   | Security Essentials | security | 8 |
+<<<<<<< HEAD
   | Prompt Injection Defense | llm-safety | 5 |
   | Hallucination Detection | llm-safety | 4 |
+=======
+  | Prompt Injection Defense | ai-safety | 5 |
+  | Hallucination Detection | ai-safety | 4 |
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   | Code Quality Gate | quality | 12 |
   | Secrets & Credentials | security | 6 |
   | OWASP Top 10 | compliance | 10 |

@@ -1,6 +1,9 @@
 import { Command } from 'commander';
 import { icons, styles, printLogo } from '../ui';
+<<<<<<< HEAD
 import type { RealityGraphBuilder } from '../reality/reality-graph';
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
 export function registerAdvancedCommandsPartA(program: Command): void {
   program
@@ -13,9 +16,13 @@ export function registerAdvancedCommandsPartA(program: Command): void {
   .action(async (options) => {
     printLogo();
     
+<<<<<<< HEAD
     const {
       RealityGraphBuilder,
     }: typeof import('../reality/reality-graph') = require('../reality/reality-graph');
+=======
+    const { RealityGraphBuilder } = require('../reality/reality-graph');
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     const { existsSync, readFileSync, writeFileSync } = require('fs');
     const { resolve, join } = require('path');
     
@@ -26,7 +33,11 @@ export function registerAdvancedCommandsPartA(program: Command): void {
     console.log('');
     
     try {
+<<<<<<< HEAD
       let graphBuilder: RealityGraphBuilder;
+=======
+      let graphBuilder: any;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       
       if (options.receipt) {
         // Load graph from receipt
@@ -36,6 +47,7 @@ export function registerAdvancedCommandsPartA(program: Command): void {
           process.exit(1);
         }
         
+<<<<<<< HEAD
         const graphData = JSON.parse(readFileSync(receiptPath, 'utf-8')) as {
           nodes?: unknown;
           edges?: unknown;
@@ -51,6 +63,11 @@ export function registerAdvancedCommandsPartA(program: Command): void {
           edges: graphData.edges as import('../reality/reality-graph').RealityEdge[],
           snapshots: graphData.snapshots,
         });
+=======
+        const graphData = JSON.parse(readFileSync(receiptPath, 'utf-8'));
+        graphBuilder = new RealityGraphBuilder(projectPath);
+        // TODO: Load graph from JSON
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
         console.log(`  ${styles.brightGreen}✓${styles.reset} Loaded graph from receipt`);
       } else {
         // Build new graph
@@ -222,7 +239,11 @@ program
         console.log(`    Fix ID: ${fix.id}`);
         console.log('');
         console.log(`  ${styles.bold}Failed gates:${styles.reset}`);
+<<<<<<< HEAD
         fix.gates.filter((g: { passed: boolean }) => !g.passed).forEach((gate: { gate: string; error?: string }) => {
+=======
+        fix.gates.filter(g => !g.passed).forEach(gate => {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           console.log(`    • ${gate.gate}: ${gate.error || 'Failed'}`);
         });
         console.log('');

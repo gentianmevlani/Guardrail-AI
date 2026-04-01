@@ -42,19 +42,32 @@ describe('SARIF v2.1.0 Output', () => {
       expect(sarif.version).toBe('2.1.0');
       expect(sarif.runs).toHaveLength(1);
 
+<<<<<<< HEAD
       const run = sarif.runs[0]!;
+=======
+      const run = sarif.runs[0];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(run.tool.driver.name).toBe('guardrail');
       expect(run.tool.driver.rules).toBeDefined();
       expect(run.tool.driver.rules!.length).toBeGreaterThan(0);
       expect(run.results).toHaveLength(1);
 
+<<<<<<< HEAD
       const result = run.results[0]!;
+=======
+      const result = run.results[0];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(result.ruleId).toBe('api_key');
       expect(result.level).toBe('error');
       expect(result.message.text).toContain('api_key');
       expect(result.locations).toBeDefined();
+<<<<<<< HEAD
       expect(result.locations![0]!.physicalLocation?.artifactLocation.uri).toBe('src/config.ts');
       expect(result.locations![0]!.physicalLocation?.region?.startLine).toBe(10);
+=======
+      expect(result.locations![0].physicalLocation?.artifactLocation.uri).toBe('src/config.ts');
+      expect(result.locations![0].physicalLocation?.region?.startLine).toBe(10);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(result.fingerprints).toBeDefined();
       expect(result.properties).toBeDefined();
       expect(result.properties!.confidence).toBe(0.95);
@@ -108,10 +121,17 @@ describe('SARIF v2.1.0 Output', () => {
 
       const sarif = secretsToSarif(secretsResult);
 
+<<<<<<< HEAD
       expect(sarif.runs[0]!.tool.driver.rules).toHaveLength(3);
       expect(sarif.runs[0]!.results).toHaveLength(3);
 
       const ruleIds = sarif.runs[0]!.tool.driver.rules!.map(r => r.id);
+=======
+      expect(sarif.runs[0].tool.driver.rules).toHaveLength(3);
+      expect(sarif.runs[0].results).toHaveLength(3);
+
+      const ruleIds = sarif.runs[0].tool.driver.rules!.map(r => r.id);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(ruleIds).toContain('api_key');
       expect(ruleIds).toContain('aws_secret');
       expect(ruleIds).toContain('jwt_token');
@@ -149,12 +169,20 @@ describe('SARIF v2.1.0 Output', () => {
       expect(sarif.version).toBe('2.1.0');
       expect(sarif.runs).toHaveLength(1);
 
+<<<<<<< HEAD
       const run = sarif.runs[0]!;
+=======
+      const run = sarif.runs[0];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(run.tool.driver.name).toBe('guardrail');
       expect(run.tool.driver.rules).toHaveLength(1);
       expect(run.results).toHaveLength(1);
 
+<<<<<<< HEAD
       const result = run.results[0]!;
+=======
+      const result = run.results[0];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       expect(result.ruleId).toBe('vulnerable-dependency');
       expect(result.level).toBe('error');
       expect(result.message.text).toContain('CVE-2021-23337');
@@ -220,7 +248,11 @@ describe('SARIF v2.1.0 Output', () => {
       const sarif = combinedToSarif(combinedResult);
 
       expect(sarif.runs).toHaveLength(1);
+<<<<<<< HEAD
       const run = sarif.runs[0]!;
+=======
+      const run = sarif.runs[0];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
       expect(run.tool.driver.rules!.length).toBeGreaterThanOrEqual(2);
       expect(run.results.length).toBe(2);
@@ -251,7 +283,11 @@ describe('SARIF v2.1.0 Output', () => {
       const sarif = combinedToSarif(emptyResult);
 
       expect(sarif.runs).toHaveLength(1);
+<<<<<<< HEAD
       expect(sarif.runs[0]!.results).toHaveLength(0);
+=======
+      expect(sarif.runs[0].results).toHaveLength(0);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     });
   });
 
@@ -272,7 +308,11 @@ describe('SARIF v2.1.0 Output', () => {
       };
 
       const sarif = secretsToSarif(secretsResult);
+<<<<<<< HEAD
       const driver = sarif.runs[0]!.tool.driver;
+=======
+      const driver = sarif.runs[0].tool.driver;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
       expect(driver.name).toBeDefined();
       expect(driver.version).toBeDefined();
@@ -297,7 +337,11 @@ describe('SARIF v2.1.0 Output', () => {
       };
 
       const sarif = secretsToSarif(secretsResult);
+<<<<<<< HEAD
       const invocation = sarif.runs[0]!.invocations![0]!;
+=======
+      const invocation = sarif.runs[0].invocations![0];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
       expect(invocation.executionSuccessful).toBe(true);
       expect(invocation.startTimeUtc).toBeDefined();
@@ -336,7 +380,11 @@ describe('SARIF v2.1.0 Output', () => {
       };
 
       const sarif = secretsToSarif(secretsResult);
+<<<<<<< HEAD
       const rule = sarif.runs[0]!.tool.driver.rules![0]!;
+=======
+      const rule = sarif.runs[0].tool.driver.rules![0];
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
       expect(rule.id).toBeDefined();
       expect(rule.name).toBeDefined();

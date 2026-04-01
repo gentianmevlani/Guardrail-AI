@@ -11,8 +11,11 @@ import * as fs from "fs";
 import { ApiClient } from "../services/api-client";
 import { CLIService } from "../services/cli-service";
 import { getGuardrailPanelHead } from "../webview-shared-styles";
+<<<<<<< HEAD
 import { performanceMonitorStitchCss } from "./performance-monitor-stitch-css";
 import { getPerformanceMonitorNexusHtml } from "./performance-monitor-webview-html";
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 import { buildPerformanceMetricsFromScan } from "../scan-cli-map";
 
 export interface PerformanceMetric {
@@ -384,7 +387,11 @@ export class PerformancePanel {
 
     const panel = vscode.window.createWebviewPanel(
       'performanceMonitor',
+<<<<<<< HEAD
       'Nexus Monitor',
+=======
+      'Performance Monitor',
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -516,9 +523,210 @@ export class PerformancePanel {
   }
 
   private _getHtmlContent(): string {
+<<<<<<< HEAD
     return getPerformanceMonitorNexusHtml(
       getGuardrailPanelHead(performanceMonitorStitchCss),
     );
+=======
+    const panelCss = `
+    .perf-main { padding: 16px; flex: 1; }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .metric-card {
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .metric-value { font-size: 32px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .metric-label { color: var(--on-surface-variant); margin-top: 8px; font-size: 12px; }
+    .metric-good { color: #6ee7b7; }
+    .metric-warning { color: #ffd93d; }
+    .metric-critical { color: #ff6b6b; }
+    .chart-container {
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-subtle);
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--on-surface-variant);
+      font-size: 13px;
+    }
+    .insights-section h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 12px;
+    }
+    .insight-item {
+      padding: 14px 16px;
+      border-left: 4px solid;
+      margin-bottom: 10px;
+      background: var(--surface-container-lowest);
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+    .insight-high { border-left-color: #ff6b6b; }
+    .insight-medium { border-left-color: #ffd93d; }
+    .insight-low { border-left-color: #6ee7b7; }
+    .insight-title { font-weight: 700; margin-bottom: 6px; font-size: 13px; }
+    .insight-description { font-size: 12px; color: var(--on-surface-variant); line-height: 1.5; }
+    `;
+    return `<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Monitor</title>
+  ${getGuardrailPanelHead(panelCss)}
+</head>
+<body class="ka-dashboard-body ka-panel-page">
+  <div class="ka-ambient" aria-hidden="true"></div>
+  <div class="ka-shell">
+  <header class="header">
+    <div class="header-left">
+      <span class="material-symbols-outlined logo" style="font-size:28px;color:var(--cyan-glow);">speed</span>
+      <div>
+        <div class="title">Performance Monitor</div>
+        <div class="subtitle">Real-time metrics · CodeLens insights</div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button type="button" class="btn btn-secondary" onclick="refresh()">
+        <span class="material-symbols-outlined" style="font-size:18px;">refresh</span> Refresh
+      </button>
+      <button type="button" class="btn" onclick="optimize()">
+        <span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span> Optimize
+      </button>
+      <button type="button" class="btn btn-secondary" onclick="exportReport()">
+        <span class="material-symbols-outlined" style="font-size:18px;">upload</span> Export
+      </button>
+    </div>
+  </header>
+
+  <div class="perf-main">
+  <div class="metrics-grid" id="metricsGrid">
+    <div class="metric-card">
+      <div class="metric-value" id="cpuValue">--</div>
+      <div class="metric-label">CPU Usage</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="memoryValue">--</div>
+      <div class="metric-label">Memory Usage</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="ioValue">--</div>
+      <div class="metric-label">I/O Operations</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="networkValue">--</div>
+      <div class="metric-label">Network</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="renderValue">--</div>
+      <div class="metric-label">Render Time</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="scoreValue">--</div>
+      <div class="metric-label">Performance Score</div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <span class="material-symbols-outlined" style="font-size:48px;opacity:0.35;margin-right:12px;">show_chart</span>
+    <span>Charts connect when profiling data is available.</span>
+  </div>
+
+  <div class="insights-section">
+    <h3>Performance Insights</h3>
+    <div id="insightsList">
+      <div class="insight-item insight-low">
+        <div class="insight-title">Performance is nominal</div>
+        <div class="insight-description">No blocking issues detected in the latest sample.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+
+    function refresh() {
+      vscode.postMessage({ command: 'refresh' });
+    }
+
+    function optimize() {
+      vscode.postMessage({ command: 'getSuggestions' });
+    }
+
+    function exportReport() {
+      vscode.postMessage({ command: 'export', format: 'json' });
+    }
+
+    window.addEventListener('message', event => {
+      const message = event.data;
+
+      switch (message.type) {
+        case 'metrics':
+          updateMetrics(message.data);
+          break;
+        case 'monitoring':
+          updateMonitoringStatus(message.status);
+          break;
+        case 'error':
+          showError(message.message);
+          break;
+      }
+    });
+
+    function updateMetrics(data) {
+      if (data.metrics) {
+        data.metrics.forEach(metric => {
+          const element = document.getElementById(metric.type + 'Value');
+          if (element) {
+            element.textContent = metric.value + metric.unit;
+            element.className = 'metric-value metric-' + metric.status;
+          }
+        });
+      }
+
+      if (data.summary) {
+        const scoreElement = document.getElementById('scoreValue');
+        if (scoreElement) {
+          const score = Math.max(0, 100 - (data.summary.issues * 10));
+          scoreElement.textContent = score + '%';
+          scoreElement.className = 'metric-value metric-' + (score > 80 ? 'good' : score > 60 ? 'warning' : 'critical');
+        }
+      }
+    }
+
+    function updateMonitoringStatus(isMonitoring) {
+      const statusText = isMonitoring ? '🟢 Monitoring Active' : '🔴 Monitoring Stopped';
+      console.log(statusText);
+    }
+
+    function showError(message) {
+      console.error('Performance Monitor Error:', message);
+    }
+
+    // Request initial metrics
+    refresh();
+  </script>
+  </div>
+</body>
+</html>`;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   }
 
   public dispose() {

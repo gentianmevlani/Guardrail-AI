@@ -114,9 +114,12 @@ export class FixEngine {
       } else if (finding.category.toLowerCase().includes('vulnerability')) {
         const fix = this.generateVulnerabilityFix(finding);
         if (fix) fixes.push(fix);
+<<<<<<< HEAD
       } else if (finding.category.toLowerCase().includes('security')) {
         const fix = this.generateSecretFix(finding) ?? this.generateVulnerabilityFix(finding);
         if (fix) fixes.push(fix);
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
     }
 
@@ -205,10 +208,14 @@ export class FixEngine {
       }
 
       const oldCode = lines[finding.line - 1];
+<<<<<<< HEAD
       if (oldCode === undefined) {
         return null;
       }
 
+=======
+      
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       // Generate fix based on secret type
       let newCode = oldCode;
       let explanation = '';
@@ -266,11 +273,15 @@ export class FixEngine {
         // Extract package name and version from recommendation
         const match = finding.recommendation.match(/Upgrade to ([^@]+)@([^\s]+)/);
         if (match) {
+<<<<<<< HEAD
           const pkgName = match[1];
           const newVersion = match[2];
           if (pkgName === undefined || newVersion === undefined) {
             return null;
           }
+=======
+          const [, pkgName, newVersion] = match;
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
           const oldVersion = packageJson.dependencies?.[pkgName] || 
                             packageJson.devDependencies?.[pkgName];
           
@@ -306,9 +317,12 @@ export class FixEngine {
       }
 
       const oldCode = lines[finding.line - 1];
+<<<<<<< HEAD
       if (oldCode === undefined) {
         return null;
       }
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       let newCode = oldCode;
       let explanation = '';
       let confidence = 0.6;

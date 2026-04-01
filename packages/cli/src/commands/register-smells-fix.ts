@@ -104,12 +104,16 @@ program
       if (options.severity !== 'all') {
         const severityOrder: { [key: string]: number } = { critical: 4, high: 3, medium: 2, low: 1 };
         const minSeverity = severityOrder[options.severity];
+<<<<<<< HEAD
         filteredSmells =
           minSeverity === undefined
             ? report.smells
             : report.smells.filter(
                 (s: { severity: string }) => (severityOrder[s.severity] ?? 0) >= minSeverity
               );
+=======
+        filteredSmells = report.smells.filter((s: any) => severityOrder[s.severity] >= minSeverity);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       }
       
       // Limit results

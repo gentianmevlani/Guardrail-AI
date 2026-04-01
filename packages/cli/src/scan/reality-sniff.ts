@@ -47,7 +47,10 @@ export interface RealityScanResult {
     medium: number;
     low: number;
     totalScore: number;
+<<<<<<< HEAD
     filesScanned: number;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
   /** Stats when Truth Pack weighting was applied */
   truthPackScoring?: {
@@ -123,7 +126,10 @@ export class RealitySniffScanner {
   private findingCounter = 1;
   private projectRoot = '';
   private truthPackScoring: TruthPackScoringIndex | null = null;
+<<<<<<< HEAD
   private scannedFileCount = 0;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 
   /**
    * Scan project for reality issues
@@ -137,7 +143,10 @@ export class RealitySniffScanner {
     this.findings = [];
     this.fileScores.clear();
     this.findingCounter = 1;
+<<<<<<< HEAD
     this.scannedFileCount = 0;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     this.projectRoot = resolve(projectPath);
     this.truthPackScoring = options.truthPackScoring ?? null;
 
@@ -165,7 +174,10 @@ export class RealitySniffScanner {
       medium: this.findings.filter(f => f.severity === 'medium').length,
       low: this.findings.filter(f => f.severity === 'low').length,
       totalScore: this.findings.reduce((sum, f) => sum + f.score, 0),
+<<<<<<< HEAD
       filesScanned: this.scannedFileCount,
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     };
 
     const truthPackScoring = this.buildTruthPackScoringStats();
@@ -249,7 +261,10 @@ export class RealitySniffScanner {
 
   private async scanFile(filePath: string): Promise<void> {
     try {
+<<<<<<< HEAD
       this.scannedFileCount += 1;
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
       const content = readFileSync(filePath, 'utf-8');
       const lines = content.split('\n');
 

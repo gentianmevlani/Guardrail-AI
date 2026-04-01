@@ -3,8 +3,11 @@
  * Aligns with packages/cli scan-consolidated ScanResult shape.
  */
 
+<<<<<<< HEAD
 import { scoreFromSeverityBuckets } from "@guardrail/core";
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 export function extractJsonObject(stdout: string): unknown | null {
   const t = stdout.trim();
   if (!t) {
@@ -25,6 +28,7 @@ export function extractJsonObject(stdout: string): unknown | null {
   return null;
 }
 
+<<<<<<< HEAD
 /**
  * `bin/guardrail.js` may emit shapes other than `packages/cli` scan-consolidated:
  * - Runner "lightweight" JSON: root `totalFindings`, `severity`, and `findings` as a string on free tier
@@ -169,6 +173,8 @@ export function normalizeScanJsonData(data: Record<string, unknown>): Record<str
   return data;
 }
 
+=======
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
 function sevBucket(
   sev: string,
 ): "critical" | "high" | "medium" | "low" {
@@ -200,18 +206,29 @@ export function scanSummaryFromData(data: Record<string, unknown>): {
   high: number;
   medium: number;
   low: number;
+<<<<<<< HEAD
   totalScore: number | null;
 } {
   const s = data.summary as Record<string, unknown> | undefined;
   if (s && typeof s.totalFindings === "number") {
     const ts = s.totalScore;
+=======
+  totalScore: number;
+} {
+  const s = data.summary as Record<string, unknown> | undefined;
+  if (s && typeof s.totalFindings === "number") {
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     return {
       totalFindings: Number(s.totalFindings),
       critical: Number(s.critical ?? 0),
       high: Number(s.high ?? 0),
       medium: Number(s.medium ?? 0),
       low: Number(s.low ?? 0),
+<<<<<<< HEAD
       totalScore: typeof ts === "number" ? ts : null,
+=======
+      totalScore: Number(s.totalScore ?? 0),
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     };
   }
   return {
@@ -220,7 +237,11 @@ export function scanSummaryFromData(data: Record<string, unknown>): {
     high: 0,
     medium: 0,
     low: 0,
+<<<<<<< HEAD
     totalScore: null,
+=======
+    totalScore: 0,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   };
 }
 
@@ -378,7 +399,11 @@ export function buildImpactAnalysisFromScan(
       mediumImpact: changes.filter((c) => c.impact === "medium").length,
       lowImpact: changes.filter((c) => c.impact === "low").length,
       affectedComponents: [],
+<<<<<<< HEAD
       riskScore: sum.totalScore ?? 0,
+=======
+      riskScore: sum.totalScore,
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
     },
     recommendations:
       nextActions.length > 0
@@ -402,7 +427,11 @@ export function buildPerformanceMetricsFromScan(data: Record<string, unknown>): 
   const hotspots = Array.isArray(data.hotspots)
     ? (data.hotspots as unknown[]).length
     : 0;
+<<<<<<< HEAD
   const score = Math.min(100, sum.totalScore ?? 0);
+=======
+  const score = Math.min(100, sum.totalScore);
+>>>>>>> 64774cf6f8ffd3a30c44ac65801f229995aeb6e7
   const sevLoad = Math.min(
     100,
     (sum.critical + sum.high) * 12 + sum.medium * 4,
