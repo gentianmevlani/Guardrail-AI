@@ -11,6 +11,7 @@
     }
   },
   "scripts": {
+    "build": "tsc --skipLibCheck",
     "dev": "tsc --watch",
     "db:generate": "prisma generate",
     "db:push": "node -e \"if(process.env.NODE_ENV==='production'){console.error('❌ db:push is blocked in production. Use db:migrate:deploy');process.exit(1)}\" && prisma db push",
