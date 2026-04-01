@@ -1,6 +1,6 @@
 [build]
   command = "npm run build:netlify"
-  publish = "dist"
+  publish = "apps/web-ui/.next"
 
 # Single-page app: serve index.html for any path (e.g. direct links, refresh)
 [[redirects]]
