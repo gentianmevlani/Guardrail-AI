@@ -5,10 +5,14 @@
 // In development, Next.js rewrites proxy to local servers.
 // =============================================================================
 
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 import createMDX from "@next/mdx";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -53,6 +57,10 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   experimental: {
     mdxRs: true,
+    // Tell Next.js standalone trace to start from monorepo root so it finds
+    // hoisted deps (next, react, etc.) in ../../node_modules.  Without this
+    // the Netlify OpenNext function fails: "Cannot find module 'next/dist/server/lib/start-server.js'"
+    outputFileTracingRoot: path.join(__dirname, "../../"),
   },
 
   async rewrites() {
